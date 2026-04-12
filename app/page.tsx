@@ -144,16 +144,6 @@ export default function Home() {
                 {listing.neighborhood && (
                   <p className="mt-1 text-sm text-gray-600">📍 {listing.neighborhood}</p>
                 )}
-                {listing.external_url && (
-                  <a
-                    className="mt-3 inline-block text-sm font-medium text-blue-700 underline"
-                    href={listing.external_url}
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    View details
-                  </a>
-                )}
                 <InquiryButton
                   listingId={String(listing.id)}
                   listingTitle={listing.title ?? 'this listing'}
