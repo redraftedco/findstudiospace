@@ -6,6 +6,7 @@ export type Listing = {
   external_url?: string | null
   city?: string | null
   category?: string | null
+  type?: string | null
   status?: string | null
   niche_attributes?: Record<string, boolean | string | number | null> | null
 }

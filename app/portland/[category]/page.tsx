@@ -1,12 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { createClient } from '@supabase/supabase-js'
+import { supabase } from '@/lib/supabase'
 import { categoryConfigs } from './config'
-
-const supabase = createClient(
-  'https://vnjsczhqhnzrplrdkolb.supabase.co',
-  'sb_publishable_BNjt2IcsKgSqatPUGKIghg_PJLJpQMF'
-)
 
 type Props = {
   params: Promise<{ category: string }>
@@ -34,7 +29,7 @@ export default async function CategoryPage({ params }: Props) {
     return <div className="p-8">Page not found.</div>
   }
 
-  let query = supabase.from('listings').select('*').limit(24)
+  let query = supabase.from('listings').select('*').eq('status', 'active').limit(24)
   if (config.listingType) {
     query = query.eq('type', config.listingType)
   }
@@ -57,9 +52,8 @@ export default async function CategoryPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      <main className="max-w-4xl mx-auto px-6 py-10">
-        {/* Header */}
-        <nav className="text-sm text-gray-500 mb-6">
+      <main className="mx-auto max-w-4xl px-6 py-10">
+        <nav className="mb-6 text-sm text-gray-500">
           <Link href="/" className="hover:underline">
             Portland Studios
           </Link>
@@ -67,55 +61,64 @@ export default async function CategoryPage({ params }: Props) {
           <span>{config.h1}</span>
         </nav>
 
-        <h1 className="text-3xl font-bold mb-4">{config.h1}</h1>
-        <p className="text-gray-700 mb-8 max-w-2xl">{config.intro}</p>
+        <h1 className="mb-4 text-3xl font-bold">{config.h1}</h1>
+        <p className="mb-8 max-w-2xl text-gray-700">{config.intro}</p>
 
         {/* Listings */}
         {listings && listings.length > 0 ? (
           <>
-            <p className="text-sm text-gray-500 mb-4">
+            <p className="mb-4 text-sm text-gray-500">
               {listings.length} space{listings.length !== 1 ? 's' : ''} available
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
+            <div className="mb-12 grid grid-cols-1 gap-4 sm:grid-cols-2">
               {listings.map((l) => (
-                <div key={l.id} className="border rounded-lg p-4 hover:shadow transition-shadow">
-                  <h3 className="font-semibold text-base mb-1">{l.title}</h3>
+                <Link
+                  key={l.id}
+                  href={`/listing/${l.id}`}
+                  className="group rounded-xl border bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
+                >
+                  <h3 className="font-semibold leading-snug group-hover:text-blue-600">
+                    {l.title}
+                  </h3>
                   {l.price_display && (
-                    <p className="text-sm text-gray-600">{l.price_display}</p>
+                    <p className="mt-1 text-sm font-medium text-blue-700">{l.price_display}</p>
                   )}
                   {l.neighborhood && (
-                    <p className="text-xs text-gray-400 mt-1">{l.neighborhood}</p>
+                    <p className="mt-1 text-xs text-gray-500">📍 {l.neighborhood}</p>
                   )}
-                </div>
+                  <p className="mt-3 text-xs font-medium text-blue-600 group-hover:underline">
+                    View space →
+                  </p>
+                </Link>
               ))}
             </div>
           </>
         ) : (
-          <p className="text-gray-500 mb-12">No spaces listed yet — check back soon.</p>
+          <p className="mb-12 text-gray-500">No spaces listed yet — check back soon.</p>
         )}
 
         {/* FAQ */}
         <section>
-          <h2 className="text-xl font-bold mb-6">Frequently Asked Questions</h2>
+          <h2 className="mb-6 text-xl font-bold">Frequently Asked Questions</h2>
           <dl className="space-y-6">
             {config.faqs.map(({ q, a }) => (
               <div key={q}>
-                <dt className="font-semibold text-gray-900 mb-1">{q}</dt>
-                <dd className="text-gray-600 text-sm leading-relaxed">{a}</dd>
+                <dt className="mb-1 font-semibold text-gray-900">{q}</dt>
+                <dd className="text-sm leading-relaxed text-gray-600">{a}</dd>
               </div>
             ))}
           </dl>
         </section>
 
         {/* Related pages */}
-        <section className="mt-12 pt-8 border-t">
-          <h2 className="text-base font-semibold mb-3 text-gray-700">Related Searches</h2>
+        <section className="mt-12 border-t pt-8">
+          <h2 className="mb-3 text-base font-semibold text-gray-700">Related Searches</h2>
           <ul className="flex flex-wrap gap-3">
             {config.related.map(({ label, href }) => (
               <li key={href}>
                 <Link
                   href={href}
-                  className="text-sm border rounded px-3 py-1.5 hover:bg-gray-50 transition-colors"
+                  className="rounded border px-3 py-1.5 text-sm transition-colors hover:bg-gray-50"
                 >
                   {label}
                 </Link>
