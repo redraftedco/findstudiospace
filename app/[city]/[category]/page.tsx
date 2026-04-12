@@ -27,7 +27,6 @@ export default async function ListingCollectionPage({ params }: PageProps) {
     .select('*')
     .eq('status', 'active')
     .ilike('city', normalizedCity)
-    .ilike('category', normalizedCategory)
     .limit(200)
 
   const listings = (data as Listing[]) ?? []

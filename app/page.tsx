@@ -3,16 +3,10 @@ import { supabase } from '@/lib/supabase'
 
 const CATEGORIES = [
   {
-    label: 'Photo Studios',
-    slug: 'photo-studio-rental',
-    type: 'photo',
-    description: 'Professional spaces with lighting & backdrops',
-  },
-  {
-    label: 'Music Studios',
-    slug: 'music-recording-studio',
-    type: 'music',
-    description: 'Recording suites, rehearsal & practice rooms',
+    label: 'Office Space',
+    slug: 'office-space-rental',
+    type: 'office',
+    description: 'Private offices, coworking, and creative suites',
   },
   {
     label: 'Art Studios',
@@ -21,46 +15,50 @@ const CATEGORIES = [
     description: 'Private studios, co-ops & ceramics spaces',
   },
   {
-    label: 'All Spaces',
-    slug: 'studio-space-rental',
-    type: null,
-    description: 'Browse every available studio in Portland',
+    label: 'Workshop Space',
+    slug: 'workshop-space-rental',
+    type: 'workshop',
+    description: 'Garages, warehouses & maker spaces',
+  },
+  {
+    label: 'Retail Space',
+    slug: 'retail-space-for-rent',
+    type: 'retail',
+    description: 'Storefronts and commercial retail listings',
+  },
+  {
+    label: 'Photo Studios',
+    slug: 'photo-studio-rental',
+    type: 'photo',
+    description: 'Professional spaces with lighting & backdrops',
+  },
+  {
+    label: 'Fitness & Dance',
+    slug: 'fitness-studio-rental',
+    type: 'fitness',
+    description: 'Yoga, dance, and movement studios',
   },
 ]
 
 export default async function Home() {
-  const [photoRes, musicRes, artRes, totalRes, recentRes] = await Promise.all([
+  const [counts, recentRes] = await Promise.all([
     supabase
       .from('listings')
-      .select('*', { count: 'exact', head: true })
-      .eq('status', 'active')
-      .eq('type', 'photo'),
-    supabase
-      .from('listings')
-      .select('*', { count: 'exact', head: true })
-      .eq('status', 'active')
-      .eq('type', 'music'),
-    supabase
-      .from('listings')
-      .select('*', { count: 'exact', head: true })
-      .eq('status', 'active')
-      .eq('type', 'art'),
-    supabase
-      .from('listings')
-      .select('*', { count: 'exact', head: true })
+      .select('type')
       .eq('status', 'active'),
     supabase
       .from('listings')
-      .select('id, title, price_display, neighborhood, category')
+      .select('id, title, price_display, neighborhood, type')
       .eq('status', 'active')
       .limit(6),
   ])
 
-  const countByType: Record<string, number> = {
-    photo: photoRes.count ?? 0,
-    music: musicRes.count ?? 0,
-    art: artRes.count ?? 0,
+  const countByType: Record<string, number> = {}
+  for (const row of counts.data ?? []) {
+    const t = row.type ?? 'general'
+    countByType[t] = (countByType[t] ?? 0) + 1
   }
+  const total = (counts.data ?? []).length
 
   const recent = recentRes.data ?? []
 
@@ -69,11 +67,11 @@ export default async function Home() {
       {/* Hero */}
       <section className="border-b bg-white px-4 py-16 text-center">
         <h1 className="text-4xl font-bold tracking-tight">
-          Find Studio Space in Portland
+          Find Studio &amp; Workspace in Portland
         </h1>
         <p className="mx-auto mt-3 max-w-lg text-gray-500">
-          Browse photo studios, music studios, and art spaces available to rent
-          by the hour, day, or month.
+          Browse {total} verified listings — photo studios, art spaces, offices,
+          workshops, and retail across Portland, OR.
         </p>
       </section>
 
@@ -81,25 +79,19 @@ export default async function Home() {
         {/* Categories */}
         <section>
           <h2 className="mb-5 text-xl font-semibold">Browse by type</h2>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {CATEGORIES.map((cat) => {
-              const count =
-                cat.type === null
-                  ? (totalRes.count ?? 0)
-                  : (countByType[cat.type] ?? 0)
-
+              const count = countByType[cat.type] ?? 0
               return (
                 <Link
                   key={cat.slug}
                   href={`/portland/${cat.slug}`}
                   className="group rounded-xl border bg-white p-5 shadow-sm transition-shadow hover:shadow-md"
                 >
-                  <p className="font-semibold group-hover:text-blue-600">
-                    {cat.label}
-                  </p>
+                  <p className="font-semibold group-hover:text-blue-600">{cat.label}</p>
                   <p className="mt-1 text-sm text-gray-500">{cat.description}</p>
                   <p className="mt-3 text-sm font-medium text-blue-600">
-                    {count} spaces
+                    {count} {count === 1 ? 'space' : 'spaces'} available
                   </p>
                 </Link>
               )
@@ -125,9 +117,9 @@ export default async function Home() {
                 href={`/listing/${listing.id}`}
                 className="group rounded-xl border bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
               >
-                {listing.category && (
+                {listing.type && (
                   <span className="mb-2 inline-block rounded-full bg-gray-100 px-2.5 py-0.5 text-xs text-gray-600">
-                    {listing.category}
+                    {listing.type}
                   </span>
                 )}
                 <h3 className="font-semibold leading-snug group-hover:text-blue-600">
@@ -139,9 +131,7 @@ export default async function Home() {
                   </p>
                 )}
                 {listing.neighborhood && (
-                  <p className="mt-1 text-xs text-gray-500">
-                    📍 {listing.neighborhood}
-                  </p>
+                  <p className="mt-1 text-xs text-gray-500">📍 {listing.neighborhood}</p>
                 )}
                 <p className="mt-3 text-xs font-medium text-blue-600 group-hover:underline">
                   View space →

@@ -378,4 +378,92 @@ export const categoryConfigs: Record<string, CategoryConfig> = {
       { label: 'Art Studio Space', href: '/portland/art-studio' },
     ],
   },
+
+  'office-space-rental': {
+    title: 'Office Space Rental in Portland, OR | Portland Studios',
+    metaDescription:
+      'Find office space for rent in Portland, OR. Private offices, creative suites, and coworking spaces with flexible terms.',
+    h1: 'Office Space Rental in Portland, OR',
+    intro:
+      'Browse private offices, creative suites, and shared coworking spaces available to rent in Portland, OR. Flexible hourly, monthly, and long-term options across neighborhoods including the Pearl District, Central Eastside, and SE Portland.',
+    listingType: 'office',
+    faqs: [
+      { q: 'How much does office space cost in Portland?', a: 'Portland office rentals range from $300–$3,000/month depending on size, location, and amenities. Hourly coworking rates start around $15–$30/hr.' },
+      { q: 'Are there short-term office rentals in Portland?', a: 'Yes. Many Portland spaces offer month-to-month or even hourly terms. This is common in coworking and creative office buildings.' },
+      { q: 'What neighborhoods have office space in Portland?', a: 'The Pearl District, Central Eastside Industrial District, SE Portland, and Downtown all have strong office inventory.' },
+      { q: 'Can I rent a private office by the day in Portland?', a: 'Yes. Several Portland coworking spaces offer day passes and dedicated desk rentals in addition to monthly memberships.' },
+      { q: 'Is parking available at Portland office rentals?', a: 'Some buildings include parking; many in denser neighborhoods do not. Check individual listing details for parking information.' },
+    ],
+    related: [
+      { label: 'Art Studio Space', href: '/portland/art-studio' },
+      { label: 'Retail Space for Rent', href: '/portland/retail-space-for-rent' },
+      { label: 'Studio Space Rental', href: '/portland/studio-space-rental' },
+    ],
+  },
+
+  'workshop-space-rental': {
+    title: 'Workshop Space for Rent in Portland, OR | Portland Studios',
+    metaDescription:
+      'Rent workshop, garage, and warehouse space in Portland, OR. Maker spaces, woodworking shops, and flex industrial units available.',
+    h1: 'Workshop Space for Rent in Portland, OR',
+    intro:
+      'Find workshop, garage, and warehouse space for rent in Portland, OR. From small maker spaces to large industrial units, Portland has flex space for builders, fabricators, hobbyists, and small businesses.',
+    listingType: 'workshop',
+    faqs: [
+      { q: 'How much does workshop space cost in Portland?', a: 'Workshop and garage rentals in Portland typically range from $300–$2,000/month depending on size and location.' },
+      { q: 'Are there shared workshop spaces in Portland?', a: 'Yes. Several maker spaces offer membership-based access to tools including woodworking, metalworking, and fabrication.' },
+      { q: 'Can I run a business out of a workshop rental in Portland?', a: 'Most commercial workshop spaces allow business use. Check zoning and lease terms in each listing.' },
+      { q: 'Do Portland workshop spaces have loading dock access?', a: 'Some warehouse and flex spaces include loading docks or drive-in access. Check individual listing descriptions.' },
+      { q: 'Are Portland workshop spaces available for short-term rental?', a: 'Yes. Some spaces offer monthly or project-based terms. Longer leases are more common for larger industrial units.' },
+    ],
+    related: [
+      { label: 'Art Studio Space', href: '/portland/art-studio' },
+      { label: 'Office Space Rental', href: '/portland/office-space-rental' },
+      { label: 'Studio Space Rental', href: '/portland/studio-space-rental' },
+    ],
+  },
+
+  'retail-space-for-rent': {
+    title: 'Retail Space for Rent in Portland, OR | Portland Studios',
+    metaDescription:
+      'Find retail space for rent in Portland, OR. Storefronts, pop-up spaces, and commercial retail listings across Portland neighborhoods.',
+    h1: 'Retail Space for Rent in Portland, OR',
+    intro:
+      'Browse retail storefronts, pop-up spaces, and commercial listings available to rent in Portland, OR. From busy corridor locations on Division and Belmont to emerging neighborhoods, find the right space for your business.',
+    listingType: 'retail',
+    faqs: [
+      { q: 'How much does retail space cost in Portland?', a: 'Portland retail rents range from $1,500/month for smaller spaces to $5,000+ for high-traffic corridor locations.' },
+      { q: 'Are there short-term retail leases in Portland?', a: 'Yes. Pop-up and short-term retail is increasingly common in Portland, especially in mixed-use developments.' },
+      { q: 'What are the best retail neighborhoods in Portland?', a: 'SE Division, NE Alberta, the Pearl District, Mississippi Ave, and Hawthorne are among the strongest retail corridors.' },
+      { q: 'Can I use a Portland retail space for events or classes?', a: 'Some retail spaces are zoned for mixed use and can accommodate events, workshops, or classes. Confirm permitted uses with the landlord.' },
+      { q: 'Do Portland retail spaces require a personal guarantee?', a: 'Many small-business retail leases in Portland do require a personal guarantee, especially for longer terms.' },
+    ],
+    related: [
+      { label: 'Office Space Rental', href: '/portland/office-space-rental' },
+      { label: 'Studio Space for Creators', href: '/portland/studio-space-for-creators' },
+      { label: 'Studio Space Rental', href: '/portland/studio-space-rental' },
+    ],
+  },
+
+  'fitness-studio-rental': {
+    title: 'Fitness & Dance Studio Rental in Portland, OR | Portland Studios',
+    metaDescription:
+      'Rent a fitness or dance studio in Portland, OR. Yoga studios, dance floors, and movement spaces available by the hour or month.',
+    h1: 'Fitness & Dance Studio Rental in Portland, OR',
+    intro:
+      'Find fitness studios, yoga spaces, and dance floors available to rent in Portland, OR. Whether you are teaching a class, running a workshop, or need a dedicated movement practice space, Portland has options by the hour and by the month.',
+    listingType: 'fitness',
+    faqs: [
+      { q: 'Can I rent a yoga or dance studio by the hour in Portland?', a: 'Yes. Several Portland studios offer hourly rental for instructors and practitioners. Rates typically run $25–$75/hr.' },
+      { q: 'Do Portland fitness studios have mirrors and sprung floors?', a: 'Some do. Check individual listings for specific features like mirrored walls, sprung floors, and sound systems.' },
+      { q: 'Can I use a Portland fitness studio for private classes?', a: 'Yes. Hourly rental is common for personal trainers, yoga instructors, and dance teachers.' },
+      { q: 'Are Portland dance studios available on weekends?', a: 'Most are. Weekend availability varies by studio — check the listing calendar for open slots.' },
+      { q: 'What neighborhoods have fitness and dance studios in Portland?', a: 'Studios are spread across Portland with concentrations in NE, SE, and North Portland.' },
+    ],
+    related: [
+      { label: 'Art Studio Near Me', href: '/portland/art-studio-near-me' },
+      { label: 'Studio Space for Creators', href: '/portland/studio-space-for-creators' },
+      { label: 'Studio Space Rental', href: '/portland/studio-space-rental' },
+    ],
+  },
 }
