@@ -68,6 +68,11 @@ export default async function ListingCollectionPage({ params }: PageProps) {
               {listing.neighborhood && (
                 <p className="mt-1 text-xs text-gray-500">📍 {listing.neighborhood}</p>
               )}
+              {listing.description && (
+                <p className="mt-2 text-xs leading-relaxed text-gray-500 line-clamp-2">
+                  {String(listing.description)}
+                </p>
+              )}
               <p className="mt-3 text-xs font-medium text-blue-600 group-hover:underline">
                 View space →
               </p>

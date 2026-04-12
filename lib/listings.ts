@@ -2,12 +2,15 @@ export type Listing = {
   id: string | number
   title: string | null
   price_display: string | null
+  description?: string | null
   neighborhood?: string | null
+  address?: string | null
   external_url?: string | null
   city?: string | null
   category?: string | null
   type?: string | null
   status?: string | null
+  images?: unknown
   niche_attributes?: Record<string, boolean | string | number | null> | null
 }
 

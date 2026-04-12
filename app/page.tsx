@@ -110,6 +110,7 @@ export default async function Home() {
               View all →
             </Link>
           </div>
+
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {recent.map((listing) => (
               <Link
@@ -139,6 +140,21 @@ export default async function Home() {
               </Link>
             ))}
           </div>
+        </section>
+
+        {/* List your space CTA */}
+        <section className="rounded-xl border bg-white p-8 text-center shadow-sm">
+          <h2 className="text-xl font-bold">Own or manage a studio?</h2>
+          <p className="mx-auto mt-2 max-w-md text-sm text-gray-500">
+            List your space free and reach Portland creatives, makers, and
+            business owners searching right now.
+          </p>
+          <Link
+            href="/list-your-space"
+            className="mt-5 inline-block rounded-lg bg-blue-600 px-6 py-3 text-sm font-semibold text-white hover:bg-blue-700"
+          >
+            List your space →
+          </Link>
         </section>
       </div>
     </main>

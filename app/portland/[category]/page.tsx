@@ -86,6 +86,11 @@ export default async function CategoryPage({ params }: Props) {
                   {l.neighborhood && (
                     <p className="mt-1 text-xs text-gray-500">📍 {l.neighborhood}</p>
                   )}
+                  {l.description && (
+                    <p className="mt-2 text-xs leading-relaxed text-gray-500 line-clamp-2">
+                      {l.description}
+                    </p>
+                  )}
                   <p className="mt-3 text-xs font-medium text-blue-600 group-hover:underline">
                     View space →
                   </p>
