@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { NICHE_FILTERS, type Listing } from '@/lib/listings'
 import { supabase } from '@/lib/supabase'
+import InquiryButton from '@/components/InquiryButton'
 
 type ToggleState = Record<(typeof NICHE_FILTERS)[number]['key'], boolean>
 
@@ -153,6 +154,10 @@ export default function Home() {
                     View details
                   </a>
                 )}
+                <InquiryButton
+                  listingId={String(listing.id)}
+                  listingTitle={listing.title ?? 'this listing'}
+                />
               </article>
             ))}
           </div>
