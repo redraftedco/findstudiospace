@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { slugToLabel, type Listing } from '@/lib/listings'
 import { supabase } from '@/lib/supabase'
+import InquiryButton from '@/components/InquiryButton'
 
 type PageProps = {
   params: Promise<{
@@ -62,16 +63,10 @@ export default async function ListingCollectionPage({ params }: PageProps) {
               {listing.neighborhood && (
                 <p className="mt-1 text-sm text-gray-600">📍 {listing.neighborhood}</p>
               )}
-              {listing.external_url && (
-                <a
-                  className="mt-3 inline-block text-sm font-medium text-blue-700 underline"
-                  href={listing.external_url}
-                  rel="noreferrer"
-                  target="_blank"
-                >
-                  View details
-                </a>
-              )}
+              <InquiryButton
+                listingId={String(listing.id)}
+                listingTitle={listing.title ?? 'this listing'}
+              />
             </article>
           ))}
         </section>
