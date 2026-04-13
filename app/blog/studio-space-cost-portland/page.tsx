@@ -49,7 +49,7 @@ export default function Post() {
               Private art studios in Portland — a dedicated room with your own key — run $350–$700/month for a mid-size space. Shared co-op arrangements, where you have a designated area within a larger studio, start lower, sometimes $150–$300/month. Studios with north-facing natural light, ventilation for messy work, and 24-hour access command the higher end. Expect to pay more in the Pearl District or NW Portland; better value in NE and SE.
             </p>
             <p style={{ color: '#6b6762' }} className="mt-3 text-sm">
-              <Link href="/portland/art-studio-rental" style={{ color: '#2c4a3e' }} className="hover:underline">Browse art studios for rent in Portland →</Link>
+              <Link href="/portland/art-studio-rental" style={{ color: '#a84530' }} className="hover:underline">Browse art studios for rent in Portland →</Link>
             </p>
           </section>
 
@@ -64,7 +64,7 @@ export default function Post() {
               Workshop space pricing is driven by infrastructure: 220v power, ceiling height, roll-up door access, dust collection, and concrete floors all push rates up. Smaller shop bays (400–600 sq ft) run $400–$900/month. Larger industrial spaces with loading dock access and full infrastructure run $1,200–$2,500/month. The Central Eastside Industrial District and inner SE are the best places to look. Shared makerspace memberships are an option starting around $100–$250/month, but these typically don&apos;t offer private lockable space.
             </p>
             <p style={{ color: '#6b6762' }} className="mt-3 text-sm">
-              <Link href="/portland/workshop-space-rental" style={{ color: '#2c4a3e' }} className="hover:underline">Browse workshop space for rent in Portland →</Link>
+              <Link href="/portland/workshop-space-rental" style={{ color: '#a84530' }} className="hover:underline">Browse workshop space for rent in Portland →</Link>
             </p>
           </section>
 
@@ -79,7 +79,7 @@ export default function Post() {
               Monthly photo studio rentals depend heavily on what&apos;s included. A bare room with good light runs $600–$900/month. A fully equipped space with seamless paper, strobes, and a cyclorama wall runs $1,500–$2,500/month. Production studios with hair and makeup stations and client lounge areas are at the top of the range. If you need a studio occasionally rather than full-time, ask hosts about part-time arrangements — some will negotiate shared access at a lower rate.
             </p>
             <p style={{ color: '#6b6762' }} className="mt-3 text-sm">
-              <Link href="/portland/photo-studio-rental" style={{ color: '#2c4a3e' }} className="hover:underline">Browse photo studios for rent in Portland →</Link>
+              <Link href="/portland/photo-studio-rental" style={{ color: '#a84530' }} className="hover:underline">Browse photo studios for rent in Portland →</Link>
             </p>
           </section>
 
@@ -94,7 +94,7 @@ export default function Post() {
               Creative office space — private rooms in commercial buildings, rather than coworking desks — runs $500–$1,200/month for a small private office or suite. Larger spaces with multiple rooms, reception areas, or client-facing features run higher. Pearl District offices are at the top; Central Eastside and NE Portland offer comparable quality for less. Month-to-month terms are common for smaller suites; larger spaces often require a 6–12 month commitment.
             </p>
             <p style={{ color: '#6b6762' }} className="mt-3 text-sm">
-              <Link href="/portland/office-space-rental" style={{ color: '#2c4a3e' }} className="hover:underline">Browse creative office space in Portland →</Link>
+              <Link href="/portland/office-space-rental" style={{ color: '#a84530' }} className="hover:underline">Browse creative office space in Portland →</Link>
             </p>
           </section>
 
@@ -109,7 +109,7 @@ export default function Post() {
               Monthly lockout rehearsal rooms — private, 24/7 access, your gear stays set up — run $300–$600/month for a small to medium room. Rooms large enough for a full band with a drum kit and backline run $450–$700/month. If you only need access a few times per week, some studios offer shared rehearsal blocks for $100–$200/month. Confirm soundproofing quality and whether drum kits are permitted before committing.
             </p>
             <p style={{ color: '#6b6762' }} className="mt-3 text-sm">
-              <Link href="/portland/music-rehearsal-space" style={{ color: '#2c4a3e' }} className="hover:underline">Browse music rehearsal space in Portland →</Link>
+              <Link href="/portland/music-rehearsal-space" style={{ color: '#a84530' }} className="hover:underline">Browse music rehearsal space in Portland →</Link>
             </p>
           </section>
 

@@ -219,7 +219,7 @@ export default function CategoryFilter({ listings }: Props) {
                   >
                     {hasPrice ? l.price_display : 'Price on request'}
                   </p>
-                  <p style={{ color: '#2c4a3e' }} className="mt-auto pt-3 text-xs font-medium">
+                  <p style={{ color: '#a84530' }} className="mt-auto pt-3 text-xs font-medium">
                     View space →
                   </p>
                   {timestamp && (

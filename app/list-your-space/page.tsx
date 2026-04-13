@@ -66,7 +66,7 @@ export default function ListYourSpacePage() {
           <p style={{ color: '#6b6762' }} className="mt-3 text-sm">
             We&apos;ll review and publish your listing within 48 hours.
           </p>
-          <a href="/" style={{ color: '#2c4a3e', fontFamily: 'var(--font-mono)' }} className="mt-6 inline-block text-sm hover:underline">
+          <a href="/" style={{ color: '#a84530', fontFamily: 'var(--font-mono)' }} className="mt-6 inline-block text-sm hover:underline">
             ← Back to listings
           </a>
         </div>
@@ -145,9 +145,9 @@ export default function ListYourSpacePage() {
                   type="button"
                   onClick={() => toggleAmenity(a)}
                   style={{
-                    border: amenities.includes(a) ? '1px solid #2c4a3e' : '1px solid #d6d0c4',
+                    border: amenities.includes(a) ? '1px solid #a84530' : '1px solid #d6d0c4',
                     background: amenities.includes(a) ? '#edeae2' : '#f4f1eb',
-                    color: amenities.includes(a) ? '#2c4a3e' : '#1a1814',
+                    color: amenities.includes(a) ? '#a84530' : '#1a1814',
                     fontFamily: 'var(--font-mono)',
                   }}
                   className="px-3 py-1.5 text-xs transition-colors"

@@ -44,7 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </Link>
             <Link
               href="/list-your-space"
-              style={{ color: '#2c4a3e', fontFamily: 'var(--font-body)' }}
+              style={{ color: '#a84530', fontFamily: 'var(--font-body)' }}
               className="text-sm font-medium hover:underline"
             >
               List your space

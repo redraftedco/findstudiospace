@@ -63,7 +63,7 @@ export default function ForLandlordsPage() {
           <div className="mt-8 flex flex-wrap gap-4">
             <Link
               href="/list-your-space"
-              style={{ background: '#2c4a3e', color: '#f4f1eb' }}
+              style={{ width: 'auto' }}
               className="btn-action inline-block px-6 py-3 text-sm font-medium"
             >
               List Your Space Free →
@@ -196,7 +196,7 @@ export default function ForLandlordsPage() {
               <ul className="mb-8 space-y-2">
                 {FREE_FEATURES.map((f) => (
                   <li key={f} style={{ color: '#6b6762' }} className="flex gap-2 text-sm">
-                    <span style={{ color: '#2c4a3e' }}>✓</span> {f}
+                    <span style={{ color: '#a84530' }}>✓</span> {f}
                   </li>
                 ))}
               </ul>
@@ -210,7 +210,7 @@ export default function ForLandlordsPage() {
             </div>
 
             {/* Pro */}
-            <div style={{ border: '2px solid #2c4a3e', background: '#edeae2' }} className="p-8">
+            <div style={{ border: '2px solid #a84530', background: '#edeae2' }} className="p-8">
               <p style={{ fontFamily: 'var(--font-mono)', color: '#b8820a' }} className="mb-1 text-xs uppercase font-medium">
                 Most popular
               </p>
@@ -220,13 +220,13 @@ export default function ForLandlordsPage() {
               <ul className="mb-8 space-y-2">
                 {PRO_FEATURES.map((f) => (
                   <li key={f} style={{ color: '#6b6762' }} className="flex gap-2 text-sm">
-                    <span style={{ color: '#2c4a3e' }}>✓</span> {f}
+                    <span style={{ color: '#a84530' }}>✓</span> {f}
                   </li>
                 ))}
               </ul>
               <Link
                 href="/list-your-space"
-                style={{ background: '#2c4a3e', color: '#f4f1eb' }}
+                style={{ width: '100%' }}
                 className="btn-action inline-block w-full py-2.5 text-center text-sm font-medium"
               >
                 Start Pro
@@ -245,7 +245,7 @@ export default function ForLandlordsPage() {
               <ul className="mb-8 space-y-2">
                 {FEATURED_FEATURES.map((f) => (
                   <li key={f} style={{ color: '#6b6762' }} className="flex gap-2 text-sm">
-                    <span style={{ color: '#2c4a3e' }}>✓</span> {f}
+                    <span style={{ color: '#a84530' }}>✓</span> {f}
                   </li>
                 ))}
               </ul>
@@ -264,16 +264,16 @@ export default function ForLandlordsPage() {
       </div>
 
       {/* Section 6: Bottom CTA */}
-      <section style={{ background: '#2c4a3e', color: '#f4f1eb' }} className="px-6 py-20 text-center">
+      <section style={{ background: '#a84530', color: '#f4f1eb' }} className="px-6 py-20 text-center">
         <h2 style={{ fontFamily: 'var(--font-heading)' }} className="mb-3 text-2xl font-semibold">
           Ready to reach Portland creatives?
         </h2>
-        <p style={{ color: '#a8c4b8' }} className="mx-auto mb-8 max-w-md text-sm">
+        <p style={{ color: '#f5e6e0' }} className="mx-auto mb-8 max-w-md text-sm">
           Join 195+ spaces already listed. First listing is always free.
         </p>
         <Link
           href="/list-your-space"
-          style={{ background: '#f4f1eb', color: '#2c4a3e' }}
+          style={{ background: '#f4f1eb', color: '#a84530' }}
           className="inline-block px-8 py-3 text-sm font-semibold hover:bg-[#edeae2] transition-colors"
         >
           List Your Space Free →

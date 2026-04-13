@@ -9,7 +9,7 @@
  *
  * Requires env vars (set in .env.local or export before running):
  *   NEXT_PUBLIC_SUPABASE_URL
- *   SUPABASE_SERVICE_ROLE_KEY
+ *   SUPABASE_SERVICE_KEY
  */
 
 import { createClient } from '@supabase/supabase-js'
@@ -22,12 +22,12 @@ const SUPABASE_URL =
   process.env.NEXT_PUBLIC_SUPABASE_URL ??
   'https://vnjsczhqhnzrplrdkolb.supabase.co'
 
-const SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
+const SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_KEY
 
 if (!SERVICE_ROLE_KEY) {
-  console.error('❌  SUPABASE_SERVICE_ROLE_KEY is required.')
+  console.error('❌  SUPABASE_SERVICE_KEY is required.')
   console.error('    Export it before running:')
-  console.error('    export SUPABASE_SERVICE_ROLE_KEY=your_key_here')
+  console.error('    export SUPABASE_SERVICE_KEY=your_key_here')
   process.exit(1)
 }
 

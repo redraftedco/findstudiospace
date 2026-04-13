@@ -9,15 +9,13 @@ const BASE = 'https://www.findstudiospace.com'
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL ?? 'https://vnjsczhqhnzrplrdkolb.supabase.co',
-    process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? '',
+    process.env.SUPABASE_SERVICE_KEY ?? '',
   )
 
-  console.log('Fetching listings for sitemap...')
-  const { data: listings, error } = await supabase
+  const { data: listings } = await supabase
     .from('listings')
     .select('id, updated_at')
     .eq('status', 'active')
-  console.log('Listings count:', listings?.length, 'Error:', error)
 
   const listingPages: MetadataRoute.Sitemap = (listings ?? []).map((listing) => ({
     url: `${BASE}/listing/${listing.id}`,

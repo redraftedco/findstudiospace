@@ -15,8 +15,8 @@ export default function SuccessPage() {
         </p>
         <Link
           href="/"
-          style={{ background: '#2c4a3e', color: '#f4f1eb' }}
-          className="mt-6 inline-block px-6 py-2.5 text-sm font-medium hover:opacity-90"
+          style={{ width: '100%' }}
+          className="btn-action mt-6 inline-block px-6 py-2.5 text-sm font-medium"
         >
           Back to listings
         </Link>

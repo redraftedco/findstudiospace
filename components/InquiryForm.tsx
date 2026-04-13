@@ -42,7 +42,7 @@ export default function InquiryForm({ listingId }: Props) {
 
   if (status === 'success') {
     return (
-      <div style={{ border: '1px solid #d6d0c4', color: '#2c4a3e', fontFamily: 'var(--font-mono)' }} className="p-4 text-sm">
+      <div style={{ border: '1px solid #d6d0c4', color: '#a84530', fontFamily: 'var(--font-mono)' }} className="p-4 text-sm">
         Message sent. Hosts typically respond within 24 hours.
       </div>
     )
