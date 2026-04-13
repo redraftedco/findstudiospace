@@ -34,6 +34,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Link href="/" style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="text-lg font-semibold tracking-tight">
               FindStudioSpace
             </Link>
+            <div className="flex items-center gap-6">
+              <Link
+                href="/for-landlords"
+                style={{ color: '#6b6762', fontFamily: 'var(--font-body)' }}
+                className="text-sm hover:underline"
+              >
+                For Landlords
+              </Link>
             <Link
               href="/list-your-space"
               style={{ color: '#2c4a3e', fontFamily: 'var(--font-body)' }}
@@ -41,6 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             >
               List your space
             </Link>
+            </div>
           </div>
         </header>
         {children}
@@ -53,6 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/portland/workshop-space-rental" className="hover:underline">Workshop</Link>
               <Link href="/portland/photo-studio-rental" className="hover:underline">Photo</Link>
               <Link href="/blog" className="hover:underline">Resources</Link>
+              <Link href="/for-landlords" className="hover:underline">For Landlords</Link>
               <Link href="/list-your-space" className="hover:underline">List your space</Link>
             </div>
           </div>

@@ -6,6 +6,7 @@ import CategoryFilter from '@/components/CategoryFilter'
 
 type Props = {
   params: Promise<{ category: string }>
+  searchParams: Promise<{ q?: string }>
 }
 
 export const revalidate = 3600
@@ -24,8 +25,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default async function CategoryPage({ params }: Props) {
+export default async function CategoryPage({ params, searchParams }: Props) {
   const { category } = await params
+  const { q } = await searchParams
   const config = categoryConfigs[category]
 
   if (!config) {
@@ -41,6 +43,12 @@ export default async function CategoryPage({ params }: Props) {
     .limit(48)
   if (config.listingType) {
     query = query.eq('type', config.listingType)
+  }
+  if (config.neighborhood) {
+    query = query.ilike('neighborhood', `%${config.neighborhood}%`)
+  }
+  if (q) {
+    query = query.or(`title.ilike.%${q}%,neighborhood.ilike.%${q}%,description.ilike.%${q}%`)
   }
   const { data: rawListings } = await query
   const listings = (rawListings ?? []).sort((a, b) => {
@@ -84,11 +92,22 @@ export default async function CategoryPage({ params }: Props) {
             {config.intro}
           </p>
 
+          {q && (
+            <p style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="mb-6 text-sm">
+              {listings.length > 0
+                ? `${listings.length} result${listings.length === 1 ? '' : 's'} for "${q}"`
+                : `No spaces found for "${q}."`}
+              {listings.length === 0 && (
+                <> <Link href={`/portland/${category}`} className="underline">Browse all spaces →</Link></>
+              )}
+            </p>
+          )}
+
           {listings && listings.length > 0 ? (
             <CategoryFilter listings={listings} />
-          ) : (
+          ) : !q ? (
             <p style={{ color: '#6b6762' }} className="mb-14">No spaces listed yet — check back soon.</p>
-          )}
+          ) : null}
 
           {/* FAQ */}
           <section style={{ borderTop: '1px solid #d6d0c4' }} className="pt-10">

@@ -4,6 +4,7 @@ export type CategoryConfig = {
   h1: string
   intro: string
   listingType: string | null
+  neighborhood?: string | null
   faqs: { q: string; a: string }[]
   related: { label: string; href: string }[]
 }
@@ -664,6 +665,193 @@ export const categoryConfigs: Record<string, CategoryConfig> = {
       { label: 'Fitness & Dance Studio Rental', href: '/portland/fitness-studio-rental' },
       { label: 'Art Studio for Rent', href: '/portland/art-studio-rental' },
       { label: 'Studio Space for Creators', href: '/portland/studio-space-for-creators' },
+    ],
+  },
+
+  'music-rehearsal-space': {
+    title: 'Monthly Music Rehearsal Space in Portland, OR | FindStudioSpace',
+    metaDescription:
+      'Find monthly music rehearsal space in Portland, OR. Private lockout rehearsal rooms and band practice spaces available for month-to-month rental.',
+    h1: 'Monthly Music Rehearsal Space in Portland, OR',
+    intro:
+      'Browse private music rehearsal spaces available for monthly rent in Portland, OR. Unlike hourly booking rooms, these are lockout studios — yours alone, available whenever you need them, no scheduling required. Find a dedicated band practice room or solo rehearsal space and submit an inquiry to connect directly with the host.',
+    listingType: 'music',
+    faqs: [
+      {
+        q: 'What is a lockout rehearsal space in Portland?',
+        a: 'A lockout is a private rehearsal room rented on a monthly basis — you have the only key. Your gear stays set up, you come and go whenever you want, and you never compete for booking slots. It is the preferred arrangement for serious bands and working musicians who rehearse regularly.',
+      },
+      {
+        q: 'How much does monthly rehearsal space cost in Portland?',
+        a: 'Monthly lockout rehearsal rooms in Portland range from $250–$800/month depending on room size, soundproofing quality, and included gear. Smaller rooms for solo or duo practice start lower; rooms large enough for a full band with a drum kit run $400–$700/month on average.',
+      },
+      {
+        q: 'Do Portland rehearsal spaces include a drum kit and backline?',
+        a: 'Many do. Common setups include a full drum kit, bass and guitar amps, and a small PA. Check the listing description for what is included — spaces that have it typically say so. If it is not listed, ask in your inquiry.',
+      },
+      {
+        q: 'What should I look for in a Portland rehearsal space rental?',
+        a: 'Soundproofing quality and neighbor tolerance for noise hours, 24-hour access if your band rehearses late, what gear is included, whether you can store additional equipment on-site, and how the lease term works. Get these answered before you move in.',
+      },
+      {
+        q: 'Are month-to-month rehearsal room leases available in Portland?',
+        a: 'Yes. Month-to-month is the standard arrangement for rehearsal rooms in Portland. Some private lockout spaces require a 2–3 month minimum. Mention your preferred term in your inquiry.',
+      },
+    ],
+    related: [
+      { label: 'Music Studio for Rent', href: '/portland/music-studio-rental' },
+      { label: 'Studio Space Rental', href: '/portland/studio-space-rental' },
+      { label: 'Workshop Space for Rent', href: '/portland/workshop-space-rental' },
+    ],
+  },
+
+  'central-eastside': {
+    title: 'Studio Space for Rent in Central Eastside Portland | FindStudioSpace',
+    metaDescription:
+      'Find monthly studio, workshop, and art space for rent in Portland\'s Central Eastside Industrial District. Spaces for makers, artists, and producers.',
+    h1: 'Studio Space for Rent in Central Eastside Portland',
+    intro:
+      'Portland\'s Central Eastside Industrial District is the city\'s primary hub for creative production, fabrication, and studio work. Bounded by the river and SE Portland neighborhoods, the district is home to working artists, furniture makers, ceramicists, and production studios. Find monthly workshop, art studio, and office space for rent in one of Portland\'s most active creative corridors.',
+    listingType: null,
+    neighborhood: 'Central Eastside',
+    faqs: [
+      {
+        q: 'How much does studio space cost in Portland\'s Central Eastside?',
+        a: 'Workshop and studio space in the Central Eastside Industrial District typically ranges from $500–$3,000/month depending on size and amenities. Smaller private studios start around $500/month while larger warehouse or fabrication spaces run $1,500–$3,000+.',
+      },
+      {
+        q: 'What types of spaces are available in the Central Eastside?',
+        a: 'The district is zoned for industrial and commercial use, making it ideal for woodworking shops, ceramics studios, fabrication bays, photography studios, and production offices. Many buildings offer loading dock access and high ceilings.',
+      },
+      {
+        q: 'Is the Central Eastside good for artist studios?',
+        a: 'Yes — the Central Eastside has been Portland\'s working artist district for decades. It offers a mix of individual studio spaces and shared co-op buildings with communal equipment and facilities.',
+      },
+    ],
+    related: [
+      { label: 'Workshop Space for Rent', href: '/portland/workshop-space-rental' },
+      { label: 'Art Studio for Rent', href: '/portland/art-studio-rental' },
+      { label: 'Office Space Rental', href: '/portland/office-space-rental' },
+    ],
+  },
+
+  'pearl-district': {
+    title: 'Studio Space for Rent in the Pearl District Portland | FindStudioSpace',
+    metaDescription:
+      'Find monthly studio and office space for rent in Portland\'s Pearl District. Professional creative studios, design offices, and gallery spaces.',
+    h1: 'Studio Space for Rent in the Pearl District, Portland',
+    intro:
+      'The Pearl District offers Portland\'s highest concentration of professional creative studios, design offices, and gallery spaces. Former industrial buildings converted to live-work lofts and commercial studios make the Pearl a natural home for designers, architects, photographers, and creative agencies. Find monthly studio and office space for rent in the Pearl District.',
+    listingType: null,
+    neighborhood: 'Pearl District',
+    faqs: [
+      {
+        q: 'How much does studio space cost in Portland\'s Pearl District?',
+        a: 'Pearl District studio and office rentals typically range from $800–$4,000/month. The Pearl commands Portland\'s highest commercial rents but offers premium finishes, building amenities, and a professional business environment.',
+      },
+      {
+        q: 'What types of creatives work in the Pearl District?',
+        a: 'The Pearl is home to architecture firms, design studios, photographers, galleries, and creative agencies. It\'s well suited for client-facing creative businesses and professionals who need a polished environment.',
+      },
+      {
+        q: 'Are there affordable options in the Pearl District?',
+        a: 'Shared studio spaces and co-working arrangements in the Pearl can reduce individual costs significantly. Some buildings offer smaller private studios starting around $600–$800/month.',
+      },
+    ],
+    related: [
+      { label: 'Office Space Rental', href: '/portland/office-space-rental' },
+      { label: 'Art Studio for Rent', href: '/portland/art-studio-rental' },
+      { label: 'Studio Space Rental', href: '/portland/studio-space-rental' },
+    ],
+  },
+
+  'alberta-arts': {
+    title: 'Studio Space for Rent in Alberta Arts District Portland | FindStudioSpace',
+    metaDescription:
+      'Find monthly art studio space for rent in Portland\'s Alberta Arts District. Private studios and co-op spaces for painters, printmakers, and artists.',
+    h1: 'Studio Space for Rent in the Alberta Arts District, Portland',
+    intro:
+      'The Alberta Arts District on NE Alberta Street is Portland\'s most established arts community, home to galleries, independent studios, and maker spaces. Monthly studio rentals in Alberta range from shared co-op spaces to private artist studios, with a strong community of painters, printmakers, and craft artists. Find monthly art studio space for rent in NE Portland\'s Alberta Arts District.',
+    listingType: null,
+    neighborhood: 'NE Portland',
+    faqs: [
+      {
+        q: 'How much does studio space cost in the Alberta Arts District?',
+        a: 'Monthly studio rentals in the Alberta Arts District typically range from $300–$1,500/month. Shared co-op spaces and smaller private studios offer some of Portland\'s most affordable options for working artists.',
+      },
+      {
+        q: 'What kind of studios are available on Alberta?',
+        a: 'The Alberta Arts District has a strong concentration of visual art studios — painters, printmakers, ceramicists, and mixed media artists. Several buildings offer shared facilities including kilns, printing presses, and communal equipment.',
+      },
+      {
+        q: 'Is the Alberta Arts District good for a studio practice?',
+        a: 'It\'s one of Portland\'s most established arts communities with a strong network of working artists, regular open studio events, and a walkable neighborhood with cafes and galleries nearby.',
+      },
+    ],
+    related: [
+      { label: 'Art Studio for Rent', href: '/portland/art-studio-rental' },
+      { label: 'Studio Space Rental', href: '/portland/studio-space-rental' },
+      { label: 'Office Space Rental', href: '/portland/office-space-rental' },
+    ],
+  },
+
+  'division': {
+    title: 'Studio Space for Rent on SE Division Portland | FindStudioSpace',
+    metaDescription:
+      'Find monthly studio, retail, and workshop space for rent along SE Division in Portland, OR. Affordable creative workspace in a walkable neighborhood.',
+    h1: 'Studio Space for Rent near SE Division, Portland',
+    intro:
+      'SE Division Street and the surrounding blocks offer some of Portland\'s most affordable and accessible monthly studio rentals. The corridor mixes retail storefronts, workshop spaces, and creative offices in a walkable neighborhood with strong transit access. Find monthly studio, retail, and workshop space for rent along SE Division in Portland.',
+    listingType: null,
+    neighborhood: 'SE Portland',
+    faqs: [
+      {
+        q: 'How much does studio space cost on SE Division?',
+        a: 'Monthly rentals along SE Division and the surrounding blocks typically range from $400–$2,000/month depending on size and type. The corridor offers good value relative to the Pearl District with strong transit access.',
+      },
+      {
+        q: 'What types of spaces are available on SE Division?',
+        a: 'SE Division has a mix of retail-facing storefronts, private studios, workshop spaces, and creative offices. It\'s well suited for makers who want street presence or easy client access.',
+      },
+      {
+        q: 'Is SE Division good for a creative business?',
+        a: 'Yes — the Division corridor has strong foot traffic, good parking, and a dense residential neighborhood that supports creative businesses. It\'s one of Portland\'s most active commercial streets.',
+      },
+    ],
+    related: [
+      { label: 'Art Studio for Rent', href: '/portland/art-studio-rental' },
+      { label: 'Workshop Space for Rent', href: '/portland/workshop-space-rental' },
+      { label: 'Office Space Rental', href: '/portland/office-space-rental' },
+    ],
+  },
+
+  'mississippi': {
+    title: 'Studio Space for Rent on N Mississippi Portland | FindStudioSpace',
+    metaDescription:
+      'Find monthly studio and creative space for rent on N Mississippi Avenue in Portland. Small studios, retail storefronts, and maker spaces.',
+    h1: 'Studio Space for Rent near N Mississippi, Portland',
+    intro:
+      'N Mississippi Avenue is Portland\'s boutique creative corridor — a mix of independent shops, studios, and small production spaces in converted older buildings. Monthly studio rentals on Mississippi tend toward smaller private studios, shared creative spaces, and retail-facing maker spaces. Find monthly studio space for rent on N Mississippi in Portland.',
+    listingType: null,
+    neighborhood: 'N Portland',
+    faqs: [
+      {
+        q: 'How much does studio space cost on N Mississippi?',
+        a: 'Monthly studio and retail rentals on N Mississippi typically range from $500–$2,500/month. Spaces tend to be smaller than industrial districts but offer street-level visibility and a strong neighborhood customer base.',
+      },
+      {
+        q: 'What types of spaces are available on Mississippi?',
+        a: 'N Mississippi offers a mix of small retail studios, private creative offices, and shared workspace. It\'s well suited for designers, jewelers, textile artists, and makers who want a visible storefront presence.',
+      },
+      {
+        q: 'Is N Mississippi good for a studio practice?',
+        a: 'Mississippi is one of Portland\'s most walkable creative corridors with strong community character. It\'s best for creatives who benefit from neighborhood foot traffic and want to be part of an established arts-friendly street.',
+      },
+    ],
+    related: [
+      { label: 'Art Studio for Rent', href: '/portland/art-studio-rental' },
+      { label: 'Studio Space Rental', href: '/portland/studio-space-rental' },
+      { label: 'Workshop Space for Rent', href: '/portland/workshop-space-rental' },
     ],
   },
 }

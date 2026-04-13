@@ -86,6 +86,30 @@ export default async function Home() {
           <p style={{ color: '#6b6762' }} className="mt-2 text-sm">
             The directory for creatives, makers, and producers looking for monthly workspace.
           </p>
+          <form action="/portland/studio-space-rental" method="GET" className="mt-8 flex w-full max-w-xl">
+            <input
+              type="text"
+              name="q"
+              placeholder="Search by neighborhood, space type, or keyword..."
+              style={{
+                border: '1px solid #d6d0c4',
+                background: '#f4f1eb',
+                color: '#1a1814',
+                fontFamily: 'var(--font-body)',
+                height: '48px',
+                outline: 'none',
+                borderRight: 'none',
+              }}
+              className="flex-1 px-4 text-sm focus:border-[#2c4a3e]"
+            />
+            <button
+              type="submit"
+              style={{ background: '#2c4a3e', color: '#f4f1eb', height: '48px', fontFamily: 'var(--font-body)', border: 'none' }}
+              className="btn-action px-5 text-sm font-medium whitespace-nowrap"
+            >
+              Search
+            </button>
+          </form>
         </div>
       </section>
 
