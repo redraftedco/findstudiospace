@@ -69,7 +69,7 @@ export default async function Home() {
         <h1 className="text-4xl font-bold tracking-tight">
           Find Studio &amp; Workspace in Portland
         </h1>
-        <p className="mx-auto mt-3 max-w-lg text-gray-500">
+        <p className="mx-auto mt-3 max-w-lg text-gray-700">
           Browse {total} verified listings — photo studios, art spaces, offices,
           workshops, and retail across Portland, OR.
         </p>
@@ -89,7 +89,7 @@ export default async function Home() {
                   className="group rounded-xl border bg-white p-5 shadow-sm transition-shadow hover:shadow-md"
                 >
                   <p className="font-semibold group-hover:text-blue-600">{cat.label}</p>
-                  <p className="mt-1 text-sm text-gray-500">{cat.description}</p>
+                  <p className="mt-1 text-sm text-gray-700">{cat.description}</p>
                   <p className="mt-3 text-sm font-medium text-blue-600">
                     {count} {count === 1 ? 'space' : 'spaces'} available
                   </p>
@@ -119,7 +119,7 @@ export default async function Home() {
                 className="group rounded-xl border bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
               >
                 {listing.type && (
-                  <span className="mb-2 inline-block rounded-full bg-gray-100 px-2.5 py-0.5 text-xs text-gray-600">
+                  <span className="mb-2 inline-block rounded-full bg-gray-100 px-2.5 py-0.5 text-xs text-gray-800">
                     {listing.type}
                   </span>
                 )}
@@ -132,7 +132,7 @@ export default async function Home() {
                   </p>
                 )}
                 {listing.neighborhood && (
-                  <p className="mt-1 text-xs text-gray-500">📍 {listing.neighborhood}</p>
+                  <p className="mt-1 text-xs text-gray-700">📍 {listing.neighborhood}</p>
                 )}
                 <p className="mt-3 text-xs font-medium text-blue-600 group-hover:underline">
                   View space →
@@ -145,7 +145,7 @@ export default async function Home() {
         {/* List your space CTA */}
         <section className="rounded-xl border bg-white p-8 text-center shadow-sm">
           <h2 className="text-xl font-bold">Own or manage a studio?</h2>
-          <p className="mx-auto mt-2 max-w-md text-sm text-gray-500">
+          <p className="mx-auto mt-2 max-w-md text-sm text-gray-700">
             List your space free and reach Portland creatives, makers, and
             business owners searching right now.
           </p>

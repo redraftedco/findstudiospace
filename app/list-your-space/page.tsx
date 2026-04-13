@@ -80,7 +80,7 @@ export default function ListYourSpacePage() {
       <main className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
         <div className="max-w-md text-center">
           <p className="text-3xl font-bold">You're submitted!</p>
-          <p className="mt-3 text-gray-500">
+          <p className="mt-3 text-gray-700">
             We'll review and publish your listing within 48 hours.
           </p>
           <a href="/" className="mt-6 inline-block text-sm text-blue-600 hover:underline">
@@ -95,7 +95,7 @@ export default function ListYourSpacePage() {
     <main className="min-h-screen bg-gray-50">
       <div className="mx-auto max-w-2xl px-4 py-12">
         <h1 className="text-3xl font-bold">List your studio</h1>
-        <p className="mt-2 text-gray-500">
+        <p className="mt-2 text-gray-700">
           Reach Portland creatives actively searching for space.
         </p>
 
@@ -120,7 +120,7 @@ export default function ListYourSpacePage() {
                 >
                   <p className="font-semibold">{t.label}</p>
                   <p className="text-lg font-bold text-blue-600">{t.price}</p>
-                  <p className="mt-1 text-xs text-gray-500">{t.desc}</p>
+                  <p className="mt-1 text-xs text-gray-700">{t.desc}</p>
                 </button>
               ))}
             </div>
@@ -193,7 +193,7 @@ export default function ListYourSpacePage() {
                   className={`rounded-full border px-3 py-1 text-sm transition-colors ${
                     amenities.includes(a)
                       ? 'border-blue-500 bg-blue-50 text-blue-700'
-                      : 'border-gray-200 bg-white text-gray-600 hover:border-gray-300'
+                      : 'border-gray-200 bg-white text-gray-800 hover:border-gray-300'
                   }`}
                 >
                   {a}
@@ -205,8 +205,8 @@ export default function ListYourSpacePage() {
           {/* Photo upload */}
           <div>
             <label className="mb-1 block text-sm font-medium">Photos (optional)</label>
-            <input name="photos" type="file" accept="image/*" multiple className="text-sm text-gray-500" />
-            <p className="mt-1 text-xs text-gray-400">Upload photos after submission via email.</p>
+            <input name="photos" type="file" accept="image/*" multiple className="text-sm text-gray-700" />
+            <p className="mt-1 text-xs text-gray-700">Upload photos after submission via email.</p>
           </div>
 
           {status === 'error' && (

@@ -46,7 +46,7 @@ export default async function ListingPage({ params }: Props) {
   return (
     <main className="min-h-screen bg-gray-50">
       <div className="mx-auto max-w-4xl px-4 py-8">
-        <Link href="/" className="text-sm text-gray-500 hover:underline">
+        <Link href="/" className="text-sm text-gray-700 hover:underline">
           ← Back to listings
         </Link>
 
@@ -80,7 +80,7 @@ export default async function ListingPage({ params }: Props) {
                 <p className="text-xl font-semibold text-blue-700">{listing.price_display}</p>
               )}
               {(listing.neighborhood || listing.city) && (
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-800">
                   📍 {[listing.neighborhood, listing.city].filter(Boolean).join(', ')}
                 </p>
               )}
@@ -89,7 +89,7 @@ export default async function ListingPage({ params }: Props) {
             {listing.description && (
               <div className="mt-6">
                 <p className="mb-1 text-sm font-semibold text-gray-700">About this space</p>
-                <p className="text-sm leading-relaxed text-gray-600 whitespace-pre-line">{listing.description}</p>
+                <p className="text-sm leading-relaxed text-gray-800 whitespace-pre-line">{listing.description}</p>
               </div>
             )}
 
@@ -98,7 +98,7 @@ export default async function ListingPage({ params }: Props) {
                 <p className="mb-2 text-sm font-semibold text-gray-700">Amenities</p>
                 <div className="flex flex-wrap gap-2">
                   {amenities.map((a) => (
-                    <span key={a} className="rounded-full border px-3 py-1 text-xs text-gray-600">{a}</span>
+                    <span key={a} className="rounded-full border px-3 py-1 text-xs text-gray-800">{a}</span>
                   ))}
                 </div>
               </div>
@@ -107,14 +107,14 @@ export default async function ListingPage({ params }: Props) {
 
           <div className="rounded-xl border bg-white p-6 shadow-sm">
             <p className="text-base font-semibold">Request Info</p>
-            <p className="mt-1 mb-4 text-sm text-gray-500">Landlords typically respond within 24 hours.</p>
+            <p className="mt-1 mb-4 text-sm text-gray-700">Landlords typically respond within 24 hours.</p>
             <InquiryForm listingId={String(listing.id)} listingTitle={listing.title ?? 'this listing'} />
           </div>
         </div>
         {/* CTA */}
         <div className="mt-8 rounded-xl border bg-white p-6 text-center shadow-sm">
           <p className="font-semibold">Own a studio or workspace?</p>
-          <p className="mt-1 text-sm text-gray-500">List your space free and reach Portland creatives searching right now.</p>
+          <p className="mt-1 text-sm text-gray-700">List your space free and reach Portland creatives searching right now.</p>
           <a
             href="/list-your-space"
             className="mt-4 inline-block rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-semibold text-white hover:bg-blue-700"

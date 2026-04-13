@@ -35,7 +35,7 @@ export default async function ListingCollectionPage({ params }: PageProps) {
     <main className="min-h-screen bg-gray-50 px-4 py-8">
       <div className="mx-auto max-w-5xl space-y-6">
         <header className="space-y-1">
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-gray-700">
             <Link className="hover:underline" href="/">
               Home
             </Link>
@@ -47,7 +47,7 @@ export default async function ListingCollectionPage({ params }: PageProps) {
           <h1 className="text-3xl font-bold">
             {normalizedCategory} spaces in {normalizedCity}
           </h1>
-          <p className="text-gray-500">{listings.length} listings found</p>
+          <p className="text-gray-700">{listings.length} listings found</p>
         </header>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -66,10 +66,10 @@ export default async function ListingCollectionPage({ params }: PageProps) {
                 </p>
               )}
               {listing.neighborhood && (
-                <p className="mt-1 text-xs text-gray-500">📍 {listing.neighborhood}</p>
+                <p className="mt-1 text-xs text-gray-700">📍 {listing.neighborhood}</p>
               )}
               {listing.description && (
-                <p className="mt-2 text-xs leading-relaxed text-gray-500 line-clamp-2">
+                <p className="mt-2 text-xs leading-relaxed text-gray-700 line-clamp-2">
                   {String(listing.description)}
                 </p>
               )}

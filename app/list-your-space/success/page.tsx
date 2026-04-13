@@ -9,7 +9,7 @@ export default function SuccessPage() {
       <div className="max-w-md text-center">
         <p className="text-4xl">🎉</p>
         <h1 className="mt-4 text-2xl font-bold">You're live!</h1>
-        <p className="mt-3 text-gray-500">
+        <p className="mt-3 text-gray-700">
           Your featured listing will be published within 24 hours. Check your email for confirmation.
         </p>
         <Link

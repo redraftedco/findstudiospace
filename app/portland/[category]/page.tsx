@@ -53,7 +53,7 @@ export default async function CategoryPage({ params }: Props) {
       />
 
       <main className="mx-auto max-w-4xl px-6 py-10">
-        <nav className="mb-6 text-sm text-gray-500">
+        <nav className="mb-6 text-sm text-gray-700">
           <Link href="/" className="hover:underline">
             Portland Studios
           </Link>
@@ -67,7 +67,7 @@ export default async function CategoryPage({ params }: Props) {
         {/* Listings */}
         {listings && listings.length > 0 ? (
           <>
-            <p className="mb-4 text-sm text-gray-500">
+            <p className="mb-4 text-sm text-gray-700">
               {listings.length} space{listings.length !== 1 ? 's' : ''} available
             </p>
             <div className="mb-12 grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -89,10 +89,10 @@ export default async function CategoryPage({ params }: Props) {
                     <p className="mt-1 text-sm font-medium text-blue-700">{l.price_display}</p>
                   )}
                   {l.neighborhood && (
-                    <p className="mt-1 text-xs text-gray-500">📍 {l.neighborhood}</p>
+                    <p className="mt-1 text-xs text-gray-700">📍 {l.neighborhood}</p>
                   )}
                   {l.description && (
-                    <p className="mt-2 text-xs leading-relaxed text-gray-500 line-clamp-2">
+                    <p className="mt-2 text-xs leading-relaxed text-gray-700 line-clamp-2">
                       {l.description}
                     </p>
                   )}
@@ -104,7 +104,7 @@ export default async function CategoryPage({ params }: Props) {
             </div>
           </>
         ) : (
-          <p className="mb-12 text-gray-500">No spaces listed yet — check back soon.</p>
+          <p className="mb-12 text-gray-700">No spaces listed yet — check back soon.</p>
         )}
 
         {/* FAQ */}
@@ -114,7 +114,7 @@ export default async function CategoryPage({ params }: Props) {
             {config.faqs.map(({ q, a }) => (
               <div key={q}>
                 <dt className="mb-1 font-semibold text-gray-900">{q}</dt>
-                <dd className="text-sm leading-relaxed text-gray-600">{a}</dd>
+                <dd className="text-sm leading-relaxed text-gray-800">{a}</dd>
               </div>
             ))}
           </dl>
