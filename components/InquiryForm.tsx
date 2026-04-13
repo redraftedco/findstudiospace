@@ -51,8 +51,8 @@ export default function InquiryForm({ listingId }: Props) {
   return (
     <form onSubmit={handleSubmit} className="space-y-3">
       <input name="website" type="text" className="hidden" tabIndex={-1} autoComplete="off" />
-      <input name="name" required placeholder="Your name" className="input" />
-      <input name="email" type="email" required placeholder="Your email" className="input" />
+      <input name="name" required placeholder="Your name" autoComplete="name" className="input" />
+      <input name="email" type="email" required placeholder="Your email" autoComplete="email" inputMode="email" className="input" />
       <textarea
         name="message"
         required
@@ -69,8 +69,11 @@ export default function InquiryForm({ listingId }: Props) {
         style={{ background: '#2c4a3e', color: '#f4f1eb', width: '100%' }}
         className="py-2.5 text-sm font-medium hover:opacity-90 disabled:opacity-50"
       >
-        {status === 'submitting' ? 'Sending…' : 'Send Message'}
+        {status === 'submitting' ? 'Sending…' : 'Request Studio Info'}
       </button>
+      <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="text-center text-xs">
+        Your info is only shared with this space&apos;s host.
+      </p>
     </form>
   )
 }
