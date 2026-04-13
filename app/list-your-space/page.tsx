@@ -77,13 +77,15 @@ export default function ListYourSpacePage() {
 
   if (status === 'success') {
     return (
-      <main className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+      <main style={{ background: '#f4f1eb' }} className="min-h-screen flex items-center justify-center px-6">
         <div className="max-w-md text-center">
-          <p className="text-3xl font-bold">You're submitted!</p>
-          <p className="mt-3 text-gray-700">
-            We'll review and publish your listing within 48 hours.
+          <p style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="text-3xl font-semibold">
+            You&apos;re submitted.
           </p>
-          <a href="/" className="mt-6 inline-block text-sm text-blue-600 hover:underline">
+          <p style={{ color: '#8c8680' }} className="mt-3 text-sm">
+            We&apos;ll review and publish your listing within 48 hours.
+          </p>
+          <a href="/" style={{ color: '#2c4a3e', fontFamily: 'var(--font-mono)' }} className="mt-6 inline-block text-sm hover:underline">
             ← Back to listings
           </a>
         </div>
@@ -92,85 +94,90 @@ export default function ListYourSpacePage() {
   }
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <div className="mx-auto max-w-2xl px-4 py-12">
-        <h1 className="text-3xl font-bold">List your studio</h1>
-        <p className="mt-2 text-gray-700">
-          Reach Portland creatives actively searching for space.
+    <main style={{ background: '#f4f1eb' }} className="min-h-screen">
+      <div className="mx-auto max-w-2xl px-6 py-14">
+        <h1 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="text-3xl font-semibold">
+          Reach Portland&apos;s creative community.
+        </h1>
+        <p style={{ color: '#8c8680' }} className="mt-2 text-sm">
+          List your space and connect with artists, makers, and professionals searching right now.
         </p>
 
-        <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+        <form onSubmit={handleSubmit} className="mt-10 space-y-7">
           {/* Tier selection */}
           <div>
-            <p className="mb-3 font-semibold">Choose your listing tier</p>
+            <p style={{ color: '#1a1814' }} className="mb-3 text-sm font-medium">Choose your listing tier</p>
             <div className="grid grid-cols-2 gap-4">
               {([
                 { value: 'free', label: 'Free Listing', price: '$0', desc: 'Listed in directory. Published within 48 hours.' },
-                { value: 'featured', label: 'Featured Listing', price: '$29/mo', desc: 'Pinned to top of category. Featured badge. Priority placement.' },
+                { value: 'featured', label: 'Featured', price: '$29/mo', desc: 'Pinned to top. Featured badge. Priority placement.' },
               ] as const).map((t) => (
                 <button
                   key={t.value}
                   type="button"
                   onClick={() => setTier(t.value)}
-                  className={`rounded-xl border p-4 text-left transition-colors ${
-                    tier === t.value
-                      ? 'border-blue-500 bg-blue-50 ring-1 ring-blue-500'
-                      : 'border-gray-200 bg-white hover:border-gray-300'
-                  }`}
+                  style={{
+                    border: tier === t.value ? '2px solid #2c4a3e' : '1px solid #d6d0c4',
+                    background: tier === t.value ? '#edeae2' : '#f4f1eb',
+                    textAlign: 'left',
+                  }}
+                  className="p-4 transition-colors"
                 >
-                  <p className="font-semibold">{t.label}</p>
-                  <p className="text-lg font-bold text-blue-600">{t.price}</p>
-                  <p className="mt-1 text-xs text-gray-700">{t.desc}</p>
+                  <p style={{ color: '#1a1814', fontFamily: 'var(--font-heading)' }} className="font-semibold">{t.label}</p>
+                  <p style={{ fontFamily: 'var(--font-mono)', color: t.value === 'featured' ? '#b8860b' : '#1a1814' }} className="text-lg font-medium">
+                    {t.price}
+                  </p>
+                  <p style={{ color: '#8c8680' }} className="mt-1 text-xs">{t.desc}</p>
                 </button>
               ))}
             </div>
           </div>
 
-          {/* Contact info */}
+          {/* Contact */}
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label className="mb-1 block text-sm font-medium">Your name</label>
+              <label style={{ color: '#1a1814' }} className="mb-1 block text-sm font-medium">Your name</label>
               <input name="host_name" required className="input" placeholder="Jane Smith" />
             </div>
             <div>
-              <label className="mb-1 block text-sm font-medium">Email</label>
+              <label style={{ color: '#1a1814' }} className="mb-1 block text-sm font-medium">Email</label>
               <input name="email" type="email" required className="input" placeholder="jane@example.com" />
             </div>
           </div>
 
           {/* Space details */}
           <div>
-            <label className="mb-1 block text-sm font-medium">Space title</label>
+            <label style={{ color: '#1a1814' }} className="mb-1 block text-sm font-medium">Space title</label>
             <input name="title" required className="input" placeholder="Bright NE Portland Art Studio" />
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label className="mb-1 block text-sm font-medium">Space type</label>
+              <label style={{ color: '#1a1814' }} className="mb-1 block text-sm font-medium">Space type</label>
               <select name="type" required className="input">
                 <option value="">Select type</option>
                 {TYPES.map((t) => <option key={t}>{t}</option>)}
               </select>
             </div>
             <div>
-              <label className="mb-1 block text-sm font-medium">Neighborhood</label>
+              <label style={{ color: '#1a1814' }} className="mb-1 block text-sm font-medium">Neighborhood</label>
               <input name="neighborhood" required className="input" placeholder="NE Portland" />
             </div>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label className="mb-1 block text-sm font-medium">Monthly price ($)</label>
+              <label style={{ color: '#1a1814' }} className="mb-1 block text-sm font-medium">Monthly price ($)</label>
               <input name="price" type="number" min="0" required className="input" placeholder="850" />
             </div>
             <div>
-              <label className="mb-1 block text-sm font-medium">Square footage (optional)</label>
+              <label style={{ color: '#1a1814' }} className="mb-1 block text-sm font-medium">Square footage (optional)</label>
               <input name="sq_ft" type="number" min="0" className="input" placeholder="400" />
             </div>
           </div>
 
           <div>
-            <label className="mb-1 block text-sm font-medium">Description (min 100 characters)</label>
+            <label style={{ color: '#1a1814' }} className="mb-1 block text-sm font-medium">Description (min 100 characters)</label>
             <textarea
               name="description"
               required
@@ -183,18 +190,20 @@ export default function ListYourSpacePage() {
 
           {/* Amenities */}
           <div>
-            <p className="mb-2 text-sm font-medium">Amenities</p>
+            <p style={{ color: '#1a1814' }} className="mb-3 text-sm font-medium">Amenities</p>
             <div className="flex flex-wrap gap-2">
               {AMENITIES.map((a) => (
                 <button
                   key={a}
                   type="button"
                   onClick={() => toggleAmenity(a)}
-                  className={`rounded-full border px-3 py-1 text-sm transition-colors ${
-                    amenities.includes(a)
-                      ? 'border-blue-500 bg-blue-50 text-blue-700'
-                      : 'border-gray-200 bg-white text-gray-800 hover:border-gray-300'
-                  }`}
+                  style={{
+                    border: amenities.includes(a) ? '1px solid #2c4a3e' : '1px solid #d6d0c4',
+                    background: amenities.includes(a) ? '#edeae2' : '#f4f1eb',
+                    color: amenities.includes(a) ? '#2c4a3e' : '#1a1814',
+                    fontFamily: 'var(--font-mono)',
+                  }}
+                  className="px-3 py-1.5 text-xs transition-colors"
                 >
                   {a}
                 </button>
@@ -202,21 +211,24 @@ export default function ListYourSpacePage() {
             </div>
           </div>
 
-          {/* Photo upload */}
+          {/* Photos */}
           <div>
-            <label className="mb-1 block text-sm font-medium">Photos (optional)</label>
-            <input name="photos" type="file" accept="image/*" multiple className="text-sm text-gray-700" />
-            <p className="mt-1 text-xs text-gray-700">Upload photos after submission via email.</p>
+            <label style={{ color: '#1a1814' }} className="mb-1 block text-sm font-medium">Photos (optional)</label>
+            <input name="photos" type="file" accept="image/*" multiple style={{ color: '#8c8680' }} className="text-sm" />
+            <p style={{ color: '#8c8680' }} className="mt-1 text-xs">Upload photos after submission via email.</p>
           </div>
 
           {status === 'error' && (
-            <p className="rounded-lg bg-red-50 px-4 py-2 text-sm text-red-600">{errorMsg}</p>
+            <p style={{ border: '1px solid #8b2020', color: '#8b2020', fontFamily: 'var(--font-mono)' }} className="px-4 py-2 text-sm">
+              {errorMsg}
+            </p>
           )}
 
           <button
             type="submit"
             disabled={status === 'submitting'}
-            className="w-full rounded-lg bg-blue-600 py-3 font-semibold text-white hover:bg-blue-700 disabled:opacity-50"
+            style={{ background: '#2c4a3e', color: '#f4f1eb', width: '100%', fontFamily: 'var(--font-body)' }}
+            className="py-3 font-medium hover:opacity-90 disabled:opacity-50"
           >
             {status === 'submitting'
               ? 'Submitting…'

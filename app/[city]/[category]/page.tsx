@@ -32,22 +32,19 @@ export default async function ListingCollectionPage({ params }: PageProps) {
   const listings = (data as Listing[]) ?? []
 
   return (
-    <main className="min-h-screen bg-gray-50 px-4 py-8">
-      <div className="mx-auto max-w-5xl space-y-6">
-        <header className="space-y-1">
-          <p className="text-sm text-gray-700">
-            <Link className="hover:underline" href="/">
-              Home
-            </Link>
-            {' / '}
-            {city}
-            {' / '}
-            {category}
+    <main style={{ background: '#f4f1eb', color: '#1a1814' }} className="min-h-screen px-6 py-10">
+      <div className="mx-auto max-w-5xl space-y-8">
+        <header className="space-y-2">
+          <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="text-sm">
+            <Link className="hover:underline" href="/">Home</Link>
+            {' / '}{city}{' / '}{category}
           </p>
-          <h1 className="text-3xl font-bold">
+          <h1 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="text-3xl font-semibold">
             {normalizedCategory} spaces in {normalizedCity}
           </h1>
-          <p className="text-gray-700">{listings.length} listings found</p>
+          <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="text-sm">
+            {listings.length} listings found
+          </p>
         </header>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -55,27 +52,27 @@ export default async function ListingCollectionPage({ params }: PageProps) {
             <Link
               key={listing.id}
               href={`/listing/${listing.id}`}
-              className="group rounded-xl border bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
+              style={{ border: '1px solid #d6d0c4', background: '#edeae2' }}
+              className="group block p-4 hover:border-[#8c8680] transition-colors"
             >
-              <h2 className="font-semibold leading-snug group-hover:text-blue-600">
+              <h2 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="font-semibold leading-snug">
                 {listing.title ?? 'Untitled listing'}
               </h2>
               {listing.price_display && (
-                <p className="mt-1 text-sm font-medium text-blue-700">
+                <p style={{ fontFamily: 'var(--font-mono)', color: '#1a1814' }} className="mt-1 text-sm font-medium">
                   {listing.price_display}
                 </p>
               )}
               {listing.neighborhood && (
-                <p className="mt-1 text-xs text-gray-700">📍 {listing.neighborhood}</p>
+                <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mt-1 text-xs">
+                  {listing.neighborhood}
+                </p>
               )}
               {listing.description && (
-                <p className="mt-2 text-xs leading-relaxed text-gray-700 line-clamp-2">
+                <p style={{ color: '#8c8680' }} className="mt-2 text-xs leading-relaxed line-clamp-2">
                   {String(listing.description)}
                 </p>
               )}
-              <p className="mt-3 text-xs font-medium text-blue-600 group-hover:underline">
-                View space →
-              </p>
             </Link>
           ))}
         </div>

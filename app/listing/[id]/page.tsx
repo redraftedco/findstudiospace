@@ -40,13 +40,15 @@ export default async function ListingPage({ params }: Props) {
     : []
 
   const images: string[] = Array.isArray(listing.images)
-    ? listing.images.map((x: unknown) => (typeof x === 'string' ? x : (x as Record<string, string>)?.url ?? '')).filter(Boolean)
+    ? listing.images
+        .map((x: unknown) => (typeof x === 'string' ? x : (x as Record<string, string>)?.url ?? ''))
+        .filter(Boolean)
     : []
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <div className="mx-auto max-w-4xl px-4 py-8">
-        <Link href="/" className="text-sm text-gray-700 hover:underline">
+    <main style={{ background: '#f4f1eb', color: '#1a1814' }} className="min-h-screen">
+      <div className="mx-auto max-w-4xl px-6 py-8">
+        <Link href="/" style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="text-sm hover:underline">
           ← Back to listings
         </Link>
 
@@ -54,73 +56,98 @@ export default async function ListingPage({ params }: Props) {
           <div className="mt-6 flex gap-2 overflow-x-auto">
             {images.slice(0, 6).map((src, i) => (
               // eslint-disable-next-line @next/next/no-img-element
-              <img key={i} src={src} alt="" className="h-48 w-auto flex-shrink-0 rounded-lg object-cover" />
+              <img key={i} src={src} alt="" className="h-52 w-auto flex-shrink-0 object-cover" />
             ))}
           </div>
         )}
 
-        <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_360px]">
-          <div className="rounded-xl border bg-white p-6 shadow-sm">
+        <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_340px]">
+          {/* Main */}
+          <div style={{ border: '1px solid #d6d0c4', background: '#edeae2' }} className="p-6">
             <div className="mb-3 flex flex-wrap gap-2">
+              {listing.is_featured && (
+                <span style={{ background: '#b8860b', color: '#fff', fontFamily: 'var(--font-mono)' }} className="px-2 py-0.5 text-xs tracking-wider">
+                  FEATURED
+                </span>
+              )}
               {listing.type && (
-                <span className="inline-block rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700">
+                <span style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="text-xs uppercase">
                   {listing.type}
                 </span>
               )}
-              {listing.is_featured && (
-                <span className="inline-block rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-700">
-                  Featured
-                </span>
-              )}
             </div>
-            <h1 className="text-2xl font-bold leading-snug">{listing.title ?? 'Untitled listing'}</h1>
 
-            <div className="mt-4 space-y-1">
+            <h1 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="text-2xl font-semibold leading-snug">
+              {listing.title ?? 'Untitled listing'}
+            </h1>
+
+            <div style={{ borderTop: '1px solid #d6d0c4' }} className="mt-4 pt-4 space-y-1">
               {listing.price_display && (
-                <p className="text-xl font-semibold text-blue-700">{listing.price_display}</p>
+                <p style={{ fontFamily: 'var(--font-mono)', color: '#1a1814' }} className="text-xl font-medium">
+                  {listing.price_display}
+                </p>
               )}
               {(listing.neighborhood || listing.city) && (
-                <p className="text-sm text-gray-800">
-                  📍 {[listing.neighborhood, listing.city].filter(Boolean).join(', ')}
+                <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="text-sm">
+                  {[listing.neighborhood, listing.city].filter(Boolean).join(', ')}
                 </p>
               )}
             </div>
 
             {listing.description && (
-              <div className="mt-6">
-                <p className="mb-1 text-sm font-semibold text-gray-700">About this space</p>
-                <p className="text-sm leading-relaxed text-gray-800 whitespace-pre-line">{listing.description}</p>
+              <div style={{ borderTop: '1px solid #d6d0c4' }} className="mt-6 pt-6">
+                <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mb-2 text-xs uppercase tracking-wider">
+                  About this space
+                </p>
+                <p style={{ color: '#1a1814' }} className="text-sm leading-relaxed whitespace-pre-line">
+                  {listing.description}
+                </p>
               </div>
             )}
 
             {amenities.length > 0 && (
-              <div className="mt-6">
-                <p className="mb-2 text-sm font-semibold text-gray-700">Amenities</p>
+              <div style={{ borderTop: '1px solid #d6d0c4' }} className="mt-6 pt-6">
+                <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mb-3 text-xs uppercase tracking-wider">
+                  Amenities
+                </p>
                 <div className="flex flex-wrap gap-2">
                   {amenities.map((a) => (
-                    <span key={a} className="rounded-full border px-3 py-1 text-xs text-gray-800">{a}</span>
+                    <span key={a} style={{ border: '1px solid #d6d0c4', color: '#1a1814', fontFamily: 'var(--font-mono)' }} className="px-3 py-1 text-xs">
+                      {a}
+                    </span>
                   ))}
                 </div>
               </div>
             )}
           </div>
 
-          <div className="rounded-xl border bg-white p-6 shadow-sm">
-            <p className="text-base font-semibold">Request Info</p>
-            <p className="mt-1 mb-4 text-sm text-gray-700">Landlords typically respond within 24 hours.</p>
+          {/* Inquiry */}
+          <div style={{ border: '1px solid #d6d0c4', background: '#edeae2' }} className="p-6">
+            <p style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="text-base font-semibold">
+              Request Info
+            </p>
+            <p style={{ color: '#8c8680' }} className="mt-1 mb-5 text-sm">
+              Hosts typically respond within 24 hours.
+            </p>
             <InquiryForm listingId={String(listing.id)} listingTitle={listing.title ?? 'this listing'} />
           </div>
         </div>
+
         {/* CTA */}
-        <div className="mt-8 rounded-xl border bg-white p-6 text-center shadow-sm">
-          <p className="font-semibold">Own a studio or workspace?</p>
-          <p className="mt-1 text-sm text-gray-700">List your space free and reach Portland creatives searching right now.</p>
-          <a
+        <div style={{ border: '1px solid #d6d0c4', background: '#edeae2' }} className="mt-8 p-8 text-center">
+          <p style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="font-semibold">
+            Have a space to rent?
+          </p>
+          <p style={{ color: '#8c8680' }} className="mt-1 text-sm">
+            List it free and reach Portland creatives searching right now.
+          </p>
+          <Link
             href="/list-your-space"
-            className="mt-4 inline-block rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-semibold text-white hover:bg-blue-700"
+            style={{ background: '#2c4a3e', color: '#f4f1eb' }}
+            className="mt-5 inline-block px-6 py-2.5 text-sm font-medium hover:opacity-90"
           >
             List your space →
-          </a>
+          </Link>
         </div>
       </div>
     </main>

@@ -42,8 +42,8 @@ export default function InquiryForm({ listingId }: Props) {
 
   if (status === 'success') {
     return (
-      <div className="rounded-lg bg-green-50 p-4 text-sm text-green-700">
-        Inquiry sent. The owner will be in touch soon.
+      <div style={{ border: '1px solid #d6d0c4', color: '#2c4a3e', fontFamily: 'var(--font-mono)' }} className="p-4 text-sm">
+        Your message was sent. Hosts typically respond within 24 hours.
       </div>
     )
   }
@@ -55,27 +55,30 @@ export default function InquiryForm({ listingId }: Props) {
         name="name"
         required
         placeholder="Your name"
-        className="w-full rounded-lg border px-3 py-2 text-sm outline-none focus:border-blue-500"
+        className="input"
       />
       <input
         name="email"
         type="email"
         required
         placeholder="Your email"
-        className="w-full rounded-lg border px-3 py-2 text-sm outline-none focus:border-blue-500"
+        className="input"
       />
       <textarea
         name="message"
         required
         placeholder="What are you looking for? Include intended use, budget, and move-in date."
         rows={4}
-        className="w-full resize-none rounded-lg border px-3 py-2 text-sm outline-none focus:border-blue-500"
+        className="input resize-none"
       />
-      {status === 'error' && <p className="text-xs text-red-600">{errorMsg}</p>}
+      {status === 'error' && (
+        <p style={{ color: '#8b2020', fontFamily: 'var(--font-mono)' }} className="text-xs">{errorMsg}</p>
+      )}
       <button
         type="submit"
         disabled={status === 'submitting'}
-        className="w-full rounded-lg bg-blue-600 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 disabled:opacity-50"
+        style={{ background: '#2c4a3e', color: '#f4f1eb', width: '100%', fontFamily: 'var(--font-body)' }}
+        className="py-2.5 text-sm font-medium hover:opacity-90 disabled:opacity-50"
       >
         {status === 'submitting' ? 'Sending…' : 'Request Info'}
       </button>

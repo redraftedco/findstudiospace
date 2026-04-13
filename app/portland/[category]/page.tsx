@@ -29,7 +29,12 @@ export default async function CategoryPage({ params }: Props) {
     return <div className="p-8">Page not found.</div>
   }
 
-  let query = supabase.from('listings').select('*').eq('status', 'active').order('is_featured', { ascending: false }).limit(24)
+  let query = supabase
+    .from('listings')
+    .select('*')
+    .eq('status', 'active')
+    .order('is_featured', { ascending: false })
+    .limit(24)
   if (config.listingType) {
     query = query.eq('type', config.listingType)
   }
@@ -52,90 +57,107 @@ export default async function CategoryPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      <main className="mx-auto max-w-4xl px-6 py-10">
-        <nav className="mb-6 text-sm text-gray-700">
-          <Link href="/" className="hover:underline">
-            Portland Studios
-          </Link>
-          {' › '}
-          <span>{config.h1}</span>
-        </nav>
+      <main style={{ background: '#f4f1eb', color: '#1a1814' }} className="min-h-screen">
+        <div className="mx-auto max-w-4xl px-6 py-10">
+          <nav style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mb-6 text-sm">
+            <Link href="/" className="hover:underline">Portland Studios</Link>
+            {' / '}
+            <span>{config.h1}</span>
+          </nav>
 
-        <h1 className="mb-4 text-3xl font-bold">{config.h1}</h1>
-        <p className="mb-8 max-w-2xl text-gray-700">{config.intro}</p>
+          <h1 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="mb-4 text-3xl font-semibold">
+            {config.h1}
+          </h1>
+          <p style={{ color: '#8c8680' }} className="mb-10 max-w-2xl text-sm leading-relaxed">
+            {config.intro}
+          </p>
 
-        {/* Listings */}
-        {listings && listings.length > 0 ? (
-          <>
-            <p className="mb-4 text-sm text-gray-700">
-              {listings.length} space{listings.length !== 1 ? 's' : ''} available
-            </p>
-            <div className="mb-12 grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {listings.map((l) => (
-                <Link
-                  key={l.id}
-                  href={`/listing/${l.id}`}
-                  className="group rounded-xl border bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
-                >
-                  {l.is_featured && (
-                    <span className="mb-2 inline-block rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-semibold text-amber-700">
-                      Featured
-                    </span>
-                  )}
-                  <h3 className="font-semibold leading-snug group-hover:text-blue-600">
-                    {l.title}
-                  </h3>
-                  {l.price_display && (
-                    <p className="mt-1 text-sm font-medium text-blue-700">{l.price_display}</p>
-                  )}
-                  {l.neighborhood && (
-                    <p className="mt-1 text-xs text-gray-700">📍 {l.neighborhood}</p>
-                  )}
-                  {l.description && (
-                    <p className="mt-2 text-xs leading-relaxed text-gray-700 line-clamp-2">
-                      {l.description}
-                    </p>
-                  )}
-                  <p className="mt-3 text-xs font-medium text-blue-600 group-hover:underline">
-                    View space →
-                  </p>
-                </Link>
-              ))}
-            </div>
-          </>
-        ) : (
-          <p className="mb-12 text-gray-700">No spaces listed yet — check back soon.</p>
-        )}
-
-        {/* FAQ */}
-        <section>
-          <h2 className="mb-6 text-xl font-bold">Frequently Asked Questions</h2>
-          <dl className="space-y-6">
-            {config.faqs.map(({ q, a }) => (
-              <div key={q}>
-                <dt className="mb-1 font-semibold text-gray-900">{q}</dt>
-                <dd className="text-sm leading-relaxed text-gray-800">{a}</dd>
+          {listings && listings.length > 0 ? (
+            <>
+              <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mb-5 text-xs">
+                {listings.length} space{listings.length !== 1 ? 's' : ''} available
+              </p>
+              <div className="mb-14 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                {listings.map((l) => (
+                  <Link
+                    key={l.id}
+                    href={`/listing/${l.id}`}
+                    style={{ border: '1px solid #d6d0c4', background: '#edeae2' }}
+                    className="group block p-5 hover:border-[#8c8680] transition-colors"
+                  >
+                    <div className="mb-2 flex flex-wrap gap-2">
+                      {l.is_featured && (
+                        <span style={{ background: '#b8860b', color: '#fff', fontFamily: 'var(--font-mono)' }} className="px-2 py-0.5 text-xs tracking-wider">
+                          FEATURED
+                        </span>
+                      )}
+                      {l.type && (
+                        <span style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="text-xs uppercase">
+                          {l.type}
+                        </span>
+                      )}
+                    </div>
+                    <h3 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="font-semibold leading-snug">
+                      {l.title}
+                    </h3>
+                    {l.price_display && (
+                      <p style={{ fontFamily: 'var(--font-mono)', color: '#1a1814' }} className="mt-2 text-sm font-medium">
+                        {l.price_display}
+                      </p>
+                    )}
+                    {l.neighborhood && (
+                      <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mt-1 text-xs">
+                        {l.neighborhood}
+                      </p>
+                    )}
+                    {l.description && (
+                      <p style={{ color: '#8c8680' }} className="mt-3 text-xs leading-relaxed line-clamp-2">
+                        {l.description}
+                      </p>
+                    )}
+                  </Link>
+                ))}
               </div>
-            ))}
-          </dl>
-        </section>
+            </>
+          ) : (
+            <p style={{ color: '#8c8680' }} className="mb-14">No spaces listed yet — check back soon.</p>
+          )}
 
-        {/* Related pages */}
-        <section className="mt-12 border-t pt-8">
-          <h2 className="mb-3 text-base font-semibold text-gray-700">Related Searches</h2>
-          <ul className="flex flex-wrap gap-3">
-            {config.related.map(({ label, href }) => (
-              <li key={href}>
-                <Link
-                  href={href}
-                  className="rounded border px-3 py-1.5 text-sm transition-colors hover:bg-gray-50"
-                >
-                  {label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
+          {/* FAQ */}
+          <section style={{ borderTop: '1px solid #d6d0c4' }} className="pt-10">
+            <h2 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="mb-6 text-xl font-semibold">
+              Frequently Asked Questions
+            </h2>
+            <dl className="space-y-6">
+              {config.faqs.map(({ q, a }) => (
+                <div key={q}>
+                  <dt style={{ color: '#1a1814' }} className="mb-1 font-medium">{q}</dt>
+                  <dd style={{ color: '#8c8680' }} className="text-sm leading-relaxed">{a}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+
+          {/* Related */}
+          <section style={{ borderTop: '1px solid #d6d0c4' }} className="mt-12 pt-8">
+            <h2 style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mb-4 text-xs uppercase tracking-wider">
+              Related Searches
+            </h2>
+            <ul className="flex flex-wrap gap-3">
+              {config.related.map(({ label, href }) => (
+                <li key={href}>
+                  <Link
+                    href={href}
+                    style={{ border: '1px solid #d6d0c4', color: '#1a1814', fontFamily: 'var(--font-mono)' }}
+                    className="inline-block px-3 py-1.5 text-xs hover:bg-[#edeae2] transition-colors"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        </div>
       </main>
     </>
   )

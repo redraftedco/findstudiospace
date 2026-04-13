@@ -5,16 +5,18 @@ export const metadata: Metadata = { title: 'Listing Submitted | FindStudioSpace'
 
 export default function SuccessPage() {
   return (
-    <main className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+    <main style={{ background: '#f4f1eb' }} className="min-h-screen flex items-center justify-center px-6">
       <div className="max-w-md text-center">
-        <p className="text-4xl">🎉</p>
-        <h1 className="mt-4 text-2xl font-bold">You're live!</h1>
-        <p className="mt-3 text-gray-700">
+        <h1 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="text-2xl font-semibold">
+          You&apos;re live.
+        </h1>
+        <p style={{ color: '#8c8680' }} className="mt-3 text-sm">
           Your featured listing will be published within 24 hours. Check your email for confirmation.
         </p>
         <Link
           href="/"
-          className="mt-6 inline-block rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-semibold text-white hover:bg-blue-700"
+          style={{ background: '#2c4a3e', color: '#f4f1eb' }}
+          className="mt-6 inline-block px-6 py-2.5 text-sm font-medium hover:opacity-90"
         >
           Back to listings
         </Link>

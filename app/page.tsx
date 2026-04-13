@@ -2,54 +2,22 @@ import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 
 const CATEGORIES = [
-  {
-    label: 'Office Space',
-    slug: 'office-space-rental',
-    type: 'office',
-    description: 'Private offices, coworking, and creative suites',
-  },
-  {
-    label: 'Art Studios',
-    slug: 'art-studio',
-    type: 'art',
-    description: 'Private studios, co-ops & ceramics spaces',
-  },
-  {
-    label: 'Workshop Space',
-    slug: 'workshop-space-rental',
-    type: 'workshop',
-    description: 'Garages, warehouses & maker spaces',
-  },
-  {
-    label: 'Retail Space',
-    slug: 'retail-space-for-rent',
-    type: 'retail',
-    description: 'Storefronts and commercial retail listings',
-  },
-  {
-    label: 'Photo Studios',
-    slug: 'photo-studio-rental',
-    type: 'photo',
-    description: 'Professional spaces with lighting & backdrops',
-  },
-  {
-    label: 'Fitness & Dance',
-    slug: 'fitness-studio-rental',
-    type: 'fitness',
-    description: 'Yoga, dance, and movement studios',
-  },
+  { label: 'Office Space', slug: 'office-space-rental', type: 'office' },
+  { label: 'Art Studios', slug: 'art-studio', type: 'art' },
+  { label: 'Workshop Space', slug: 'workshop-space-rental', type: 'workshop' },
+  { label: 'Retail Space', slug: 'retail-space-for-rent', type: 'retail' },
+  { label: 'Photo Studios', slug: 'photo-studio-rental', type: 'photo' },
+  { label: 'Fitness & Dance', slug: 'fitness-studio-rental', type: 'fitness' },
 ]
 
 export default async function Home() {
   const [counts, recentRes] = await Promise.all([
+    supabase.from('listings').select('type').eq('status', 'active'),
     supabase
       .from('listings')
-      .select('type')
-      .eq('status', 'active'),
-    supabase
-      .from('listings')
-      .select('id, title, price_display, neighborhood, type')
+      .select('id, title, price_display, neighborhood, type, is_featured')
       .eq('status', 'active')
+      .order('is_featured', { ascending: false })
       .limit(6),
   ])
 
@@ -59,39 +27,43 @@ export default async function Home() {
     countByType[t] = (countByType[t] ?? 0) + 1
   }
   const total = (counts.data ?? []).length
-
   const recent = recentRes.data ?? []
 
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main style={{ background: '#f4f1eb', color: '#1a1814' }} className="min-h-screen">
       {/* Hero */}
-      <section className="border-b bg-white px-4 py-16 text-center">
-        <h1 className="text-4xl font-bold tracking-tight">
-          Find Studio &amp; Workspace in Portland
-        </h1>
-        <p className="mx-auto mt-3 max-w-lg text-gray-700">
-          Browse {total} verified listings — photo studios, art spaces, offices,
-          workshops, and retail across Portland, OR.
-        </p>
+      <section style={{ borderBottom: '1px solid #d6d0c4' }} className="px-6 py-20">
+        <div className="mx-auto max-w-5xl">
+          <h1 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="text-4xl font-semibold leading-tight">
+            Find studio space in Portland.
+          </h1>
+          <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mt-3 text-sm">
+            {total} spaces listed — photo, art, workshop, office, retail, fitness
+          </p>
+        </div>
       </section>
 
-      <div className="mx-auto max-w-5xl space-y-12 px-4 py-12">
+      <div className="mx-auto max-w-5xl space-y-16 px-6 py-14">
         {/* Categories */}
         <section>
-          <h2 className="mb-5 text-xl font-semibold">Browse by type</h2>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <h2 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="mb-6 text-xl font-semibold">
+            Browse by type
+          </h2>
+          <div className="grid gap-px sm:grid-cols-2 lg:grid-cols-3" style={{ border: '1px solid #d6d0c4' }}>
             {CATEGORIES.map((cat) => {
               const count = countByType[cat.type] ?? 0
               return (
                 <Link
                   key={cat.slug}
                   href={`/portland/${cat.slug}`}
-                  className="group rounded-xl border bg-white p-5 shadow-sm transition-shadow hover:shadow-md"
+                  style={{ background: '#edeae2', borderRight: '1px solid #d6d0c4', borderBottom: '1px solid #d6d0c4' }}
+                  className="group block p-6 hover:bg-[#e5e1d8] transition-colors"
                 >
-                  <p className="font-semibold group-hover:text-blue-600">{cat.label}</p>
-                  <p className="mt-1 text-sm text-gray-700">{cat.description}</p>
-                  <p className="mt-3 text-sm font-medium text-blue-600">
-                    {count} {count === 1 ? 'space' : 'spaces'} available
+                  <p style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="font-semibold">
+                    {cat.label}
+                  </p>
+                  <p style={{ fontFamily: 'var(--font-mono)', color: '#8c8680' }} className="mt-2 text-xs">
+                    {count} {count === 1 ? 'space' : 'spaces'}
                   </p>
                 </Link>
               )
@@ -101,57 +73,59 @@ export default async function Home() {
 
         {/* Recent listings */}
         <section>
-          <div className="mb-5 flex items-center justify-between">
-            <h2 className="text-xl font-semibold">Recent listings</h2>
-            <Link
-              href="/portland/studio-space-rental"
-              className="text-sm text-blue-600 hover:underline"
-            >
-              View all →
-            </Link>
-          </div>
-
+          <h2 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="mb-6 text-xl font-semibold">
+            Recent listings
+          </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {recent.map((listing) => (
               <Link
                 key={listing.id}
                 href={`/listing/${listing.id}`}
-                className="group rounded-xl border bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
+                style={{ border: '1px solid #d6d0c4', background: '#edeae2' }}
+                className="group block p-4 hover:border-[#8c8680] transition-colors"
               >
-                {listing.type && (
-                  <span className="mb-2 inline-block rounded-full bg-gray-100 px-2.5 py-0.5 text-xs text-gray-800">
-                    {listing.type}
-                  </span>
-                )}
-                <h3 className="font-semibold leading-snug group-hover:text-blue-600">
+                <div className="mb-2 flex gap-2">
+                  {listing.is_featured && (
+                    <span style={{ background: '#b8860b', color: '#fff', fontFamily: 'var(--font-mono)' }} className="px-2 py-0.5 text-xs font-medium tracking-wider">
+                      FEATURED
+                    </span>
+                  )}
+                  {listing.type && (
+                    <span style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="text-xs uppercase">
+                      {listing.type}
+                    </span>
+                  )}
+                </div>
+                <h3 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="font-semibold leading-snug">
                   {listing.title ?? 'Untitled listing'}
                 </h3>
                 {listing.price_display && (
-                  <p className="mt-1 text-sm font-medium text-blue-700">
+                  <p style={{ fontFamily: 'var(--font-mono)', color: '#1a1814' }} className="mt-2 text-sm font-medium">
                     {listing.price_display}
                   </p>
                 )}
                 {listing.neighborhood && (
-                  <p className="mt-1 text-xs text-gray-700">📍 {listing.neighborhood}</p>
+                  <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mt-1 text-xs">
+                    {listing.neighborhood}
+                  </p>
                 )}
-                <p className="mt-3 text-xs font-medium text-blue-600 group-hover:underline">
-                  View space →
-                </p>
               </Link>
             ))}
           </div>
         </section>
 
         {/* List your space CTA */}
-        <section className="rounded-xl border bg-white p-8 text-center shadow-sm">
-          <h2 className="text-xl font-bold">Own or manage a studio?</h2>
-          <p className="mx-auto mt-2 max-w-md text-sm text-gray-700">
-            List your space free and reach Portland creatives, makers, and
-            business owners searching right now.
+        <section style={{ border: '1px solid #d6d0c4', background: '#edeae2' }} className="p-10 text-center">
+          <h2 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="text-xl font-semibold">
+            Own or manage a studio?
+          </h2>
+          <p style={{ color: '#8c8680' }} className="mx-auto mt-3 max-w-md text-sm">
+            List your space free and reach Portland creatives, makers, and business owners searching right now.
           </p>
           <Link
             href="/list-your-space"
-            className="mt-5 inline-block rounded-lg bg-blue-600 px-6 py-3 text-sm font-semibold text-white hover:bg-blue-700"
+            style={{ background: '#2c4a3e', color: '#f4f1eb' }}
+            className="mt-6 inline-block px-8 py-3 text-sm font-medium hover:opacity-90"
           >
             List your space →
           </Link>
