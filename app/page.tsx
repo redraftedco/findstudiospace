@@ -100,7 +100,7 @@ export default async function Home() {
                 outline: 'none',
                 borderRight: 'none',
               }}
-              className="flex-1 px-4 text-sm focus:border-[#2c4a3e]"
+              className="hero-search-input flex-1 px-4 text-sm placeholder:text-[#6b6762]"
             />
             <button
               type="submit"
