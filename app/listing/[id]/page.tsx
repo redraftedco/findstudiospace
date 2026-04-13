@@ -82,6 +82,17 @@ export default async function ListingPage({ params }: Props) {
 
   const priceFormatted = formatPrice(listing.price_display)
 
+  function timeAgo(dateStr: string | null | undefined): string | null {
+    if (!dateStr) return null
+    const days = Math.floor((Date.now() - new Date(dateStr).getTime()) / (1000 * 60 * 60 * 24))
+    if (days === 0) return 'Listed today'
+    if (days === 1) return 'Listed yesterday'
+    if (days < 30) return `Listed ${days} days ago`
+    if (days < 90) return `Listed ${Math.floor(days / 7)} weeks ago`
+    return `Listed ${Math.floor(days / 30)} months ago`
+  }
+  const timestamp = timeAgo(listing.created_at)
+
   return (
     <main style={{ background: '#f4f1eb', color: '#1a1814' }} className="min-h-screen">
       <div className="mx-auto max-w-5xl px-6 py-8">
@@ -114,10 +125,17 @@ export default async function ListingPage({ params }: Props) {
         </h1>
 
         {/* Metadata row */}
-        <div style={{ fontFamily: 'var(--font-mono)', color: '#8c8680', borderBottom: '1px solid #d6d0c4' }} className="mb-6 flex flex-wrap items-center gap-x-4 gap-y-1 pb-4 text-sm">
-          <span style={{ color: '#1a1814', fontWeight: 500 }}>{priceFormatted}</span>
-          {listing.neighborhood && <span>{listing.neighborhood}</span>}
-          {listing.square_footage && <span>{listing.square_footage.toLocaleString('en-US')} sq ft</span>}
+        <div style={{ fontFamily: 'var(--font-mono)', color: '#8c8680', borderBottom: '1px solid #d6d0c4' }} className="mb-6 pb-4 text-sm">
+          {[
+            <span key="price" style={{ color: '#1a1814', fontWeight: 500 }}>{priceFormatted}</span>,
+            listing.neighborhood ? <span key="hood">{listing.neighborhood}</span> : null,
+            listing.square_footage ? <span key="sqft">{listing.square_footage.toLocaleString('en-US')} SF</span> : null,
+            timestamp ? <span key="ts">{timestamp}</span> : null,
+          ].filter(Boolean).reduce<React.ReactNode[]>((acc, el, i) => {
+            if (i > 0) acc.push(<span key={`sep-${i}`} style={{ margin: '0 0.4rem' }}>·</span>)
+            acc.push(el)
+            return acc
+          }, [])}
         </div>
 
         {/* Two-column layout */}
@@ -134,9 +152,19 @@ export default async function ListingPage({ params }: Props) {
               // eslint-disable-next-line @next/next/no-img-element
               <img src={images[0]} alt="" className="mb-6 w-full" style={{ height: '400px', objectFit: 'cover', display: 'block' }} />
             ) : (
-              <div className="mb-6 grid gap-2" style={{ gridTemplateColumns: images.length >= 3 ? '2fr 1fr' : '1fr 1fr' }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={images[0]} alt="" style={{ height: '400px', objectFit: 'cover', display: 'block', width: '100%', gridRow: images.length >= 3 ? '1 / 3' : undefined }} />
+              <div className="mb-6 grid gap-2" style={{ gridTemplateColumns: images.length >= 3 ? '2fr 1fr' : '1fr 1fr', position: 'relative' }}>
+                <div style={{ position: 'relative' }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={images[0]} alt="" style={{ height: '400px', objectFit: 'cover', display: 'block', width: '100%', gridRow: images.length >= 3 ? '1 / 3' : undefined }} />
+                  <span style={{
+                    position: 'absolute', top: '8px', right: '8px',
+                    background: 'rgba(26,24,20,0.6)', color: '#f4f1eb',
+                    fontFamily: 'var(--font-mono)', fontSize: '0.72rem',
+                    padding: '2px 8px',
+                  }}>
+                    {images.length} photos
+                  </span>
+                </div>
                 {images.slice(1, images.length >= 3 ? 3 : 2).map((src, i) => (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img key={i} src={src} alt="" style={{ height: images.length >= 3 ? '196px' : '400px', objectFit: 'cover', display: 'block', width: '100%' }} />

@@ -11,6 +11,7 @@ type Listing = {
   type: string | null
   images: unknown
   description: string | null
+  created_at: string | null
 }
 
 type Props = {
@@ -26,6 +27,16 @@ function getThumb(images: unknown): string | null {
     }
   }
   return null
+}
+
+function timeAgo(dateStr: string | null | undefined): string | null {
+  if (!dateStr) return null
+  const days = Math.floor((Date.now() - new Date(dateStr).getTime()) / (1000 * 60 * 60 * 24))
+  if (days === 0) return 'Listed today'
+  if (days === 1) return 'Listed yesterday'
+  if (days < 30) return `Listed ${days} days ago`
+  if (days < 90) return `Listed ${Math.floor(days / 7)} weeks ago`
+  return `Listed ${Math.floor(days / 30)} months ago`
 }
 
 export default function CategoryFilter({ listings }: Props) {
@@ -45,7 +56,6 @@ export default function CategoryFilter({ listings }: Props) {
     return listings.filter((l) => {
       if (neighborhood && l.neighborhood !== neighborhood) return false
       if (minPrice || maxPrice) {
-        // Extract number from price_display like "$500/mo" or "500"
         const match = l.price_display?.replace(/[^0-9]/g, '')
         const price = match ? Number(match) : null
         if (price === null) return !minPrice && !maxPrice
@@ -65,7 +75,6 @@ export default function CategoryFilter({ listings }: Props) {
         style={{ borderTop: '1px solid #d6d0c4', borderBottom: '1px solid #d6d0c4', background: '#edeae2' }}
         className="mb-6 flex flex-wrap items-end gap-4 px-0 py-4"
       >
-        {/* Neighborhood */}
         <div className="flex flex-col gap-1">
           <label style={{ fontFamily: 'var(--font-mono)', color: '#8c8680' }} className="text-xs uppercase">
             Neighborhood
@@ -90,7 +99,6 @@ export default function CategoryFilter({ listings }: Props) {
           </select>
         </div>
 
-        {/* Price range */}
         <div className="flex flex-col gap-1">
           <label style={{ fontFamily: 'var(--font-mono)', color: '#8c8680' }} className="text-xs uppercase">
             Price range
@@ -132,7 +140,6 @@ export default function CategoryFilter({ listings }: Props) {
           </div>
         </div>
 
-        {/* Clear */}
         {hasFilters && (
           <button
             onClick={() => { setNeighborhood(''); setMinPrice(''); setMaxPrice('') }}
@@ -153,6 +160,8 @@ export default function CategoryFilter({ listings }: Props) {
         <div className="listing-grid mb-14">
           {filtered.map((l) => {
             const thumb = getThumb(l.images)
+            const timestamp = timeAgo(l.created_at)
+            const hasPrice = !!l.price_display
             return (
               <Link
                 key={l.id}
@@ -162,7 +171,7 @@ export default function CategoryFilter({ listings }: Props) {
               >
                 {thumb ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={thumb} alt="" className="w-full object-cover listing-card-placeholder" style={{ objectFit: 'cover', height: '200px' }} />
+                  <img src={thumb} alt="" className="w-full listing-card-placeholder" style={{ objectFit: 'cover', height: '200px' }} />
                 ) : (
                   <div className="listing-card-placeholder" />
                 )}
@@ -172,16 +181,32 @@ export default function CategoryFilter({ listings }: Props) {
                       {l.type}
                     </p>
                   )}
+                  {l.neighborhood && (
+                    <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mb-1 text-xs">
+                      {l.neighborhood.trim()}
+                    </p>
+                  )}
                   <h3 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="line-clamp-2 font-semibold leading-snug">
                     {l.title}
                   </h3>
-                  <div style={{ fontFamily: 'var(--font-mono)', color: '#8c8680' }} className="mt-2 text-xs">
-                    <span>{l.price_display ?? 'Price on request'}</span>
-                    {l.neighborhood && <span> · {l.neighborhood}</span>}
-                  </div>
+                  <p
+                    style={{
+                      fontFamily: 'var(--font-mono)',
+                      color: hasPrice ? '#1a1814' : '#8c8680',
+                      fontStyle: hasPrice ? 'normal' : 'italic',
+                    }}
+                    className="mt-2 text-xs"
+                  >
+                    {hasPrice ? l.price_display : 'Price on request'}
+                  </p>
                   <p style={{ color: '#2c4a3e' }} className="mt-auto pt-3 text-xs font-medium">
                     View space →
                   </p>
+                  {timestamp && (
+                    <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mt-1 text-xs">
+                      {timestamp}
+                    </p>
+                  )}
                 </div>
               </Link>
             )

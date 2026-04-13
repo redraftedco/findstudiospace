@@ -63,6 +63,9 @@ export default function InquiryForm({ listingId }: Props) {
       {status === 'error' && (
         <p style={{ color: '#8b2020', fontFamily: 'var(--font-mono)' }} className="text-xs">{errorMsg}</p>
       )}
+      <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="text-center text-xs">
+        Your contact info goes only to this host — never shared or sold.
+      </p>
       <button
         type="submit"
         disabled={status === 'submitting'}
@@ -71,9 +74,6 @@ export default function InquiryForm({ listingId }: Props) {
       >
         {status === 'submitting' ? 'Sending…' : 'Request Studio Info'}
       </button>
-      <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="text-center text-xs">
-        Your info is only shared with this space&apos;s host.
-      </p>
     </form>
   )
 }
