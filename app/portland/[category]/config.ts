@@ -10,7 +10,7 @@ export type CategoryConfig = {
 
 export const categoryConfigs: Record<string, CategoryConfig> = {
   'photo-studio-rental': {
-    title: 'Photo Studio Rental in Portland, OR | Portland Studios',
+    title: 'Photo Studio Rental in Portland, OR | FindStudioSpace',
     metaDescription:
       'Rent a photo studio in Portland, OR. Browse professional photography spaces with backdrops, lighting, and hourly rates. Book today.',
     h1: 'Photo Studio Rental in Portland',
@@ -47,7 +47,7 @@ export const categoryConfigs: Record<string, CategoryConfig> = {
   },
 
   'photo-studio-near-me': {
-    title: 'Photo Studio Near Me — Portland, OR | Portland Studios',
+    title: 'Photo Studio Near Me — Portland, OR | FindStudioSpace',
     metaDescription:
       'Looking for a photo studio near you in Portland? Browse nearby photography studios available by the hour with instant booking.',
     h1: 'Photo Studios Near You in Portland, OR',
@@ -84,7 +84,7 @@ export const categoryConfigs: Record<string, CategoryConfig> = {
   },
 
   'music-recording-studio': {
-    title: 'Music Recording Studio in Portland, OR | Portland Studios',
+    title: 'Music Recording Studio in Portland, OR | FindStudioSpace',
     metaDescription:
       'Book a professional music recording studio in Portland, OR. Find spaces with isolation booths, mixing consoles, and producer access. Hourly and daily rates.',
     h1: 'Music Recording Studios in Portland, OR',
@@ -121,7 +121,7 @@ export const categoryConfigs: Record<string, CategoryConfig> = {
   },
 
   'music-studio-near-me': {
-    title: 'Music Studio Near Me — Portland, OR | Portland Studios',
+    title: 'Music Studio Near Me — Portland, OR | FindStudioSpace',
     metaDescription:
       'Find a music studio near you in Portland, OR. Practice rooms, recording suites, and rehearsal spaces available by the hour.',
     h1: 'Music Studios Near You in Portland, OR',
@@ -158,7 +158,7 @@ export const categoryConfigs: Record<string, CategoryConfig> = {
   },
 
   'art-studio-near-me': {
-    title: 'Art Studio Near Me — Portland, OR | Portland Studios',
+    title: 'Art Studio Near Me — Portland, OR | FindStudioSpace',
     metaDescription:
       'Find an art studio near you in Portland, OR. Rent studio space for painting, sculpture, ceramics, and more. Hourly and monthly options.',
     h1: 'Art Studios Near You in Portland, OR',
@@ -195,7 +195,7 @@ export const categoryConfigs: Record<string, CategoryConfig> = {
   },
 
   'art-studio': {
-    title: 'Art Studio Space in Portland, OR | Portland Studios',
+    title: 'Art Studio Space in Portland, OR | FindStudioSpace',
     metaDescription:
       'Browse art studio spaces in Portland, OR. Private studios, shared co-working space, and event-ready venues for visual artists.',
     h1: 'Art Studio Space in Portland, OR',
@@ -232,7 +232,7 @@ export const categoryConfigs: Record<string, CategoryConfig> = {
   },
 
   'home-music-studio-spaces': {
-    title: 'Home Music Studio Spaces in Portland, OR | Portland Studios',
+    title: 'Home Music Studio Spaces in Portland, OR | FindStudioSpace',
     metaDescription:
       'Find home-style music studio spaces in Portland, OR — compact, private, and fully equipped. Ideal for solo artists, podcasters, and producers.',
     h1: 'Home Music Studio Spaces in Portland, OR',
@@ -269,7 +269,7 @@ export const categoryConfigs: Record<string, CategoryConfig> = {
   },
 
   'kids-art-studio-spaces': {
-    title: 'Kids Art Studio Spaces in Portland, OR | Portland Studios',
+    title: 'Kids Art Studio Spaces in Portland, OR | FindStudioSpace',
     metaDescription:
       'Find kids art studio spaces in Portland, OR. Family-friendly studios for classes, birthday parties, and youth art programs.',
     h1: 'Kids Art Studio Spaces in Portland, OR',
@@ -306,7 +306,7 @@ export const categoryConfigs: Record<string, CategoryConfig> = {
   },
 
   'studio-space-for-creators': {
-    title: 'Studio Space for Creators in Portland, OR | Portland Studios',
+    title: 'Studio Space for Creators in Portland, OR | FindStudioSpace',
     metaDescription:
       'Browse studio spaces for creators in Portland, OR — photography, music, art, content creation, and more. Flexible hourly and monthly rentals.',
     h1: 'Studio Space for Creators in Portland, OR',
@@ -343,7 +343,7 @@ export const categoryConfigs: Record<string, CategoryConfig> = {
   },
 
   'studio-space-rental': {
-    title: 'Studio Space Rental in Portland, OR | Portland Studios',
+    title: 'Studio Space Rental in Portland, OR | FindStudioSpace',
     metaDescription:
       'Rent studio space in Portland, OR. Find hourly, daily, and monthly studio rentals for photography, music, art, and more.',
     h1: 'Studio Space Rental in Portland, OR',
@@ -380,7 +380,7 @@ export const categoryConfigs: Record<string, CategoryConfig> = {
   },
 
   'office-space-rental': {
-    title: 'Office Space Rental in Portland, OR | Portland Studios',
+    title: 'Office Space Rental in Portland, OR | FindStudioSpace',
     metaDescription:
       'Find office space for rent in Portland, OR. Private offices, creative suites, and coworking spaces with flexible terms.',
     h1: 'Office Space Rental in Portland, OR',
@@ -402,7 +402,7 @@ export const categoryConfigs: Record<string, CategoryConfig> = {
   },
 
   'workshop-space-rental': {
-    title: 'Workshop Space for Rent in Portland, OR | Portland Studios',
+    title: 'Workshop Space for Rent in Portland, OR | FindStudioSpace',
     metaDescription:
       'Rent workshop, garage, and warehouse space in Portland, OR. Maker spaces, woodworking shops, and flex industrial units available.',
     h1: 'Workshop Space for Rent in Portland, OR',
@@ -424,7 +424,7 @@ export const categoryConfigs: Record<string, CategoryConfig> = {
   },
 
   'retail-space-for-rent': {
-    title: 'Retail Space for Rent in Portland, OR | Portland Studios',
+    title: 'Retail Space for Rent in Portland, OR | FindStudioSpace',
     metaDescription:
       'Find retail space for rent in Portland, OR. Storefronts, pop-up spaces, and commercial retail listings across Portland neighborhoods.',
     h1: 'Retail Space for Rent in Portland, OR',
@@ -446,7 +446,7 @@ export const categoryConfigs: Record<string, CategoryConfig> = {
   },
 
   'fitness-studio-rental': {
-    title: 'Fitness & Dance Studio Rental in Portland, OR | Portland Studios',
+    title: 'Fitness & Dance Studio Rental in Portland, OR | FindStudioSpace',
     metaDescription:
       'Rent a fitness or dance studio in Portland, OR. Yoga studios, dance floors, and movement spaces available by the hour or month.',
     h1: 'Fitness & Dance Studio Rental in Portland, OR',
