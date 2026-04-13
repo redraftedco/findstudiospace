@@ -167,7 +167,7 @@ export default function ListYourSpacePage() {
           <button
             type="submit"
             disabled={status === 'submitting'}
-            style={{ background: '#2c4a3e', color: '#f4f1eb', width: '100%' }}
+            style={{ width: '100%' }}
             className="btn-action py-3 text-sm font-medium"
           >
             {status === 'submitting' ? 'Submitting…' : 'Submit'}

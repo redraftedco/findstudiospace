@@ -1,17 +1,17 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { IBM_Plex_Serif, IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google'
+import { Space_Grotesk, Inter, IBM_Plex_Mono } from 'next/font/google'
 import './globals.css'
 
-const plexSerif = IBM_Plex_Serif({
+const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
-  weight: ['400', '600'],
-  variable: '--font-plex-serif',
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-space-grotesk',
 })
-const plexSans = IBM_Plex_Sans({
+const inter = Inter({
   subsets: ['latin'],
   weight: ['400', '500', '600'],
-  variable: '--font-plex-sans',
+  variable: '--font-inter',
 })
 const plexMono = IBM_Plex_Mono({
   subsets: ['latin'],
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${plexSerif.variable} ${plexSans.variable} ${plexMono.variable}`}>
+    <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable} ${plexMono.variable}`}>
       <body>
         <header style={{ borderBottom: '1px solid #d6d0c4', background: '#f4f1eb' }} className="px-6 py-4">
           <div className="mx-auto flex max-w-5xl items-center justify-between">
