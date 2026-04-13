@@ -61,11 +61,18 @@ export default async function ListingPage({ params }: Props) {
 
         <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_360px]">
           <div className="rounded-xl border bg-white p-6 shadow-sm">
-            {listing.type && (
-              <span className="mb-3 inline-block rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700">
-                {listing.type}
-              </span>
-            )}
+            <div className="mb-3 flex flex-wrap gap-2">
+              {listing.type && (
+                <span className="inline-block rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700">
+                  {listing.type}
+                </span>
+              )}
+              {listing.is_featured && (
+                <span className="inline-block rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-700">
+                  Featured
+                </span>
+              )}
+            </div>
             <h1 className="text-2xl font-bold leading-snug">{listing.title ?? 'Untitled listing'}</h1>
 
             <div className="mt-4 space-y-1">
@@ -103,6 +110,17 @@ export default async function ListingPage({ params }: Props) {
             <p className="mt-1 mb-4 text-sm text-gray-500">Landlords typically respond within 24 hours.</p>
             <InquiryForm listingId={String(listing.id)} listingTitle={listing.title ?? 'this listing'} />
           </div>
+        </div>
+        {/* CTA */}
+        <div className="mt-8 rounded-xl border bg-white p-6 text-center shadow-sm">
+          <p className="font-semibold">Own a studio or workspace?</p>
+          <p className="mt-1 text-sm text-gray-500">List your space free and reach Portland creatives searching right now.</p>
+          <a
+            href="/list-your-space"
+            className="mt-4 inline-block rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-semibold text-white hover:bg-blue-700"
+          >
+            List your space →
+          </a>
         </div>
       </div>
     </main>

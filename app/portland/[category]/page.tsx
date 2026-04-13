@@ -29,7 +29,7 @@ export default async function CategoryPage({ params }: Props) {
     return <div className="p-8">Page not found.</div>
   }
 
-  let query = supabase.from('listings').select('*').eq('status', 'active').limit(24)
+  let query = supabase.from('listings').select('*').eq('status', 'active').order('is_featured', { ascending: false }).limit(24)
   if (config.listingType) {
     query = query.eq('type', config.listingType)
   }
@@ -77,6 +77,11 @@ export default async function CategoryPage({ params }: Props) {
                   href={`/listing/${l.id}`}
                   className="group rounded-xl border bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
                 >
+                  {l.is_featured && (
+                    <span className="mb-2 inline-block rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-semibold text-amber-700">
+                      Featured
+                    </span>
+                  )}
                   <h3 className="font-semibold leading-snug group-hover:text-blue-600">
                     {l.title}
                   </h3>

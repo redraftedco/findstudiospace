@@ -27,10 +27,7 @@ SEARCHES = [
     ("off", "music studio"),
     ("off", "recording studio"),
     ("off", "rehearsal space"),
-    ("sub", "photo studio"),
-    ("sub", "music studio"),
-    ("reb", "photo studio"),
-    ("reb", "music studio"),
+    ("off", "darkroom rental"),
 ]
 
 TYPE_KEYWORDS = {
@@ -58,8 +55,8 @@ def search_craigslist(category: str, query: str) -> list[str]:
     soup = BeautifulSoup(r.text, "html.parser")
     return [
         a["href"]
-        for a in soup.select("a.posting-title, a.cl-app-anchor.text-only")
-        if a.get("href", "").startswith("https://")
+        for a in soup.find_all("a", href=True)
+        if "/d/" in a["href"] and "craigslist.org" in a["href"]
     ]
 
 
@@ -111,7 +108,7 @@ def main():
     seen: set[str] = set()
 
     for category, query in SEARCHES:
-        print(f"\n→ {category}: {query}")
+        print(f"\n> {category}: {query}")
         try:
             urls = search_craigslist(category, query)
         except Exception as e:
