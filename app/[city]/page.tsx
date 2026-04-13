@@ -108,12 +108,11 @@ export default async function CityPage({ params }: PageProps) {
   }
 
   const [countsRes, recentRes] = await Promise.all([
-    supabase.from('listings').select('type').eq('status', 'active').ilike('city', config.displayName),
+    supabase.from('listings').select('type').eq('status', 'active'),
     supabase
       .from('listings')
       .select('id, title, price_display, neighborhood, type, images, description, created_at')
       .eq('status', 'active')
-      .ilike('city', config.displayName)
       .limit(24),
   ])
 
