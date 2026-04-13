@@ -41,157 +41,9 @@ export const categoryConfigs: Record<string, CategoryConfig> = {
       },
     ],
     related: [
-      { label: 'Photo Studio Near Me in Portland', href: '/portland/photo-studio-near-me' },
       { label: 'Art Studio for Rent', href: '/portland/art-studio-rental' },
-      { label: 'Studio Space for Creators', href: '/portland/studio-space-for-creators' },
-    ],
-  },
-
-  'photo-studio-near-me': {
-    title: 'Photo Studio Near Me — Portland, OR | FindStudioSpace',
-    metaDescription:
-      'Looking for a photo studio near you in Portland? Browse nearby photography studios available by the hour with instant booking.',
-    h1: 'Photo Studios Near You in Portland, OR',
-    intro:
-      'Need a photo studio close by in Portland? Browse studios by neighborhood — from NE Portland and the Pearl District to SE and Beaverton. All spaces are renter-verified and available to book directly.',
-    listingType: 'photo',
-    faqs: [
-      {
-        q: 'Where are photo studios located in Portland?',
-        a: 'Studios are spread across Portland neighborhoods including the Pearl District, Central Eastside Industrial District, NE Alberta, and SE Division. Use the map view to find the closest option.',
-      },
-      {
-        q: 'How do I find a photo studio open today in Portland?',
-        a: 'Filter by date on the listing page to see real-time availability. Many Portland studios offer same-day booking.',
-      },
-      {
-        q: 'Are there small photo studios for solo shoots in Portland?',
-        a: 'Yes. Several smaller studios are designed for solo portrait or product photography and rent for as low as $35/hr.',
-      },
-      {
-        q: 'Do Portland photo studios have parking?',
-        a: 'It varies by location. Many Industrial District studios have on-site parking. Studios in denser neighborhoods like the Pearl may rely on street parking — check the listing details.',
-      },
-      {
-        q: 'Can I tour a Portland photo studio before booking?',
-        a: 'Some hosts offer walkthroughs by request. Message the host through the listing page to arrange a preview visit.',
-      },
-    ],
-    related: [
-      { label: 'Photo Studio Rental in Portland', href: '/portland/photo-studio-rental' },
-      { label: 'Studio Space for Creators', href: '/portland/studio-space-for-creators' },
+      { label: 'Workshop Space for Rent', href: '/portland/workshop-space-rental' },
       { label: 'Studio Space Rental', href: '/portland/studio-space-rental' },
-    ],
-  },
-
-  'music-recording-studio': {
-    title: 'Music Recording Studio in Portland, OR | FindStudioSpace',
-    metaDescription:
-      'Book a professional music recording studio in Portland, OR. Find spaces with isolation booths, mixing consoles, and producer access. Hourly and daily rates.',
-    h1: 'Music Recording Studios in Portland, OR',
-    intro:
-      'Portland has a thriving music scene — and the recording studios to match. From analog-equipped tracking rooms to modern digital setups, find the right space for your next session. Browse Portland recording studios below, compare rates, and book direct.',
-    listingType: 'music',
-    faqs: [
-      {
-        q: 'How much does recording studio time cost in Portland?',
-        a: "Portland recording studios typically run $40–$200/hr. Fully staffed sessions with an in-house engineer cost more; self-op studio rentals are on the lower end. Many offer block-booking discounts for 10+ hour sessions.",
-      },
-      {
-        q: 'Do Portland recording studios include an engineer?',
-        a: 'Some do, some are self-op (bring your own engineer or record yourself). Listings will specify — filter for "engineer included" if you need one.',
-      },
-      {
-        q: 'Can I record a full band in a Portland studio?',
-        a: 'Yes. Several studios have large live rooms designed for full-band tracking with isolation. Check the room capacity and layout in each listing.',
-      },
-      {
-        q: 'What DAWs are available at Portland recording studios?',
-        a: 'Pro Tools, Logic Pro, and Ableton Live are the most common. Some studios also have hardware outboard gear. Gear lists are included in each listing.',
-      },
-      {
-        q: 'Are there affordable recording studios in Portland for independent artists?',
-        a: 'Yes. Budget-friendly self-op studios start around $40/hr. Some spaces also offer demo packages or introductory rates for first-time renters.',
-      },
-    ],
-    related: [
-      { label: 'Music Studio Near Me in Portland', href: '/portland/music-studio-near-me' },
-      { label: 'Home Music Studio Spaces', href: '/portland/home-music-studio-spaces' },
-      { label: 'Studio Space for Creators', href: '/portland/studio-space-for-creators' },
-    ],
-  },
-
-  'music-studio-near-me': {
-    title: 'Music Studio Near Me — Portland, OR | FindStudioSpace',
-    metaDescription:
-      'Find a music studio near you in Portland, OR. Practice rooms, recording suites, and rehearsal spaces available by the hour.',
-    h1: 'Music Studios Near You in Portland, OR',
-    intro:
-      'Whether you need a rehearsal room, a practice space, or a full recording suite, Portland has music studios across every neighborhood. Browse by location to find what\'s closest, compare hourly rates, and book instantly.',
-    listingType: 'music',
-    faqs: [
-      {
-        q: 'Where are music studios located in Portland?',
-        a: "Music studios are spread throughout Portland, with clusters in NE, SE, and the Central Eastside. Use the map to filter by your neighborhood.",
-      },
-      {
-        q: 'Can I rent a music studio just for practice in Portland?',
-        a: 'Yes. Many listings are practice rooms or rehearsal spaces — not full recording setups. They\'re ideal for band rehearsals, solo practice, or pre-show warmups.',
-      },
-      {
-        q: 'Are Portland music studios soundproofed?',
-        a: 'Most are, but the quality varies. Recording studios are fully isolated; rehearsal rooms may have basic soundproofing. Check individual listings for details.',
-      },
-      {
-        q: 'Do Portland music studios have drum kits available?',
-        a: 'Many rehearsal spaces include a backline (drums, amps). Check the gear list in each listing before booking.',
-      },
-      {
-        q: 'How late can I book a Portland music studio?',
-        a: "Hours vary by host. Some studios offer late-night availability for an additional fee. Check the listing's availability calendar.",
-      },
-    ],
-    related: [
-      { label: 'Music Recording Studio in Portland', href: '/portland/music-recording-studio' },
-      { label: 'Home Music Studio Spaces', href: '/portland/home-music-studio-spaces' },
-      { label: 'Studio Space Rental', href: '/portland/studio-space-rental' },
-    ],
-  },
-
-  'art-studio-near-me': {
-    title: 'Art Studio Near Me — Portland, OR | FindStudioSpace',
-    metaDescription:
-      'Find an art studio near you in Portland, OR. Rent studio space for painting, sculpture, ceramics, and more. Hourly and monthly options.',
-    h1: 'Art Studios Near You in Portland, OR',
-    intro:
-      'Portland\'s art community is one of the most active in the Pacific Northwest. Find a nearby studio space for painting, drawing, ceramics, or mixed media — available by the hour, day, or month. Browse listings below.',
-    listingType: 'art',
-    faqs: [
-      {
-        q: 'Can I rent an art studio by the hour in Portland?',
-        a: 'Yes. Many Portland art studios offer hourly access in addition to monthly memberships. Hourly rates typically start around $15–$30/hr for open studio time.',
-      },
-      {
-        q: 'Are there art studios with ceramics or kilns in Portland?',
-        a: "Yes. Several Portland studios have ceramics facilities including wheels, hand-building space, and kiln access. Filter by 'ceramics' to find them.",
-      },
-      {
-        q: 'Do Portland art studios provide supplies?',
-        a: "It depends on the space. Some provide shared supplies (easels, basic paints); others are BYOS (bring your own supplies). Check the listing description.",
-      },
-      {
-        q: 'Are there open studio nights at Portland art spaces?',
-        a: "Many co-working art studios host open studio nights or drop-in sessions. These are great for trying out a space before committing to a longer rental.",
-      },
-      {
-        q: 'Can I use a Portland art studio for a private class or workshop?',
-        a: "Yes. Several studios can be rented for private instruction or group workshops. Look for listings with event or class rental options.",
-      },
-    ],
-    related: [
-      { label: 'Art Studio in Portland', href: '/portland/art-studio' },
-      { label: 'Kids Art Studio Spaces', href: '/portland/kids-art-studio-spaces' },
-      { label: 'Studio Space for Creators', href: '/portland/studio-space-for-creators' },
     ],
   },
 
@@ -226,120 +78,9 @@ export const categoryConfigs: Record<string, CategoryConfig> = {
       },
     ],
     related: [
-      { label: 'Art Studio Near Me', href: '/portland/art-studio-near-me' },
-      { label: 'Kids Art Studio Spaces', href: '/portland/kids-art-studio-spaces' },
+      { label: 'Art Studio for Rent', href: '/portland/art-studio-rental' },
+      { label: 'Ceramics Studio for Rent', href: '/portland/ceramics-studio-rental' },
       { label: 'Photo Studio Rental', href: '/portland/photo-studio-rental' },
-    ],
-  },
-
-  'home-music-studio-spaces': {
-    title: 'Home Music Studio Spaces in Portland, OR | FindStudioSpace',
-    metaDescription:
-      'Find home-style music studio spaces in Portland, OR — compact, private, and fully equipped. Ideal for solo artists, podcasters, and producers.',
-    h1: 'Home Music Studio Spaces in Portland, OR',
-    intro:
-      'Not every session needs a full commercial studio. Portland has a range of home-style music spaces — compact, private rooms set up for recording, production, and practice without the commercial price tag. Browse options below.',
-    listingType: 'music',
-    faqs: [
-      {
-        q: 'What is a home music studio space?',
-        a: "A home music studio space is a smaller, often residential-style recording or production room — typically set up for solo work, podcasting, voice-over, or indie music production. They're more affordable than full commercial studios.",
-      },
-      {
-        q: 'Are home music studios in Portland soundproofed?',
-        a: "Quality varies. Look for listings that specify soundproofing treatment — acoustic panels, isolation improvements, or dedicated recording booths.",
-      },
-      {
-        q: 'Can I record vocals in a Portland home studio space?',
-        a: "Yes. Many home studio listings are specifically set up for vocal recording with a treated booth or isolated recording corner.",
-      },
-      {
-        q: 'What equipment is typically in a Portland home music studio?',
-        a: "Common setups include an audio interface, studio monitors, a condenser mic, and a DAW-loaded computer (often Logic or Ableton). Gear lists are in each listing.",
-      },
-      {
-        q: 'Is a home music studio space good for podcast recording?',
-        a: "Yes — home studio spaces are often ideal for podcast production due to their treated acoustic environment and compact setup.",
-      },
-    ],
-    related: [
-      { label: 'Music Recording Studio in Portland', href: '/portland/music-recording-studio' },
-      { label: 'Music Studio Near Me', href: '/portland/music-studio-near-me' },
-      { label: 'Studio Space for Creators', href: '/portland/studio-space-for-creators' },
-    ],
-  },
-
-  'kids-art-studio-spaces': {
-    title: 'Kids Art Studio Spaces in Portland, OR | FindStudioSpace',
-    metaDescription:
-      'Find kids art studio spaces in Portland, OR. Family-friendly studios for classes, birthday parties, and youth art programs.',
-    h1: 'Kids Art Studio Spaces in Portland, OR',
-    intro:
-      'Looking for a creative space for kids in Portland? Browse family-friendly art studios available for birthday parties, after-school classes, youth workshops, and more. All spaces below are suitable for children.',
-    listingType: 'art',
-    faqs: [
-      {
-        q: 'Can I rent an art studio in Portland for a kids birthday party?',
-        a: "Yes. Several Portland art studios specialize in birthday party rentals with setup, supplies, and instructor options available. Check for minimum headcount requirements.",
-      },
-      {
-        q: 'Are Portland kids art studios suitable for different age groups?',
-        a: "Most spaces accommodate children ages 4 and up. Some are specifically designed for younger children with age-appropriate materials. Check the listing for recommended age ranges.",
-      },
-      {
-        q: 'Do kids art studios in Portland provide supplies?',
-        a: "Most do for structured classes and parties. For open studio rentals, you may need to bring your own. Confirm with the host.",
-      },
-      {
-        q: 'Can I book a Portland art studio for a school field trip?',
-        a: "Yes. Some studios are set up for group visits and have capacity for classroom-sized groups. Contact the host directly to arrange group bookings.",
-      },
-      {
-        q: 'Are Portland kids art studio spaces supervised?',
-        a: "Supervision depends on the booking type. Class and party formats typically include a host or instructor. Open studio rentals are unsupervised — adults must be present.",
-      },
-    ],
-    related: [
-      { label: 'Art Studio Near Me', href: '/portland/art-studio-near-me' },
-      { label: 'Art Studio in Portland', href: '/portland/art-studio' },
-      { label: 'Studio Space for Creators', href: '/portland/studio-space-for-creators' },
-    ],
-  },
-
-  'studio-space-for-creators': {
-    title: 'Studio Space for Creators in Portland, OR | FindStudioSpace',
-    metaDescription:
-      'Browse studio spaces for creators in Portland, OR — photography, music, art, content creation, and more. Flexible hourly and monthly rentals.',
-    h1: 'Studio Space for Creators in Portland, OR',
-    intro:
-      'Portland\'s creative economy is booming. Whether you\'re a photographer, musician, visual artist, filmmaker, or content creator, there\'s a studio space in Portland built for what you do. Browse all creator-ready spaces below.',
-    listingType: null,
-    faqs: [
-      {
-        q: 'What types of creator studios are available in Portland?',
-        a: "Portland has photo studios, recording studios, art studios, podcast rooms, content creation suites, and multi-use creative spaces. Use the category filters to narrow by type.",
-      },
-      {
-        q: 'Can I rent a studio space in Portland for content creation?',
-        a: "Yes. Many spaces are set up for YouTube, social media, and brand content production with lighting, backdrops, and audio treatment.",
-      },
-      {
-        q: 'Are there co-working studio spaces for creatives in Portland?',
-        a: "Yes. Several Portland spaces operate as creative co-working studios where multiple artists or creators share a facility with shared equipment.",
-      },
-      {
-        q: 'How do I find a studio space in Portland that fits my creative work?',
-        a: "Use the filters to narrow by type (photo, music, art), size, price, and neighborhood. Each listing includes photos, gear lists, and host reviews.",
-      },
-      {
-        q: 'Are Portland creator studio spaces available on weekends?',
-        a: "Most are. Availability varies by host — check the calendar on each listing for real-time open slots.",
-      },
-    ],
-    related: [
-      { label: 'Photo Studio Rental', href: '/portland/photo-studio-rental' },
-      { label: 'Music Recording Studio', href: '/portland/music-recording-studio' },
-      { label: 'Art Studio Space', href: '/portland/art-studio' },
     ],
   },
 
@@ -375,8 +116,8 @@ export const categoryConfigs: Record<string, CategoryConfig> = {
     ],
     related: [
       { label: 'Photo Studio Rental', href: '/portland/photo-studio-rental' },
-      { label: 'Music Recording Studio', href: '/portland/music-recording-studio' },
       { label: 'Art Studio Space', href: '/portland/art-studio' },
+      { label: 'Workshop Space for Rent', href: '/portland/workshop-space-rental' },
     ],
   },
 
@@ -456,7 +197,7 @@ export const categoryConfigs: Record<string, CategoryConfig> = {
     ],
     related: [
       { label: 'Office Space Rental', href: '/portland/office-space-rental' },
-      { label: 'Studio Space for Creators', href: '/portland/studio-space-for-creators' },
+      { label: 'Art Studio Space', href: '/portland/art-studio' },
       { label: 'Studio Space Rental', href: '/portland/studio-space-rental' },
     ],
   },
@@ -478,7 +219,7 @@ export const categoryConfigs: Record<string, CategoryConfig> = {
     ],
     related: [
       { label: 'Dance Studio for Rent', href: '/portland/dance-studio-rental' },
-      { label: 'Studio Space for Creators', href: '/portland/studio-space-for-creators' },
+      { label: 'Art Studio for Rent', href: '/portland/art-studio-rental' },
       { label: 'Studio Space Rental', href: '/portland/studio-space-rental' },
     ],
   },
@@ -551,9 +292,9 @@ export const categoryConfigs: Record<string, CategoryConfig> = {
       },
     ],
     related: [
-      { label: 'Music Recording Studio in Portland', href: '/portland/music-recording-studio' },
-      { label: 'Home Music Studio Spaces', href: '/portland/home-music-studio-spaces' },
-      { label: 'Studio Space for Creators', href: '/portland/studio-space-for-creators' },
+      { label: 'Music Rehearsal Space', href: '/portland/music-rehearsal-space' },
+      { label: 'Dance Studio for Rent', href: '/portland/dance-studio-rental' },
+      { label: 'Studio Space Rental', href: '/portland/studio-space-rental' },
     ],
   },
 

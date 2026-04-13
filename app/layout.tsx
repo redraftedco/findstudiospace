@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { IBM_Plex_Serif, IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google'
 import './globals.css'
-import { PartnerSites } from '@/components/PartnerSites'
 
 const plexSerif = IBM_Plex_Serif({
   subsets: ['latin'],
@@ -68,7 +67,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Link href="/list-your-space" className="hover:underline">List your space</Link>
               </div>
             </div>
-            <PartnerSites />
           </div>
         </footer>
       </body>
