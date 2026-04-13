@@ -86,6 +86,23 @@ export default async function Home() {
           </div>
         </section>
 
+        {/* CTA band */}
+        <section style={{ background: '#edeae2', borderTop: '1px solid #d6d0c4', borderBottom: '1px solid #d6d0c4' }} className="py-12 text-center">
+          <p style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="text-xl font-semibold">
+            Have a space to rent?
+          </p>
+          <p style={{ color: '#8c8680' }} className="mx-auto mt-3 max-w-md text-sm">
+            List it free and reach Portland creatives searching right now.
+          </p>
+          <Link
+            href="/list-your-space"
+            style={{ background: '#2c4a3e', color: '#f4f1eb' }}
+            className="mt-5 inline-block px-6 py-2.5 text-sm font-medium hover:bg-[#1e3329] transition-colors"
+          >
+            List your space →
+          </Link>
+        </section>
+
         {/* Recent listings */}
         <section>
           <h2 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="mb-6 text-xl font-semibold">
@@ -133,22 +150,6 @@ export default async function Home() {
           </div>
         </section>
 
-        {/* CTA band */}
-        <section style={{ background: '#edeae2', borderTop: '1px solid #d6d0c4', borderBottom: '1px solid #d6d0c4' }} className="py-12 text-center">
-          <p style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="text-xl font-semibold">
-            Have a space to rent?
-          </p>
-          <p style={{ color: '#8c8680' }} className="mx-auto mt-3 max-w-md text-sm">
-            List it free and reach Portland creatives searching right now.
-          </p>
-          <Link
-            href="/list-your-space"
-            style={{ background: '#2c4a3e', color: '#f4f1eb' }}
-            className="mt-5 inline-block px-6 py-2.5 text-sm font-medium hover:bg-[#1e3329] transition-colors"
-          >
-            List your space →
-          </Link>
-        </section>
       </div>
     </main>
   )
