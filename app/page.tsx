@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
-import { directoryConfig } from '@/lib/directory'
 
 const CATEGORIES = [
   { label: 'Office Space', slug: 'office-space-rental', type: 'office', descriptor: 'Private offices and creative suites' },
@@ -81,13 +80,7 @@ export default async function Home() {
           <h1 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="text-4xl font-semibold leading-tight sm:text-5xl">
             Find studio space in Portland.
           </h1>
-          <p style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="mt-4 text-sm">
-            {total} spaces available in Portland, OR
-          </p>
-          <p style={{ color: '#6b6762' }} className="mt-2 text-sm">
-            The directory for creatives, makers, and producers looking for monthly workspace.
-          </p>
-          <form action="/portland/studio-space-rental" method="GET" className="mt-8 flex w-full max-w-xl">
+          <form action="/portland/studio-space-rental" method="GET" className="mt-6 flex w-full max-w-xl">
             <input
               type="text"
               name="q"
@@ -111,6 +104,16 @@ export default async function Home() {
               Search
             </button>
           </form>
+          <div className="hero-trust-row">
+            <span className="hero-count">{total} spaces in Portland</span>
+            <span className="hero-dot">·</span>
+            <a href="/portland/art-studio" className="hero-chip">Art Studios</a>
+            <a href="/portland/workshop-space-rental" className="hero-chip">Workshop</a>
+            <a href="/portland/office-space-rental" className="hero-chip">Office</a>
+            <a href="/portland/photo-studio-rental" className="hero-chip">Photo</a>
+            <a href="/portland/dance-studio-rental" className="hero-chip">Dance</a>
+            <a href="/portland/music-rehearsal-space" className="hero-chip">Music</a>
+          </div>
         </div>
       </section>
 
@@ -120,7 +123,7 @@ export default async function Home() {
           <h2 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="mb-6 text-xl font-semibold">
             Browse by type
           </h2>
-          <div className="listing-grid" style={{ background: '#d6d0c4', gap: '1px' }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" style={{ background: '#d6d0c4', gap: '1px' }}>
             {CATEGORIES.map((cat) => {
               const count = countByType[cat.type] ?? 0
               return (
@@ -145,29 +148,12 @@ export default async function Home() {
           </div>
         </section>
 
-        {/* CTA band */}
-        <section style={{ background: '#edeae2', borderTop: '1px solid #d6d0c4', borderBottom: '1px solid #d6d0c4' }} className="py-12 text-center">
-          <p style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="text-xl font-semibold">
-            Have a space to rent?
-          </p>
-          <p style={{ color: '#6b6762' }} className="mx-auto mt-3 max-w-md text-sm">
-            List it free and reach Portland creatives searching right now.
-          </p>
-          <Link
-            href="/list-your-space"
-            style={{ width: 'auto' }}
-            className="btn-action mt-5 inline-block px-6 py-2.5 text-sm font-medium"
-          >
-            List your space →
-          </Link>
-        </section>
-
         {/* Recent listings */}
         <section>
           <h2 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="mb-6 text-xl font-semibold">
             Recent listings
           </h2>
-          <div className="listing-grid">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {recent.map((listing) => {
               const images: string[] = Array.isArray(listing.images)
                 ? listing.images.map((x: unknown) => (typeof x === 'string' ? x : (x as Record<string, string>)?.url ?? '')).filter(Boolean)
@@ -220,6 +206,23 @@ export default async function Home() {
               )
             })}
           </div>
+        </section>
+
+        {/* CTA band */}
+        <section style={{ background: '#edeae2', borderTop: '1px solid #d6d0c4', borderBottom: '1px solid #d6d0c4' }} className="py-12 text-center">
+          <p style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="text-xl font-semibold">
+            Have a space to rent?
+          </p>
+          <p style={{ color: '#6b6762' }} className="mx-auto mt-3 max-w-md text-sm">
+            List it free and reach Portland creatives searching right now.
+          </p>
+          <Link
+            href="/list-your-space"
+            style={{ width: 'auto' }}
+            className="btn-action mt-5 inline-block px-6 py-2.5 text-sm font-medium"
+          >
+            List your space →
+          </Link>
         </section>
 
       </div>

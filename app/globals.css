@@ -201,6 +201,40 @@ button:focus-visible {
   padding: 2px 6px;
 }
 
+/* Hero trust row */
+.hero-trust-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.hero-count {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--stone);
+}
+
+.hero-dot {
+  color: var(--rule);
+  font-size: 12px;
+}
+
+.hero-chip {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--stone);
+  background: var(--surface);
+  padding: 3px 10px;
+  border-radius: 12px;
+  text-decoration: none;
+}
+
+.hero-chip:hover {
+  background: var(--rule);
+}
+
 /* Featured listing treatment — reserved for Phase 3, not applied yet */
 .listing-card-featured {
   border-left: 2px solid var(--featured-color);
