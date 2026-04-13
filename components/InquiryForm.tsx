@@ -43,7 +43,7 @@ export default function InquiryForm({ listingId }: Props) {
   if (status === 'success') {
     return (
       <div style={{ border: '1px solid #d6d0c4', color: '#2c4a3e', fontFamily: 'var(--font-mono)' }} className="p-4 text-sm">
-        Your message was sent. Hosts typically respond within 24 hours.
+        Message sent. Hosts typically respond within 24 hours.
       </div>
     )
   }
@@ -51,23 +51,12 @@ export default function InquiryForm({ listingId }: Props) {
   return (
     <form onSubmit={handleSubmit} className="space-y-3">
       <input name="website" type="text" className="hidden" tabIndex={-1} autoComplete="off" />
-      <input
-        name="name"
-        required
-        placeholder="Your name"
-        className="input"
-      />
-      <input
-        name="email"
-        type="email"
-        required
-        placeholder="Your email"
-        className="input"
-      />
+      <input name="name" required placeholder="Your name" className="input" />
+      <input name="email" type="email" required placeholder="Your email" className="input" />
       <textarea
         name="message"
         required
-        placeholder="What are you looking for? Include intended use, budget, and move-in date."
+        defaultValue="I'm interested in this space. Please send me more information."
         rows={4}
         className="input resize-none"
       />
@@ -77,10 +66,10 @@ export default function InquiryForm({ listingId }: Props) {
       <button
         type="submit"
         disabled={status === 'submitting'}
-        style={{ background: '#2c4a3e', color: '#f4f1eb', width: '100%', fontFamily: 'var(--font-body)' }}
+        style={{ background: '#2c4a3e', color: '#f4f1eb', width: '100%' }}
         className="py-2.5 text-sm font-medium hover:opacity-90 disabled:opacity-50"
       >
-        {status === 'submitting' ? 'Sending…' : 'Request Info'}
+        {status === 'submitting' ? 'Sending…' : 'Send Message'}
       </button>
     </form>
   )

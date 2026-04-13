@@ -22,34 +22,18 @@ GOOGLE_KEY = os.environ.get("GOOGLE_PLACES_KEY")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; studio-scraper/1.0)"}
 
 CRAIGSLIST_SEARCHES = [
-    # office/commercial
-    ("off", "photo studio"),
-    ("off", "photography studio"),
-    ("off", "music studio"),
-    ("off", "recording studio"),
-    ("off", "rehearsal space"),
-    ("off", "darkroom"),
-    ("off", "art studio"),
-    ("off", "artist studio"),
-    ("off", "workshop space"),
-    ("off", "maker space"),
-    ("off", "dance studio"),
-    ("off", "yoga studio"),
-    ("off", "fitness studio"),
-    ("off", "podcast studio"),
-    ("off", "soundproof"),
-    # creative gigs/services
-    ("cre", "photo studio"),
-    ("cre", "music studio"),
-    ("cre", "recording studio"),
-    ("cre", "rehearsal"),
-    ("cre", "art studio"),
-    ("cre", "dance studio"),
-    # sublets/temp
-    ("sub", "studio space"),
-    ("sub", "art studio"),
-    ("sub", "photo studio"),
-    ("sub", "rehearsal"),
+    # office/commercial only — most reliable for rental listings
+    ("off", "photo studio for rent"),
+    ("off", "photography studio for rent"),
+    ("off", "music studio for rent"),
+    ("off", "recording studio for rent"),
+    ("off", "rehearsal space for rent"),
+    ("off", "art studio for rent"),
+    ("off", "artist studio for rent"),
+    ("off", "workshop space for rent"),
+    ("off", "dance studio for rent"),
+    ("off", "yoga studio for rent"),
+    ("off", "podcast studio for rent"),
 ]
 
 # Google Places text search queries -> our type

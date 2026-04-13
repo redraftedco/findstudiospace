@@ -64,18 +64,11 @@ export default async function ListingPage({ params }: Props) {
         <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_340px]">
           {/* Main */}
           <div style={{ border: '1px solid #d6d0c4', background: '#edeae2' }} className="p-6">
-            <div className="mb-3 flex flex-wrap gap-2">
-              {listing.is_featured && (
-                <span style={{ background: '#b8860b', color: '#fff', fontFamily: 'var(--font-mono)' }} className="px-2 py-0.5 text-xs tracking-wider">
-                  FEATURED
-                </span>
-              )}
-              {listing.type && (
-                <span style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="text-xs uppercase">
-                  {listing.type}
-                </span>
-              )}
-            </div>
+            {listing.type && (
+              <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mb-3 text-xs uppercase">
+                {listing.type}
+              </p>
+            )}
 
             <h1 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="text-2xl font-semibold leading-snug">
               {listing.title ?? 'Untitled listing'}

@@ -33,7 +33,6 @@ export default async function CategoryPage({ params }: Props) {
     .from('listings')
     .select('*')
     .eq('status', 'active')
-    .order('is_featured', { ascending: false })
     .limit(24)
   if (config.listingType) {
     query = query.eq('type', config.listingType)
@@ -77,46 +76,43 @@ export default async function CategoryPage({ params }: Props) {
               <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mb-5 text-xs">
                 {listings.length} space{listings.length !== 1 ? 's' : ''} available
               </p>
-              <div className="mb-14 grid grid-cols-1 gap-4 sm:grid-cols-2">
-                {listings.map((l) => (
-                  <Link
-                    key={l.id}
-                    href={`/listing/${l.id}`}
-                    style={{ border: '1px solid #d6d0c4', background: '#edeae2' }}
-                    className="group block p-5 hover:border-[#8c8680] transition-colors"
-                  >
-                    <div className="mb-2 flex flex-wrap gap-2">
-                      {l.is_featured && (
-                        <span style={{ background: '#b8860b', color: '#fff', fontFamily: 'var(--font-mono)' }} className="px-2 py-0.5 text-xs tracking-wider">
-                          FEATURED
-                        </span>
+              <div className="mb-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {listings.map((l) => {
+                  const images: string[] = Array.isArray(l.images)
+                    ? l.images.map((x: unknown) => (typeof x === 'string' ? x : (x as Record<string, string>)?.url ?? '')).filter(Boolean)
+                    : []
+                  const thumb = images[0]
+                  return (
+                    <Link
+                      key={l.id}
+                      href={`/listing/${l.id}`}
+                      style={{ border: '1px solid #d6d0c4', background: '#edeae2' }}
+                      className="group block hover:border-[#8c8680] transition-colors"
+                    >
+                      {thumb ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={thumb} alt="" className="w-full object-cover" style={{ height: '160px' }} />
+                      ) : (
+                        <div style={{ background: '#d6d0c4', height: '160px' }} />
                       )}
-                      {l.type && (
-                        <span style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="text-xs uppercase">
-                          {l.type}
-                        </span>
-                      )}
-                    </div>
-                    <h3 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="font-semibold leading-snug">
-                      {l.title}
-                    </h3>
-                    {l.price_display && (
-                      <p style={{ fontFamily: 'var(--font-mono)', color: '#1a1814' }} className="mt-2 text-sm font-medium">
-                        {l.price_display}
-                      </p>
-                    )}
-                    {l.neighborhood && (
-                      <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mt-1 text-xs">
-                        {l.neighborhood}
-                      </p>
-                    )}
-                    {l.description && (
-                      <p style={{ color: '#8c8680' }} className="mt-3 text-xs leading-relaxed line-clamp-2">
-                        {l.description}
-                      </p>
-                    )}
-                  </Link>
-                ))}
+                      <div className="p-4">
+                        {l.type && (
+                          <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mb-1 text-xs uppercase">
+                            {l.type}
+                          </p>
+                        )}
+                        <h3 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="font-semibold leading-snug">
+                          {l.title}
+                        </h3>
+                        <div style={{ fontFamily: 'var(--font-mono)', color: '#8c8680' }} className="mt-2 text-xs">
+                          {l.price_display && <span>{l.price_display}</span>}
+                          {l.price_display && l.neighborhood && <span> · </span>}
+                          {l.neighborhood && <span>{l.neighborhood}</span>}
+                        </div>
+                      </div>
+                    </Link>
+                  )
+                })}
               </div>
             </>
           ) : (

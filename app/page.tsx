@@ -15,9 +15,8 @@ export default async function Home() {
     supabase.from('listings').select('type').eq('status', 'active'),
     supabase
       .from('listings')
-      .select('id, title, price_display, neighborhood, type, is_featured')
+      .select('id, title, price_display, neighborhood, type, images')
       .eq('status', 'active')
-      .order('is_featured', { ascending: false })
       .limit(6),
   ])
 
@@ -77,40 +76,42 @@ export default async function Home() {
             Recent listings
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {recent.map((listing) => (
-              <Link
-                key={listing.id}
-                href={`/listing/${listing.id}`}
-                style={{ border: '1px solid #d6d0c4', background: '#edeae2' }}
-                className="group block p-4 hover:border-[#8c8680] transition-colors"
-              >
-                <div className="mb-2 flex gap-2">
-                  {listing.is_featured && (
-                    <span style={{ background: '#b8860b', color: '#fff', fontFamily: 'var(--font-mono)' }} className="px-2 py-0.5 text-xs font-medium tracking-wider">
-                      FEATURED
-                    </span>
+            {recent.map((listing) => {
+              const images: string[] = Array.isArray(listing.images)
+                ? listing.images.map((x: unknown) => (typeof x === 'string' ? x : (x as Record<string, string>)?.url ?? '')).filter(Boolean)
+                : []
+              const thumb = images[0]
+              return (
+                <Link
+                  key={listing.id}
+                  href={`/listing/${listing.id}`}
+                  style={{ border: '1px solid #d6d0c4', background: '#edeae2' }}
+                  className="group block hover:border-[#8c8680] transition-colors"
+                >
+                  {thumb ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={thumb} alt="" className="w-full object-cover" style={{ height: '160px' }} />
+                  ) : (
+                    <div style={{ background: '#d6d0c4', height: '160px' }} />
                   )}
-                  {listing.type && (
-                    <span style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="text-xs uppercase">
-                      {listing.type}
-                    </span>
-                  )}
-                </div>
-                <h3 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="font-semibold leading-snug">
-                  {listing.title ?? 'Untitled listing'}
-                </h3>
-                {listing.price_display && (
-                  <p style={{ fontFamily: 'var(--font-mono)', color: '#1a1814' }} className="mt-2 text-sm font-medium">
-                    {listing.price_display}
-                  </p>
-                )}
-                {listing.neighborhood && (
-                  <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mt-1 text-xs">
-                    {listing.neighborhood}
-                  </p>
-                )}
-              </Link>
-            ))}
+                  <div className="p-4">
+                    {listing.type && (
+                      <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mb-1 text-xs uppercase">
+                        {listing.type}
+                      </p>
+                    )}
+                    <h3 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="font-semibold leading-snug">
+                      {listing.title ?? 'Untitled listing'}
+                    </h3>
+                    <div style={{ fontFamily: 'var(--font-mono)', color: '#8c8680' }} className="mt-2 text-xs">
+                      {listing.price_display && <span>{listing.price_display}</span>}
+                      {listing.price_display && listing.neighborhood && <span> · </span>}
+                      {listing.neighborhood && <span>{listing.neighborhood}</span>}
+                    </div>
+                  </div>
+                </Link>
+              )
+            })}
           </div>
         </section>
 
@@ -120,12 +121,12 @@ export default async function Home() {
             Own or manage a studio?
           </h2>
           <p style={{ color: '#8c8680' }} className="mx-auto mt-3 max-w-md text-sm">
-            List your space free and reach Portland creatives, makers, and business owners searching right now.
+            List your space free and reach Portland creatives searching right now.
           </p>
           <Link
             href="/list-your-space"
-            style={{ background: '#2c4a3e', color: '#f4f1eb' }}
-            className="mt-6 inline-block px-8 py-3 text-sm font-medium hover:opacity-90"
+            style={{ color: '#2c4a3e' }}
+            className="mt-4 inline-block text-sm font-medium hover:underline"
           >
             List your space →
           </Link>
