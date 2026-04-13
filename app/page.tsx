@@ -61,7 +61,7 @@ export default async function Home() {
           <h2 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="mb-6 text-xl font-semibold">
             Browse by type
           </h2>
-          <div className="grid gap-px sm:grid-cols-2 lg:grid-cols-3" style={{ background: '#d6d0c4' }}>
+          <div className="listing-grid" style={{ background: '#d6d0c4', gap: '1px' }}>
             {CATEGORIES.map((cat) => {
               const count = countByType[cat.type] ?? 0
               return (

@@ -121,10 +121,10 @@ export default async function ListingPage({ params }: Props) {
         </div>
 
         {/* Two-column layout */}
-        <div className="listing-page-grid">
+        <div className="listing-detail">
 
           {/* Left column */}
-          <div>
+          <div className="listing-detail-left">
             {/* Image gallery */}
             {images.length === 0 ? (
               <div
@@ -175,16 +175,10 @@ export default async function ListingPage({ params }: Props) {
               )}
             </section>
 
-            {/* Bottom CTA */}
-            <p style={{ borderTop: '1px solid #d6d0c4', color: '#2c4a3e' }} className="mt-8 pt-6 text-sm">
-              <Link href="/list-your-space" className="hover:underline font-medium">
-                Have a space to rent? List it free →
-              </Link>
-            </p>
           </div>
 
           {/* Right column — sticky form */}
-          <div className="lg:sticky lg:top-6">
+          <div className="listing-detail-right">
             <div style={{ border: '1px solid #d6d0c4', background: '#edeae2' }} className="p-6">
               <p style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="mb-1 text-base font-semibold">
                 Request Info
