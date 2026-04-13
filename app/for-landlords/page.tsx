@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { UpgradeButton } from '@/components/UpgradeButton'
 
 export const metadata: Metadata = {
   title: 'List Your Studio Space in Portland | FindStudioSpace',
@@ -215,16 +216,7 @@ export default function ForLandlordsPage() {
                   </li>
                 ))}
               </ul>
-              <Link
-                href="/list-your-space"
-                style={{ width: '100%' }}
-                className="btn-action inline-block w-full py-2.5 text-center text-sm font-medium"
-              >
-                Start Pro
-              </Link>
-              <p style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="mt-3 text-center text-xs">
-                First 30 days free
-              </p>
+              <UpgradeButton tier="pro" label="Start Pro →" />
             </div>
 
             {/* Featured */}
@@ -240,13 +232,7 @@ export default function ForLandlordsPage() {
                   </li>
                 ))}
               </ul>
-              <Link
-                href="/list-your-space"
-                style={{ border: '1px solid #1a1814', color: '#1a1814', background: 'transparent' }}
-                className="inline-block w-full py-2.5 text-center text-sm font-medium hover:bg-[#d6d0c4] transition-colors"
-              >
-                Go Featured
-              </Link>
+              <UpgradeButton tier="featured" label="Go Featured →" />
             </div>
 
           </div>
