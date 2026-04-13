@@ -7,6 +7,8 @@ type Props = {
   params: Promise<{ category: string }>
 }
 
+export const revalidate = 3600
+
 export function generateStaticParams() {
   return Object.keys(categoryConfigs).map((category) => ({ category }))
 }

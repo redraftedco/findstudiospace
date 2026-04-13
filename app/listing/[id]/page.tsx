@@ -4,6 +4,8 @@ import type { Metadata } from 'next'
 import { supabase } from '@/lib/supabase'
 import InquiryForm from '@/components/InquiryForm'
 
+export const revalidate = 3600
+
 type Props = { params: Promise<{ id: string }> }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
