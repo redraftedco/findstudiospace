@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { IBM_Plex_Serif, IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google'
 import './globals.css'
+import { PartnerSites } from '@/components/PartnerSites'
 
 const plexSerif = IBM_Plex_Serif({
   subsets: ['latin'],
@@ -54,17 +55,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </header>
         {children}
         <footer style={{ borderTop: '1px solid #d6d0c4', color: '#6b6762' }} className="mt-16 px-6 py-8">
-          <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 text-sm">
-            <span style={{ fontFamily: 'var(--font-mono)' }}>findstudiospace.com — Portland, OR</span>
-            <div className="flex gap-6">
-              <Link href="/portland/office-space-rental" className="hover:underline">Office</Link>
-              <Link href="/portland/art-studio" className="hover:underline">Art</Link>
-              <Link href="/portland/workshop-space-rental" className="hover:underline">Workshop</Link>
-              <Link href="/portland/photo-studio-rental" className="hover:underline">Photo</Link>
-              <Link href="/blog" className="hover:underline">Resources</Link>
-              <Link href="/for-landlords" className="hover:underline">For Landlords</Link>
-              <Link href="/list-your-space" className="hover:underline">List your space</Link>
+          <div className="mx-auto max-w-5xl">
+            <div className="flex flex-wrap items-center justify-between gap-4 text-sm">
+              <span style={{ fontFamily: 'var(--font-mono)' }}>findstudiospace.com — Portland, OR</span>
+              <div className="flex gap-6">
+                <Link href="/portland/office-space-rental" className="hover:underline">Office</Link>
+                <Link href="/portland/art-studio" className="hover:underline">Art</Link>
+                <Link href="/portland/workshop-space-rental" className="hover:underline">Workshop</Link>
+                <Link href="/portland/photo-studio-rental" className="hover:underline">Photo</Link>
+                <Link href="/blog" className="hover:underline">Resources</Link>
+                <Link href="/for-landlords" className="hover:underline">For Landlords</Link>
+                <Link href="/list-your-space" className="hover:underline">List your space</Link>
+              </div>
             </div>
+            <PartnerSites />
           </div>
         </footer>
       </body>

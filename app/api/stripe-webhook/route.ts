@@ -33,6 +33,7 @@ export async function POST(req: Request) {
       niche_attributes: listing_data.niche_attributes,
       submitted_by_email: listing_data.email,
       contact_email: listing_data.email,
+      directory_id: process.env.NEXT_PUBLIC_DIRECTORY_ID || 'findstudiospace',
       city: 'Portland',
       status: 'active',
       is_featured: true,

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
+import { directoryConfig } from '@/lib/directory'
 
 const CATEGORIES = [
   { label: 'Office Space', slug: 'office-space-rental', type: 'office', descriptor: 'Private offices and creative suites' },
@@ -40,10 +41,11 @@ function timeAgo(dateStr: string | null | undefined): string | null {
 
 export default async function Home() {
   const [counts, recentRes] = await Promise.all([
-    supabase.from('listings').select('type').eq('status', 'active'),
+    supabase.from('listings').select('type').eq('directory_id', directoryConfig.id).eq('status', 'active'),
     supabase
       .from('listings')
       .select('id, title, price_display, neighborhood, type, images, description, created_at')
+      .eq('directory_id', directoryConfig.id)
       .eq('status', 'active')
       .limit(24),
   ])

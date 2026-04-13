@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { slugToLabel, type Listing } from '@/lib/listings'
 import { supabase } from '@/lib/supabase'
+import { directoryConfig } from '@/lib/directory'
 
 type PageProps = {
   params: Promise<{ city: string; category: string }>
@@ -25,6 +26,7 @@ export default async function ListingCollectionPage({ params }: PageProps) {
   const { data } = await supabase
     .from('listings')
     .select('*')
+    .eq('directory_id', directoryConfig.id)
     .eq('status', 'active')
     .ilike('city', normalizedCity)
     .limit(200)

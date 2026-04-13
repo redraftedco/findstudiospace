@@ -29,6 +29,7 @@ export async function POST(req: Request) {
       email,
       message,
       host_email: listing?.contact_email ?? null,
+      directory_id: process.env.NEXT_PUBLIC_DIRECTORY_ID || 'findstudiospace',
     }])
 
     if (error) return NextResponse.json({ ok: false, error: error.message }, { status: 500 })

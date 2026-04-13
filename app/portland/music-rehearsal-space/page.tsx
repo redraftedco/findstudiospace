@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import CategoryFilter from '@/components/CategoryFilter'
+import { directoryConfig } from '@/lib/directory'
 
 export const revalidate = 3600
 
@@ -48,6 +49,7 @@ export default async function MusicRehearsalSpacePage() {
   const { data: musicMatches } = await supabase
     .from('listings')
     .select('*')
+    .eq('directory_id', directoryConfig.id)
     .eq('status', 'active')
     .not('title', 'is', null)
     .in('type', ['fitness', 'art', 'music'])
@@ -60,6 +62,7 @@ export default async function MusicRehearsalSpacePage() {
     ? await supabase
         .from('listings')
         .select('*')
+        .eq('directory_id', directoryConfig.id)
         .eq('status', 'active')
         .not('title', 'is', null)
         .in('type', ['fitness', 'art'])

@@ -30,6 +30,7 @@ export async function POST(req: Request) {
       amenities: amenities ?? [],
       submitted_by_email: email,
       contact_email: email,
+      directory_id: process.env.NEXT_PUBLIC_DIRECTORY_ID || 'findstudiospace',
       city: 'Portland',
       status: 'pending',
     }])

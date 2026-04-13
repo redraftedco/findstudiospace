@@ -1,6 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
 import { MetadataRoute } from 'next'
 import { categoryConfigs } from './portland/[category]/config'
+import { directoryConfig } from '@/lib/directory'
 
 export const dynamic = 'force-dynamic'
 
@@ -15,6 +16,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const { data: listings } = await supabase
     .from('listings')
     .select('id, updated_at')
+    .eq('directory_id', directoryConfig.id)
     .eq('status', 'active')
 
   const listingPages: MetadataRoute.Sitemap = (listings ?? []).map((listing) => ({

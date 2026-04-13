@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import { categoryConfigs } from './config'
 import CategoryFilter from '@/components/CategoryFilter'
+import { directoryConfig } from '@/lib/directory'
 
 type Props = {
   params: Promise<{ category: string }>
@@ -37,6 +38,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   let query = supabase
     .from('listings')
     .select('*')
+    .eq('directory_id', directoryConfig.id)
     .eq('status', 'active')
     .not('title', 'is', null)
     .not('neighborhood', 'ilike', '%Vancouver%')
