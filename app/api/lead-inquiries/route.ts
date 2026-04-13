@@ -1,5 +1,8 @@
 import { NextResponse } from 'next/server'
 import { supabaseServer } from '@/lib/supabase-server'
+import { Resend } from 'resend'
+
+const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function POST(req: Request) {
   try {
@@ -19,7 +22,7 @@ export async function POST(req: Request) {
 
     const { data: listing } = await supabaseServer
       .from('listings')
-      .select('contact_email')
+      .select('contact_email, title')
       .eq('id', listing_id)
       .single()
 
@@ -33,6 +36,29 @@ export async function POST(req: Request) {
     }])
 
     if (error) return NextResponse.json({ ok: false, error: error.message }, { status: 500 })
+
+    // Send host notification email — skip silently if contact_email is null
+    if (listing?.contact_email) {
+      try {
+        const listingUrl = `https://www.findstudiospace.com/listing/${listing_id}`
+        await resend.emails.send({
+          from: 'hello@findstudiospace.com',
+          to: listing.contact_email,
+          subject: `New inquiry for ${listing.title}`,
+          text: [
+            `You have a new inquiry for your listing: ${listing.title}`,
+            ``,
+            `From: ${name}`,
+            `Email: ${email}`,
+            `Message: ${message || '(no message provided)'}`,
+            ``,
+            `View your listing: ${listingUrl}`,
+          ].join('\n'),
+        })
+      } catch {
+        // Email failure must never block the inquiry from being saved
+      }
+    }
 
     return NextResponse.json({ ok: true })
   } catch {
