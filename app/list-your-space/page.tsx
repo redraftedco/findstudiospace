@@ -170,7 +170,7 @@ export default function ListYourSpacePage() {
             style={{ background: '#2c4a3e', color: '#f4f1eb', width: '100%' }}
             className="btn-action py-3 text-sm font-medium"
           >
-            {status === 'submitting' ? 'Submitting…' : 'Submit listing'}
+            {status === 'submitting' ? 'Submitting…' : 'Submit'}
           </button>
         </form>
       </div>
