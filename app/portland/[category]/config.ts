@@ -12,37 +12,37 @@ export const categoryConfigs: Record<string, CategoryConfig> = {
   'photo-studio-rental': {
     title: 'Photo Studio Rental in Portland, OR | FindStudioSpace',
     metaDescription:
-      'Rent a photo studio in Portland, OR. Browse professional photography spaces with backdrops, lighting, and hourly rates. Book today.',
-    h1: 'Photo Studio Rental in Portland',
+      'Find photo studio space for rent in Portland, OR. Professional photography studios with backdrops, lighting, and cyclorama walls available for monthly and short-term rental.',
+    h1: 'Photo Studio Rental in Portland, OR',
     intro:
-      'Find the perfect photo studio rental in Portland, OR. Whether you need a cyclorama wall, natural light loft, or a fully equipped commercial space, Portland has options to fit every shoot and budget. Browse available spaces below and book by the hour or day.',
+      'Browse photo studio rentals in Portland, OR. Whether you need a cyclorama wall, a natural-light loft, or a fully equipped production space, Portland has photography studios across every neighborhood and budget. Submit an inquiry from any listing to connect directly with the host.',
     listingType: 'photo',
     faqs: [
       {
         q: 'How much does it cost to rent a photo studio in Portland?',
-        a: 'Hourly rates for Portland photo studios typically range from $35 to $150/hr depending on size, equipment included, and location. Many spaces offer half-day and full-day discounts.',
+        a: 'Photo studio rentals in Portland vary by term and size. Monthly rates for dedicated studio space run $600–$2,500/month. Day-rate and project-based arrangements are also available — ask the host about their terms in your inquiry.',
       },
       {
         q: 'Do Portland photo studios include lighting and backdrops?',
-        a: 'Most do. Look for listings that specify included gear — common setups include strobe kits, seamless paper backgrounds, and V-flats. Confirm with the host before booking.',
+        a: 'Most do. Common setups include strobe kits, seamless paper backgrounds, and V-flats. Check the listing description for the included gear list, and confirm with the host before committing.',
       },
       {
-        q: 'Can I book a Portland photo studio for a commercial shoot?',
-        a: 'Yes. Many studios are available for commercial, editorial, and brand work. Some require a certificate of insurance for commercial shoots — check individual listing requirements.',
+        q: 'Can I rent a Portland photo studio for commercial shoots?',
+        a: 'Yes. Many studios are available for commercial, editorial, and brand work. Some hosts require a certificate of insurance for commercial production — check individual listing requirements and ask in your inquiry.',
       },
       {
         q: 'Are there photo studios near downtown Portland?',
-        a: "Yes. Several studios are located in the Pearl District, Central Eastside, and NE Portland — all within a short drive of downtown. Use the map filter to find what's closest to you.",
+        a: 'Yes. Studios are concentrated in the Pearl District, Central Eastside Industrial District, and NE Portland — all within a short drive of downtown. Filter by neighborhood to narrow your search.',
       },
       {
         q: 'Can I bring a hair and makeup team to a rented photo studio?',
-        a: 'Most studios allow this. Some have dedicated makeup stations included. Confirm with the host if you need dedicated prep space.',
+        a: 'Most studios allow this. Some have dedicated prep stations included. Mention your team size in your inquiry so the host can confirm the space works for your setup.',
       },
     ],
     related: [
       { label: 'Photo Studio Near Me in Portland', href: '/portland/photo-studio-near-me' },
-      { label: 'Art Studio in Portland', href: '/portland/art-studio' },
-      { label: 'Studio Space Rental in Portland', href: '/portland/studio-space-rental' },
+      { label: 'Art Studio for Rent', href: '/portland/art-studio-rental' },
+      { label: 'Studio Space for Creators', href: '/portland/studio-space-for-creators' },
     ],
   },
 
@@ -404,22 +404,37 @@ export const categoryConfigs: Record<string, CategoryConfig> = {
   'workshop-space-rental': {
     title: 'Workshop Space for Rent in Portland, OR | FindStudioSpace',
     metaDescription:
-      'Rent workshop, garage, and warehouse space in Portland, OR. Maker spaces, woodworking shops, and flex industrial units available.',
+      'Find workshop, garage, and warehouse space for rent in Portland, OR. Maker spaces, fabrication bays, and flex industrial units available for monthly rental.',
     h1: 'Workshop Space for Rent in Portland, OR',
     intro:
-      'Find workshop, garage, and warehouse space for rent in Portland, OR. From small maker spaces to large industrial units, Portland has flex space for builders, fabricators, hobbyists, and small businesses.',
+      'Find workshop, garage, and warehouse space for monthly rent in Portland, OR. From small maker spaces to large industrial bays, Portland has flex space for builders, fabricators, woodworkers, metalworkers, and small-batch producers. Submit an inquiry from any listing to connect with the host.',
     listingType: 'workshop',
     faqs: [
-      { q: 'How much does workshop space cost in Portland?', a: 'Workshop and garage rentals in Portland typically range from $300–$2,000/month depending on size and location.' },
-      { q: 'Are there shared workshop spaces in Portland?', a: 'Yes. Several maker spaces offer membership-based access to tools including woodworking, metalworking, and fabrication.' },
-      { q: 'Can I run a business out of a workshop rental in Portland?', a: 'Most commercial workshop spaces allow business use. Check zoning and lease terms in each listing.' },
-      { q: 'Do Portland workshop spaces have loading dock access?', a: 'Some warehouse and flex spaces include loading docks or drive-in access. Check individual listing descriptions.' },
-      { q: 'Are Portland workshop spaces available for short-term rental?', a: 'Yes. Some spaces offer monthly or project-based terms. Longer leases are more common for larger industrial units.' },
+      {
+        q: 'How much does workshop space cost in Portland?',
+        a: 'Workshop and garage rentals in Portland typically range from $300–$2,000/month depending on size, location, and what infrastructure is included. Spaces with 220v power, dust collection, or drive-in access cost more.',
+      },
+      {
+        q: 'What should I look for in a Portland workshop rental?',
+        a: 'Ceiling height, 220v power outlets, ventilation for dust or fumes, ground-floor loading access, and whether the lease allows the type of work you plan to do. Ask specifically about noise restrictions and operating hours — these vary significantly between buildings.',
+      },
+      {
+        q: 'Are there shared workshop spaces in Portland?',
+        a: 'Yes. Several Portland maker spaces offer membership-based access to shared tools — woodworking equipment, metal fabrication, welding, and CNC. These are more affordable than private bays but require sharing time on equipment.',
+      },
+      {
+        q: 'Can I run a business out of a rented workshop in Portland?',
+        a: 'Most commercial workshop and flex spaces in Portland allow business use. Check zoning and permitted uses in the listing or ask the host — some buildings are zoned light industrial, others general commercial.',
+      },
+      {
+        q: 'Do Portland workshop spaces have loading access?',
+        a: 'Many warehouse and flex spaces include ground-floor drive-in access or loading docks. This is worth confirming before viewing if you regularly move large materials or equipment.',
+      },
     ],
     related: [
-      { label: 'Art Studio Space', href: '/portland/art-studio' },
+      { label: 'Woodworking Studio for Rent', href: '/portland/woodworking-studio-rental' },
+      { label: 'Art Studio for Rent', href: '/portland/art-studio-rental' },
       { label: 'Office Space Rental', href: '/portland/office-space-rental' },
-      { label: 'Studio Space Rental', href: '/portland/studio-space-rental' },
     ],
   },
 
@@ -448,22 +463,207 @@ export const categoryConfigs: Record<string, CategoryConfig> = {
   'fitness-studio-rental': {
     title: 'Fitness & Dance Studio Rental in Portland, OR | FindStudioSpace',
     metaDescription:
-      'Rent a fitness or dance studio in Portland, OR. Yoga studios, dance floors, and movement spaces available by the hour or month.',
+      'Rent a fitness or dance studio in Portland, OR. Yoga studios, dance floors, and movement spaces available for monthly rental.',
     h1: 'Fitness & Dance Studio Rental in Portland, OR',
     intro:
-      'Find fitness studios, yoga spaces, and dance floors available to rent in Portland, OR. Whether you are teaching a class, running a workshop, or need a dedicated movement practice space, Portland has options by the hour and by the month.',
+      'Find fitness studios, yoga spaces, and dance floors available for monthly rent in Portland, OR. Whether you are an instructor looking for a permanent teaching space or a practitioner who needs a dedicated movement studio, Portland has options across every neighborhood and budget.',
     listingType: 'fitness',
     faqs: [
-      { q: 'Can I rent a yoga or dance studio by the hour in Portland?', a: 'Yes. Several Portland studios offer hourly rental for instructors and practitioners. Rates typically run $25–$75/hr.' },
-      { q: 'Do Portland fitness studios have mirrors and sprung floors?', a: 'Some do. Check individual listings for specific features like mirrored walls, sprung floors, and sound systems.' },
-      { q: 'Can I use a Portland fitness studio for private classes?', a: 'Yes. Hourly rental is common for personal trainers, yoga instructors, and dance teachers.' },
-      { q: 'Are Portland dance studios available on weekends?', a: 'Most are. Weekend availability varies by studio — check the listing calendar for open slots.' },
-      { q: 'What neighborhoods have fitness and dance studios in Portland?', a: 'Studios are spread across Portland with concentrations in NE, SE, and North Portland.' },
+      { q: 'How much does a fitness studio cost to rent in Portland per month?', a: 'Monthly fitness and yoga studio rentals in Portland range from $500–$2,500/month depending on size, features, and neighborhood. Smaller rooms for private instruction start lower; full studios with mirrors and sound systems run higher.' },
+      { q: 'Do Portland fitness studios have mirrors and sprung floors?', a: 'Some do. Check individual listings for specific features — mirrored walls, sprung or floating floors, and sound systems are mentioned in listings that have them.' },
+      { q: 'Can I use a rented Portland fitness studio for teaching classes?', a: 'Yes. Most studios available for monthly rent allow instruction and class use. Some require proof of insurance for regular programming. Ask about permitted uses in your inquiry.' },
+      { q: 'Are there yoga studios available for monthly rental in Portland?', a: 'Yes. Several listings are dedicated yoga and movement spaces available for monthly sublease. These often come with props, mats, and a clean, calm environment already set up.' },
+      { q: 'What neighborhoods have fitness and dance studios in Portland?', a: 'Movement and fitness studios are spread across Portland, with concentrations in NE, SE, and North Portland neighborhoods.' },
     ],
     related: [
-      { label: 'Art Studio Near Me', href: '/portland/art-studio-near-me' },
+      { label: 'Dance Studio for Rent', href: '/portland/dance-studio-rental' },
       { label: 'Studio Space for Creators', href: '/portland/studio-space-for-creators' },
       { label: 'Studio Space Rental', href: '/portland/studio-space-rental' },
+    ],
+  },
+
+  'art-studio-rental': {
+    title: 'Art Studio for Rent in Portland, OR | FindStudioSpace',
+    metaDescription:
+      'Find art studio space for rent in Portland, OR. Private studios and shared co-ops for painters, sculptors, ceramicists, and mixed media artists. Monthly rentals.',
+    h1: 'Art Studio for Rent in Portland, OR',
+    intro:
+      'Browse private and shared art studios available for monthly rent in Portland, OR. From north-light painter studios to open maker co-ops, Portland has workspace for every practice and budget. Submit an inquiry from any listing to connect directly with the host.',
+    listingType: 'art',
+    faqs: [
+      {
+        q: 'How much does it cost to rent an art studio in Portland?',
+        a: 'Monthly art studio rentals in Portland range from $200–$800/month. Private studios with dedicated storage and utilities included tend to run $400–$700/month. Shared co-op spaces start lower and are a good option if you work part-time in the studio.',
+      },
+      {
+        q: "What's the difference between a private art studio and a co-op in Portland?",
+        a: "A private studio is yours alone — dedicated storage, your own key, set it up however you need. A co-op shares common areas and sometimes equipment with other artists but costs less. Both are available here. The right choice depends on how often you work and whether you need full-time access.",
+      },
+      {
+        q: 'Do Portland art studios allow messy work — painting, sculpture, ceramics?',
+        a: 'Most do, but it varies. Studios in converted warehouse buildings are generally more permissive than those in mixed-use commercial buildings. Look for listings that mention ventilation, concrete floors, or utility sinks as signals of a maker-friendly space.',
+      },
+      {
+        q: 'Are month-to-month art studio leases available in Portland?',
+        a: 'Yes. Many Portland studio landlords offer flexible month-to-month terms, particularly in multi-unit creative buildings. Longer commitments sometimes come with lower rates. Terms are negotiable — mention your preferred term in your inquiry.',
+      },
+      {
+        q: 'Can I visit an art studio before committing to a rental?',
+        a: "Yes — most hosts expect it. Mention in your inquiry that you'd like to schedule a walkthrough. It's standard practice and a good sign when a host is happy to show the space in person.",
+      },
+    ],
+    related: [
+      { label: 'Art Studio Space in Portland', href: '/portland/art-studio' },
+      { label: 'Ceramics Studio for Rent', href: '/portland/ceramics-studio-rental' },
+      { label: 'Workshop Space for Rent', href: '/portland/workshop-space-rental' },
+    ],
+  },
+
+  'music-studio-rental': {
+    title: 'Music Studio for Rent in Portland, OR | FindStudioSpace',
+    metaDescription:
+      'Find music studio space for rent in Portland, OR. Recording studios, rehearsal rooms, and practice spaces available for monthly rental.',
+    h1: 'Music Studio for Rent in Portland, OR',
+    intro:
+      'Browse music studios and rehearsal spaces available for monthly rent in Portland, OR. Whether you need a private recording room, a band rehearsal space, or a dedicated practice studio, Portland has options across every neighborhood and budget. Submit an inquiry from any listing to connect with the host.',
+    listingType: 'music',
+    faqs: [
+      {
+        q: 'How much does it cost to rent a music studio in Portland per month?',
+        a: 'Monthly music studio rentals in Portland range from $300–$1,500/month depending on size, soundproofing quality, included equipment, and neighborhood. Smaller practice rooms start lower; fully equipped recording suites run higher.',
+      },
+      {
+        q: 'Can I rent a music studio in Portland just for band rehearsal?',
+        a: 'Yes. Several listings are rehearsal-focused spaces — not full recording setups. They typically include a drum kit, amps, and basic PA. These are the most affordable music spaces in Portland on a per-month basis.',
+      },
+      {
+        q: 'What should I look for in a Portland music studio rental?',
+        a: "Soundproofing quality, 24-hour access if you keep irregular hours, what gear is included, and whether you can bring your own equipment or modify the space. Ask these questions in your inquiry before committing.",
+      },
+      {
+        q: 'Are there music studios in Portland with recording equipment included?',
+        a: "Some listings include a basic recording setup — audio interface, monitors, microphone. Others are bare rooms for practice. The listing description will specify what's included. If it's unclear, ask in your inquiry.",
+      },
+      {
+        q: 'Are month-to-month music studio leases available in Portland?',
+        a: 'Most music studios and rehearsal spaces in Portland offer flexible monthly terms. Some require a minimum 2–3 month commitment for private spaces. Month-to-month is standard for smaller practice rooms.',
+      },
+    ],
+    related: [
+      { label: 'Music Recording Studio in Portland', href: '/portland/music-recording-studio' },
+      { label: 'Home Music Studio Spaces', href: '/portland/home-music-studio-spaces' },
+      { label: 'Studio Space for Creators', href: '/portland/studio-space-for-creators' },
+    ],
+  },
+
+  'ceramics-studio-rental': {
+    title: 'Ceramics Studio for Rent in Portland, OR | FindStudioSpace',
+    metaDescription:
+      'Find ceramics and pottery studio space for rent in Portland, OR. Studios with wheel access, kiln firing, and clay storage available for monthly rental.',
+    h1: 'Ceramics Studio for Rent in Portland, OR',
+    intro:
+      'Find ceramics and pottery studio space for monthly rent in Portland, OR. Portland has a strong ceramics community with studios offering wheel access, hand-building space, kiln firing, and dedicated clay storage. Browse listings and submit an inquiry to connect directly with the host.',
+    listingType: 'art',
+    faqs: [
+      {
+        q: 'Are there ceramics studios with kiln access in Portland?',
+        a: 'Yes. Several Portland studios offer kiln access as part of a monthly studio rental or membership. Check individual listings for firing schedules, cone range, and whether gas or electric kilns are available.',
+      },
+      {
+        q: 'How much does it cost to rent ceramics studio space in Portland?',
+        a: 'Monthly ceramics studio rentals with kiln access typically range from $150–$500/month depending on how much dedicated space you need and what is included. Shared studio memberships are on the lower end; private studio space runs higher.',
+      },
+      {
+        q: 'Can I store clay and work-in-progress pieces at a Portland ceramics studio?',
+        a: 'Most ceramics studios include shelving or designated storage for members. Ask specifically about wet work storage and bisqueware shelf space — policies vary between studios.',
+      },
+      {
+        q: 'Do Portland ceramics studios provide clay and tools?',
+        a: 'Some provide shared tools — ribs, wire tools, sponges. Most require you to buy or bring your own clay. Confirm with the host before signing up so there are no surprises.',
+      },
+      {
+        q: 'Are Portland ceramics studios suitable for beginners?',
+        a: 'Some studios welcome beginners, especially those that offer orientation or open studio hours with more experienced ceramicists around. If you are new to wheel throwing or hand-building, look for listings that mention beginner access or supervised open studio time.',
+      },
+    ],
+    related: [
+      { label: 'Art Studio for Rent', href: '/portland/art-studio-rental' },
+      { label: 'Art Studio Space in Portland', href: '/portland/art-studio' },
+      { label: 'Workshop Space for Rent', href: '/portland/workshop-space-rental' },
+    ],
+  },
+
+  'woodworking-studio-rental': {
+    title: 'Woodworking Studio for Rent in Portland, OR | FindStudioSpace',
+    metaDescription:
+      'Find woodworking studio space for rent in Portland, OR. Private shop bays and shared maker spaces with tools available for monthly rental.',
+    h1: 'Woodworking Studio for Rent in Portland, OR',
+    intro:
+      'Browse woodworking studio space and shop rentals available for monthly rent in Portland, OR. From private workshop bays to shared maker spaces with tools included, Portland has dedicated woodworking space for furniture makers, carpenters, and serious hobbyists. Submit an inquiry from any listing to connect with the host.',
+    listingType: 'workshop',
+    faqs: [
+      {
+        q: 'Are there woodworking studios with tools included in Portland?',
+        a: 'Yes. Several shared maker spaces in Portland include access to table saws, jointers, planers, bandsaws, and hand tools as part of monthly membership. Private workshop rentals typically require you to bring your own tools.',
+      },
+      {
+        q: 'How much does it cost to rent woodworking space in Portland?',
+        a: 'Shared woodworking space memberships in Portland start around $100–$300/month. Private shop bays run $400–$1,200/month depending on size. Spaces with 220v power, dust collection, and drive-in loading access cost more.',
+      },
+      {
+        q: 'Can I store lumber and materials at a rented Portland woodworking studio?',
+        a: 'Many private workshop rentals allow on-site material storage. Shared maker spaces vary — some have designated lumber racks, others do not. Ask specifically about this before committing.',
+      },
+      {
+        q: 'What should I look for in a Portland woodworking studio rental?',
+        a: '220v power outlets, dust collection infrastructure or hookups, ceiling height for sheet goods, drive-in or loading access, and ventilation for finishing work. Ground-floor access matters if you regularly move heavy stock in and out.',
+      },
+      {
+        q: 'Are Portland woodworking studios available for small production runs?',
+        a: 'Yes. Several private shop rentals in Portland are used by small furniture studios and production woodworkers. Look for listings that mention commercial or business use is permitted, and confirm zoning allows production activity.',
+      },
+    ],
+    related: [
+      { label: 'Workshop Space for Rent', href: '/portland/workshop-space-rental' },
+      { label: 'Art Studio for Rent', href: '/portland/art-studio-rental' },
+      { label: 'Studio Space Rental', href: '/portland/studio-space-rental' },
+    ],
+  },
+
+  'dance-studio-rental': {
+    title: 'Dance Studio for Rent in Portland, OR | FindStudioSpace',
+    metaDescription:
+      'Find dance studio space for rent in Portland, OR. Mirrored studios, sprung floors, and movement spaces available for monthly rental.',
+    h1: 'Dance Studio for Rent in Portland, OR',
+    intro:
+      'Browse dance studio space available for monthly rent in Portland, OR. Whether you are a dance instructor looking for a permanent teaching space or a choreographer who needs a dedicated rehearsal room, Portland has studios with mirrors, sprung floors, and sound systems across multiple neighborhoods.',
+    listingType: 'fitness',
+    faqs: [
+      {
+        q: 'How much does it cost to rent a dance studio in Portland per month?',
+        a: 'Monthly dance studio rentals in Portland range from $500–$2,500/month depending on size, features, and neighborhood. Smaller rooms for private instruction or solo rehearsal start lower; large mirrored studios with sprung floors and sound systems run higher.',
+      },
+      {
+        q: 'Do Portland dance studios have sprung floors?',
+        a: 'Some do. Sprung floors matter most for high-impact styles — ballet, contemporary, tap. Check individual listings for floor type. It is usually mentioned in the description or amenities list for studios that have it.',
+      },
+      {
+        q: 'Can I use a rented dance studio in Portland for teaching classes?',
+        a: 'Yes. Most dance studios available for monthly rent allow class and instruction use. Some hosts require proof of liability insurance for regular programming. Ask about permitted uses and insurance requirements in your inquiry.',
+      },
+      {
+        q: 'Are there dance studios in Portland available for rehearsal on a monthly basis?',
+        a: 'Yes. Monthly arrangements are common for choreographers, performing groups, and dance companies that need consistent access to a space. Some studio managers prefer monthly commitments for dedicated rooms.',
+      },
+      {
+        q: 'What neighborhoods in Portland have dance studios for rent?',
+        a: 'Dance and movement studios are spread across Portland, with concentrations in NE, SE, and North Portland. Several are located in mixed-use fitness and wellness buildings.',
+      },
+    ],
+    related: [
+      { label: 'Fitness & Dance Studio Rental', href: '/portland/fitness-studio-rental' },
+      { label: 'Art Studio for Rent', href: '/portland/art-studio-rental' },
+      { label: 'Studio Space for Creators', href: '/portland/studio-space-for-creators' },
     ],
   },
 }
