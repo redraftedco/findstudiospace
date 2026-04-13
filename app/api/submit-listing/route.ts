@@ -29,6 +29,7 @@ export async function POST(req: Request) {
       square_footage: square_footage ? Number(square_footage) : null,
       amenities: amenities ?? [],
       submitted_by_email: email,
+      contact_email: email,
       city: 'Portland',
       status: 'pending',
     }])

@@ -8,6 +8,18 @@ export const metadata: Metadata = {
 
 const POSTS = [
   {
+    slug: 'art-studio-rental-guide-portland',
+    title: 'How to Rent an Art Studio in Portland: A Practical Guide',
+    date: '2025-04-12',
+    description: 'What to look for, what to ask, and what to avoid when renting an art studio in Portland. A guide for painters, ceramicists, sculptors, and mixed media artists.',
+  },
+  {
+    slug: 'studio-space-cost-portland',
+    title: 'How Much Does Studio Space Cost in Portland, OR?',
+    date: '2025-04-12',
+    description: 'Current price ranges for art studios, workshops, photo studios, offices, and rehearsal rooms in Portland. What to expect by space type and neighborhood.',
+  },
+  {
     slug: 'how-to-find-studio-space-portland',
     title: 'How to Find Studio Space in Portland, OR',
     date: '2025-01-15',
