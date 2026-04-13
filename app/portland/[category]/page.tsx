@@ -34,7 +34,8 @@ export default async function CategoryPage({ params }: Props) {
     .select('*')
     .eq('status', 'active')
     .not('title', 'is', null)
-    .limit(24)
+    .not('neighborhood', 'ilike', '%Vancouver%')
+    .limit(48)
   if (config.listingType) {
     query = query.eq('type', config.listingType)
   }
@@ -44,6 +45,7 @@ export default async function CategoryPage({ params }: Props) {
     const bHas = b.description ? 1 : 0
     return bHas - aHas
   })
+  const total = listings.length
 
   const faqSchema = {
     '@context': 'https://schema.org',
@@ -80,7 +82,7 @@ export default async function CategoryPage({ params }: Props) {
           {listings && listings.length > 0 ? (
             <>
               <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mb-5 text-xs">
-                {listings.length} space{listings.length !== 1 ? 's' : ''} available
+                {total} space{total !== 1 ? 's' : ''} available
               </p>
               <div className="mb-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {listings.map((l) => {
