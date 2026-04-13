@@ -62,7 +62,7 @@ export const categoryConfigs: Record<string, CategoryConfig> = {
       },
       {
         q: 'How much does an art studio cost in Portland?',
-        a: "Monthly art studio rents in Portland range from $200–$800 depending on size and location. Hourly and day-rate options are also available for project-based work.",
+        a: "Monthly art studio rents in Portland range from $200–$800 depending on size and location.",
       },
       {
         q: 'Are there art studios with natural light in Portland?',
@@ -127,10 +127,10 @@ export const categoryConfigs: Record<string, CategoryConfig> = {
       'Find office space for rent in Portland, OR. Private offices, creative suites, and coworking spaces with flexible terms.',
     h1: 'Office Space Rental in Portland, OR',
     intro:
-      'Browse private offices, creative suites, and shared coworking spaces available to rent in Portland, OR. Flexible hourly, monthly, and long-term options across neighborhoods including the Pearl District, Central Eastside, and SE Portland.',
+      'Browse private offices, creative suites, and shared coworking spaces available to rent in Portland, OR. Flexible monthly and long-term options across neighborhoods including the Pearl District, Central Eastside, and SE Portland.',
     listingType: 'office',
     faqs: [
-      { q: 'How much does office space cost in Portland?', a: 'Portland office rentals range from $300–$3,000/month depending on size, location, and amenities. Hourly coworking rates start around $15–$30/hr.' },
+      { q: 'How much does office space cost in Portland?', a: 'Portland office rentals range from $300–$3,000/month depending on size, location, and amenities.' },
       { q: 'Are there short-term office rentals in Portland?', a: 'Yes. Many Portland spaces offer month-to-month or even hourly terms. This is common in coworking and creative office buildings.' },
       { q: 'What neighborhoods have office space in Portland?', a: 'The Pearl District, Central Eastside Industrial District, SE Portland, and Downtown all have strong office inventory.' },
       { q: 'Can I rent a private office by the day in Portland?', a: 'Yes. Several Portland coworking spaces offer day passes and dedicated desk rentals in addition to monthly memberships.' },
