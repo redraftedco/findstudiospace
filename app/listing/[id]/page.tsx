@@ -121,28 +121,25 @@ export default async function ListingPage({ params }: Props) {
         </div>
 
         {/* Two-column layout */}
-        <div className="listing-detail">
+        <div className="listing-page-wrapper" style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start' }}>
 
           {/* Left column */}
-          <div className="listing-detail-left">
+          <div style={{ flex: 1, minWidth: 0 }}>
             {/* Image gallery */}
             {images.length === 0 ? (
-              <div
-                style={{ background: '#d6d0c4', aspectRatio: '16/9' }}
-                className="mb-6 flex items-center justify-center"
-              >
+              <div style={{ background: '#d6d0c4', height: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} className="mb-6">
                 <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="text-xs">No photos available</p>
               </div>
             ) : images.length === 1 ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={images[0]} alt="" className="mb-6 w-full object-cover" style={{ aspectRatio: '16/9', objectFit: 'cover' }} />
+              <img src={images[0]} alt="" className="mb-6 w-full" style={{ height: '400px', objectFit: 'cover', display: 'block' }} />
             ) : (
               <div className="mb-6 grid gap-2" style={{ gridTemplateColumns: images.length >= 3 ? '2fr 1fr' : '1fr 1fr' }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={images[0]} alt="" className="w-full object-cover" style={{ aspectRatio: '16/9', objectFit: 'cover', gridRow: images.length >= 3 ? '1 / 3' : undefined }} />
+                <img src={images[0]} alt="" style={{ height: '400px', objectFit: 'cover', display: 'block', width: '100%', gridRow: images.length >= 3 ? '1 / 3' : undefined }} />
                 {images.slice(1, images.length >= 3 ? 3 : 2).map((src, i) => (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img key={i} src={src} alt="" className="w-full object-cover" style={{ aspectRatio: '16/9', objectFit: 'cover' }} />
+                  <img key={i} src={src} alt="" style={{ height: images.length >= 3 ? '196px' : '400px', objectFit: 'cover', display: 'block', width: '100%' }} />
                 ))}
               </div>
             )}
@@ -174,11 +171,10 @@ export default async function ListingPage({ params }: Props) {
                 <p style={{ color: '#8c8680' }} className="text-sm">None listed.</p>
               )}
             </section>
-
           </div>
 
           {/* Right column — sticky form */}
-          <div className="listing-detail-right">
+          <div className="listing-form-col" style={{ width: '360px', flexShrink: 0, position: 'sticky', top: '2rem', alignSelf: 'flex-start' }}>
             <div style={{ border: '1px solid #d6d0c4', background: '#edeae2' }} className="p-6">
               <p style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="mb-1 text-base font-semibold">
                 Request Info

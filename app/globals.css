@@ -86,3 +86,14 @@ body {
   height: 200px;
   background-color: #d6d0c4;
 }
+
+/* Listing page mobile overrides */
+@media (max-width: 768px) {
+  .listing-page-wrapper {
+    flex-direction: column !important;
+  }
+  .listing-form-col {
+    width: 100% !important;
+    position: static !important;
+  }
+}
