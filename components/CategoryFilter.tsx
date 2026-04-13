@@ -31,7 +31,7 @@ function getThumb(images: unknown): string | null {
 
 function timeAgo(dateStr: string | null | undefined): string | null {
   if (!dateStr) return null
-  const days = Math.floor((Date.now() - new Date(dateStr).getTime()) / (1000 * 60 * 60 * 24))
+  const days = Math.max(0, Math.floor((Date.now() - new Date(dateStr).getTime()) / (1000 * 60 * 60 * 24)))
   if (days === 0) return 'Listed today'
   if (days === 1) return 'Listed yesterday'
   if (days < 30) return `Listed ${days} days ago`
