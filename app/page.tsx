@@ -41,11 +41,10 @@ function timeAgo(dateStr: string | null | undefined): string | null {
 
 export default async function Home() {
   const [counts, recentRes] = await Promise.all([
-    supabase.from('listings').select('type').eq('directory_id', directoryConfig.id).eq('status', 'active'),
+    supabase.from('listings').select('type').eq('status', 'active'),
     supabase
       .from('listings')
       .select('id, title, price_display, neighborhood, type, images, description, created_at')
-      .eq('directory_id', directoryConfig.id)
       .eq('status', 'active')
       .limit(24),
   ])
@@ -106,7 +105,7 @@ export default async function Home() {
             />
             <button
               type="submit"
-              style={{ background: '#2c4a3e', color: '#f4f1eb', height: '48px', fontFamily: 'var(--font-body)', border: 'none' }}
+              style={{ height: '48px', fontFamily: 'var(--font-body)', border: 'none' }}
               className="btn-action px-5 text-sm font-medium whitespace-nowrap"
             >
               Search
@@ -156,8 +155,8 @@ export default async function Home() {
           </p>
           <Link
             href="/list-your-space"
-            style={{ background: '#2c4a3e', color: '#f4f1eb' }}
-            className="mt-5 inline-block px-6 py-2.5 text-sm font-medium hover:bg-[#1a2e24] transition-colors"
+            style={{ width: 'auto' }}
+            className="btn-action mt-5 inline-block px-6 py-2.5 text-sm font-medium"
           >
             List your space →
           </Link>
@@ -208,7 +207,7 @@ export default async function Home() {
                     <p style={{ fontFamily: 'var(--font-mono)', color: hasPrice ? '#1a1814' : '#9c8e84', fontStyle: hasPrice ? 'normal' : 'italic' }} className="mt-2 text-xs">
                       {hasPrice ? listing.price_display : 'Price on request'}
                     </p>
-                    <p style={{ color: '#2c4a3e' }} className="mt-auto pt-3 text-xs font-medium">
+                    <p style={{ color: '#a84530' }} className="mt-auto pt-3 text-xs font-medium">
                       View space →
                     </p>
                     {timestamp && (

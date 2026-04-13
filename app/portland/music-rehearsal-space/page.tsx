@@ -49,7 +49,6 @@ export default async function MusicRehearsalSpacePage() {
   const { data: musicMatches } = await supabase
     .from('listings')
     .select('*')
-    .eq('directory_id', directoryConfig.id)
     .eq('status', 'active')
     .not('title', 'is', null)
     .in('type', ['fitness', 'art', 'music'])
@@ -62,7 +61,6 @@ export default async function MusicRehearsalSpacePage() {
     ? await supabase
         .from('listings')
         .select('*')
-        .eq('directory_id', directoryConfig.id)
         .eq('status', 'active')
         .not('title', 'is', null)
         .in('type', ['fitness', 'art'])

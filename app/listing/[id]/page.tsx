@@ -52,7 +52,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { data } = await supabase
     .from('listings')
     .select('title, city, type, description')
-    .eq('directory_id', directoryConfig.id)
     .eq('id', id)
     .single()
   if (!data) return {}
@@ -69,7 +68,6 @@ export default async function ListingPage({ params }: Props) {
   const { data: listing } = await supabase
     .from('listings')
     .select('*')
-    .eq('directory_id', directoryConfig.id)
     .eq('id', id)
     .single()
 

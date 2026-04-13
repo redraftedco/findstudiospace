@@ -26,7 +26,6 @@ export default async function ListingCollectionPage({ params }: PageProps) {
   const { data } = await supabase
     .from('listings')
     .select('*')
-    .eq('directory_id', directoryConfig.id)
     .eq('status', 'active')
     .ilike('city', normalizedCity)
     .limit(200)

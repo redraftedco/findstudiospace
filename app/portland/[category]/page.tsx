@@ -38,7 +38,6 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   let query = supabase
     .from('listings')
     .select('*')
-    .eq('directory_id', directoryConfig.id)
     .eq('status', 'active')
     .not('title', 'is', null)
     .not('neighborhood', 'ilike', '%Vancouver%')
