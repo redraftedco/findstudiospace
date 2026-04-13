@@ -33,11 +33,17 @@ export default async function CategoryPage({ params }: Props) {
     .from('listings')
     .select('*')
     .eq('status', 'active')
+    .not('title', 'is', null)
     .limit(24)
   if (config.listingType) {
     query = query.eq('type', config.listingType)
   }
-  const { data: listings } = await query
+  const { data: rawListings } = await query
+  const listings = (rawListings ?? []).sort((a, b) => {
+    const aHas = a.description ? 1 : 0
+    const bHas = b.description ? 1 : 0
+    return bHas - aHas
+  })
 
   const faqSchema = {
     '@context': 'https://schema.org',

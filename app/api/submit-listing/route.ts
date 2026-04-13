@@ -1,36 +1,36 @@
 import { NextResponse } from 'next/server'
 import { supabaseServer } from '@/lib/supabase-server'
 
+const TYPE_MAP: Record<string, string> = {
+  'Art Studio': 'art',
+  'Workshop': 'workshop',
+  'Office': 'office',
+  'Photo Studio': 'photo',
+  'Retail': 'retail',
+  'Fitness & Dance': 'fitness',
+}
+
 export async function POST(req: Request) {
   try {
     const body = await req.json()
-    const { host_name, email, title, type, neighborhood, price_display, niche_attributes, description } = body
+    const { host_name, email, title, type, neighborhood, price_monthly, square_footage, description, amenities } = body
 
-    if (!title || !email || !type || !description) {
+    if (!title || !email || !type || !neighborhood || !description || !price_monthly) {
       return NextResponse.json({ success: false, error: 'Missing required fields.' }, { status: 400 })
-    }
-
-    const typeMap: Record<string, string> = {
-      'Art Studio': 'art',
-      'Workshop': 'workshop',
-      'Office': 'office',
-      'Photo Studio': 'photo',
-      'Retail': 'retail',
-      'Fitness & Dance': 'fitness',
     }
 
     const { error } = await supabaseServer.from('listings').insert([{
       title,
       description,
-      type: typeMap[type] ?? type.toLowerCase(),
+      type: TYPE_MAP[type] ?? type.toLowerCase(),
       neighborhood,
-      price_display,
-      niche_attributes,
+      price_monthly: Number(price_monthly),
+      price_display: `$${price_monthly}/mo`,
+      square_footage: square_footage ? Number(square_footage) : null,
+      amenities: amenities ?? [],
       submitted_by_email: email,
-      contact_email: email,
       city: 'Portland',
       status: 'pending',
-      is_featured: false,
     }])
 
     if (error) return NextResponse.json({ success: false, error: error.message }, { status: 500 })

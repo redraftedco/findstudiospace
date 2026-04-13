@@ -15,7 +15,7 @@ export default function InquiryForm({ listingId }: Props) {
     const form = e.currentTarget
 
     try {
-      const res = await fetch('/lead-inquiries', {
+      const res = await fetch('/api/lead-inquiries', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

@@ -77,7 +77,7 @@ export default async function ListingPage({ params }: Props) {
             <div style={{ borderTop: '1px solid #d6d0c4' }} className="mt-4 pt-4 space-y-1">
               {listing.price_display && (
                 <p style={{ fontFamily: 'var(--font-mono)', color: '#1a1814' }} className="text-xl font-medium">
-                  {listing.price_display}
+                  {listing.price_display}/mo
                 </p>
               )}
               {(listing.neighborhood || listing.city) && (
@@ -85,24 +85,25 @@ export default async function ListingPage({ params }: Props) {
                   {[listing.neighborhood, listing.city].filter(Boolean).join(', ')}
                 </p>
               )}
+              <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="text-sm">
+                {listing.square_footage ? `${listing.square_footage} sq ft` : 'Size not specified'}
+              </p>
             </div>
 
-            {listing.description && (
-              <div style={{ borderTop: '1px solid #d6d0c4' }} className="mt-6 pt-6">
-                <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mb-2 text-xs uppercase tracking-wider">
-                  About this space
-                </p>
-                <p style={{ color: '#1a1814' }} className="text-sm leading-relaxed whitespace-pre-line">
-                  {listing.description}
-                </p>
-              </div>
-            )}
+            <div style={{ borderTop: '1px solid #d6d0c4' }} className="mt-6 pt-6">
+              <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mb-2 text-xs uppercase tracking-wider">
+                About this space
+              </p>
+              <p style={{ color: '#1a1814' }} className="text-sm leading-relaxed whitespace-pre-line">
+                {listing.description ?? 'No description available.'}
+              </p>
+            </div>
 
-            {amenities.length > 0 && (
-              <div style={{ borderTop: '1px solid #d6d0c4' }} className="mt-6 pt-6">
-                <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mb-3 text-xs uppercase tracking-wider">
-                  Amenities
-                </p>
+            <div style={{ borderTop: '1px solid #d6d0c4' }} className="mt-6 pt-6">
+              <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mb-3 text-xs uppercase tracking-wider">
+                Amenities
+              </p>
+              {amenities.length > 0 ? (
                 <div className="flex flex-wrap gap-2">
                   {amenities.map((a) => (
                     <span key={a} style={{ border: '1px solid #d6d0c4', color: '#1a1814', fontFamily: 'var(--font-mono)' }} className="px-3 py-1 text-xs">
@@ -110,8 +111,10 @@ export default async function ListingPage({ params }: Props) {
                     </span>
                   ))}
                 </div>
-              </div>
-            )}
+              ) : (
+                <p style={{ color: '#8c8680' }} className="text-sm">None listed.</p>
+              )}
+            </div>
           </div>
 
           {/* Inquiry */}

@@ -30,11 +30,13 @@ export default function ListYourSpacePage() {
     const get = (name: string) => (form.elements.namedItem(name) as HTMLInputElement).value
 
     const payload = {
+      host_name: get('host_name'),
       email: get('email'),
       title: get('title'),
       type: get('type'),
       neighborhood: get('neighborhood'),
-      price_display: get('price') ? `$${get('price')}/mo` : null,
+      price_monthly: get('price') ? Number(get('price')) : null,
+      square_footage: get('sq_ft') ? Number(get('sq_ft')) : null,
       description: get('description'),
       amenities,
     }
@@ -84,8 +86,12 @@ export default function ListYourSpacePage() {
 
         <form onSubmit={handleSubmit} className="mt-10 space-y-6">
           <div>
+            <label style={{ color: '#1a1814' }} className="mb-1 block text-sm font-medium">Your name</label>
+            <input name="host_name" required className="input" placeholder="Jane Smith" autoComplete="name" />
+          </div>
+          <div>
             <label style={{ color: '#1a1814' }} className="mb-1 block text-sm font-medium">Your email</label>
-            <input name="email" type="email" required className="input" placeholder="you@example.com" />
+            <input name="email" type="email" required className="input" placeholder="you@example.com" autoComplete="email" inputMode="email" />
           </div>
 
           <div>
@@ -107,9 +113,15 @@ export default function ListYourSpacePage() {
             </div>
           </div>
 
-          <div>
-            <label style={{ color: '#1a1814' }} className="mb-1 block text-sm font-medium">Monthly price ($)</label>
-            <input name="price" type="number" min="0" className="input" placeholder="850" />
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label style={{ color: '#1a1814' }} className="mb-1 block text-sm font-medium">Monthly price ($)</label>
+              <input name="price" type="number" min="0" required className="input" placeholder="850" />
+            </div>
+            <div>
+              <label style={{ color: '#1a1814' }} className="mb-1 block text-sm font-medium">Square footage (optional)</label>
+              <input name="sq_ft" type="number" min="0" className="input" placeholder="400" />
+            </div>
           </div>
 
           <div>
@@ -117,7 +129,7 @@ export default function ListYourSpacePage() {
             <textarea
               name="description"
               required
-              minLength={100}
+              minLength={50}
               rows={5}
               className="input resize-none"
               placeholder="Describe the space — natural light, ceiling height, access hours, what kind of work it's suited for..."
