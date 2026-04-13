@@ -116,6 +116,42 @@ button:focus-visible {
   }
 }
 
+/* Listing card base — combines with cat-border-* classes */
+.listing-card-base {
+  border: 1px solid #d6d0c4;
+  background: #edeae2;
+}
+
+/* Category left borders — defined after listing-card-base so border-left wins */
+.cat-border-art      { border-left: 2px solid #8b6055; }
+.cat-border-workshop { border-left: 2px solid #5c6b5e; }
+.cat-border-office   { border-left: 2px solid #5a6275; }
+.cat-border-photo    { border-left: 2px solid #706860; }
+.cat-border-retail   { border-left: 2px solid #8a7045; }
+.cat-border-fitness  { border-left: 2px solid #6b7855; }
+.cat-border-default  { border-left: 2px solid #d6d0c4; }
+
+/* Category text colors */
+.cat-text-art      { color: #8b6055; }
+.cat-text-workshop { color: #5c6b5e; }
+.cat-text-office   { color: #5a6275; }
+.cat-text-photo    { color: #706860; }
+.cat-text-retail   { color: #8a7045; }
+.cat-text-fitness  { color: #6b7855; }
+
+/* Primary action button */
+.btn-action {
+  background-color: #2c4a3e;
+  color: #f4f1eb;
+}
+.btn-action:hover {
+  background-color: #1a2e24;
+}
+.btn-action:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 /* Featured listing treatment — reserved for Phase 3, not applied yet */
 .listing-card-featured {
   border-left: 2px solid var(--featured-color);

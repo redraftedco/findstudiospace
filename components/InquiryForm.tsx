@@ -69,8 +69,8 @@ export default function InquiryForm({ listingId }: Props) {
       <button
         type="submit"
         disabled={status === 'submitting'}
-        style={{ background: '#2c4a3e', color: '#f4f1eb', width: '100%' }}
-        className="py-2.5 text-sm font-medium hover:opacity-90 disabled:opacity-50"
+        style={{ width: '100%' }}
+        className="btn-action py-2.5 text-sm font-medium"
       >
         {status === 'submitting' ? 'Sending…' : 'Request Studio Info'}
       </button>

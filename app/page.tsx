@@ -10,19 +10,28 @@ const CATEGORIES = [
   { label: 'Fitness & Dance', slug: 'fitness-studio-rental', type: 'fitness', descriptor: 'Yoga, dance and movement studios' },
 ]
 
-const CATEGORY_COLORS: Record<string, string> = {
-  art:      '#8b6055',
-  workshop: '#5c6b5e',
-  office:   '#5a6275',
-  photo:    '#706860',
-  retail:   '#8a7045',
-  fitness:  '#6b7855',
+const BORDER_CLASS: Record<string, string> = {
+  art:      'cat-border-art',
+  workshop: 'cat-border-workshop',
+  office:   'cat-border-office',
+  photo:    'cat-border-photo',
+  retail:   'cat-border-retail',
+  fitness:  'cat-border-fitness',
+}
+
+const TEXT_CLASS: Record<string, string> = {
+  art:      'cat-text-art',
+  workshop: 'cat-text-workshop',
+  office:   'cat-text-office',
+  photo:    'cat-text-photo',
+  retail:   'cat-text-retail',
+  fitness:  'cat-text-fitness',
 }
 
 function timeAgo(dateStr: string | null | undefined): string | null {
   if (!dateStr) return null
   const days = Math.max(0, Math.floor((Date.now() - new Date(dateStr).getTime()) / (1000 * 60 * 60 * 24)))
-  if (days === 0) return 'Listed today'
+  if (days === 0) return null           // suppress "Listed today" — too noisy for recently-imported listings
   if (days === 1) return 'Listed yesterday'
   if (days < 30) return `Listed ${days} days ago`
   if (days < 90) return `Listed ${Math.floor(days / 7)} weeks ago`
@@ -141,13 +150,14 @@ export default async function Home() {
               const thumb = images[0]
               const timestamp = timeAgo(listing.created_at)
               const hasPrice = !!listing.price_display
-              const categoryColor = CATEGORY_COLORS[(listing.type ?? '').toLowerCase()] ?? '#d6d0c4'
+              const typeKey = (listing.type ?? '').toLowerCase()
+              const borderClass = BORDER_CLASS[typeKey] ?? 'cat-border-default'
+              const textClass = TEXT_CLASS[typeKey] ?? ''
               return (
                 <Link
                   key={listing.id}
                   href={`/listing/${listing.id}`}
-                  style={{ border: '1px solid #d6d0c4', borderLeft: `2px solid ${categoryColor}`, background: '#edeae2' }}
-                  className="group flex flex-col hover:border-[#6b6762] transition-colors"
+                  className={`listing-card-base ${borderClass} group flex flex-col`}
                 >
                   {thumb ? (
                     // eslint-disable-next-line @next/next/no-img-element
@@ -157,7 +167,7 @@ export default async function Home() {
                   )}
                   <div className="flex flex-1 flex-col p-4">
                     {listing.type && (
-                      <p style={{ color: categoryColor, fontFamily: 'var(--font-mono)' }} className="mb-1 text-xs uppercase">
+                      <p style={{ fontFamily: 'var(--font-mono)' }} className={`${textClass} mb-1 text-xs uppercase`}>
                         {listing.type}
                       </p>
                     )}

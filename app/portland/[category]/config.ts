@@ -345,31 +345,31 @@ export const categoryConfigs: Record<string, CategoryConfig> = {
   'studio-space-rental': {
     title: 'Studio Space Rental in Portland, OR | FindStudioSpace',
     metaDescription:
-      'Rent studio space in Portland, OR. Find hourly, daily, and monthly studio rentals for photography, music, art, and more.',
+      'Find monthly studio space for rent in Portland, OR. Browse listings for art studios, workshops, offices, photo studios, and creative workspaces.',
     h1: 'Studio Space Rental in Portland, OR',
     intro:
-      'Portland Studios is the easiest way to find and book studio space in Portland, OR. Browse verified listings across photo, music, art, and multi-use studios. Hourly, daily, and monthly rentals available — no membership required.',
+      'FindStudioSpace is a directory of monthly studio rentals in Portland, OR. Browse listings across art studios, workshops, creative offices, photo studios, and maker spaces. Submit an inquiry directly from any listing and the host will follow up.',
     listingType: null,
     faqs: [
       {
         q: 'How do I rent a studio space in Portland?',
-        a: "Browse listings on Portland Studios, select your dates and times, and book directly through the listing page. No membership required.",
+        a: "Browse listings, find a space that fits your needs, and submit an inquiry through the listing page. The host will contact you directly to discuss terms, availability, and next steps. No account required.",
       },
       {
-        q: 'What is the minimum rental period for Portland studio spaces?',
-        a: "Most studios have a 1–2 hour minimum. Some spaces offer day rates or monthly memberships for regular users.",
+        q: 'Are Portland studio rentals monthly or hourly?',
+        a: "The listings on FindStudioSpace are primarily monthly rentals — private studios, shared creative spaces, and flex workspace on month-to-month or longer terms. If you need hourly space, check individual listings for short-term options.",
       },
       {
-        q: 'Do I need insurance to rent a studio in Portland?',
-        a: "Some commercial-use rentals require a certificate of insurance. Personal and creative-use bookings typically do not. Check individual listing requirements.",
+        q: 'How much does it cost to rent a studio in Portland?',
+        a: "Monthly studio rents in Portland range from around $200/mo for a shared art co-op to $1,500+/mo for a private workshop or office suite. Price depends on size, location, and what's included.",
       },
       {
-        q: 'Can I rent a Portland studio space for events or workshops?',
-        a: "Yes. Many studios double as event venues for workshops, classes, pop-ups, and private events. Look for listings tagged with event availability.",
+        q: 'What types of studio space are available in Portland?',
+        a: "Portland has a strong inventory of art studios, woodworking and fabrication workshops, creative office suites, photo studios, fitness and dance spaces, and mixed-use maker spaces. Use the category pages to browse by type.",
       },
       {
-        q: 'Are Portland studio spaces pet-friendly?',
-        a: "Some are, some are not — particularly photography studios with clean backdrops. Check the house rules in each listing.",
+        q: 'Can I view a space before committing to a rental?',
+        a: "Yes. Most hosts welcome a walkthrough before signing anything. Mention in your inquiry that you'd like to schedule a visit — it's a standard part of the process.",
       },
     ],
     related: [

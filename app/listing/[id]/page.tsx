@@ -16,13 +16,13 @@ const TYPE_TO_SLUG: Record<string, string> = {
   music: 'music-studio-rental',
 }
 
-const CATEGORY_COLORS: Record<string, string> = {
-  art:      '#8b6055',
-  workshop: '#5c6b5e',
-  office:   '#5a6275',
-  photo:    '#706860',
-  retail:   '#8a7045',
-  fitness:  '#6b7855',
+const TEXT_CLASS: Record<string, string> = {
+  art:      'cat-text-art',
+  workshop: 'cat-text-workshop',
+  office:   'cat-text-office',
+  photo:    'cat-text-photo',
+  retail:   'cat-text-retail',
+  fitness:  'cat-text-fitness',
 }
 
 const TYPE_TO_LABEL: Record<string, string> = {
@@ -90,12 +90,12 @@ export default async function ListingPage({ params }: Props) {
   const categoryLabel = TYPE_TO_LABEL[typeKey] ?? listing.type
 
   const priceFormatted = formatPrice(listing.price_display)
-  const categoryColor = CATEGORY_COLORS[typeKey] ?? '#6b6762'
+  const textClass = TEXT_CLASS[typeKey] ?? ''
 
   function timeAgo(dateStr: string | null | undefined): string | null {
     if (!dateStr) return null
     const days = Math.max(0, Math.floor((Date.now() - new Date(dateStr).getTime()) / (1000 * 60 * 60 * 24)))
-    if (days === 0) return 'Listed today'
+    if (days === 0) return null
     if (days === 1) return 'Listed yesterday'
     if (days < 30) return `Listed ${days} days ago`
     if (days < 90) return `Listed ${Math.floor(days / 7)} weeks ago`
@@ -124,7 +124,7 @@ export default async function ListingPage({ params }: Props) {
 
         {/* Space type tag */}
         {listing.type && (
-          <p style={{ color: categoryColor, fontFamily: 'var(--font-mono)' }} className="mb-2 text-xs uppercase">
+          <p style={{ fontFamily: 'var(--font-mono)' }} className={`${textClass} mb-2 text-xs uppercase`}>
             {listing.type}
           </p>
         )}
