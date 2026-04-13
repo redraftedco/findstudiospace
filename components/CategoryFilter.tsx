@@ -162,9 +162,9 @@ export default function CategoryFilter({ listings }: Props) {
               >
                 {thumb ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={thumb} alt="" className="w-full object-cover" style={{ aspectRatio: '16/9', objectFit: 'cover' }} />
+                  <img src={thumb} alt="" className="w-full object-cover listing-card-placeholder" style={{ objectFit: 'cover', height: '200px' }} />
                 ) : (
-                  <div style={{ background: '#d6d0c4', aspectRatio: '16/9' }} />
+                  <div className="listing-card-placeholder" />
                 )}
                 <div className="flex flex-1 flex-col p-4">
                   {l.type && (
@@ -176,9 +176,8 @@ export default function CategoryFilter({ listings }: Props) {
                     {l.title}
                   </h3>
                   <div style={{ fontFamily: 'var(--font-mono)', color: '#8c8680' }} className="mt-2 text-xs">
-                    {l.price_display && <span>{l.price_display}</span>}
-                    {l.price_display && l.neighborhood && <span> · </span>}
-                    {l.neighborhood && <span>{l.neighborhood}</span>}
+                    <span>{l.price_display ?? 'Price on request'}</span>
+                    {l.neighborhood && <span> · {l.neighborhood}</span>}
                   </div>
                   <p style={{ color: '#2c4a3e' }} className="mt-auto pt-3 text-xs font-medium">
                     View space →

@@ -37,49 +37,52 @@ body {
   border-color: #2c4a3e;
 }
 
-/* Responsive listing grids */
+/* Responsive listing grids — desktop-first */
 .listing-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
 }
-@media (min-width: 640px) {
+@media (max-width: 768px) {
   .listing-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-@media (min-width: 1024px) {
+@media (max-width: 480px) {
   .listing-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr;
   }
 }
 
-/* Two-column listing page layout */
+/* Two-column listing page layout — desktop-first */
 .listing-detail {
   display: flex;
-  flex-direction: column;
   gap: 2rem;
   align-items: flex-start;
 }
 .listing-detail-left {
-  width: 100%;
+  flex: 1;
+  min-width: 0;
 }
 .listing-detail-right {
-  width: 100%;
+  width: 380px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 2rem;
+  align-self: flex-start;
 }
-@media (min-width: 768px) {
+@media (max-width: 768px) {
   .listing-detail {
-    flex-direction: row;
-  }
-  .listing-detail-left {
-    flex: 1;
-    width: auto;
+    flex-direction: column;
   }
   .listing-detail-right {
-    width: 380px;
-    flex-shrink: 0;
-    position: sticky;
-    top: 2rem;
-    align-self: flex-start;
+    width: 100%;
+    position: static;
   }
+}
+
+/* Uniform card image placeholder */
+.listing-card-placeholder {
+  height: 200px;
+  background-color: #d6d0c4;
 }

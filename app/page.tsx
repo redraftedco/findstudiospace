@@ -106,9 +106,9 @@ export default async function Home() {
                 >
                   {thumb ? (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={thumb} alt="" className="w-full object-cover" style={{ height: '160px' }} />
+                    <img src={thumb} alt="" className="w-full object-cover listing-card-placeholder" style={{ objectFit: 'cover', height: '200px' }} />
                   ) : (
-                    <div style={{ background: '#d6d0c4', height: '160px' }} />
+                    <div className="listing-card-placeholder" />
                   )}
                   <div className="flex flex-1 flex-col p-4">
                     {listing.type && (
@@ -120,9 +120,8 @@ export default async function Home() {
                       {listing.title ?? 'Untitled listing'}
                     </h3>
                     <div style={{ fontFamily: 'var(--font-mono)', color: '#8c8680' }} className="mt-2 text-xs">
-                      {listing.price_display && <span>{listing.price_display}</span>}
-                      {listing.price_display && listing.neighborhood && <span> · </span>}
-                      {listing.neighborhood && <span>{listing.neighborhood}</span>}
+                      <span>{listing.price_display ?? 'Price on request'}</span>
+                      {listing.neighborhood && <span> · {listing.neighborhood}</span>}
                     </div>
                     <p style={{ color: '#2c4a3e' }} className="mt-auto pt-3 text-xs font-medium">
                       View space →
