@@ -17,11 +17,18 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: false, error: 'Name and email are required.' }, { status: 400 })
     }
 
+    const { data: listing } = await supabaseServer
+      .from('listings')
+      .select('contact_email')
+      .eq('id', listing_id)
+      .single()
+
     const { error } = await supabaseServer.from('lead_inquiries').insert([{
       listing_id,
       name,
       email,
       message,
+      host_email: listing?.contact_email ?? null,
     }])
 
     if (error) return NextResponse.json({ ok: false, error: error.message }, { status: 500 })
