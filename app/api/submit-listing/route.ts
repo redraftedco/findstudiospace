@@ -24,7 +24,7 @@ export async function POST(req: Request) {
       description,
       type: TYPE_MAP[type] ?? type.toLowerCase(),
       neighborhood,
-      price_monthly: Number(price_monthly),
+      price_numeric: Number(price_monthly),
       price_display: `$${price_monthly}/mo`,
       square_footage: square_footage ? Number(square_footage) : null,
       amenities: amenities ?? [],

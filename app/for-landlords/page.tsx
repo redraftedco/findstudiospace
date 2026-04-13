@@ -17,26 +17,24 @@ const SPACE_TYPES = [
 ]
 
 const FREE_FEATURES = [
-  'Basic listing with photos and description',
-  'Appear in search results',
-  'Receive inquiries (contact details hidden)',
-  'See how many people viewed your space',
+  'Your space listed in the directory',
+  'Searchable by Portland creatives',
+  'Inquiry form on your listing',
+  'No credit card required',
 ]
 
 const PRO_FEATURES = [
   'Everything in Free',
-  'Full inquiry contact details (name + email)',
-  '"Verified Space" badge on your listing',
-  'Priority placement in search results',
-  'Monthly inquiry report',
+  'Inquiries delivered to your inbox',
+  'Verified Space badge',
+  'Priority in search results',
 ]
 
 const FEATURED_FEATURES = [
   'Everything in Pro',
-  'Homepage featured placement',
-  'Top of category page results',
-  'Full analytics dashboard',
-  'Priority support',
+  'Homepage placement',
+  'Top of category pages',
+  'Monthly performance report',
 ]
 
 export default function ForLandlordsPage() {
@@ -60,7 +58,7 @@ export default function ForLandlordsPage() {
           <p style={{ color: '#6b6762' }} className="mt-5 max-w-2xl text-base leading-relaxed">
             List your space free. Get real inquiries from artists, makers, musicians, and producers searching right now.
           </p>
-          <div className="mt-8 flex flex-wrap gap-4">
+          <div className="mt-8">
             <Link
               href="/list-your-space"
               style={{ width: 'auto' }}
@@ -68,13 +66,6 @@ export default function ForLandlordsPage() {
             >
               List Your Space Free →
             </Link>
-            <a
-              href="#how-it-works"
-              style={{ border: '1px solid #1a1814', color: '#1a1814', background: 'transparent' }}
-              className="inline-block px-6 py-3 text-sm font-medium hover:bg-[#edeae2] transition-colors"
-            >
-              See How It Works ↓
-            </a>
           </div>
           <p style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="mt-5 text-xs">
             No contracts. No setup fees. Cancel anytime.
@@ -92,10 +83,10 @@ export default function ForLandlordsPage() {
           <div className="listing-grid mb-8" style={{ background: '#d6d0c4', gap: '1px' }}>
             <div style={{ background: '#edeae2' }} className="p-8">
               <p style={{ fontFamily: 'var(--font-heading)', color: '#1a1814', fontSize: '2.5rem' }} className="font-semibold leading-none">
-                195+
+                Free
               </p>
               <p style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="mt-2 text-sm">
-                active studio listings in Portland
+                to list your space — no credit card required
               </p>
             </div>
             <div style={{ background: '#edeae2' }} className="p-8">
@@ -269,7 +260,7 @@ export default function ForLandlordsPage() {
           Ready to reach Portland creatives?
         </h2>
         <p style={{ color: '#f5e6e0' }} className="mx-auto mb-8 max-w-md text-sm">
-          Join 195+ spaces already listed. First listing is always free.
+          Portland&apos;s creative workspace directory. First listing is always free.
         </p>
         <Link
           href="/list-your-space"
