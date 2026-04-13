@@ -37,6 +37,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly',
       priority: 0.7,
     },
+    {
+      url: `${BASE}/blog`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${BASE}/blog/how-to-find-studio-space-portland`,
+      lastModified: new Date('2025-01-15'),
+      changeFrequency: 'yearly',
+      priority: 0.7,
+    },
     ...categoryPages,
     ...listingPages,
   ]

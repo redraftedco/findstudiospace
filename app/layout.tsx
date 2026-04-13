@@ -52,6 +52,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/portland/art-studio" className="hover:underline">Art</Link>
               <Link href="/portland/workshop-space-rental" className="hover:underline">Workshop</Link>
               <Link href="/portland/photo-studio-rental" className="hover:underline">Photo</Link>
+              <Link href="/blog" className="hover:underline">Resources</Link>
               <Link href="/list-your-space" className="hover:underline">List your space</Link>
             </div>
           </div>
