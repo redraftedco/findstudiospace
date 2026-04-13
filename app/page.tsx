@@ -10,6 +10,15 @@ const CATEGORIES = [
   { label: 'Fitness & Dance', slug: 'fitness-studio-rental', type: 'fitness', descriptor: 'Yoga, dance and movement studios' },
 ]
 
+const CATEGORY_COLORS: Record<string, string> = {
+  art:      '#8b6055',
+  workshop: '#5c6b5e',
+  office:   '#5a6275',
+  photo:    '#706860',
+  retail:   '#8a7045',
+  fitness:  '#6b7855',
+}
+
 function timeAgo(dateStr: string | null | undefined): string | null {
   if (!dateStr) return null
   const days = Math.max(0, Math.floor((Date.now() - new Date(dateStr).getTime()) / (1000 * 60 * 60 * 24)))
@@ -62,10 +71,10 @@ export default async function Home() {
           <h1 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="text-4xl font-semibold leading-tight sm:text-5xl">
             Find studio space in Portland.
           </h1>
-          <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mt-4 text-sm">
+          <p style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="mt-4 text-sm">
             {total} spaces available in Portland, OR
           </p>
-          <p style={{ color: '#8c8680' }} className="mt-2 text-sm">
+          <p style={{ color: '#6b6762' }} className="mt-2 text-sm">
             The directory for creatives, makers, and producers looking for monthly workspace.
           </p>
         </div>
@@ -90,10 +99,10 @@ export default async function Home() {
                   <p style={{ fontFamily: 'var(--font-heading)', color: '#1a1814', fontSize: '1.1rem' }} className="font-semibold">
                     {cat.label}
                   </p>
-                  <p style={{ color: '#8c8680', fontSize: '0.85rem' }} className="mt-1">
+                  <p style={{ color: '#6b6762', fontSize: '0.85rem' }} className="mt-1">
                     {cat.descriptor}
                   </p>
-                  <p style={{ fontFamily: 'var(--font-mono)', color: '#8c8680', fontSize: '0.72rem' }} className="mt-2">
+                  <p style={{ fontFamily: 'var(--font-mono)', color: '#6b6762', fontSize: '0.72rem' }} className="mt-2">
                     {count} {count === 1 ? 'space' : 'spaces'}
                   </p>
                 </Link>
@@ -107,13 +116,13 @@ export default async function Home() {
           <p style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="text-xl font-semibold">
             Have a space to rent?
           </p>
-          <p style={{ color: '#8c8680' }} className="mx-auto mt-3 max-w-md text-sm">
+          <p style={{ color: '#6b6762' }} className="mx-auto mt-3 max-w-md text-sm">
             List it free and reach Portland creatives searching right now.
           </p>
           <Link
             href="/list-your-space"
             style={{ background: '#2c4a3e', color: '#f4f1eb' }}
-            className="mt-5 inline-block px-6 py-2.5 text-sm font-medium hover:bg-[#1e3329] transition-colors"
+            className="mt-5 inline-block px-6 py-2.5 text-sm font-medium hover:bg-[#1a2e24] transition-colors"
           >
             List your space →
           </Link>
@@ -132,12 +141,13 @@ export default async function Home() {
               const thumb = images[0]
               const timestamp = timeAgo(listing.created_at)
               const hasPrice = !!listing.price_display
+              const categoryColor = CATEGORY_COLORS[(listing.type ?? '').toLowerCase()] ?? '#d6d0c4'
               return (
                 <Link
                   key={listing.id}
                   href={`/listing/${listing.id}`}
-                  style={{ border: '1px solid #d6d0c4', background: '#edeae2' }}
-                  className="group flex flex-col hover:border-[#8c8680] transition-colors"
+                  style={{ border: '1px solid #d6d0c4', borderLeft: `2px solid ${categoryColor}`, background: '#edeae2' }}
+                  className="group flex flex-col hover:border-[#6b6762] transition-colors"
                 >
                   {thumb ? (
                     // eslint-disable-next-line @next/next/no-img-element
@@ -147,26 +157,26 @@ export default async function Home() {
                   )}
                   <div className="flex flex-1 flex-col p-4">
                     {listing.type && (
-                      <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mb-1 text-xs uppercase">
+                      <p style={{ color: categoryColor, fontFamily: 'var(--font-mono)' }} className="mb-1 text-xs uppercase">
                         {listing.type}
                       </p>
                     )}
                     {listing.neighborhood && (
-                      <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mb-1 text-xs">
+                      <p style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="mb-1 text-xs">
                         {listing.neighborhood.trim()}
                       </p>
                     )}
                     <h3 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="font-semibold leading-snug">
                       {listing.title ?? 'Untitled listing'}
                     </h3>
-                    <p style={{ fontFamily: 'var(--font-mono)', color: hasPrice ? '#1a1814' : '#8c8680', fontStyle: hasPrice ? 'normal' : 'italic' }} className="mt-2 text-xs">
+                    <p style={{ fontFamily: 'var(--font-mono)', color: hasPrice ? '#1a1814' : '#9c8e84', fontStyle: hasPrice ? 'normal' : 'italic' }} className="mt-2 text-xs">
                       {hasPrice ? listing.price_display : 'Price on request'}
                     </p>
                     <p style={{ color: '#2c4a3e' }} className="mt-auto pt-3 text-xs font-medium">
                       View space →
                     </p>
                     {timestamp && (
-                      <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mt-1 text-xs">
+                      <p style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="mt-1 text-xs">
                         {timestamp}
                       </p>
                     )}

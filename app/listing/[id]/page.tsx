@@ -16,6 +16,15 @@ const TYPE_TO_SLUG: Record<string, string> = {
   music: 'music-studio-rental',
 }
 
+const CATEGORY_COLORS: Record<string, string> = {
+  art:      '#8b6055',
+  workshop: '#5c6b5e',
+  office:   '#5a6275',
+  photo:    '#706860',
+  retail:   '#8a7045',
+  fitness:  '#6b7855',
+}
+
 const TYPE_TO_LABEL: Record<string, string> = {
   office: 'Office Space',
   art: 'Art Studio',
@@ -81,6 +90,7 @@ export default async function ListingPage({ params }: Props) {
   const categoryLabel = TYPE_TO_LABEL[typeKey] ?? listing.type
 
   const priceFormatted = formatPrice(listing.price_display)
+  const categoryColor = CATEGORY_COLORS[typeKey] ?? '#6b6762'
 
   function timeAgo(dateStr: string | null | undefined): string | null {
     if (!dateStr) return null
@@ -98,7 +108,7 @@ export default async function ListingPage({ params }: Props) {
       <div className="mx-auto max-w-5xl px-6 py-8">
 
         {/* Breadcrumb */}
-        <nav style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mb-6 text-xs">
+        <nav style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="mb-6 text-xs">
           <Link href="/" className="hover:underline">FindStudioSpace</Link>
           <span className="mx-2">→</span>
           <Link href="/" className="hover:underline">Portland</Link>
@@ -114,7 +124,7 @@ export default async function ListingPage({ params }: Props) {
 
         {/* Space type tag */}
         {listing.type && (
-          <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mb-2 text-xs uppercase">
+          <p style={{ color: categoryColor, fontFamily: 'var(--font-mono)' }} className="mb-2 text-xs uppercase">
             {listing.type}
           </p>
         )}
@@ -125,7 +135,7 @@ export default async function ListingPage({ params }: Props) {
         </h1>
 
         {/* Metadata row */}
-        <div style={{ fontFamily: 'var(--font-mono)', color: '#8c8680', borderBottom: '1px solid #d6d0c4' }} className="mb-6 pb-4 text-sm">
+        <div style={{ fontFamily: 'var(--font-mono)', color: '#6b6762', borderBottom: '1px solid #d6d0c4' }} className="mb-6 pb-4 text-sm">
           {[
             <span key="price" style={{ color: '#1a1814', fontWeight: 500 }}>{priceFormatted}</span>,
             listing.neighborhood ? <span key="hood">{listing.neighborhood}</span> : null,
@@ -146,7 +156,7 @@ export default async function ListingPage({ params }: Props) {
             {/* Image gallery */}
             {images.length === 0 ? (
               <div style={{ background: '#d6d0c4', height: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} className="mb-6">
-                <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="text-xs">No photos available</p>
+                <p style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="text-xs">No photos available</p>
               </div>
             ) : images.length === 1 ? (
               // eslint-disable-next-line @next/next/no-img-element
@@ -174,7 +184,7 @@ export default async function ListingPage({ params }: Props) {
 
             {/* Description */}
             <section style={{ borderTop: '1px solid #d6d0c4' }} className="pt-6">
-              <h2 style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mb-3 text-xs uppercase tracking-wider">
+              <h2 style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="mb-3 text-xs uppercase tracking-wider">
                 About this space
               </h2>
               <p style={{ color: '#1a1814' }} className="text-sm leading-relaxed whitespace-pre-line">
@@ -184,7 +194,7 @@ export default async function ListingPage({ params }: Props) {
 
             {/* Amenities */}
             <section style={{ borderTop: '1px solid #d6d0c4' }} className="mt-6 pt-6">
-              <h2 style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mb-3 text-xs uppercase tracking-wider">
+              <h2 style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="mb-3 text-xs uppercase tracking-wider">
                 Amenities
               </h2>
               {amenities.length > 0 ? (
@@ -196,7 +206,7 @@ export default async function ListingPage({ params }: Props) {
                   ))}
                 </div>
               ) : (
-                <p style={{ color: '#8c8680' }} className="text-sm">None listed.</p>
+                <p style={{ color: '#6b6762' }} className="text-sm">None listed.</p>
               )}
             </section>
           </div>
@@ -207,7 +217,7 @@ export default async function ListingPage({ params }: Props) {
               <p style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="mb-1 text-base font-semibold">
                 Request Info
               </p>
-              <p style={{ color: '#8c8680' }} className="mb-5 text-sm">
+              <p style={{ color: '#6b6762' }} className="mb-5 text-sm">
                 Hosts typically respond within 24 hours.
               </p>
               <InquiryForm listingId={String(listing.id)} listingTitle={listing.title ?? 'this listing'} />

@@ -10,7 +10,7 @@ export default function SuccessPage() {
         <h1 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="text-2xl font-semibold">
           You&apos;re live.
         </h1>
-        <p style={{ color: '#8c8680' }} className="mt-3 text-sm">
+        <p style={{ color: '#6b6762' }} className="mt-3 text-sm">
           Your featured listing will be published within 24 hours. Check your email for confirmation.
         </p>
         <Link

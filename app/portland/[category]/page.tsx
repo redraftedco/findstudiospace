@@ -69,7 +69,7 @@ export default async function CategoryPage({ params }: Props) {
 
       <main style={{ background: '#f4f1eb', color: '#1a1814' }} className="min-h-screen">
         <div className="mx-auto max-w-4xl px-6 py-10">
-          <nav style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mb-6 text-xs">
+          <nav style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="mb-6 text-xs">
             <Link href="/" className="hover:underline">FindStudioSpace</Link>
             <span className="mx-2">→</span>
             <Link href="/" className="hover:underline">Portland</Link>
@@ -80,14 +80,14 @@ export default async function CategoryPage({ params }: Props) {
           <h1 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="mb-4 text-3xl font-semibold">
             {config.h1}
           </h1>
-          <p style={{ color: '#8c8680' }} className="mb-10 max-w-2xl text-sm leading-relaxed">
+          <p style={{ color: '#6b6762' }} className="mb-10 max-w-2xl text-sm leading-relaxed">
             {config.intro}
           </p>
 
           {listings && listings.length > 0 ? (
             <CategoryFilter listings={listings} />
           ) : (
-            <p style={{ color: '#8c8680' }} className="mb-14">No spaces listed yet — check back soon.</p>
+            <p style={{ color: '#6b6762' }} className="mb-14">No spaces listed yet — check back soon.</p>
           )}
 
           {/* FAQ */}
@@ -99,7 +99,7 @@ export default async function CategoryPage({ params }: Props) {
               {config.faqs.map(({ q, a }) => (
                 <div key={q}>
                   <dt style={{ color: '#1a1814' }} className="mb-1 font-medium">{q}</dt>
-                  <dd style={{ color: '#8c8680' }} className="text-sm leading-relaxed">{a}</dd>
+                  <dd style={{ color: '#6b6762' }} className="text-sm leading-relaxed">{a}</dd>
                 </div>
               ))}
             </dl>
@@ -107,7 +107,7 @@ export default async function CategoryPage({ params }: Props) {
 
           {/* Related */}
           <section style={{ borderTop: '1px solid #d6d0c4' }} className="mt-12 pt-8">
-            <h2 style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mb-4 text-xs uppercase tracking-wider">
+            <h2 style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="mb-4 text-xs uppercase tracking-wider">
               Related Searches
             </h2>
             <ul className="flex flex-wrap gap-3">

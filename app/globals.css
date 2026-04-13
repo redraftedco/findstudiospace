@@ -3,17 +3,30 @@
 @theme inline {
   --color-ink: #1a1814;
   --color-paper: #f4f1eb;
-  --color-stone: #8c8680;
+  --color-stone: #6b6762;
   --color-rule: #d6d0c4;
-  --color-featured: #b8860b;
+  --color-featured: #b8820a;
   --color-action: #2c4a3e;
-  --color-action-hover: #1e3329;
+  --color-action-hover: #1a2e24;
   --color-surface: #edeae2;
   --color-error: #8b2020;
 
   --font-heading: var(--font-plex-serif), Georgia, serif;
   --font-body: var(--font-plex-sans), system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), monospace;
+}
+
+/* CSS custom properties for use in JS inline styles and CSS rules */
+:root {
+  --action-focus: #3d6b56;
+  --cat-art:      #8b6055;
+  --cat-workshop: #5c6b5e;
+  --cat-office:   #5a6275;
+  --cat-photo:    #706860;
+  --cat-retail:   #8a7045;
+  --cat-fitness:  #6b7855;
+  --featured-color: #b8820a;
+  --featured-bg:  #f7f0e0;
 }
 
 body {
@@ -35,6 +48,11 @@ body {
 }
 .input:focus {
   border-color: #2c4a3e;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--action-focus);
+  outline-offset: 3px;
 }
 
 /* Responsive listing grids — desktop-first */
@@ -96,4 +114,13 @@ body {
     width: 100% !important;
     position: static !important;
   }
+}
+
+/* Featured listing treatment — reserved for Phase 3, not applied yet */
+.listing-card-featured {
+  border-left: 2px solid var(--featured-color);
+  background-color: var(--featured-bg);
+}
+.listing-card-featured .listing-tag {
+  color: var(--featured-color);
 }

@@ -25,7 +25,7 @@ export default function BlogIndex() {
         <ul className="space-y-8">
           {POSTS.map((post) => (
             <li key={post.slug} style={{ borderTop: '1px solid #d6d0c4' }} className="pt-8">
-              <p style={{ fontFamily: 'var(--font-mono)', color: '#8c8680' }} className="mb-2 text-xs">
+              <p style={{ fontFamily: 'var(--font-mono)', color: '#6b6762' }} className="mb-2 text-xs">
                 {post.date}
               </p>
               <Link href={`/blog/${post.slug}`}>
@@ -33,7 +33,7 @@ export default function BlogIndex() {
                   {post.title}
                 </h2>
               </Link>
-              <p style={{ color: '#8c8680' }} className="mt-2 text-sm leading-relaxed">
+              <p style={{ color: '#6b6762' }} className="mt-2 text-sm leading-relaxed">
                 {post.description}
               </p>
             </li>

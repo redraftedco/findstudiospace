@@ -29,6 +29,15 @@ function getThumb(images: unknown): string | null {
   return null
 }
 
+const CATEGORY_COLORS: Record<string, string> = {
+  art:      '#8b6055',
+  workshop: '#5c6b5e',
+  office:   '#5a6275',
+  photo:    '#706860',
+  retail:   '#8a7045',
+  fitness:  '#6b7855',
+}
+
 function timeAgo(dateStr: string | null | undefined): string | null {
   if (!dateStr) return null
   const days = Math.max(0, Math.floor((Date.now() - new Date(dateStr).getTime()) / (1000 * 60 * 60 * 24)))
@@ -76,7 +85,7 @@ export default function CategoryFilter({ listings }: Props) {
         className="mb-6 flex flex-wrap items-end gap-4 px-0 py-4"
       >
         <div className="flex flex-col gap-1">
-          <label style={{ fontFamily: 'var(--font-mono)', color: '#8c8680' }} className="text-xs uppercase">
+          <label style={{ fontFamily: 'var(--font-mono)', color: '#6b6762' }} className="text-xs uppercase">
             Neighborhood
           </label>
           <select
@@ -100,7 +109,7 @@ export default function CategoryFilter({ listings }: Props) {
         </div>
 
         <div className="flex flex-col gap-1">
-          <label style={{ fontFamily: 'var(--font-mono)', color: '#8c8680' }} className="text-xs uppercase">
+          <label style={{ fontFamily: 'var(--font-mono)', color: '#6b6762' }} className="text-xs uppercase">
             Price range
           </label>
           <div className="flex items-center gap-2">
@@ -120,7 +129,7 @@ export default function CategoryFilter({ listings }: Props) {
                 width: '90px',
               }}
             />
-            <span style={{ color: '#8c8680' }} className="text-xs">—</span>
+            <span style={{ color: '#6b6762' }} className="text-xs">—</span>
             <input
               type="number"
               placeholder="Max $"
@@ -143,14 +152,14 @@ export default function CategoryFilter({ listings }: Props) {
         {hasFilters && (
           <button
             onClick={() => { setNeighborhood(''); setMinPrice(''); setMaxPrice('') }}
-            style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }}
+            style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }}
             className="text-xs underline hover:text-[#1a1814] self-end pb-1"
           >
             Clear filters
           </button>
         )}
 
-        <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="ml-auto self-end text-xs pb-1">
+        <p style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="ml-auto self-end text-xs pb-1">
           {filtered.length} {filtered.length === 1 ? 'space' : 'spaces'}
         </p>
       </div>
@@ -162,12 +171,13 @@ export default function CategoryFilter({ listings }: Props) {
             const thumb = getThumb(l.images)
             const timestamp = timeAgo(l.created_at)
             const hasPrice = !!l.price_display
+            const categoryColor = CATEGORY_COLORS[(l.type ?? '').toLowerCase()] ?? '#d6d0c4'
             return (
               <Link
                 key={l.id}
                 href={`/listing/${l.id}`}
-                style={{ border: '1px solid #d6d0c4', background: '#edeae2' }}
-                className="group flex flex-col hover:border-[#8c8680] transition-colors"
+                style={{ border: '1px solid #d6d0c4', borderLeft: `2px solid ${categoryColor}`, background: '#edeae2' }}
+                className="group flex flex-col hover:border-[#6b6762] transition-colors"
               >
                 {thumb ? (
                   // eslint-disable-next-line @next/next/no-img-element
@@ -177,12 +187,12 @@ export default function CategoryFilter({ listings }: Props) {
                 )}
                 <div className="flex flex-1 flex-col p-4">
                   {l.type && (
-                    <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mb-1 text-xs uppercase">
+                    <p style={{ color: categoryColor, fontFamily: 'var(--font-mono)' }} className="mb-1 text-xs uppercase">
                       {l.type}
                     </p>
                   )}
                   {l.neighborhood && (
-                    <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mb-1 text-xs">
+                    <p style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="mb-1 text-xs">
                       {l.neighborhood.trim()}
                     </p>
                   )}
@@ -192,7 +202,7 @@ export default function CategoryFilter({ listings }: Props) {
                   <p
                     style={{
                       fontFamily: 'var(--font-mono)',
-                      color: hasPrice ? '#1a1814' : '#8c8680',
+                      color: hasPrice ? '#1a1814' : '#9c8e84',
                       fontStyle: hasPrice ? 'normal' : 'italic',
                     }}
                     className="mt-2 text-xs"
@@ -203,7 +213,7 @@ export default function CategoryFilter({ listings }: Props) {
                     View space →
                   </p>
                   {timestamp && (
-                    <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mt-1 text-xs">
+                    <p style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="mt-1 text-xs">
                       {timestamp}
                     </p>
                   )}
@@ -213,7 +223,7 @@ export default function CategoryFilter({ listings }: Props) {
           })}
         </div>
       ) : (
-        <p style={{ color: '#8c8680' }} className="mb-14">No spaces match those filters.</p>
+        <p style={{ color: '#6b6762' }} className="mb-14">No spaces match those filters.</p>
       )}
     </>
   )

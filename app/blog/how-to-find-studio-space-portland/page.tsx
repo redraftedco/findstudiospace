@@ -18,7 +18,7 @@ export default function Post() {
   return (
     <main style={{ background: '#f4f1eb', color: '#1a1814' }} className="min-h-screen">
       <div className="mx-auto max-w-2xl px-6 py-14">
-        <nav style={{ fontFamily: 'var(--font-mono)', color: '#8c8680' }} className="mb-10 text-sm">
+        <nav style={{ fontFamily: 'var(--font-mono)', color: '#6b6762' }} className="mb-10 text-sm">
           <Link href="/" className="hover:underline">Home</Link>
           {' / '}
           <Link href="/blog" className="hover:underline">Resources</Link>
@@ -26,7 +26,7 @@ export default function Post() {
           <span>How to Find Studio Space</span>
         </nav>
 
-        <p style={{ fontFamily: 'var(--font-mono)', color: '#8c8680' }} className="mb-4 text-xs">January 15, 2025</p>
+        <p style={{ fontFamily: 'var(--font-mono)', color: '#6b6762' }} className="mb-4 text-xs">January 15, 2025</p>
 
         <h1 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="mb-8 text-3xl font-semibold leading-tight">
           How to Find Studio Space in Portland, OR
@@ -117,7 +117,7 @@ export default function Post() {
           </ul>
 
           <div style={{ borderTop: '1px solid #d6d0c4' }} className="mt-12 pt-8">
-            <p style={{ color: '#8c8680' }} className="text-sm">
+            <p style={{ color: '#6b6762' }} className="text-sm">
               Browse available studio and workspace listings in Portland at{' '}
               <Link href="/" style={{ color: '#2c4a3e' }} className="hover:underline">FindStudioSpace.com</Link>.
               Free to browse. No account required.

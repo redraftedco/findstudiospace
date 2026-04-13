@@ -63,7 +63,7 @@ export default function ListYourSpacePage() {
           <p style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="text-2xl font-semibold">
             You&apos;re submitted.
           </p>
-          <p style={{ color: '#8c8680' }} className="mt-3 text-sm">
+          <p style={{ color: '#6b6762' }} className="mt-3 text-sm">
             We&apos;ll review and publish your listing within 48 hours.
           </p>
           <a href="/" style={{ color: '#2c4a3e', fontFamily: 'var(--font-mono)' }} className="mt-6 inline-block text-sm hover:underline">
@@ -80,7 +80,7 @@ export default function ListYourSpacePage() {
         <h1 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="text-3xl font-semibold">
           List your space. Reach Portland creatives.
         </h1>
-        <p style={{ color: '#8c8680' }} className="mt-2 text-sm">
+        <p style={{ color: '#6b6762' }} className="mt-2 text-sm">
           Listing is free. We&apos;ll publish your space within 48 hours.
         </p>
 

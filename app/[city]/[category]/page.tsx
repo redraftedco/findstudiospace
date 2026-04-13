@@ -35,14 +35,14 @@ export default async function ListingCollectionPage({ params }: PageProps) {
     <main style={{ background: '#f4f1eb', color: '#1a1814' }} className="min-h-screen px-6 py-10">
       <div className="mx-auto max-w-5xl space-y-8">
         <header className="space-y-2">
-          <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="text-sm">
+          <p style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="text-sm">
             <Link className="hover:underline" href="/">Home</Link>
             {' / '}{city}{' / '}{category}
           </p>
           <h1 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="text-3xl font-semibold">
             {normalizedCategory} spaces in {normalizedCity}
           </h1>
-          <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="text-sm">
+          <p style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="text-sm">
             {listings.length} listings found
           </p>
         </header>
@@ -53,7 +53,7 @@ export default async function ListingCollectionPage({ params }: PageProps) {
               key={listing.id}
               href={`/listing/${listing.id}`}
               style={{ border: '1px solid #d6d0c4', background: '#edeae2' }}
-              className="group block p-4 hover:border-[#8c8680] transition-colors"
+              className="group block p-4 hover:border-[#6b6762] transition-colors"
             >
               <h2 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="font-semibold leading-snug">
                 {listing.title ?? 'Untitled listing'}
@@ -64,12 +64,12 @@ export default async function ListingCollectionPage({ params }: PageProps) {
                 </p>
               )}
               {listing.neighborhood && (
-                <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="mt-1 text-xs">
+                <p style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="mt-1 text-xs">
                   {listing.neighborhood}
                 </p>
               )}
               {listing.description && (
-                <p style={{ color: '#8c8680' }} className="mt-2 text-xs leading-relaxed line-clamp-2">
+                <p style={{ color: '#6b6762' }} className="mt-2 text-xs leading-relaxed line-clamp-2">
                   {String(listing.description)}
                 </p>
               )}

@@ -63,7 +63,7 @@ export default function InquiryForm({ listingId }: Props) {
       {status === 'error' && (
         <p style={{ color: '#8b2020', fontFamily: 'var(--font-mono)' }} className="text-xs">{errorMsg}</p>
       )}
-      <p style={{ color: '#8c8680', fontFamily: 'var(--font-mono)' }} className="text-center text-xs">
+      <p style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="text-center text-xs">
         Your contact info goes only to this host — never shared or sold.
       </p>
       <button

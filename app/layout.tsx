@@ -44,7 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </header>
         {children}
-        <footer style={{ borderTop: '1px solid #d6d0c4', color: '#8c8680' }} className="mt-16 px-6 py-8">
+        <footer style={{ borderTop: '1px solid #d6d0c4', color: '#6b6762' }} className="mt-16 px-6 py-8">
           <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 text-sm">
             <span style={{ fontFamily: 'var(--font-mono)' }}>findstudiospace.com — Portland, OR</span>
             <div className="flex gap-6">
