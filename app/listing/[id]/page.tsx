@@ -225,6 +225,23 @@ export default async function ListingPage({ params }: Props) {
             </div>
           </div>
         </div>
+
+        <p style={{
+          fontFamily: 'var(--font-mono)',
+          fontSize: '11px',
+          color: '#6b6762',
+          marginTop: '32px',
+          textAlign: 'center',
+        }}>
+          Own this space?{' '}
+          <a
+            href={`/claim?listing_id=${listing.id}`}
+            style={{ color: '#a84530', textDecoration: 'none' }}
+          >
+            See your inquiry activity →
+          </a>
+        </p>
+
       </div>
     </main>
   )
