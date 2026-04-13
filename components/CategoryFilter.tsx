@@ -150,7 +150,7 @@ export default function CategoryFilter({ listings }: Props) {
 
       {/* Grid */}
       {filtered.length > 0 ? (
-        <div className="mb-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="listing-grid mb-14">
           {filtered.map((l) => {
             const thumb = getThumb(l.images)
             return (

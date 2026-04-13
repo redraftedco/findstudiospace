@@ -36,3 +36,33 @@ body {
 .input:focus {
   border-color: #2c4a3e;
 }
+
+/* Responsive listing grids */
+.listing-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+@media (min-width: 640px) {
+  .listing-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .listing-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Two-column listing page layout */
+.listing-page-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+@media (min-width: 1024px) {
+  .listing-page-grid {
+    grid-template-columns: 1fr 320px;
+  }
+}

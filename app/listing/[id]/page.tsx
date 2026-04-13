@@ -121,7 +121,7 @@ export default async function ListingPage({ params }: Props) {
         </div>
 
         {/* Two-column layout */}
-        <div className="grid gap-8 lg:grid-cols-[1fr_320px] lg:items-start">
+        <div className="listing-page-grid">
 
           {/* Left column */}
           <div>

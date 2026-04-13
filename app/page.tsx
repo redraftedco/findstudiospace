@@ -91,7 +91,7 @@ export default async function Home() {
           <h2 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="mb-6 text-xl font-semibold">
             Recent listings
           </h2>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="listing-grid">
             {recent.map((listing) => {
               const images: string[] = Array.isArray(listing.images)
                 ? listing.images.map((x: unknown) => (typeof x === 'string' ? x : (x as Record<string, string>)?.url ?? '')).filter(Boolean)
