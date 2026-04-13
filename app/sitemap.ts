@@ -1,55 +1,62 @@
+import { createClient } from '@supabase/supabase-js'
 import { MetadataRoute } from 'next'
-import { supabase } from '@/lib/supabase'
 import { categoryConfigs } from './portland/[category]/config'
 
-const BASE = 'https://findstudiospace.com'
+export const dynamic = 'force-dynamic'
+
+const BASE = 'https://www.findstudiospace.com'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL ?? 'https://vnjsczhqhnzrplrdkolb.supabase.co',
+    process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? '',
+  )
+
   const { data: listings } = await supabase
     .from('listings')
-    .select('id, created_at')
+    .select('id, updated_at')
     .eq('status', 'active')
 
-  const listingPages: MetadataRoute.Sitemap = (listings ?? []).map((l) => ({
-    url: `${BASE}/listing/${l.id}`,
-    lastModified: l.created_at ? new Date(l.created_at) : new Date(),
-    changeFrequency: 'monthly',
-    priority: 0.6,
+  const listingPages: MetadataRoute.Sitemap = (listings ?? []).map((listing) => ({
+    url: `${BASE}/listing/${listing.id}`,
+    lastModified: listing.updated_at ? new Date(listing.updated_at) : new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
   }))
 
   const categoryPages: MetadataRoute.Sitemap = Object.keys(categoryConfigs).map((slug) => ({
     url: `${BASE}/portland/${slug}`,
     lastModified: new Date(),
-    changeFrequency: 'weekly',
-    priority: 0.8,
+    changeFrequency: 'daily' as const,
+    priority: 0.9,
   }))
 
-  return [
+  const staticPages: MetadataRoute.Sitemap = [
     {
       url: BASE,
       lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 1,
+      changeFrequency: 'daily' as const,
+      priority: 1.0,
     },
     {
       url: `${BASE}/list-your-space`,
       lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.7,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
     },
     {
       url: `${BASE}/blog`,
       lastModified: new Date(),
-      changeFrequency: 'monthly',
+      changeFrequency: 'monthly' as const,
       priority: 0.6,
     },
     {
       url: `${BASE}/blog/how-to-find-studio-space-portland`,
-      lastModified: new Date('2025-01-15'),
-      changeFrequency: 'yearly',
-      priority: 0.7,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
     },
-    ...categoryPages,
-    ...listingPages,
   ]
+
+  return [...staticPages, ...categoryPages, ...listingPages]
 }
