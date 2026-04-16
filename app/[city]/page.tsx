@@ -213,7 +213,7 @@ export default async function CityPage({ params }: PageProps) {
                 >
                   {thumb ? (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={thumb} alt="" className="w-full listing-card-placeholder" style={{ objectFit: 'cover', height: '200px' }} />
+                    <img src={thumb} alt="" width={600} height={400} loading="lazy" className="w-full listing-card-placeholder" style={{ objectFit: 'cover', height: '200px' }} />
                   ) : (
                     <div className="listing-card-placeholder" />
                   )}

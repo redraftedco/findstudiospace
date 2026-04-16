@@ -259,12 +259,12 @@ export default async function ListingPage({ params }: Props) {
               </div>
             ) : images.length === 1 ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={images[0]} alt="" className="mb-6 w-full" style={{ height: '400px', objectFit: 'cover', display: 'block' }} />
+              <img src={images[0]} alt="" width={800} height={533} fetchPriority="high" loading="eager" className="mb-6 w-full" style={{ height: '400px', objectFit: 'cover', display: 'block' }} />
             ) : (
               <div className="mb-6 grid gap-2" style={{ gridTemplateColumns: images.length >= 3 ? '2fr 1fr' : '1fr 1fr', position: 'relative' }}>
                 <div style={{ position: 'relative' }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={images[0]} alt="" style={{ height: '400px', objectFit: 'cover', display: 'block', width: '100%', gridRow: images.length >= 3 ? '1 / 3' : undefined }} />
+                  <img src={images[0]} alt="" width={800} height={533} fetchPriority="high" loading="eager" style={{ height: '400px', objectFit: 'cover', display: 'block', width: '100%', gridRow: images.length >= 3 ? '1 / 3' : undefined }} />
                   <span style={{
                     position: 'absolute', top: '8px', right: '8px',
                     background: 'rgba(26,24,20,0.6)', color: '#f4f1eb',
@@ -276,7 +276,7 @@ export default async function ListingPage({ params }: Props) {
                 </div>
                 {images.slice(1, images.length >= 3 ? 3 : 2).map((src, i) => (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img key={i} src={src} alt="" style={{ height: images.length >= 3 ? '196px' : '400px', objectFit: 'cover', display: 'block', width: '100%' }} />
+                  <img key={i} src={src} alt="" width={600} height={400} loading="lazy" style={{ height: images.length >= 3 ? '196px' : '400px', objectFit: 'cover', display: 'block', width: '100%' }} />
                 ))}
               </div>
             )}
