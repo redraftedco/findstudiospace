@@ -131,38 +131,42 @@ export default async function CityPage({ params }: PageProps) {
           borderBottom: '1px solid #d6d0c4',
           backgroundImage: 'radial-gradient(circle, #c8c4bb 1px, transparent 1px)',
           backgroundSize: '24px 24px',
+          minHeight: '70vh',
+          display: 'flex',
+          alignItems: 'center',
         }}
         className="px-6"
       >
-        <div className="mx-auto max-w-5xl py-24">
-          <h1 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="text-4xl font-semibold leading-tight sm:text-5xl">
-            Find studio space in {config.displayName}.
+        <div className="mx-auto max-w-5xl w-full py-20">
+          <h1 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814', letterSpacing: '-0.02em' }} className="text-5xl font-bold leading-tight sm:text-6xl">
+            Find your creative space<br />in {config.displayName}.
           </h1>
-          <form action={`/${citySlug}/studio-space-rental`} method="GET" className="mt-6 flex w-full max-w-xl">
+          <form action={`/${citySlug}/studio-space-rental`} method="GET" className="mt-10 flex w-full max-w-2xl">
             <input
               type="text"
               name="q"
               placeholder="Search by neighborhood, space type, or keyword..."
               style={{
                 border: '1px solid #d6d0c4',
-                background: '#f4f1eb',
+                background: 'white',
                 color: '#1a1814',
                 fontFamily: 'var(--font-body)',
-                height: '48px',
+                height: '56px',
                 outline: 'none',
                 borderRight: 'none',
+                fontSize: '15px',
               }}
-              className="hero-search-input flex-1 px-4 text-sm placeholder:text-[#6b6762]"
+              className="hero-search-input flex-1 px-5 placeholder:text-[#6b6762]"
             />
             <button
               type="submit"
-              style={{ height: '48px', fontFamily: 'var(--font-body)', border: 'none' }}
-              className="btn-action px-5 text-sm font-medium whitespace-nowrap"
+              style={{ height: '56px', fontFamily: 'var(--font-body)', border: 'none', fontSize: '15px' }}
+              className="btn-action px-8 font-medium whitespace-nowrap"
             >
               Search
             </button>
           </form>
-          <div className="hero-trust-row">
+          <div className="hero-trust-row" style={{ marginTop: '20px' }}>
             <span className="hero-count">{total} spaces in {config.displayName}</span>
             <span className="hero-dot">·</span>
             <a href={`/${citySlug}/art-studio`} className="hero-chip">Art Studios</a>
