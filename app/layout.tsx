@@ -58,19 +58,50 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </header>
         {children}
-        <footer style={{ borderTop: '1px solid #d6d0c4', color: '#6b6762' }} className="mt-16 px-6 py-8">
+        <footer style={{ borderTop: '1px solid #d6d0c4', color: '#6b6762' }} className="mt-16 px-6 py-12">
           <div className="mx-auto max-w-5xl">
-            <div className="flex flex-wrap items-center justify-between gap-4 text-sm">
-              <span style={{ fontFamily: 'var(--font-mono)' }}>findstudiospace.com — Portland, OR</span>
-              <div className="flex gap-6">
-                <Link href="/portland/office-space-rental" className="hover:underline">Office</Link>
-                <Link href="/portland/art-studio" className="hover:underline">Art</Link>
-                <Link href="/portland/workshop-space-rental" className="hover:underline">Workshop</Link>
-                <Link href="/portland/photo-studio-rental" className="hover:underline">Photo</Link>
-                <Link href="/blog" className="hover:underline">Resources</Link>
-                <Link href="/for-landlords" className="hover:underline">For Landlords</Link>
-                <Link href="/list-your-space" className="hover:underline">List your space</Link>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 text-sm">
+
+              {/* Column 1 — Brand */}
+              <div>
+                <p style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="font-semibold mb-2">
+                  FindStudioSpace
+                </p>
+                <p style={{ fontFamily: 'var(--font-mono)', lineHeight: 1.6 }} className="text-xs">
+                  Portland&apos;s creative studio directory.
+                </p>
+                <p style={{ fontFamily: 'var(--font-mono)' }} className="text-xs mt-3">
+                  findstudiospace.com — Portland, OR
+                </p>
               </div>
+
+              {/* Column 2 — Browse by Category */}
+              <div>
+                <p style={{ fontFamily: 'var(--font-mono)', color: '#1a1814' }} className="text-xs uppercase tracking-wider font-medium mb-3">
+                  Browse by Category
+                </p>
+                <div className="flex flex-col gap-2">
+                  <Link href="/portland/art-studio" className="hover:underline">Art Studios</Link>
+                  <Link href="/portland/workshop-space-rental" className="hover:underline">Workshop Space</Link>
+                  <Link href="/portland/office-space-rental" className="hover:underline">Office Space</Link>
+                  <Link href="/portland/photo-studio-rental" className="hover:underline">Photo Studios</Link>
+                  <Link href="/portland/fitness-studio-rental" className="hover:underline">Fitness &amp; Dance</Link>
+                  <Link href="/portland/music-rehearsal-space" className="hover:underline">Music Studios</Link>
+                </div>
+              </div>
+
+              {/* Column 3 — Company */}
+              <div>
+                <p style={{ fontFamily: 'var(--font-mono)', color: '#1a1814' }} className="text-xs uppercase tracking-wider font-medium mb-3">
+                  Company
+                </p>
+                <div className="flex flex-col gap-2">
+                  <Link href="/list-your-space" className="hover:underline">List Your Space</Link>
+                  <Link href="/claim" className="hover:underline">Claim a Listing</Link>
+                  <Link href="/blog" className="hover:underline">Resources</Link>
+                </div>
+              </div>
+
             </div>
           </div>
         </footer>
