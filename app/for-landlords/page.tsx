@@ -8,6 +8,11 @@ export const metadata: Metadata = {
   title: 'List Your Studio Space in Portland | FindStudioSpace',
   description:
     'Reach Portland creatives looking for monthly studio, workshop, art, and office space rentals. Free to list. Get real inquiries from artists, makers, and producers.',
+  openGraph: {
+    title: 'List Your Studio Space in Portland | FindStudioSpace',
+    description:
+      'Reach Portland creatives looking for monthly studio, workshop, art, and office space rentals. Free to list.',
+  },
 }
 
 const SPACE_TYPES = [
