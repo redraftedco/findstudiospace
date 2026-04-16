@@ -1,15 +1,33 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-ink: #1a1814;
-  --color-paper: #f4f1eb;
-  --color-stone: #6b6762;
-  --color-rule: #d6d0c4;
+  /* Primary — Forest Green (trust + craft + Portland) */
+  --color-primary-600: #1B4332;
+  --color-primary-500: #2D5A3F;
+  --color-primary-400: #40714F;
+  --color-primary-100: #D4E7DB;
+  --color-primary-50:  #EDF5F0;
+
+  /* Secondary — Terracotta (CTAs, warmth, Portland craft culture) */
+  --color-secondary-600: #B4533A;
+  --color-secondary-500: #D4724E;
+  --color-secondary-400: #E89A7A;
+  --color-secondary-100: #FAE5DB;
+
+  /* Neutrals — warm-shifted */
+  --color-ink: #1A1D23;
+  --color-paper: #F5F0E8;
+  --color-stone: #6E7582;
+  --color-rule: #D8D3C8;
+  --color-surface: #EDE8DE;
   --color-featured: #b8820a;
-  --color-action: #a84530;
-  --color-action-hover: #8a3826;
-  --color-surface: #edeae2;
-  --color-error: #8b2020;
+  --color-action: #D4724E;
+  --color-action-hover: #B4533A;
+  --color-error: #DC2626;
+
+  /* Semantic */
+  --color-success: #16A34A;
+  --color-warning: #D97706;
 
   --font-heading: var(--font-space-grotesk), sans-serif;
   --font-body: var(--font-inter), sans-serif;
@@ -18,39 +36,53 @@
 
 /* CSS custom properties for use in JS inline styles and CSS rules */
 :root {
-  --action-focus: #c4724e;
-  --action-light: #f5e6e0;
-  --cat-art:      #c4724e;
-  --cat-workshop: #5c6b5e;
-  --cat-office:   #5a6275;
+  --ink: #1A1D23;
+  --paper: #F5F0E8;
+  --stone: #6E7582;
+  --rule: #D8D3C8;
+  --surface: #EDE8DE;
+  --action: #D4724E;
+  --action-hover: #B4533A;
+  --action-focus: #E89A7A;
+  --action-light: #FAE5DB;
+
+  /* Category accent colors */
+  --cat-art:      #7C5CFC;
+  --cat-music:    #E5A100;
+  --cat-workshop: #2D8A56;
+  --cat-arch:     #4A6FA5;
+  --cat-production: #C4476A;
+  --cat-shared:   #2D5A3F;
+  --cat-office:   #4A6FA5;
   --cat-photo:    #706860;
   --cat-retail:   #8a7045;
   --cat-fitness:  #6b7855;
+
   --featured-color: #b8820a;
   --featured-bg:  #f7f0e0;
 }
 
 body {
-  background-color: #f4f1eb;
-  color: #1a1814;
+  background-color: var(--paper);
+  color: var(--ink);
   font-family: var(--font-body);
 }
 
 .input {
   width: 100%;
-  border: 1px solid #d6d0c4;
-  background: #edeae2;
+  border: 1px solid var(--rule);
+  background: var(--surface);
   padding: 0.75rem;
   font-size: 0.875rem;
   font-family: var(--font-body);
-  color: #1a1814;
+  color: var(--ink);
   outline: none;
   border-radius: 0;
   min-height: 48px;
   box-sizing: border-box;
 }
 .input:focus {
-  border-color: #a84530;
+  border-color: var(--action);
 }
 
 .hero-search-input:focus {
@@ -111,7 +143,7 @@ button:focus-visible {
 /* Uniform card image placeholder */
 .listing-card-placeholder {
   height: 200px;
-  background-color: #d6d0c4;
+  background-color: var(--rule);
 }
 
 /* Listing page mobile overrides */
@@ -127,38 +159,38 @@ button:focus-visible {
 
 /* Listing card base — combines with cat-border-* classes */
 .listing-card-base {
-  border: 1px solid #d6d0c4;
-  background: #edeae2;
+  border: 1px solid var(--rule);
+  background: var(--surface);
 }
 
 /* Category left borders — defined after listing-card-base so border-left wins */
-.cat-border-art      { border-left: 2px solid #c4724e; }
-.cat-border-workshop { border-left: 2px solid #5c6b5e; }
-.cat-border-office   { border-left: 2px solid #5a6275; }
-.cat-border-photo    { border-left: 2px solid #706860; }
-.cat-border-retail   { border-left: 2px solid #8a7045; }
-.cat-border-fitness  { border-left: 2px solid #6b7855; }
-.cat-border-default  { border-left: 2px solid #d6d0c4; }
+.cat-border-art      { border-left: 2px solid var(--cat-art); }
+.cat-border-workshop { border-left: 2px solid var(--cat-workshop); }
+.cat-border-office   { border-left: 2px solid var(--cat-office); }
+.cat-border-photo    { border-left: 2px solid var(--cat-photo); }
+.cat-border-retail   { border-left: 2px solid var(--cat-retail); }
+.cat-border-fitness  { border-left: 2px solid var(--cat-fitness); }
+.cat-border-default  { border-left: 2px solid var(--rule); }
 
 /* Category text colors */
-.cat-text-art      { color: #c4724e; }
-.cat-text-workshop { color: #5c6b5e; }
-.cat-text-office   { color: #5a6275; }
-.cat-text-photo    { color: #706860; }
-.cat-text-retail   { color: #8a7045; }
-.cat-text-fitness  { color: #6b7855; }
+.cat-text-art      { color: var(--cat-art); }
+.cat-text-workshop { color: var(--cat-workshop); }
+.cat-text-office   { color: var(--cat-office); }
+.cat-text-photo    { color: var(--cat-photo); }
+.cat-text-retail   { color: var(--cat-retail); }
+.cat-text-fitness  { color: var(--cat-fitness); }
 
 /* Primary action button */
 .btn-action {
-  background-color: #a84530;
-  color: #f4f1eb;
+  background-color: var(--action);
+  color: var(--paper);
   min-height: 48px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 .btn-action:hover {
-  background-color: #8a3826;
+  background-color: var(--action-hover);
 }
 .btn-action:disabled {
   opacity: 0.5;
@@ -169,7 +201,7 @@ button:focus-visible {
 .partner-sites-footer {
   margin-top: 2rem;
   padding-top: 1.5rem;
-  border-top: 1px solid #d6d0c4;
+  border-top: 1px solid var(--rule);
 }
 .partner-sites-label {
   font-size: 0.75rem;
