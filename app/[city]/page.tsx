@@ -106,7 +106,24 @@ export default async function CityPage({ params }: PageProps) {
 
   const recent = recentRes.data ?? []
 
+  const websiteSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'FindStudioSpace',
+    url: 'https://www.findstudiospace.com',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `https://www.findstudiospace.com/${citySlug}/studio-space-rental?q={search_term_string}`,
+      'query-input': 'required name=search_term_string',
+    },
+  }
+
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
     <main style={{ background: '#f4f1eb', color: '#1a1814' }} className="min-h-screen">
       {/* Hero */}
       <section
@@ -267,5 +284,6 @@ export default async function CityPage({ params }: PageProps) {
         </section>
       </div>
     </main>
+    </>
   )
 }
