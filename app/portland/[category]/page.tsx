@@ -53,6 +53,11 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   }
   const { data: rawListings } = await query
   const listings = (rawListings ?? []).sort((a, b) => {
+    // Pro listings first
+    const aPro = a.tier === 'pro' ? 1 : 0
+    const bPro = b.tier === 'pro' ? 1 : 0
+    if (bPro !== aPro) return bPro - aPro
+    // Then by completeness
     const aScore = (a.description && a.price_display ? 3 : 0) + (a.price_display && !a.description ? 1 : 0) + (a.description && !a.price_display ? 2 : 0)
     const bScore = (b.description && b.price_display ? 3 : 0) + (b.price_display && !b.description ? 1 : 0) + (b.description && !b.price_display ? 2 : 0)
     return bScore - aScore

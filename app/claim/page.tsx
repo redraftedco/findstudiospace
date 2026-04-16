@@ -1,7 +1,9 @@
 'use client'
 
 import { useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
+import { Suspense } from 'react'
 
 interface ClaimResult {
   listing_id: number
@@ -9,13 +11,23 @@ interface ClaimResult {
   neighborhood: string
   type: string
   inquiry_count: number
+  tier: string
+  stripe_customer_id: string | null
 }
 
-export default function ClaimPage() {
-  const [listingId, setListingId] = useState('')
+function ClaimPageInner() {
+  const params = useSearchParams()
+  const prefillId = params.get('listing_id') || ''
+  const success = params.get('success')
+  const canceled = params.get('canceled')
+
+  const [listingId, setListingId] = useState(prefillId)
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState<ClaimResult | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [interval, setInterval] = useState<'monthly' | 'annual'>('monthly')
+  const [checkoutLoading, setCheckoutLoading] = useState(false)
+  const [portalLoading, setPortalLoading] = useState(false)
 
   async function handleLookup() {
     if (!listingId.trim()) {
@@ -44,23 +56,76 @@ export default function ClaimPage() {
     }
   }
 
+  async function handleCheckout() {
+    if (!result) return
+    setCheckoutLoading(true)
+    setError(null)
+
+    try {
+      const res = await fetch('/api/stripe/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          listing_id: result.listing_id,
+          email: '',
+          interval,
+        }),
+      })
+      const data = await res.json()
+      if (data.url) {
+        window.location.href = data.url
+      } else {
+        setError(data.error || 'Could not start checkout. Try again.')
+      }
+    } catch {
+      setError('Something went wrong. Please try again.')
+    } finally {
+      setCheckoutLoading(false)
+    }
+  }
+
+  async function handlePortal() {
+    if (!result?.stripe_customer_id) return
+    setPortalLoading(true)
+    setError(null)
+
+    try {
+      const res = await fetch('/api/stripe/portal', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          customer_id: result.stripe_customer_id,
+          listing_id: result.listing_id,
+        }),
+      })
+      const data = await res.json()
+      if (data.url) {
+        window.location.href = data.url
+      } else {
+        setError(data.error || 'Could not open subscription portal. Try again.')
+      }
+    } catch {
+      setError('Something went wrong. Please try again.')
+    } finally {
+      setPortalLoading(false)
+    }
+  }
+
   return (
     <div style={{
       minHeight: '100vh',
-      background: '#f4f1eb',
+      background: 'var(--paper)',
       padding: '80px 24px',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
     }}>
-
       <div style={{ maxWidth: '480px', width: '100%' }}>
 
-        {/* Header */}
         <Link href="/" style={{
           fontFamily: 'var(--font-mono)',
           fontSize: '11px',
-          color: '#6b6762',
+          color: 'var(--stone)',
           textDecoration: 'none',
           display: 'block',
           marginBottom: '48px',
@@ -68,14 +133,39 @@ export default function ClaimPage() {
           ← FindStudioSpace
         </Link>
 
+        {success && (
+          <div style={{
+            background: '#1a3a1a',
+            color: '#d4edda',
+            padding: '16px',
+            fontFamily: 'var(--font-mono)',
+            fontSize: '13px',
+            marginBottom: '24px',
+          }}>
+            Your Pro upgrade is active. Your listing will be updated within a few minutes.
+          </div>
+        )}
+
+        {canceled && (
+          <div style={{
+            background: '#3a2a1a',
+            color: '#f5e6cc',
+            padding: '16px',
+            fontFamily: 'var(--font-mono)',
+            fontSize: '13px',
+            marginBottom: '24px',
+          }}>
+            Checkout canceled. No charges were made.
+          </div>
+        )}
+
         <h1 style={{
           fontFamily: 'var(--font-heading)',
           fontSize: '28px',
           fontWeight: 700,
-          color: '#1a1814',
+          color: 'var(--ink)',
           margin: '0 0 8px',
           lineHeight: 1.2,
-          letterSpacing: '-0.01em',
         }}>
           See your inquiry activity
         </h1>
@@ -83,21 +173,19 @@ export default function ClaimPage() {
         <p style={{
           fontFamily: 'var(--font-body)',
           fontSize: '14px',
-          color: '#6b6762',
+          color: 'var(--stone)',
           margin: '0 0 40px',
           lineHeight: 1.6,
         }}>
-          Enter your listing ID to see how many tenants have
-          inquired about your space.
+          Enter your listing ID to see how many tenants have inquired about your space.
         </p>
 
-        {/* Input */}
         <div style={{ marginBottom: '12px' }}>
           <label style={{
             display: 'block',
             fontFamily: 'var(--font-mono)',
             fontSize: '11px',
-            color: '#6b6762',
+            color: 'var(--stone)',
             textTransform: 'uppercase',
             letterSpacing: '0.08em',
             marginBottom: '6px',
@@ -114,11 +202,11 @@ export default function ClaimPage() {
               display: 'block',
               width: '100%',
               padding: '10px 14px',
-              border: '1px solid #d6d0c4',
+              border: '1px solid var(--rule)',
               fontFamily: 'var(--font-body)',
               fontSize: '14px',
               background: 'white',
-              color: '#1a1814',
+              color: 'var(--ink)',
               boxSizing: 'border-box',
               outline: 'none',
             }}
@@ -126,7 +214,7 @@ export default function ClaimPage() {
           <p style={{
             fontFamily: 'var(--font-mono)',
             fontSize: '11px',
-            color: '#6b6762',
+            color: 'var(--stone)',
             margin: '6px 0 0',
           }}>
             Find your listing ID in your listing URL:
@@ -157,25 +245,23 @@ export default function ClaimPage() {
           <p style={{
             fontFamily: 'var(--font-mono)',
             fontSize: '12px',
-            color: '#a84530',
+            color: 'var(--action)',
             margin: '0 0 24px',
           }}>
             {error}
           </p>
         )}
 
-        {/* Result */}
         {result && (
           <div style={{
-            background: '#edeae2',
-            border: '1px solid #d6d0c4',
+            background: 'var(--surface)',
+            border: '1px solid var(--rule)',
             padding: '24px',
           }}>
-
             <p style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '10px',
-              color: '#6b6762',
+              color: 'var(--stone)',
               textTransform: 'uppercase',
               letterSpacing: '0.08em',
               margin: '0 0 4px',
@@ -183,19 +269,22 @@ export default function ClaimPage() {
               {result.type} · {result.neighborhood}
             </p>
 
-            <p style={{
-              fontFamily: 'var(--font-heading)',
-              fontSize: '16px',
-              fontWeight: 600,
-              color: '#1a1814',
-              margin: '0 0 24px',
-            }}>
-              {result.title}
-            </p>
+            <div className="flex items-center gap-2" style={{ margin: '0 0 24px' }}>
+              <p style={{
+                fontFamily: 'var(--font-heading)',
+                fontSize: '16px',
+                fontWeight: 600,
+                color: 'var(--ink)',
+                margin: 0,
+              }}>
+                {result.title}
+              </p>
+              {result.tier === 'pro' && <span className="pro-badge">Pro</span>}
+            </div>
 
             <div style={{
               background: 'white',
-              border: '1px solid #d6d0c4',
+              border: '1px solid var(--rule)',
               padding: '20px',
               textAlign: 'center',
               marginBottom: '20px',
@@ -204,7 +293,7 @@ export default function ClaimPage() {
                 fontFamily: 'var(--font-heading)',
                 fontSize: '48px',
                 fontWeight: 700,
-                color: result.inquiry_count > 0 ? '#a84530' : '#6b6762',
+                color: result.inquiry_count > 0 ? 'var(--action)' : 'var(--stone)',
                 margin: '0 0 4px',
                 lineHeight: 1,
               }}>
@@ -213,7 +302,7 @@ export default function ClaimPage() {
               <p style={{
                 fontFamily: 'var(--font-mono)',
                 fontSize: '11px',
-                color: '#6b6762',
+                color: 'var(--stone)',
                 margin: 0,
                 textTransform: 'uppercase',
                 letterSpacing: '0.08em',
@@ -222,53 +311,119 @@ export default function ClaimPage() {
               </p>
             </div>
 
-            {result.inquiry_count > 0 ? (
+            {/* Pro state: manage subscription */}
+            {result.tier === 'pro' && result.stripe_customer_id && (
+              <button
+                onClick={handlePortal}
+                disabled={portalLoading}
+                style={{
+                  width: '100%',
+                  padding: '10px',
+                  border: '1px solid var(--ink)',
+                  background: 'transparent',
+                  color: 'var(--ink)',
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '14px',
+                  fontWeight: 500,
+                  cursor: portalLoading ? 'not-allowed' : 'pointer',
+                  opacity: portalLoading ? 0.7 : 1,
+                }}
+              >
+                {portalLoading ? 'Opening...' : 'Manage subscription →'}
+              </button>
+            )}
+
+            {/* Free state: upgrade CTA */}
+            {result.tier !== 'pro' && (
               <>
                 <p style={{
                   fontFamily: 'var(--font-body)',
                   fontSize: '13px',
-                  color: '#6b6762',
+                  color: 'var(--stone)',
                   margin: '0 0 16px',
                   lineHeight: 1.6,
                 }}>
-                  {result.inquiry_count} {result.inquiry_count === 1 ? 'person has' : 'people have'} reached
-                  out about this space. Upgrade to Pro to receive their
-                  contact details directly to your inbox.
+                  Upgrade to Pro to receive inquiries directly in your inbox, get a verified badge, and rank higher in search.
                 </p>
 
-                <Link
-                  href="/for-landlords#pricing"
+                {/* Interval toggle */}
+                <div style={{
+                  display: 'flex',
+                  gap: '8px',
+                  marginBottom: '12px',
+                }}>
+                  <button
+                    onClick={() => setInterval('monthly')}
+                    style={{
+                      flex: 1,
+                      padding: '10px',
+                      border: `1px solid ${interval === 'monthly' ? 'var(--action)' : 'var(--rule)'}`,
+                      background: interval === 'monthly' ? 'var(--action-light)' : 'white',
+                      color: 'var(--ink)',
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '13px',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    $29/mo
+                  </button>
+                  <button
+                    onClick={() => setInterval('annual')}
+                    style={{
+                      flex: 1,
+                      padding: '10px',
+                      border: `1px solid ${interval === 'annual' ? 'var(--action)' : 'var(--rule)'}`,
+                      background: interval === 'annual' ? 'var(--action-light)' : 'white',
+                      color: 'var(--ink)',
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '13px',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    $290/yr (save $58)
+                  </button>
+                </div>
+
+                <p style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '11px',
+                  color: 'var(--stone)',
+                  margin: '0 0 12px',
+                }}>
+                  First 30 days free. Cancel anytime.
+                </p>
+
+                <button
+                  onClick={handleCheckout}
+                  disabled={checkoutLoading}
                   className="btn-action"
                   style={{
                     display: 'block',
-                    textAlign: 'center',
-                    padding: '10px 20px',
-                    textDecoration: 'none',
+                    width: '100%',
+                    padding: '12px',
                     fontFamily: 'var(--font-body)',
                     fontSize: '14px',
                     fontWeight: 500,
+                    border: 'none',
+                    cursor: checkoutLoading ? 'not-allowed' : 'pointer',
+                    opacity: checkoutLoading ? 0.7 : 1,
                   }}
                 >
-                  Upgrade to Pro — $49/month →
-                </Link>
+                  {checkoutLoading ? 'Starting checkout...' : 'Upgrade to Pro →'}
+                </button>
               </>
-            ) : (
-              <p style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: '13px',
-                color: '#6b6762',
-                margin: 0,
-                lineHeight: 1.6,
-              }}>
-                No inquiries yet. Make sure your listing is active and
-                has photos and a description to attract tenants.
-              </p>
             )}
-
           </div>
         )}
-
       </div>
     </div>
+  )
+}
+
+export default function ClaimPage() {
+  return (
+    <Suspense fallback={null}>
+      <ClaimPageInner />
+    </Suspense>
   )
 }

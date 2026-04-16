@@ -123,12 +123,15 @@ export default async function ListingPage({ params }: Props) {
           <span style={{ color: '#1a1814' }}>{listing.title ?? 'Listing'}</span>
         </nav>
 
-        {/* Space type tag */}
-        {listing.type && (
-          <p style={{ fontFamily: 'var(--font-mono)' }} className={`${textClass} mb-2 text-xs uppercase`}>
-            {listing.type}
-          </p>
-        )}
+        {/* Space type tag + Pro badge */}
+        <div className="flex items-center gap-2 mb-2">
+          {listing.type && (
+            <p style={{ fontFamily: 'var(--font-mono)' }} className={`${textClass} text-xs uppercase`}>
+              {listing.type}
+            </p>
+          )}
+          {listing.tier === 'pro' && <span className="pro-badge">Pro</span>}
+        </div>
 
         {/* Title */}
         <h1 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="mb-4 text-3xl font-semibold leading-snug">

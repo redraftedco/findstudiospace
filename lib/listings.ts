@@ -12,6 +12,7 @@ export type Listing = {
   status?: string | null
   images?: unknown
   niche_attributes?: Record<string, boolean | string | number | null> | null
+  tier?: string | null
 }
 
 export const NICHE_FILTERS = [

@@ -235,11 +235,25 @@ button:focus-visible {
   background: var(--rule);
 }
 
-/* Featured listing treatment — reserved for Phase 3, not applied yet */
+/* Featured listing treatment — reserved for future sponsored-placement product */
 .listing-card-featured {
   border-left: 2px solid var(--featured-color);
   background-color: var(--featured-bg);
 }
 .listing-card-featured .listing-tag {
   color: var(--featured-color);
+}
+
+/* Pro listing treatment */
+.pro-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--action);
+  border: 1px solid var(--action);
+  padding: 1px 6px;
+  line-height: 1.4;
 }

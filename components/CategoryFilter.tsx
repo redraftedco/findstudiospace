@@ -12,6 +12,7 @@ type Listing = {
   images: unknown
   description: string | null
   created_at: string | null
+  tier: string | null
 }
 
 type Props = {
@@ -196,11 +197,14 @@ export default function CategoryFilter({ listings }: Props) {
                   <div className="listing-card-placeholder" />
                 )}
                 <div className="flex flex-1 flex-col p-4">
-                  {l.type && (
-                    <p style={{ fontFamily: 'var(--font-mono)' }} className={`${textClass} mb-1 text-xs uppercase`}>
-                      {l.type}
-                    </p>
-                  )}
+                  <div className="flex items-center gap-2 mb-1">
+                    {l.type && (
+                      <p style={{ fontFamily: 'var(--font-mono)' }} className={`${textClass} text-xs uppercase`}>
+                        {l.type}
+                      </p>
+                    )}
+                    {l.tier === 'pro' && <span className="pro-badge">Pro</span>}
+                  </div>
                   {l.neighborhood && (
                     <p style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="mb-1 text-xs">
                       {l.neighborhood.trim()}

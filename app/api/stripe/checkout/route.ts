@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { stripe, STRIPE_PRICES } from '@/lib/stripe'
+import { stripe } from '@/lib/stripe'
 import { checkOrigin } from '@/lib/security'
+
+const PRICE_IDS: Record<string, string | undefined> = {
+  monthly: process.env.STRIPE_PRICE_PRO_ID,
+  annual: process.env.STRIPE_PRICE_PRO_ANNUAL_ID,
+}
 
 export async function POST(req: NextRequest) {
   const originError = checkOrigin(req)
@@ -8,23 +13,24 @@ export async function POST(req: NextRequest) {
 
   try {
     const body = await req.json()
-    const { tier, listing_id, email } = body
+    const { listing_id, email, interval } = body
 
-    if (!tier || !listing_id || !email) {
+    if (!listing_id || !email) {
       return NextResponse.json(
-        { error: 'tier, listing_id, and email are required' },
+        { error: 'listing_id and email are required' },
         { status: 400 }
       )
     }
 
-    if (!['pro', 'featured'].includes(tier)) {
+    const plan = interval === 'annual' ? 'annual' : 'monthly'
+    const priceId = PRICE_IDS[plan]
+
+    if (!priceId) {
       return NextResponse.json(
-        { error: 'tier must be pro or featured' },
+        { error: 'This plan is not available yet.' },
         { status: 400 }
       )
     }
-
-    const priceId = STRIPE_PRICES[tier as 'pro' | 'featured']
 
     const siteUrl = 'https://www.findstudiospace.com'
 
@@ -33,12 +39,15 @@ export async function POST(req: NextRequest) {
       payment_method_types: ['card'],
       customer_email: email,
       line_items: [{ price: priceId, quantity: 1 }],
+      subscription_data: {
+        trial_period_days: 30,
+      },
       metadata: {
         listing_id: String(listing_id),
-        tier: tier,
+        tier: 'pro',
       },
-      success_url: `${siteUrl}/for-landlords?success=true`,
-      cancel_url: `${siteUrl}/for-landlords?canceled=true`,
+      success_url: `${siteUrl}/claim?listing_id=${listing_id}&success=true`,
+      cancel_url: `${siteUrl}/claim?listing_id=${listing_id}&canceled=true`,
     })
 
     return NextResponse.json({ url: session.url })

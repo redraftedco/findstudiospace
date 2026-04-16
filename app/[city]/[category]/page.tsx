@@ -30,7 +30,11 @@ export default async function ListingCollectionPage({ params }: PageProps) {
     .ilike('city', normalizedCity)
     .limit(200)
 
-  const listings = (data as Listing[]) ?? []
+  const listings = ((data as Listing[]) ?? []).sort((a, b) => {
+    const aPro = a.tier === 'pro' ? 1 : 0
+    const bPro = b.tier === 'pro' ? 1 : 0
+    return bPro - aPro
+  })
 
   return (
     <main style={{ background: '#f4f1eb', color: '#1a1814' }} className="min-h-screen px-6 py-10">
@@ -56,9 +60,12 @@ export default async function ListingCollectionPage({ params }: PageProps) {
               style={{ border: '1px solid #d6d0c4', background: '#edeae2' }}
               className="group block p-4 hover:border-[#6b6762] transition-colors"
             >
-              <h2 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="font-semibold leading-snug">
-                {listing.title ?? 'Untitled listing'}
-              </h2>
+              <div className="flex items-center gap-2">
+                <h2 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="font-semibold leading-snug">
+                  {listing.title ?? 'Untitled listing'}
+                </h2>
+                {listing.tier === 'pro' && <span className="pro-badge">Pro</span>}
+              </div>
               {listing.price_display && (
                 <p style={{ fontFamily: 'var(--font-mono)', color: '#1a1814' }} className="mt-1 text-sm font-medium">
                   {listing.price_display}

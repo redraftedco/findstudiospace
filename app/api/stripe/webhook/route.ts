@@ -37,27 +37,67 @@ export async function POST(req: NextRequest) {
       case 'checkout.session.completed': {
         const session = event.data.object as Stripe.Checkout.Session
         const listing_id = session.metadata?.listing_id
-        const tier = session.metadata?.tier
+        if (!listing_id) break
+
         const subscription_id = session.subscription as string
         const customer_id = session.customer as string
 
-        if (!listing_id || !tier) break
+        // Fetch subscription to get current_period_end
+        const subResponse = await stripe.subscriptions.retrieve(subscription_id)
+        const periodEnd = (subResponse as unknown as { current_period_end: number }).current_period_end
+        const periodEndISO = new Date(periodEnd * 1000).toISOString()
 
-        const is_featured = tier === 'featured'
-        const featured_expires_at = is_featured
-          ? new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
-          : null
+        // Idempotency: skip if already set to this subscription
+        const { data: existing } = await supabase
+          .from('listings')
+          .select('stripe_subscription_id, current_period_end')
+          .eq('id', parseInt(listing_id))
+          .single()
+
+        if (
+          existing?.stripe_subscription_id === subscription_id &&
+          existing?.current_period_end === periodEndISO
+        ) {
+          break // Already processed
+        }
 
         await supabase
           .from('listings')
           .update({
-            is_featured,
-            featured_expires_at,
+            tier: 'pro',
             stripe_customer_id: customer_id,
             stripe_subscription_id: subscription_id,
+            current_period_end: periodEndISO,
             updated_at: new Date().toISOString(),
           })
           .eq('id', parseInt(listing_id))
+
+        break
+      }
+
+      case 'customer.subscription.updated': {
+        const subscription = event.data.object as Stripe.Subscription & { current_period_end: number }
+        const isActive = ['active', 'trialing'].includes(subscription.status)
+
+        if (isActive) {
+          await supabase
+            .from('listings')
+            .update({
+              tier: 'pro',
+              current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
+              updated_at: new Date().toISOString(),
+            })
+            .eq('stripe_subscription_id', subscription.id)
+        } else {
+          await supabase
+            .from('listings')
+            .update({
+              tier: 'free',
+              current_period_end: null,
+              updated_at: new Date().toISOString(),
+            })
+            .eq('stripe_subscription_id', subscription.id)
+        }
 
         break
       }
@@ -68,30 +108,12 @@ export async function POST(req: NextRequest) {
         await supabase
           .from('listings')
           .update({
-            is_featured: false,
-            featured_expires_at: null,
+            tier: 'free',
             stripe_subscription_id: null,
+            current_period_end: null,
             updated_at: new Date().toISOString(),
           })
           .eq('stripe_subscription_id', subscription.id)
-
-        break
-      }
-
-      case 'customer.subscription.updated': {
-        const subscription = event.data.object as Stripe.Subscription
-        const is_active = subscription.status === 'active'
-
-        if (!is_active) {
-          await supabase
-            .from('listings')
-            .update({
-              is_featured: false,
-              featured_expires_at: null,
-              updated_at: new Date().toISOString(),
-            })
-            .eq('stripe_subscription_id', subscription.id)
-        }
 
         break
       }
