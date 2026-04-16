@@ -1,20 +1,6 @@
 # TODO
 
-## TICKET 1 — Directory sort by is_featured DESC, created_at DESC
-**Priority:** MUST ship before any cold email batch goes out.
-
-**Files:**
-- `app/[city]/page.tsx:116` — no `.order()`, sorts by image count in JS
-- `app/[city]/[category]/page.tsx:33-37` — sorts by `tier === 'pro'` in JS, no secondary sort
-- `app/portland/[category]/page.tsx:38-44` — no `.order()` call
-
-**Fix:** Replace JS-side sorting with Supabase query:
-```ts
-.order('is_featured', { ascending: false })
-.order('created_at', { ascending: false })
-```
-
-**Acceptance:** Pro listings appear above free listings on all three routes. Verify on `/portland`, `/portland/art-studio`, and `/portland/[any-category]`.
+## TICKET 1 — ~~Directory sort~~ DONE (feat/directory-sort)
 
 ---
 

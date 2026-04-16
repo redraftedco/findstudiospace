@@ -113,7 +113,9 @@ export default async function CityPage({ params }: PageProps) {
       .from('listings')
       .select('id, title, price_display, neighborhood, type, images, description, created_at')
       .eq('status', 'active')
-      .limit(24),
+      .order('is_featured', { ascending: false })
+      .order('created_at', { ascending: false })
+      .limit(6),
   ])
 
   const countByType: Record<string, number> = {}
@@ -123,15 +125,7 @@ export default async function CityPage({ params }: PageProps) {
   }
   const total = (countsRes.data ?? []).length
 
-  const allRecent = recentRes.data ?? []
-  const sorted = [...allRecent].sort((a, b) => {
-    const aImages: string[] = Array.isArray(a.images) ? a.images : []
-    const bImages: string[] = Array.isArray(b.images) ? b.images : []
-    const aScore = (aImages.length > 0 ? 2 : 0) + (a.price_display ? 1 : 0)
-    const bScore = (bImages.length > 0 ? 2 : 0) + (b.price_display ? 1 : 0)
-    return bScore - aScore
-  })
-  const recent = sorted.slice(0, 6)
+  const recent = recentRes.data ?? []
 
   return (
     <main style={{ background: '#f4f1eb', color: '#1a1814' }} className="min-h-screen">

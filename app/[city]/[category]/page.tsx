@@ -28,13 +28,11 @@ export default async function ListingCollectionPage({ params }: PageProps) {
     .select('*')
     .eq('status', 'active')
     .ilike('city', normalizedCity)
+    .order('is_featured', { ascending: false })
+    .order('created_at', { ascending: false })
     .limit(200)
 
-  const listings = ((data as Listing[]) ?? []).sort((a, b) => {
-    const aPro = a.tier === 'pro' ? 1 : 0
-    const bPro = b.tier === 'pro' ? 1 : 0
-    return bPro - aPro
-  })
+  const listings = (data as Listing[]) ?? []
 
   return (
     <main style={{ background: '#f4f1eb', color: '#1a1814' }} className="min-h-screen px-6 py-10">
