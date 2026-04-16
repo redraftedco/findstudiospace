@@ -5,6 +5,7 @@ import { supabase } from '@/lib/supabase'
 import InquiryForm from '@/components/InquiryForm'
 import ViewCounter from '@/components/ViewCounter'
 import ProUpsell from '@/components/ProUpsell'
+import ClaimBanner from '@/components/ClaimBanner'
 import { directoryConfig } from '@/lib/directory'
 
 export const revalidate = 3600
@@ -154,36 +155,7 @@ export default async function ListingPage({ params }: Props) {
           }, [])}
         </div>
 
-        <div style={{
-          background: '#FAE5DB',
-          padding: '10px 16px',
-          marginBottom: '16px',
-          display: 'flex',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: '8px 16px',
-        }}>
-          <p style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '12px',
-            color: '#1a1814',
-            margin: 0,
-          }}>
-            Is this your studio?
-          </p>
-          <a
-            href={`/claim/${listing.id}`}
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '12px',
-              color: '#a84530',
-              textDecoration: 'none',
-              marginLeft: 'auto',
-            }}
-          >
-            Claim My Listing →
-          </a>
-        </div>
+        <ClaimBanner listingId={String(listing.id)} />
 
         <ViewCounter listingId={String(listing.id)} tier={listing.tier ?? 'free'} />
 

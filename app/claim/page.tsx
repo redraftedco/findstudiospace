@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { Suspense } from 'react'
+import posthog from 'posthog-js'
 
 interface ClaimResult {
   listing_id: number
@@ -73,6 +74,10 @@ function ClaimPageInner() {
       })
       const data = await res.json()
       if (data.url) {
+        posthog.capture('upgrade_checkout_started', {
+          listing_id: result.listing_id,
+          interval,
+        })
         window.location.href = data.url
       } else {
         setError(data.error || 'Could not start checkout. Try again.')

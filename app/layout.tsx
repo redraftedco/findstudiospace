@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { Suspense } from 'react'
 import { Space_Grotesk, Inter, IBM_Plex_Mono } from 'next/font/google'
+import PostHogProvider from '@/components/PostHogProvider'
+import UTMCapture from '@/components/UTMCapture'
 import './globals.css'
 
 const spaceGrotesk = Space_Grotesk({
@@ -29,6 +32,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable} ${plexMono.variable}`}>
       <body>
+        <PostHogProvider>
+        <Suspense fallback={null}><UTMCapture /></Suspense>
         <header style={{ borderBottom: '1px solid #d6d0c4', background: '#f4f1eb' }} className="px-6 py-4">
           <div className="mx-auto flex max-w-5xl items-center justify-between">
             <Link href="/" style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="text-lg font-semibold tracking-tight">
@@ -69,6 +74,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
           </div>
         </footer>
+        </PostHogProvider>
       </body>
     </html>
   )

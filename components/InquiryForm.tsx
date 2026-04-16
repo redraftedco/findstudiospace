@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 
 type Props = { listingId: string; listingTitle: string }
 
@@ -8,6 +9,7 @@ export default function InquiryForm({ listingId }: Props) {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
   const [errorMsg, setErrorMsg] = useState('')
   const startedAt = useRef(Date.now())
+  const searchParams = useSearchParams()
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -25,6 +27,9 @@ export default function InquiryForm({ listingId }: Props) {
           message: (form.elements.namedItem('message') as HTMLTextAreaElement).value,
           website: (form.elements.namedItem('website') as HTMLInputElement).value,
           form_started_at: startedAt.current,
+          utm_source: searchParams.get('utm_source') || undefined,
+          utm_medium: searchParams.get('utm_medium') || undefined,
+          utm_campaign: searchParams.get('utm_campaign') || undefined,
         }),
       })
       const json = await res.json()

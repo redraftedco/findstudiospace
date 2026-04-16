@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    const { listing_id, name, email, message, website, form_started_at } = await req.json()
+    const { listing_id, name, email, message, website, form_started_at, utm_source, utm_medium, utm_campaign } = await req.json()
 
     // Honeypot
     if (website) return NextResponse.json({ ok: true })
@@ -97,6 +97,9 @@ export async function POST(req: NextRequest) {
       message: cleanMessage,
       host_email: listing?.contact_email ?? null,
       directory_id: process.env.NEXT_PUBLIC_DIRECTORY_ID || 'findstudiospace',
+      utm_source: utm_source ? String(utm_source).slice(0, 100) : null,
+      utm_medium: utm_medium ? String(utm_medium).slice(0, 100) : null,
+      utm_campaign: utm_campaign ? String(utm_campaign).slice(0, 100) : null,
     }])
 
     if (error) return NextResponse.json({ ok: false, error: 'Something went wrong.' }, { status: 500 })
