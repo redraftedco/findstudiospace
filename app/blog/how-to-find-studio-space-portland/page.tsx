@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     title: 'How to Find Studio Space in Portland, OR',
     description:
       'A practical guide to finding monthly studio, workshop, and creative workspace in Portland — what to look for, where to search, and what to ask before signing.',
-    url: 'https://findstudiospace.com/blog/how-to-find-studio-space-portland',
+    url: 'https://www.findstudiospace.com/blog/how-to-find-studio-space-portland',
     type: 'article',
   },
 }

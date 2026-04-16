@@ -4,6 +4,10 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'Blog | FindStudioSpace',
   description: 'Guides and resources for finding studio and workspace in Portland, OR.',
+  openGraph: {
+    title: 'Blog | FindStudioSpace',
+    description: 'Guides and resources for finding studio and workspace in Portland, OR.',
+  },
 }
 
 const POSTS = [
