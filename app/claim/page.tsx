@@ -380,7 +380,7 @@ function ClaimPageInner() {
                       cursor: 'pointer',
                     }}
                   >
-                    $290/yr (save $58)
+                    $249/yr (save $99)
                   </button>
                 </div>
 

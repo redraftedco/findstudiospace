@@ -213,6 +213,39 @@ export default async function ListingPage({ params }: Props) {
                 <p style={{ color: '#6b6762' }} className="text-sm">None listed.</p>
               )}
             </section>
+
+            {/* Pro links — website & Instagram */}
+            {listing.tier === 'pro' && (listing.website_url || listing.instagram_url) && (
+              <section style={{ borderTop: '1px solid #d6d0c4' }} className="mt-6 pt-6">
+                <h2 style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="mb-3 text-xs uppercase tracking-wider">
+                  Links
+                </h2>
+                <div className="flex flex-wrap gap-4">
+                  {listing.website_url && (
+                    <a
+                      href={listing.website_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ color: '#a84530', fontFamily: 'var(--font-mono)' }}
+                      className="text-sm hover:underline"
+                    >
+                      Website ↗
+                    </a>
+                  )}
+                  {listing.instagram_url && (
+                    <a
+                      href={listing.instagram_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ color: '#a84530', fontFamily: 'var(--font-mono)' }}
+                      className="text-sm hover:underline"
+                    >
+                      Instagram ↗
+                    </a>
+                  )}
+                </div>
+              </section>
+            )}
           </div>
 
           {/* Right column — sticky form */}

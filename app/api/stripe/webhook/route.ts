@@ -8,6 +8,21 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_KEY!
 )
 
+async function isDuplicate(eventId: string): Promise<boolean> {
+  const { error } = await supabase
+    .from('stripe_events')
+    .insert({ event_id: eventId })
+
+  // PK conflict = already processed
+  if (error?.code === '23505') return true
+  if (error) {
+    console.error('stripe_events insert error:', error)
+    // If we can't record the event, don't process — fail safe
+    return true
+  }
+  return false
+}
+
 export async function POST(req: NextRequest) {
   const body = await req.text()
   const signature = req.headers.get('stripe-signature')
@@ -32,6 +47,11 @@ export async function POST(req: NextRequest) {
     )
   }
 
+  // Idempotency: dedup by event.id before any mutation
+  if (await isDuplicate(event.id)) {
+    return NextResponse.json({ received: true })
+  }
+
   try {
     switch (event.type) {
       case 'checkout.session.completed': {
@@ -47,24 +67,11 @@ export async function POST(req: NextRequest) {
         const periodEnd = (subResponse as unknown as { current_period_end: number }).current_period_end
         const periodEndISO = new Date(periodEnd * 1000).toISOString()
 
-        // Idempotency: skip if already set to this subscription
-        const { data: existing } = await supabase
-          .from('listings')
-          .select('stripe_subscription_id, current_period_end')
-          .eq('id', parseInt(listing_id))
-          .single()
-
-        if (
-          existing?.stripe_subscription_id === subscription_id &&
-          existing?.current_period_end === periodEndISO
-        ) {
-          break // Already processed
-        }
-
         await supabase
           .from('listings')
           .update({
             tier: 'pro',
+            is_featured: true,
             stripe_customer_id: customer_id,
             stripe_subscription_id: subscription_id,
             current_period_end: periodEndISO,
@@ -84,6 +91,7 @@ export async function POST(req: NextRequest) {
             .from('listings')
             .update({
               tier: 'pro',
+              is_featured: true,
               current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
               updated_at: new Date().toISOString(),
             })
@@ -93,6 +101,7 @@ export async function POST(req: NextRequest) {
             .from('listings')
             .update({
               tier: 'free',
+              is_featured: false,
               current_period_end: null,
               updated_at: new Date().toISOString(),
             })
@@ -109,6 +118,7 @@ export async function POST(req: NextRequest) {
           .from('listings')
           .update({
             tier: 'free',
+            is_featured: false,
             stripe_subscription_id: null,
             current_period_end: null,
             updated_at: new Date().toISOString(),
