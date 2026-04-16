@@ -33,13 +33,6 @@ const PRO_FEATURES = [
   'Priority in search results',
 ]
 
-const FEATURED_FEATURES = [
-  'Everything in Pro',
-  'Homepage placement',
-  'Top of category pages',
-  'Monthly performance report',
-]
-
 export default function ForLandlordsPage() {
   return (
     <main style={{ background: '#f4f1eb', color: '#1a1814' }} className="min-h-screen">
@@ -183,7 +176,7 @@ export default function ForLandlordsPage() {
           <p style={{ color: '#6b6762' }} className="mb-10 text-sm">
             Start free. Upgrade when you&apos;re ready.
           </p>
-          <div className="listing-grid items-start">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-start max-w-2xl">
 
             {/* Free */}
             <div style={{ border: '1px solid #d6d0c4', background: '#edeae2' }} className="p-8">
@@ -213,7 +206,7 @@ export default function ForLandlordsPage() {
                 Most popular
               </p>
               <p style={{ fontFamily: 'var(--font-heading)', color: '#1a1814', fontSize: '2rem' }} className="font-semibold mb-6">
-                $49<span style={{ fontSize: '1rem', color: '#6b6762' }}>/month</span>
+                $29<span style={{ fontSize: '1rem', color: '#6b6762' }}>/month</span>
               </p>
               <ul className="mb-8 space-y-2">
                 {PRO_FEATURES.map((f) => (
@@ -223,22 +216,6 @@ export default function ForLandlordsPage() {
                 ))}
               </ul>
               <UpgradeButton tier="pro" label="Start Pro →" />
-            </div>
-
-            {/* Featured */}
-            <div style={{ border: '1px solid #d6d0c4', background: '#edeae2' }} className="p-8">
-              <p style={{ fontFamily: 'var(--font-mono)', color: '#6b6762' }} className="mb-1 text-xs uppercase">Maximum visibility</p>
-              <p style={{ fontFamily: 'var(--font-heading)', color: '#1a1814', fontSize: '2rem' }} className="font-semibold mb-6">
-                $99<span style={{ fontSize: '1rem', color: '#6b6762' }}>/month</span>
-              </p>
-              <ul className="mb-8 space-y-2">
-                {FEATURED_FEATURES.map((f) => (
-                  <li key={f} style={{ color: '#6b6762' }} className="flex gap-2 text-sm">
-                    <span style={{ color: '#a84530' }}>✓</span> {f}
-                  </li>
-                ))}
-              </ul>
-              <UpgradeButton tier="featured" label="Go Featured →" />
             </div>
 
           </div>
