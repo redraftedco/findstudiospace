@@ -4,8 +4,7 @@
 
 ---
 
-## TICKET 2 — Route validation for unknown cities/categories
-**Priority:** Medium. Prevents broken pages from being indexed or confusing users.
+## TICKET 2 — ~~Route validation~~ DONE (feat/route-validation)
 
 **Files:**
 - `app/[city]/page.tsx`

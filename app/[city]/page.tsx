@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@supabase/supabase-js'
 
@@ -83,29 +84,7 @@ export default async function CityPage({ params }: PageProps) {
   const citySlug = city.toLowerCase()
   const config = CITY_CONFIG[citySlug]
 
-  if (!config) {
-    return (
-      <div style={{
-        minHeight: '100vh',
-        background: '#f4f1eb',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontFamily: 'var(--font-body)',
-      }}>
-        <div style={{ textAlign: 'center' }}>
-          <p style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: '#6b6762', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Coming soon</p>
-          <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: '28px', color: '#1a1814', margin: '8px 0' }}>
-            {city.charAt(0).toUpperCase() + city.slice(1)}
-          </h1>
-          <p style={{ color: '#6b6762', fontSize: '14px' }}>
-            We&apos;re launching here soon.{' '}
-            <a href="/portland" style={{ color: '#a84530' }}>Browse Portland →</a>
-          </p>
-        </div>
-      </div>
-    )
-  }
+  if (!config) notFound()
 
   const [countsRes, recentRes] = await Promise.all([
     supabase.from('listings').select('type').eq('status', 'active'),

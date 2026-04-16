@@ -1,8 +1,18 @@
 import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { slugToLabel, type Listing } from '@/lib/listings'
 import { supabase } from '@/lib/supabase'
 import { directoryConfig } from '@/lib/directory'
+
+const ALLOWED_CITIES = new Set(['portland', 'seattle'])
+const ALLOWED_CATEGORIES = new Set([
+  'art-studio', 'art-studio-rental', 'workshop-space-rental',
+  'office-space-rental', 'photo-studio-rental', 'fitness-studio-rental',
+  'retail-space-for-rent', 'music-studio-rental', 'music-rehearsal-space',
+  'dance-studio-rental', 'ceramics-studio-rental', 'woodworking-studio-rental',
+  'studio-space-rental',
+])
 
 type PageProps = {
   params: Promise<{ city: string; category: string }>
@@ -10,6 +20,7 @@ type PageProps = {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { city, category } = await params
+  if (!ALLOWED_CITIES.has(city.toLowerCase()) || !ALLOWED_CATEGORIES.has(category.toLowerCase())) return {}
   const cityLabel = slugToLabel(city)
   const categoryLabel = slugToLabel(category)
   return {
@@ -20,6 +31,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function ListingCollectionPage({ params }: PageProps) {
   const { city, category } = await params
+  if (!ALLOWED_CITIES.has(city.toLowerCase()) || !ALLOWED_CATEGORIES.has(category.toLowerCase())) notFound()
   const normalizedCity = slugToLabel(city)
   const normalizedCategory = slugToLabel(category)
 
