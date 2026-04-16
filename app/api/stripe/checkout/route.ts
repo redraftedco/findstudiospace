@@ -22,6 +22,8 @@ export async function POST(req: NextRequest) {
 
     const priceId = STRIPE_PRICES[tier as 'pro' | 'featured']
 
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.findstudiospace.com'
+
     const session = await stripe.checkout.sessions.create({
       mode: 'subscription',
       payment_method_types: ['card'],
@@ -31,8 +33,8 @@ export async function POST(req: NextRequest) {
         listing_id: String(listing_id),
         tier: tier,
       },
-      success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/for-landlords?success=true`,
-      cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/for-landlords?canceled=true`,
+      success_url: `${siteUrl}/for-landlords?success=true`,
+      cancel_url: `${siteUrl}/for-landlords?canceled=true`,
     })
 
     return NextResponse.json({ url: session.url })
