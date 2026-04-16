@@ -32,6 +32,8 @@ export default function ProUpsell({ listingId }: { listingId: string }) {
           fontSize: '12px',
           color: '#a84530',
           textDecoration: 'none',
+          display: 'inline-block',
+          padding: '8px 0',
         }}
       >
         Upgrade to Pro →

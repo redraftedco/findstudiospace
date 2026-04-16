@@ -35,6 +35,7 @@ export default function ClaimBanner({ listingId }: { listingId: string }) {
           color: '#a84530',
           textDecoration: 'none',
           marginLeft: 'auto',
+          padding: '8px 0',
         }}
       >
         Claim My Listing →

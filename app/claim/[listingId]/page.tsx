@@ -136,7 +136,7 @@ export default function ClaimListingPage({
                 style={{
                   display: 'block',
                   width: '100%',
-                  padding: '10px 14px',
+                  padding: '12px 14px',
                   border: '1px solid var(--rule)',
                   fontFamily: 'var(--font-body)',
                   fontSize: '14px',
@@ -145,6 +145,7 @@ export default function ClaimListingPage({
                   boxSizing: 'border-box',
                   outline: 'none',
                   marginBottom: '16px',
+                  minHeight: '48px',
                 }}
               />
 

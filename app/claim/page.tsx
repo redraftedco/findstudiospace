@@ -206,12 +206,13 @@ function ClaimPageInner() {
             style={{
               display: 'block',
               width: '100%',
-              padding: '10px 14px',
+              padding: '12px 14px',
               border: '1px solid var(--rule)',
               fontFamily: 'var(--font-body)',
               fontSize: '14px',
               background: 'white',
               color: 'var(--ink)',
+              minHeight: '48px',
               boxSizing: 'border-box',
               outline: 'none',
             }}
