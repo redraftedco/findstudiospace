@@ -23,6 +23,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: config.title,
     description: config.metaDescription,
+    openGraph: {
+      title: config.title,
+      description: config.metaDescription,
+    },
+    twitter: {
+      card: 'summary',
+      title: config.title,
+      description: config.metaDescription,
+    },
   }
 }
 
@@ -68,11 +77,39 @@ export default async function CategoryPage({ params, searchParams }: Props) {
     })),
   }
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://www.findstudiospace.com',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Portland',
+        item: 'https://www.findstudiospace.com/portland',
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: config.h1,
+      },
+    ],
+  }
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
       <main style={{ background: '#f4f1eb', color: '#1a1814' }} className="min-h-screen">
