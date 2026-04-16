@@ -54,15 +54,49 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params
   const { data } = await supabase
     .from('listings')
-    .select('title, city, type, description')
+    .select('title, city, type, neighborhood, price_numeric, price_display, images')
     .eq('id', id)
     .single()
   if (!data) return {}
+
+  const typeLabel = TYPE_TO_LABEL[(data.type ?? '').toLowerCase()] ?? 'Studio'
+  const hood = data.neighborhood
+  const city = data.city ?? 'Portland'
+
+  // Title: "{title} — {Type} Space for Rent in {Neighborhood}, Portland | FindStudioSpace"
+  const locationPart = hood ? `in ${hood}, ${city}` : `in ${city}`
+  const title = `${data.title} — ${typeLabel} for Rent ${locationPart} | FindStudioSpace`
+
+  // Description: ≤155 chars, built from structured data
+  const pricePart = data.price_numeric
+    ? ` Starting at $${data.price_numeric.toLocaleString('en-US')}/mo.`
+    : data.price_display
+      ? ` Starting at ${data.price_display}/mo.`
+      : ''
+  const desc = `${typeLabel} for rent ${locationPart}.${pricePart}`.slice(0, 155)
+
+  // OG image: first image from jsonb array
+  const images: string[] = Array.isArray(data.images)
+    ? (data.images as unknown[])
+        .map((x: unknown) => (typeof x === 'string' ? x : (x as Record<string, string>)?.url ?? ''))
+        .filter(Boolean)
+    : []
+  const ogImage = images[0] ?? null
+
   return {
-    title: `${data.title} | FindStudioSpace`,
-    description: data.description
-      ? String(data.description).slice(0, 160)
-      : `${data.type ?? 'Studio'} space in ${data.city ?? 'Portland'}.`,
+    title,
+    description: desc,
+    openGraph: {
+      title,
+      description: desc,
+      ...(ogImage ? { images: [{ url: ogImage }] } : {}),
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description: desc,
+      ...(ogImage ? { images: [ogImage] } : {}),
+    },
   }
 }
 
