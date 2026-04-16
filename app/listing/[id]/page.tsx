@@ -141,7 +141,67 @@ export default async function ListingPage({ params }: Props) {
   }
   const timestamp = timeAgo(listing.created_at)
 
+  // JSON-LD: LocalBusiness
+  const jsonLd: Record<string, unknown> = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: listing.title,
+    description: listing.description ? String(listing.description).slice(0, 300) : undefined,
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: listing.city ?? 'Portland',
+      addressRegion: listing.state ?? 'OR',
+      ...(listing.neighborhood ? { addressCountry: 'US' } : {}),
+    },
+    ...(listing.neighborhood ? { areaServed: listing.neighborhood } : {}),
+    ...(images.length > 0 ? { image: images[0] } : {}),
+    priceRange: listing.price_display ?? '$$',
+    url: `https://www.findstudiospace.com/listing/${listing.id}`,
+  }
+  // Remove undefined values
+  Object.keys(jsonLd).forEach(k => jsonLd[k] === undefined && delete jsonLd[k])
+
+  // JSON-LD: BreadcrumbList
+  const breadcrumbLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://www.findstudiospace.com',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Portland',
+        item: 'https://www.findstudiospace.com/portland',
+      },
+      ...(categorySlug ? [{
+        '@type': 'ListItem',
+        position: 3,
+        name: categoryLabel,
+        item: `https://www.findstudiospace.com/portland/${categorySlug}`,
+      }] : []),
+      {
+        '@type': 'ListItem',
+        position: categorySlug ? 4 : 3,
+        name: listing.title ?? 'Listing',
+      },
+    ],
+  }
+
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+      />
     <main style={{ background: '#f4f1eb', color: '#1a1814' }} className="min-h-screen">
       <div className="mx-auto max-w-5xl px-6 py-8">
 
@@ -309,5 +369,6 @@ export default async function ListingPage({ params }: Props) {
 
       </div>
     </main>
+    </>
   )
 }
