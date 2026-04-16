@@ -176,7 +176,7 @@ export default function ForLandlordsPage() {
           <p style={{ color: '#6b6762' }} className="mb-10 text-sm">
             Start free. Upgrade when you&apos;re ready.
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-start max-w-2xl">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-start max-w-2xl mx-auto">
 
             {/* Free */}
             <div style={{ border: '1px solid #d6d0c4', background: '#edeae2' }} className="p-8">

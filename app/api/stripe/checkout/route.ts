@@ -26,10 +26,7 @@ export async function POST(req: NextRequest) {
 
     const priceId = STRIPE_PRICES[tier as 'pro' | 'featured']
 
-    let siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.findstudiospace.com').trim()
-    if (!/^https?:\/\//i.test(siteUrl)) {
-      siteUrl = `https://${siteUrl}`
-    }
+    const siteUrl = 'https://www.findstudiospace.com'
 
     const session = await stripe.checkout.sessions.create({
       mode: 'subscription',
