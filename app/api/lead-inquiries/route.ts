@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseServer } from '@/lib/supabase-server'
 import { Resend } from 'resend'
+import { checkOrigin } from '@/lib/security'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -42,6 +43,9 @@ function isValidEmail(email: string): boolean {
 }
 
 export async function POST(req: NextRequest) {
+  const originError = checkOrigin(req)
+  if (originError) return originError
+
   try {
     // Rate limit check
     const ip = getIP(req)

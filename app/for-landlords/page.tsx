@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { Suspense } from 'react'
 import { UpgradeButton } from '@/components/UpgradeButton'
+import { CheckoutResult } from '@/components/CheckoutResult'
 
 export const metadata: Metadata = {
   title: 'List Your Studio Space in Portland | FindStudioSpace',
@@ -41,6 +43,10 @@ const FEATURED_FEATURES = [
 export default function ForLandlordsPage() {
   return (
     <main style={{ background: '#f4f1eb', color: '#1a1814' }} className="min-h-screen">
+
+      <Suspense fallback={null}>
+        <CheckoutResult />
+      </Suspense>
 
       {/* Section 1: Hero */}
       <section

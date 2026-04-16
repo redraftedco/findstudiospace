@@ -1,5 +1,6 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { supabaseServer } from '@/lib/supabase-server'
+import { checkOrigin } from '@/lib/security'
 
 const TYPE_MAP: Record<string, string> = {
   'Art Studio': 'art',
@@ -20,7 +21,10 @@ function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
+  const originError = checkOrigin(req)
+  if (originError) return originError
+
   try {
     const body = await req.json()
     const { host_name, email, title, type, neighborhood, price_monthly, square_footage, description, amenities } = body

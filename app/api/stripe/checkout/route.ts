@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { stripe, STRIPE_PRICES } from '@/lib/stripe'
+import { checkOrigin } from '@/lib/security'
 
 export async function POST(req: NextRequest) {
+  const originError = checkOrigin(req)
+  if (originError) return originError
+
   try {
     const body = await req.json()
     const { tier, listing_id, email } = body
@@ -22,7 +26,10 @@ export async function POST(req: NextRequest) {
 
     const priceId = STRIPE_PRICES[tier as 'pro' | 'featured']
 
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.findstudiospace.com'
+    let siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.findstudiospace.com').trim()
+    if (!/^https?:\/\//i.test(siteUrl)) {
+      siteUrl = `https://${siteUrl}`
+    }
 
     const session = await stripe.checkout.sessions.create({
       mode: 'subscription',

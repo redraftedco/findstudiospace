@@ -23,15 +23,26 @@ const nextConfig: NextConfig = {
             value: 'camera=(), microphone=(), geolocation=()',
           },
           {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=63072000; includeSubDomains; preload',
+          },
+          {
+            key: 'X-XSS-Protection',
+            value: '1; mode=block',
+          },
+          {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
               "script-src 'self' 'unsafe-inline' js.stripe.com",
               "connect-src 'self' api.stripe.com *.supabase.co",
               "frame-src js.stripe.com",
+              "frame-ancestors 'none'",
               "img-src 'self' data: blob: *",
               "style-src 'self' 'unsafe-inline' fonts.googleapis.com",
               "font-src 'self' fonts.gstatic.com",
+              "base-uri 'self'",
+              "form-action 'self'",
             ].join('; '),
           },
         ],
