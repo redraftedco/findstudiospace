@@ -15,9 +15,9 @@ export async function POST(req: NextRequest) {
     const body = await req.json()
     const { listing_id, email, interval } = body
 
-    if (!listing_id || !email) {
+    if (!listing_id) {
       return NextResponse.json(
-        { error: 'listing_id and email are required' },
+        { error: 'listing_id is required' },
         { status: 400 }
       )
     }
@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
     const session = await stripe.checkout.sessions.create({
       mode: 'subscription',
       payment_method_types: ['card'],
-      customer_email: email,
+      ...(email ? { customer_email: email } : {}),
       line_items: [{ price: priceId, quantity: 1 }],
       subscription_data: {
         trial_period_days: 30,
