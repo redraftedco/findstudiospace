@@ -154,6 +154,37 @@ export default async function ListingPage({ params }: Props) {
           }, [])}
         </div>
 
+        <div style={{
+          background: '#FAE5DB',
+          padding: '10px 16px',
+          marginBottom: '16px',
+          display: 'flex',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '8px 16px',
+        }}>
+          <p style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '12px',
+            color: '#1a1814',
+            margin: 0,
+          }}>
+            Is this your studio?
+          </p>
+          <a
+            href={`/claim/${listing.id}`}
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '12px',
+              color: '#a84530',
+              textDecoration: 'none',
+              marginLeft: 'auto',
+            }}
+          >
+            Claim My Listing →
+          </a>
+        </div>
+
         <ViewCounter listingId={String(listing.id)} tier={listing.tier ?? 'free'} />
 
         {/* Two-column layout */}
@@ -265,22 +296,6 @@ export default async function ListingPage({ params }: Props) {
             </div>
           </div>
         </div>
-
-        <p style={{
-          fontFamily: 'var(--font-mono)',
-          fontSize: '11px',
-          color: '#6b6762',
-          marginTop: '32px',
-          textAlign: 'center',
-        }}>
-          Own this space?{' '}
-          <a
-            href={`/claim?listing_id=${listing.id}`}
-            style={{ color: '#a84530', textDecoration: 'none' }}
-          >
-            See your inquiry activity →
-          </a>
-        </p>
 
         {(listing.tier ?? 'free') !== 'pro' && (
           <ProUpsell listingId={String(listing.id)} />

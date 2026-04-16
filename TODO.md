@@ -28,3 +28,21 @@
 **Fix:** If city not in allowed list OR category not in known slugs (art-studio, music-studio-rental, photo-studio-rental, workshop-space-rental, office-space-rental, fitness-studio-rental, retail-space-for-rent, dance-studio-rental), return `notFound()`.
 
 **Acceptance:** `/feat/pro-tier-gaps` returns 404, not a broken page. Same for `/portland/nonexistent-category`.
+
+---
+
+## TICKET 3 — Rate limiting on /api/claim/send-magic-link
+**Priority:** Low. Deferred until abuse observed post-launch.
+
+**Current state:** Relies on Supabase built-in OTP rate limit (60s between sends per email).
+
+**Fix when needed:** Add IP-based rate limiting via Upstash Redis or Vercel's built-in rate limiting.
+
+---
+
+## TICKET 4 — Full dashboard analytics (views over time, inquiry trend, neighborhood rank)
+**Priority:** Phase 2. Build after Pro subscriptions exist.
+
+**Current state:** Dashboard shows 30-day view count and total inquiry count as raw numbers.
+
+**Fix:** Add daily views chart, inquiry trend line, and "rank in neighborhood" metric to `/dashboard/[listingId]`. Gate behind `tier = 'pro'`.
