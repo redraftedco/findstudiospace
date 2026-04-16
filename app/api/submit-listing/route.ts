@@ -10,6 +10,16 @@ const TYPE_MAP: Record<string, string> = {
   'Fitness & Dance': 'fitness',
 }
 
+const VALID_TYPES = new Set(Object.values(TYPE_MAP))
+
+function stripHtml(str: string): string {
+  return str.replace(/(<([^>]+)>)/gi, '').trim()
+}
+
+function isValidEmail(email: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+}
+
 export async function POST(req: Request) {
   try {
     const body = await req.json()
@@ -19,23 +29,44 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: false, error: 'Missing required fields.' }, { status: 400 })
     }
 
+    if (!isValidEmail(email)) {
+      return NextResponse.json({ success: false, error: 'Invalid email address.' }, { status: 400 })
+    }
+
+    const mappedType = TYPE_MAP[type] ?? null
+    if (!mappedType || !VALID_TYPES.has(mappedType)) {
+      return NextResponse.json({ success: false, error: 'Invalid space type.' }, { status: 400 })
+    }
+
+    const priceNum = Number(price_monthly)
+    if (isNaN(priceNum) || priceNum < 0) {
+      return NextResponse.json({ success: false, error: 'Invalid price.' }, { status: 400 })
+    }
+
+    // Sanitize text inputs
+    const cleanTitle = stripHtml(String(title)).slice(0, 200)
+    const cleanDescription = stripHtml(String(description)).slice(0, 5000)
+    const cleanNeighborhood = stripHtml(String(neighborhood)).slice(0, 100)
+    const cleanEmail = String(email).trim().toLowerCase().slice(0, 200)
+    const cleanHostName = host_name ? stripHtml(String(host_name)).slice(0, 100) : null
+
     const { error } = await supabaseServer.from('listings').insert([{
-      title,
-      description,
-      type: TYPE_MAP[type] ?? type.toLowerCase(),
-      neighborhood,
-      price_numeric: Number(price_monthly),
-      price_display: `$${price_monthly}/mo`,
+      title: cleanTitle,
+      description: cleanDescription,
+      type: mappedType,
+      neighborhood: cleanNeighborhood,
+      price_numeric: priceNum,
+      price_display: `$${priceNum}/mo`,
       square_footage: square_footage ? Number(square_footage) : null,
-      amenities: amenities ?? [],
-      submitted_by_email: email,
-      contact_email: email,
+      amenities: Array.isArray(amenities) ? amenities : [],
+      submitted_by_email: cleanEmail,
+      contact_email: cleanEmail,
       directory_id: process.env.NEXT_PUBLIC_DIRECTORY_ID || 'findstudiospace',
       city: 'Portland',
       status: 'pending',
     }])
 
-    if (error) return NextResponse.json({ success: false, error: error.message }, { status: 500 })
+    if (error) return NextResponse.json({ success: false, error: 'Something went wrong.' }, { status: 500 })
 
     return NextResponse.json({ success: true })
   } catch {

@@ -8,8 +8,8 @@ const BASE = 'https://www.findstudiospace.com'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL ?? 'https://vnjsczhqhnzrplrdkolb.supabase.co',
-    process.env.SUPABASE_SERVICE_KEY ?? '',
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_KEY!,
   )
 
   const { data: listings } = await supabase
