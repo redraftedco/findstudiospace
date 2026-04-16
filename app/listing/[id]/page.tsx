@@ -3,6 +3,8 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 import { supabase } from '@/lib/supabase'
 import InquiryForm from '@/components/InquiryForm'
+import ViewCounter from '@/components/ViewCounter'
+import ProUpsell from '@/components/ProUpsell'
 import { directoryConfig } from '@/lib/directory'
 
 export const revalidate = 3600
@@ -152,6 +154,8 @@ export default async function ListingPage({ params }: Props) {
           }, [])}
         </div>
 
+        <ViewCounter listingId={String(listing.id)} tier={listing.tier ?? 'free'} />
+
         {/* Two-column layout */}
         <div className="listing-page-wrapper" style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start' }}>
 
@@ -277,6 +281,10 @@ export default async function ListingPage({ params }: Props) {
             See your inquiry activity →
           </a>
         </p>
+
+        {(listing.tier ?? 'free') !== 'pro' && (
+          <ProUpsell listingId={String(listing.id)} />
+        )}
 
       </div>
     </main>
