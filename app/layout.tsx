@@ -23,9 +23,13 @@ const plexMono = IBM_Plex_Mono({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.findstudiospace.com'),
   title: 'Find Studio Space in Portland, OR | FindStudioSpace',
   description:
     'Browse photo studios, art studios, workshops, offices, retail, and fitness spaces for rent in Portland, OR.',
+  alternates: {
+    canonical: './',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
