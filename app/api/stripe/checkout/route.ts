@@ -3,7 +3,7 @@ import { stripe } from '@/lib/stripe'
 import { checkOrigin } from '@/lib/security'
 
 const PRICE_IDS: Record<string, string | undefined> = {
-  monthly: process.env.STRIPE_PRICE_PRO_ID,
+  monthly: process.env.STRIPE_PRICE_PRO_MONTHLY_ID,
   annual: process.env.STRIPE_PRICE_PRO_ANNUAL_ID,
 }
 
