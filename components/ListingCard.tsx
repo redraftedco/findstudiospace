@@ -16,15 +16,6 @@ type Listing = {
 
 type Props = { listing: Listing }
 
-const BORDER_CLASS: Record<string, string> = {
-  art:      'cat-border-art',
-  workshop: 'cat-border-workshop',
-  office:   'cat-border-office',
-  photo:    'cat-border-photo',
-  retail:   'cat-border-retail',
-  fitness:  'cat-border-fitness',
-}
-
 const TEXT_CLASS: Record<string, string> = {
   art:      'cat-text-art',
   workshop: 'cat-text-workshop',
@@ -68,7 +59,6 @@ function formatPrice(raw: string | null | undefined): string | null {
 export default function ListingCard({ listing }: Props) {
   const thumb = getThumb(listing.images)
   const typeKey = (listing.type ?? '').toLowerCase()
-  const borderClass = BORDER_CLASS[typeKey] ?? 'cat-border-default'
   const textClass = TEXT_CLASS[typeKey] ?? ''
   const typeLabel = TYPE_LABEL[typeKey] ?? listing.type ?? ''
   const priceFormatted = formatPrice(listing.price_display)
@@ -77,7 +67,7 @@ export default function ListingCard({ listing }: Props) {
   return (
     <Link
       href={`/listing/${listing.id}`}
-      className={`listing-card ${borderClass} group`}
+      className="listing-card group"
       style={{ textDecoration: 'none' }}
     >
       <div className="listing-card-image-wrap">
@@ -92,7 +82,9 @@ export default function ListingCard({ listing }: Props) {
             className="listing-card-image"
           />
         ) : (
-          <div className="listing-card-image listing-card-image-placeholder" />
+          <div className="listing-card-image-placeholder">
+            <span>NO IMAGE</span>
+          </div>
         )}
         {isPro && (
           <span
@@ -148,20 +140,19 @@ export default function ListingCard({ listing }: Props) {
             </>
           )}
         </p>
-        {priceFormatted && (
-          <p
-            style={{
-              fontFamily: 'var(--font-heading)',
-              fontSize: '1rem',
-              fontWeight: 500,
-              color: 'var(--ink)',
-              marginTop: '8px',
-              marginBottom: 0,
-            }}
-          >
-            {priceFormatted}
-          </p>
-        )}
+        <p
+          style={{
+            fontFamily: 'var(--font-heading)',
+            fontSize: '1rem',
+            fontWeight: 500,
+            color: priceFormatted ? 'var(--ink)' : 'var(--stone)',
+            marginTop: 'auto',
+            paddingTop: '8px',
+            marginBottom: 0,
+          }}
+        >
+          {priceFormatted ?? 'Price on request'}
+        </p>
       </div>
     </Link>
   )
