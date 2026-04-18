@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local outreach export (never commit — contains contact data)
+scripts/outreach-list.csv
