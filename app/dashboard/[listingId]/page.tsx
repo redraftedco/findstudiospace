@@ -198,26 +198,28 @@ export default async function DashboardPage({ params }: Props) {
                 style={{
                   display: 'block',
                   width: '100%',
-                  padding: '12px',
+                  padding: '14px',
                   textAlign: 'center',
-                  fontFamily: 'var(--font-body)',
-                  fontSize: '14px',
+                  fontFamily: 'var(--font-heading)',
+                  fontSize: '0.875rem',
                   fontWeight: 500,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em',
                   textDecoration: 'none',
                   border: 'none',
                   boxSizing: 'border-box',
                 }}
               >
-                Upgrade to Pro — $29/mo
+                Start 30-day free trial →
               </a>
               <p style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '11px',
+                fontFamily: 'var(--font-body)',
+                fontSize: '13px',
                 color: 'var(--stone)',
                 textAlign: 'center',
                 margin: '8px 0 0',
               }}>
-                First 30 days free. Cancel anytime.
+                $29/month after. Cancel anytime.
               </p>
             </div>
           </div>
