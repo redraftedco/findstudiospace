@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@supabase/supabase-js'
+import ListingCard from '@/components/ListingCard'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -28,34 +29,6 @@ const CITY_CONFIG: Record<string, {
   },
 }
 
-const BORDER_CLASS: Record<string, string> = {
-  art:      'cat-border-art',
-  workshop: 'cat-border-workshop',
-  office:   'cat-border-office',
-  photo:    'cat-border-photo',
-  retail:   'cat-border-retail',
-  fitness:  'cat-border-fitness',
-}
-
-const TEXT_CLASS: Record<string, string> = {
-  art:      'cat-text-art',
-  workshop: 'cat-text-workshop',
-  office:   'cat-text-office',
-  photo:    'cat-text-photo',
-  retail:   'cat-text-retail',
-  fitness:  'cat-text-fitness',
-}
-
-const TYPE_LABEL: Record<string, string> = {
-  art:      'Art Studio',
-  music:    'Music Studio',
-  workshop: 'Workshop',
-  photo:    'Photo Studio',
-  retail:   'Retail Space',
-  fitness:  'Fitness & Dance',
-  office:   'Office Space',
-}
-
 const CATEGORY_PILLS: { slug: string; label: string }[] = [
   { slug: 'art-studio',            label: 'ART' },
   { slug: 'music-studio-rental',   label: 'MUSIC' },
@@ -64,15 +37,6 @@ const CATEGORY_PILLS: { slug: string; label: string }[] = [
   { slug: 'retail-space-for-rent', label: 'RETAIL' },
   { slug: 'fitness-studio-rental', label: 'FITNESS' },
 ]
-
-function formatPrice(raw: string | null | undefined): string | null {
-  if (!raw) return null
-  const digits = raw.replace(/[^0-9]/g, '')
-  if (!digits) return raw
-  const num = parseInt(digits, 10)
-  if (isNaN(num)) return raw
-  return `$${num.toLocaleString('en-US')}/mo`
-}
 
 // Sanitize search query: alphanumerics + spaces + hyphens, max 64 chars
 function sanitizeQuery(raw: string | string[] | undefined): string {
@@ -272,113 +236,9 @@ export default async function CityPage({ params, searchParams }: PageProps) {
               </p>
             ) : (
               <div className="home-grid">
-                {rows.map((listing) => {
-                  const images: string[] = Array.isArray(listing.images)
-                    ? listing.images
-                        .map((x: unknown) => (typeof x === 'string' ? x : (x as Record<string, string>)?.url ?? ''))
-                        .filter(Boolean)
-                    : []
-                  const thumb = images[0]
-                  const typeKey = (listing.type ?? '').toLowerCase()
-                  const borderClass = BORDER_CLASS[typeKey] ?? 'cat-border-default'
-                  const textClass = TEXT_CLASS[typeKey] ?? ''
-                  const typeLabel = TYPE_LABEL[typeKey] ?? listing.type ?? ''
-                  const priceFormatted = formatPrice(listing.price_display)
-                  const isPro = listing.tier === 'pro'
-
-                  return (
-                    <Link
-                      key={listing.id}
-                      href={`/listing/${listing.id}`}
-                      className={`listing-card ${borderClass} group`}
-                      style={{ textDecoration: 'none' }}
-                    >
-                      <div className="listing-card-image-wrap">
-                        {thumb ? (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img
-                            src={thumb}
-                            alt=""
-                            width={600}
-                            height={450}
-                            loading="lazy"
-                            className="listing-card-image"
-                          />
-                        ) : (
-                          <div className="listing-card-image listing-card-image-placeholder" />
-                        )}
-                        {isPro && (
-                          <span
-                            style={{
-                              position: 'absolute',
-                              top: '8px',
-                              right: '8px',
-                              background: 'var(--featured-bg)',
-                              color: 'var(--featured-color)',
-                              fontFamily: 'var(--font-mono)',
-                              fontSize: '0.7rem',
-                              letterSpacing: '0.08em',
-                              padding: '3px 8px',
-                              borderRadius: '4px',
-                              fontWeight: 500,
-                            }}
-                          >
-                            PRO
-                          </span>
-                        )}
-                      </div>
-                      <div className="listing-card-body">
-                        <h3
-                          className="listing-card-name"
-                          style={{
-                            fontFamily: 'var(--font-heading)',
-                            color: 'var(--ink)',
-                            fontSize: '1.125rem',
-                            fontWeight: 600,
-                            letterSpacing: '-0.01em',
-                            lineHeight: 1.3,
-                            margin: 0,
-                          }}
-                        >
-                          {listing.title ?? 'Untitled listing'}
-                        </h3>
-                        <p
-                          style={{
-                            fontFamily: 'var(--font-mono)',
-                            fontSize: '0.75rem',
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.08em',
-                            color: 'var(--stone)',
-                            marginTop: '4px',
-                            marginBottom: 0,
-                          }}
-                        >
-                          {listing.neighborhood || 'Portland'}
-                          {typeLabel && (
-                            <>
-                              {' · '}
-                              <span className={textClass}>{typeLabel}</span>
-                            </>
-                          )}
-                        </p>
-                        {priceFormatted && (
-                          <p
-                            style={{
-                              fontFamily: 'var(--font-heading)',
-                              fontSize: '1rem',
-                              fontWeight: 500,
-                              color: 'var(--ink)',
-                              marginTop: '8px',
-                              marginBottom: 0,
-                            }}
-                          >
-                            {priceFormatted}
-                          </p>
-                        )}
-                      </div>
-                    </Link>
-                  )
-                })}
+                {rows.map((listing) => (
+                  <ListingCard key={listing.id} listing={listing} />
+                ))}
               </div>
             )}
           </div>
