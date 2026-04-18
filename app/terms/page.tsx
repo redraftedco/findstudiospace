@@ -140,7 +140,10 @@ export default function TermsPage() {
             </li>
             <li>
               <strong>Refunds.</strong> We do not refund partial months. If you cancel mid-cycle,
-              your paid period runs out its term.
+              your paid period runs out its term.{' '}
+              <a href="/refund-policy" style={{ color: 'var(--action)' }}>
+                See our full Refund Policy.
+              </a>
             </li>
             <li>
               <strong>Price changes.</strong> If we change pricing for Studio Pro, we&apos;ll email

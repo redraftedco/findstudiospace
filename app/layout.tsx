@@ -116,6 +116,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <Link href="/blog" className="hover:underline">Resources</Link>
                   <Link href="/privacy" className="hover:underline">Privacy</Link>
                   <Link href="/terms" className="hover:underline">Terms</Link>
+                  <Link href="/refund-policy" className="hover:underline">Refund Policy</Link>
                 </div>
               </div>
 
