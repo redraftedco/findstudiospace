@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
         listing_id: String(listing_id),
         tier: 'pro',
       },
-      success_url: `${siteUrl}/claim?listing_id=${listing_id}&success=true`,
+      success_url: `${siteUrl}/listing/${listing_id}?upgrade=success`,
       cancel_url: `${siteUrl}/claim?listing_id=${listing_id}&canceled=true`,
     })
 

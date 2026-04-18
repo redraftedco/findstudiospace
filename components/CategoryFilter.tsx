@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import Link from 'next/link'
+import ListingCard from './ListingCard'
 
 type Listing = {
   id: number
@@ -17,45 +17,6 @@ type Listing = {
 
 type Props = {
   listings: Listing[]
-}
-
-function getThumb(images: unknown): string | null {
-  if (!Array.isArray(images)) return null
-  for (const x of images) {
-    if (typeof x === 'string' && x) return x
-    if (typeof x === 'object' && x !== null && 'url' in x && typeof (x as Record<string, string>).url === 'string') {
-      return (x as Record<string, string>).url
-    }
-  }
-  return null
-}
-
-const BORDER_CLASS: Record<string, string> = {
-  art:      'cat-border-art',
-  workshop: 'cat-border-workshop',
-  office:   'cat-border-office',
-  photo:    'cat-border-photo',
-  retail:   'cat-border-retail',
-  fitness:  'cat-border-fitness',
-}
-
-const TEXT_CLASS: Record<string, string> = {
-  art:      'cat-text-art',
-  workshop: 'cat-text-workshop',
-  office:   'cat-text-office',
-  photo:    'cat-text-photo',
-  retail:   'cat-text-retail',
-  fitness:  'cat-text-fitness',
-}
-
-function timeAgo(dateStr: string | null | undefined): string | null {
-  if (!dateStr) return null
-  const days = Math.max(0, Math.floor((Date.now() - new Date(dateStr).getTime()) / (1000 * 60 * 60 * 24)))
-  if (days === 0) return null
-  if (days === 1) return 'Listed yesterday'
-  if (days < 30) return `Listed ${days} days ago`
-  if (days < 90) return `Listed ${Math.floor(days / 7)} weeks ago`
-  return `Listed ${Math.floor(days / 30)} months ago`
 }
 
 export default function CategoryFilter({ listings }: Props) {
@@ -176,68 +137,13 @@ export default function CategoryFilter({ listings }: Props) {
 
       {/* Grid */}
       {filtered.length > 0 ? (
-        <div className="listing-grid mb-14">
-          {filtered.map((l) => {
-            const thumb = getThumb(l.images)
-            const timestamp = timeAgo(l.created_at)
-            const hasPrice = !!l.price_display
-            const typeKey = (l.type ?? '').toLowerCase()
-            const borderClass = BORDER_CLASS[typeKey] ?? 'cat-border-default'
-            const textClass = TEXT_CLASS[typeKey] ?? ''
-            return (
-              <Link
-                key={l.id}
-                href={`/listing/${l.id}`}
-                className={`listing-card-base ${borderClass} group flex flex-col`}
-              >
-                {thumb ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={thumb} alt="" className="w-full listing-card-placeholder" style={{ objectFit: 'cover', height: '200px' }} />
-                ) : (
-                  <div className="listing-card-placeholder" />
-                )}
-                <div className="flex flex-1 flex-col p-4">
-                  <div className="flex items-center gap-2 mb-1">
-                    {l.type && (
-                      <p style={{ fontFamily: 'var(--font-mono)' }} className={`${textClass} text-xs uppercase`}>
-                        {l.type}
-                      </p>
-                    )}
-                    {l.tier === 'pro' && <span className="pro-badge">Pro</span>}
-                  </div>
-                  {l.neighborhood && (
-                    <p style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="mb-1 text-xs">
-                      {l.neighborhood.trim()}
-                    </p>
-                  )}
-                  <h3 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="line-clamp-2 font-semibold leading-snug">
-                    {l.title}
-                  </h3>
-                  <p
-                    style={{
-                      fontFamily: 'var(--font-mono)',
-                      color: hasPrice ? '#1a1814' : '#9c8e84',
-                      fontStyle: hasPrice ? 'normal' : 'italic',
-                    }}
-                    className="mt-2 text-xs"
-                  >
-                    {hasPrice ? l.price_display : 'Price on request'}
-                  </p>
-                  <p style={{ color: '#a84530' }} className="mt-auto pt-3 text-xs font-medium">
-                    View space →
-                  </p>
-                  {timestamp && (
-                    <p style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="mt-1 text-xs">
-                      {timestamp}
-                    </p>
-                  )}
-                </div>
-              </Link>
-            )
-          })}
+        <div className="home-grid mb-14">
+          {filtered.map((l) => (
+            <ListingCard key={l.id} listing={l} />
+          ))}
         </div>
       ) : (
-        <p style={{ color: '#6b6762' }} className="mb-14">No spaces match those filters.</p>
+        <p style={{ color: 'var(--stone)' }} className="mb-14">No spaces match those filters.</p>
       )}
     </>
   )

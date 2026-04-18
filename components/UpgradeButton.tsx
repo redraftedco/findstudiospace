@@ -99,11 +99,11 @@ export function UpgradeButton({ tier, label }: UpgradeButtonProps) {
     width: '100%',
     marginBottom: '8px',
     padding: '8px 12px',
-    border: '1px solid #d6d0c4',
+    border: '1px solid var(--rule)',
     fontFamily: 'var(--font-body)',
     fontSize: '13px',
-    background: '#f4f1eb',
-    color: '#1a1814',
+    background: 'var(--paper)',
+    color: 'var(--ink)',
     outline: 'none',
   }
 
@@ -158,7 +158,7 @@ export function UpgradeButton({ tier, label }: UpgradeButtonProps) {
       )}
 
       {listings && listings.length === 1 && (
-        <p style={{ color: '#6b6762', fontFamily: 'var(--font-mono)', fontSize: '12px', marginBottom: '8px' }}>
+        <p style={{ color: 'var(--stone)', fontFamily: 'var(--font-mono)', fontSize: '12px', marginBottom: '8px' }}>
           Upgrading: {listings[0].title}
         </p>
       )}
@@ -177,7 +177,7 @@ export function UpgradeButton({ tier, label }: UpgradeButtonProps) {
 
       {error && (
         <p style={{
-          color: '#a84530',
+          color: 'var(--action)',
           fontSize: '12px',
           marginTop: '6px',
           fontFamily: 'var(--font-mono)',

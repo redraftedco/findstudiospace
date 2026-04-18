@@ -15,6 +15,14 @@ export default function InquiryForm({ listingId }: Props) {
     e.preventDefault()
     setStatus('submitting')
     const form = e.currentTarget
+    const moveIn = (form.elements.namedItem('move_in') as HTMLInputElement).value.trim()
+    const userMessage = (form.elements.namedItem('message') as HTMLTextAreaElement).value
+
+    // Preferred move-in is display-only in the UI; append to the message body
+    // so the host sees it without requiring an API-level schema change.
+    const composedMessage = moveIn
+      ? `${userMessage}\n\nPreferred move-in: ${moveIn}`
+      : userMessage
 
     try {
       const res = await fetch('/api/lead-inquiries', {
@@ -24,7 +32,7 @@ export default function InquiryForm({ listingId }: Props) {
           listing_id: listingId,
           name: (form.elements.namedItem('name') as HTMLInputElement).value,
           email: (form.elements.namedItem('email') as HTMLInputElement).value,
-          message: (form.elements.namedItem('message') as HTMLTextAreaElement).value,
+          message: composedMessage,
           website: (form.elements.namedItem('website') as HTMLInputElement).value,
           form_started_at: startedAt.current,
           utm_source: searchParams.get('utm_source') || undefined,
@@ -47,17 +55,41 @@ export default function InquiryForm({ listingId }: Props) {
 
   if (status === 'success') {
     return (
-      <div style={{ border: '1px solid #d6d0c4', color: '#a84530', fontFamily: 'var(--font-mono)' }} className="p-4 text-sm">
-        Message sent. Hosts typically respond within 24 hours.
+      <div
+        style={{
+          border: '1px solid var(--rule)',
+          color: 'var(--action)',
+          fontFamily: 'var(--font-mono)',
+          fontSize: '0.8125rem',
+          padding: '16px',
+          lineHeight: 1.5,
+        }}
+      >
+        Message sent. The host typically responds within 48 hours.
       </div>
     )
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-3">
+    <form id="inquiry" onSubmit={handleSubmit} className="space-y-3">
+      {/* honeypot */}
       <input name="website" type="text" className="hidden" tabIndex={-1} autoComplete="off" />
       <input name="name" required placeholder="Your name" autoComplete="name" className="input" />
-      <input name="email" type="email" required placeholder="Your email" autoComplete="email" inputMode="email" className="input" />
+      <input
+        name="email"
+        type="email"
+        required
+        placeholder="Your email"
+        autoComplete="email"
+        inputMode="email"
+        className="input"
+      />
+      <input
+        name="move_in"
+        type="text"
+        placeholder="Preferred move-in (e.g. Flexible)"
+        className="input"
+      />
       <textarea
         name="message"
         required
@@ -66,19 +98,41 @@ export default function InquiryForm({ listingId }: Props) {
         className="input resize-none"
       />
       {status === 'error' && (
-        <p style={{ color: '#8b2020', fontFamily: 'var(--font-mono)' }} className="text-xs">{errorMsg}</p>
+        <p style={{ color: 'var(--error)', fontFamily: 'var(--font-mono)' }} className="text-xs">
+          {errorMsg}
+        </p>
       )}
-      <p style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="text-center text-xs">
-        Your contact info goes only to this host — never shared or sold.
-      </p>
       <button
         type="submit"
         disabled={status === 'submitting'}
-        style={{ width: '100%' }}
-        className="btn-action py-2.5 text-sm font-medium"
+        className="btn-action"
+        style={{
+          width: '100%',
+          fontFamily: 'var(--font-heading)',
+          fontSize: '0.875rem',
+          fontWeight: 500,
+          textTransform: 'uppercase',
+          letterSpacing: '0.05em',
+          padding: '14px',
+          border: 'none',
+          cursor: status === 'submitting' ? 'not-allowed' : 'pointer',
+          opacity: status === 'submitting' ? 0.7 : 1,
+        }}
       >
-        {status === 'submitting' ? 'Sending…' : 'Request Studio Info'}
+        {status === 'submitting' ? 'Sending…' : 'Send Inquiry'}
       </button>
+      <p
+        style={{
+          color: 'var(--stone)',
+          fontFamily: 'var(--font-body)',
+          fontSize: '0.8125rem',
+          textAlign: 'center',
+          lineHeight: 1.5,
+          marginTop: '8px',
+        }}
+      >
+        Free to inquire. No commitment. Response typically within 48 hours.
+      </p>
     </form>
   )
 }

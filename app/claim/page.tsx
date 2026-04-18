@@ -352,53 +352,6 @@ function ClaimPageInner() {
                   Upgrade to Pro to receive inquiries directly in your inbox, get a verified badge, and rank higher in search.
                 </p>
 
-                {/* Interval toggle */}
-                <div style={{
-                  display: 'flex',
-                  gap: '8px',
-                  marginBottom: '12px',
-                }}>
-                  <button
-                    onClick={() => setInterval('monthly')}
-                    style={{
-                      flex: 1,
-                      padding: '10px',
-                      border: `1px solid ${interval === 'monthly' ? 'var(--action)' : 'var(--rule)'}`,
-                      background: interval === 'monthly' ? 'var(--action-light)' : 'white',
-                      color: 'var(--ink)',
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '13px',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    $29/mo
-                  </button>
-                  <button
-                    onClick={() => setInterval('annual')}
-                    style={{
-                      flex: 1,
-                      padding: '10px',
-                      border: `1px solid ${interval === 'annual' ? 'var(--action)' : 'var(--rule)'}`,
-                      background: interval === 'annual' ? 'var(--action-light)' : 'white',
-                      color: 'var(--ink)',
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '13px',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    $249/yr (save $99)
-                  </button>
-                </div>
-
-                <p style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '11px',
-                  color: 'var(--stone)',
-                  margin: '0 0 12px',
-                }}>
-                  First 30 days free. Cancel anytime.
-                </p>
-
                 <button
                   onClick={handleCheckout}
                   disabled={checkoutLoading}
@@ -406,17 +359,28 @@ function ClaimPageInner() {
                   style={{
                     display: 'block',
                     width: '100%',
-                    padding: '12px',
-                    fontFamily: 'var(--font-body)',
-                    fontSize: '14px',
+                    padding: '14px',
+                    fontFamily: 'var(--font-heading)',
+                    fontSize: '0.875rem',
                     fontWeight: 500,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em',
                     border: 'none',
                     cursor: checkoutLoading ? 'not-allowed' : 'pointer',
                     opacity: checkoutLoading ? 0.7 : 1,
                   }}
                 >
-                  {checkoutLoading ? 'Starting checkout...' : 'Upgrade to Pro →'}
+                  {checkoutLoading ? 'Starting checkout...' : 'Start 30-day free trial →'}
                 </button>
+                <p style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '13px',
+                  color: 'var(--stone)',
+                  textAlign: 'center',
+                  margin: '8px 0 0',
+                }}>
+                  $29/month after. Cancel anytime.
+                </p>
               </>
             )}
           </div>
