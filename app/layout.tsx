@@ -51,6 +51,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               >
                 For Landlords
               </Link>
+              <Link
+                href="/pricing"
+                style={{ color: '#6b6762', fontFamily: 'var(--font-body)' }}
+                className="text-sm hover:underline"
+              >
+                Pricing
+              </Link>
             <Link
               href="/list-your-space"
               style={{ color: '#a84530', fontFamily: 'var(--font-body)' }}
