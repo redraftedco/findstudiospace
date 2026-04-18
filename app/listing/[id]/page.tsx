@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { supabase } from '@/lib/supabase'
+import { clampImagesToTier } from '@/lib/photo-limits'
 import InquiryForm from '@/components/InquiryForm'
 import ViewCounter from '@/components/ViewCounter'
 import ProUpsell from '@/components/ProUpsell'
@@ -113,11 +114,15 @@ export default async function ListingPage({ params, searchParams }: Props) {
         .map(([k]) => k.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()))
     : []
 
-  const images: string[] = Array.isArray(listing.images)
+  // Extract image URLs from the jsonb array, then clamp to tier's photo limit.
+  // Free: 5, Pro: 15. Unknown/malformed tier defaults to free. DB keeps the
+  // full array; clamp here enforces the /pricing + /terms promise on render.
+  const allImages: string[] = Array.isArray(listing.images)
     ? listing.images
         .map((x: unknown) => (typeof x === 'string' ? x : (x as Record<string, string>)?.url ?? ''))
         .filter(Boolean)
     : []
+  const images: string[] = clampImagesToTier(allImages, listing.tier)
 
   const typeKey = (listing.type ?? '').toLowerCase()
   const categorySlug = TYPE_TO_SLUG[typeKey]

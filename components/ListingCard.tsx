@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { clampImagesToTier } from '@/lib/photo-limits'
 
 // Shared editorial listing card — single source of truth for card appearance
 // across homepage and category pages. Server component; accepts a minimal
@@ -35,9 +36,13 @@ const TYPE_LABEL: Record<string, string> = {
   office:   'Office Space',
 }
 
-function getThumb(images: unknown): string | null {
+function getThumb(images: unknown, tier: string | null | undefined): string | null {
   if (!Array.isArray(images)) return null
-  for (const x of images) {
+  // Clamp to tier photo limit. For the card's single-thumbnail use, this is a
+  // no-op (thumb is always images[0]); kept for consistency with the listing
+  // detail page and to future-proof hover-carousel or multi-image card variants.
+  const clamped = clampImagesToTier(images, tier)
+  for (const x of clamped) {
     if (typeof x === 'string' && x) return x
     if (typeof x === 'object' && x !== null && 'url' in x) {
       const url = (x as Record<string, string>).url
@@ -57,7 +62,7 @@ function formatPrice(raw: string | null | undefined): string | null {
 }
 
 export default function ListingCard({ listing }: Props) {
-  const thumb = getThumb(listing.images)
+  const thumb = getThumb(listing.images, listing.tier)
   const typeKey = (listing.type ?? '').toLowerCase()
   const textClass = TEXT_CLASS[typeKey] ?? ''
   const typeLabel = TYPE_LABEL[typeKey] ?? listing.type ?? ''
