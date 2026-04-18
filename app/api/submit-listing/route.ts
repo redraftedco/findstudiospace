@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseServer } from '@/lib/supabase-server'
 import { checkOrigin } from '@/lib/security'
+import { imageCountExceedsTier } from '@/lib/photo-limits'
 
 const TYPE_MAP: Record<string, string> = {
   'Art Studio': 'art',
@@ -27,7 +28,15 @@ export async function POST(req: NextRequest) {
 
   try {
     const body = await req.json()
-    const { host_name, email, title, type, neighborhood, price_monthly, square_footage, description, amenities } = body
+    const { host_name, email, title, type, neighborhood, price_monthly, square_footage, description, amenities, images } = body
+
+    // Photo limit guard — new listings submit as free tier, so limit is 5.
+    // Body does not currently include images (submission form has no upload
+    // UI). Guard is prophylactic for a future upload surface; rejects oversized
+    // payloads if anything starts sending them.
+    if (images !== undefined && imageCountExceedsTier(images, 'free')) {
+      return NextResponse.json({ success: false, error: 'Too many photos for free tier (max 5).' }, { status: 400 })
+    }
 
     if (!title || !email || !type || !neighborhood || !description || !price_monthly) {
       return NextResponse.json({ success: false, error: 'Missing required fields.' }, { status: 400 })
