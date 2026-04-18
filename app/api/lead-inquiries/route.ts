@@ -86,16 +86,21 @@ export async function POST(req: NextRequest) {
 
     const { data: listing } = await supabaseServer
       .from('listings')
-      .select('contact_email, title')
+      .select('contact_email, owner_email, title')
       .eq('id', parseInt(listing_id))
       .single()
+
+    // Route inquiries to the verified owner email first; fall back to the
+    // scraped contact_email. Owner email comes from the magic-link claim flow
+    // so it's proven-controlled at a specific moment in time.
+    const recipientEmail = listing?.owner_email || listing?.contact_email || null
 
     const { error } = await supabaseServer.from('lead_inquiries').insert([{
       listing_id: parseInt(listing_id),
       name: cleanName,
       email: cleanEmail,
       message: cleanMessage,
-      host_email: listing?.contact_email ?? null,
+      host_email: recipientEmail,
       directory_id: process.env.NEXT_PUBLIC_DIRECTORY_ID || 'findstudiospace',
       utm_source: utm_source ? String(utm_source).slice(0, 100) : null,
       utm_medium: utm_medium ? String(utm_medium).slice(0, 100) : null,
@@ -104,13 +109,13 @@ export async function POST(req: NextRequest) {
 
     if (error) return NextResponse.json({ ok: false, error: 'Something went wrong.' }, { status: 500 })
 
-    // Send host notification email — skip silently if contact_email is null
-    if (listing?.contact_email) {
+    // Send host notification email — skip silently if both fields are null
+    if (recipientEmail && listing) {
       try {
         const listingUrl = `https://www.findstudiospace.com/listing/${listing_id}`
         await resend.emails.send({
           from: 'hello@findstudiospace.com',
-          to: listing.contact_email,
+          to: recipientEmail,
           subject: `New inquiry for ${listing.title}`,
           text: [
             `You have a new inquiry for your listing: ${listing.title}`,
