@@ -135,7 +135,7 @@ export default async function DashboardPage({ params }: Props) {
               fontFamily: 'var(--font-heading)',
               fontSize: '36px',
               fontWeight: 700,
-              color: (inquiryCount ?? 0) > 0 ? '#a84530' : 'var(--stone)',
+              color: (inquiryCount ?? 0) > 0 ? 'var(--action)' : 'var(--stone)',
               margin: '0 0 4px',
               lineHeight: 1,
             }}>
@@ -179,7 +179,7 @@ export default async function DashboardPage({ params }: Props) {
                 <tr>
                   <th style={{ ...thStyle, textAlign: 'left' }}>Feature</th>
                   <th style={thStyle}>Free</th>
-                  <th style={{ ...thStyle, color: '#a84530' }}>Pro</th>
+                  <th style={{ ...thStyle, color: 'var(--action)' }}>Pro</th>
                 </tr>
               </thead>
               <tbody>

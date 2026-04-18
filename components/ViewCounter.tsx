@@ -29,7 +29,7 @@ export default function ViewCounter({
       <p style={{
         fontFamily: 'var(--font-mono)',
         fontSize: '12px',
-        color: '#6b6762',
+        color: 'var(--stone)',
       }}>
         Viewed {count} {count === 1 ? 'time' : 'times'} in the last 30 days
       </p>
