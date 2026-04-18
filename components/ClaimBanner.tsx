@@ -1,45 +1,84 @@
 'use client'
 
-import { useEffect } from 'react'
+// Client component: needs sessionStorage for dismissal persistence and posthog
+// event capture. Renders above the listing breadcrumb. Display-only; clicking
+// through routes to /claim for the actual ownership verification flow.
+
+import { useEffect, useState } from 'react'
 import posthog from 'posthog-js'
 
-export default function ClaimBanner({ listingId }: { listingId: string }) {
+type Props = { listingId: string; studioName: string }
+
+export default function ClaimBanner({ listingId, studioName }: Props) {
+  const storageKey = `claim-banner-dismissed-${listingId}`
+  const [dismissed, setDismissed] = useState<boolean | null>(null)
+
   useEffect(() => {
-    posthog.capture('claim_banner_shown', { listing_id: listingId })
-  }, [listingId])
+    const flag = typeof window !== 'undefined' && sessionStorage.getItem(storageKey) === '1'
+    setDismissed(flag)
+    if (!flag) {
+      posthog.capture('claim_banner_shown', { listing_id: listingId })
+    }
+  }, [listingId, storageKey])
+
+  if (dismissed !== false) return null
+
+  function handleDismiss() {
+    sessionStorage.setItem(storageKey, '1')
+    setDismissed(true)
+  }
 
   return (
-    <div style={{
-      background: '#FAE5DB',
-      padding: '10px 16px',
-      marginBottom: '16px',
-      display: 'flex',
-      alignItems: 'center',
-      flexWrap: 'wrap',
-      gap: '8px 16px',
-    }}>
-      <p style={{
-        fontFamily: 'var(--font-mono)',
-        fontSize: '12px',
-        color: '#1a1814',
-        margin: 0,
-      }}>
-        Is this your studio?
-      </p>
-      <a
-        href={`/claim/${listingId}`}
-        onClick={() => posthog.capture('claim_banner_clicked', { listing_id: listingId })}
+    <div
+      style={{
+        background: 'var(--surface)',
+        borderBottom: '1px solid var(--rule)',
+        padding: '10px 16px',
+        display: 'flex',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        gap: '8px 16px',
+      }}
+    >
+      <p
         style={{
           fontFamily: 'var(--font-mono)',
           fontSize: '12px',
-          color: '#a84530',
-          textDecoration: 'none',
-          marginLeft: 'auto',
-          padding: '8px 0',
+          color: 'var(--ink)',
+          margin: 0,
+          letterSpacing: '0.02em',
         }}
       >
-        Claim My Listing →
-      </a>
+        Are you the owner of <strong style={{ fontWeight: 600 }}>{studioName}</strong>?{' '}
+        <a
+          href={`/claim?listing_id=${listingId}`}
+          onClick={() => posthog.capture('claim_banner_clicked', { listing_id: listingId })}
+          style={{
+            color: 'var(--action)',
+            textDecoration: 'none',
+            fontWeight: 500,
+          }}
+        >
+          Claim this listing →
+        </a>
+      </p>
+      <button
+        type="button"
+        onClick={handleDismiss}
+        aria-label="Dismiss"
+        style={{
+          marginLeft: 'auto',
+          background: 'transparent',
+          border: 'none',
+          cursor: 'pointer',
+          color: 'var(--stone)',
+          fontSize: '18px',
+          lineHeight: 1,
+          padding: '4px 8px',
+        }}
+      >
+        ×
+      </button>
     </div>
   )
 }

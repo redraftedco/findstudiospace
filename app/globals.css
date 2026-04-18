@@ -169,6 +169,69 @@ h3 {
   overflow: hidden;
 }
 
+/* Listing detail page — 66/34 two-column layout */
+html { scroll-behavior: smooth; }
+
+.listing-detail-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+.listing-detail-main { min-width: 0; }
+.listing-detail-aside {
+  position: sticky;
+  top: 2rem;
+  align-self: flex-start;
+}
+
+@media (max-width: 1023px) {
+  .listing-detail-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .listing-detail-aside {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .listing-title { font-size: 1.875rem !important; }
+}
+
+/* Mobile sticky inquiry bar — CSS-only, hidden on desktop */
+.mobile-inquiry-bar {
+  display: none;
+}
+@media (max-width: 1023px) {
+  .mobile-inquiry-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--action);
+    color: var(--paper);
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    padding: 16px;
+    min-height: 56px;
+    z-index: 50;
+    box-shadow: 0 -2px 8px rgba(26, 24, 20, 0.08);
+  }
+  .mobile-inquiry-bar:hover {
+    background: var(--action-hover);
+  }
+  /* Give form + content room above sticky bar so it doesn't overlap */
+  main { padding-bottom: 72px; }
+}
+
 .input {
   width: 100%;
   border: 1px solid var(--rule);
