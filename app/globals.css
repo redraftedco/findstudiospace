@@ -118,6 +118,57 @@ h3 {
   box-shadow: 0 1px 2px rgba(26, 24, 20, 0.04), 0 8px 24px rgba(26, 24, 20, 0.06);
 }
 
+/* Homepage / category grid (editorial card) */
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+@media (max-width: 1024px) {
+  .home-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+}
+@media (max-width: 640px) {
+  .home-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+}
+
+/* Editorial listing card — gallery-meets-workshop */
+.listing-card {
+  display: block;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  transition: box-shadow 300ms ease-out;
+}
+.listing-card-image-wrap {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--surface);
+}
+.listing-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 300ms ease-out;
+}
+.listing-card-image-placeholder {
+  background: var(--rule);
+}
+.listing-card-body {
+  margin-top: 16px;
+}
+.listing-card:hover { box-shadow: 0 1px 2px rgba(26, 24, 20, 0.04), 0 8px 24px rgba(26, 24, 20, 0.06); }
+.listing-card:hover .listing-card-image { transform: scale(1.02); }
+.listing-card:hover .listing-card-name { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.listing-card-name {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .input {
   width: 100%;
   border: 1px solid var(--rule);

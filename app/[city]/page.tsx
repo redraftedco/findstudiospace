@@ -28,15 +28,6 @@ const CITY_CONFIG: Record<string, {
   },
 }
 
-const CATEGORIES = [
-  { label: 'Office Space', slug: 'office-space-rental', type: 'office', descriptor: 'Private offices and creative suites' },
-  { label: 'Art Studios', slug: 'art-studio', type: 'art', descriptor: 'Private studios, co-ops and maker spaces' },
-  { label: 'Workshop Space', slug: 'workshop-space-rental', type: 'workshop', descriptor: 'Garages, warehouses and fabrication bays' },
-  { label: 'Retail Space', slug: 'retail-space-for-rent', type: 'retail', descriptor: 'Storefronts and commercial retail' },
-  { label: 'Photo Studios', slug: 'photo-studio-rental', type: 'photo', descriptor: 'Professional spaces for shoots and production' },
-  { label: 'Fitness & Dance', slug: 'fitness-studio-rental', type: 'fitness', descriptor: 'Yoga, dance and movement studios' },
-]
-
 const BORDER_CLASS: Record<string, string> = {
   art:      'cat-border-art',
   workshop: 'cat-border-workshop',
@@ -55,18 +46,43 @@ const TEXT_CLASS: Record<string, string> = {
   fitness:  'cat-text-fitness',
 }
 
-function timeAgo(dateStr: string | null | undefined): string | null {
-  if (!dateStr) return null
-  const days = Math.max(0, Math.floor((Date.now() - new Date(dateStr).getTime()) / (1000 * 60 * 60 * 24)))
-  if (days === 0) return null
-  if (days === 1) return 'Listed yesterday'
-  if (days < 30) return `Listed ${days} days ago`
-  if (days < 90) return `Listed ${Math.floor(days / 7)} weeks ago`
-  return `Listed ${Math.floor(days / 30)} months ago`
+const TYPE_LABEL: Record<string, string> = {
+  art:      'Art Studio',
+  music:    'Music Studio',
+  workshop: 'Workshop',
+  photo:    'Photo Studio',
+  retail:   'Retail Space',
+  fitness:  'Fitness & Dance',
+  office:   'Office Space',
+}
+
+const CATEGORY_PILLS: { slug: string; label: string }[] = [
+  { slug: 'art-studio',            label: 'ART' },
+  { slug: 'music-studio-rental',   label: 'MUSIC' },
+  { slug: 'workshop-space-rental', label: 'WORKSHOP' },
+  { slug: 'photo-studio-rental',   label: 'PHOTO' },
+  { slug: 'retail-space-for-rent', label: 'RETAIL' },
+  { slug: 'fitness-studio-rental', label: 'FITNESS' },
+]
+
+function formatPrice(raw: string | null | undefined): string | null {
+  if (!raw) return null
+  const digits = raw.replace(/[^0-9]/g, '')
+  if (!digits) return raw
+  const num = parseInt(digits, 10)
+  if (isNaN(num)) return raw
+  return `$${num.toLocaleString('en-US')}/mo`
+}
+
+// Sanitize search query: alphanumerics + spaces + hyphens, max 64 chars
+function sanitizeQuery(raw: string | string[] | undefined): string {
+  if (typeof raw !== 'string') return ''
+  return raw.replace(/[^a-zA-Z0-9\s-]/g, '').trim().slice(0, 64)
 }
 
 type PageProps = {
   params: Promise<{ city: string }>
+  searchParams: Promise<{ q?: string | string[] }>
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -79,32 +95,31 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 }
 
-export default async function CityPage({ params }: PageProps) {
+export default async function CityPage({ params, searchParams }: PageProps) {
   const { city } = await params
+  const sp = await searchParams
   const citySlug = city.toLowerCase()
   const config = CITY_CONFIG[citySlug]
-
   if (!config) notFound()
 
-  const [countsRes, recentRes] = await Promise.all([
-    supabase.from('listings').select('type').eq('status', 'active'),
-    supabase
-      .from('listings')
-      .select('id, title, price_display, neighborhood, type, images, description, created_at')
-      .eq('status', 'active')
-      .order('is_featured', { ascending: false })
-      .order('created_at', { ascending: false })
-      .limit(6),
-  ])
+  const q = sanitizeQuery(sp.q)
 
-  const countByType: Record<string, number> = {}
-  for (const row of countsRes.data ?? []) {
-    const t = row.type ?? 'general'
-    countByType[t] = (countByType[t] ?? 0) + 1
+  let query = supabase
+    .from('listings')
+    .select('id, title, price_display, neighborhood, type, images, tier, is_featured')
+    .eq('status', 'active')
+    .eq('city', config.displayName)
+    .order('is_featured', { ascending: false })
+    .order('created_at', { ascending: false })
+
+  if (q) {
+    const pattern = `%${q}%`
+    query = query.or(`title.ilike.${pattern},neighborhood.ilike.${pattern},type.ilike.${pattern}`)
   }
-  const total = (countsRes.data ?? []).length
 
-  const recent = recentRes.data ?? []
+  const { data: listings } = await query
+  const rows = listings ?? []
+  const total = rows.length
 
   const websiteSchema = {
     '@context': 'https://schema.org',
@@ -113,7 +128,7 @@ export default async function CityPage({ params }: PageProps) {
     url: 'https://www.findstudiospace.com',
     potentialAction: {
       '@type': 'SearchAction',
-      target: `https://www.findstudiospace.com/${citySlug}/studio-space-rental?q={search_term_string}`,
+      target: `https://www.findstudiospace.com/${citySlug}?q={search_term_string}`,
       'query-input': 'required name=search_term_string',
     },
   }
@@ -124,170 +139,251 @@ export default async function CityPage({ params }: PageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
       />
-    <main style={{ background: '#f4f1eb', color: '#1a1814' }} className="min-h-screen">
-      {/* Hero */}
-      <section
-        style={{
-          borderBottom: '1px solid #d6d0c4',
-          backgroundImage: 'radial-gradient(circle, #c8c4bb 1px, transparent 1px)',
-          backgroundSize: '24px 24px',
-          minHeight: '70vh',
-          display: 'flex',
-          alignItems: 'center',
-        }}
-        className="px-6"
-      >
-        <div className="mx-auto max-w-5xl w-full py-20">
-          <h1 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814', letterSpacing: '-0.02em' }} className="text-5xl font-bold leading-tight sm:text-6xl">
-            Find your creative space<br />in {config.displayName}.
-          </h1>
-          <form action={`/${citySlug}/studio-space-rental`} method="GET" className="mt-10 flex w-full max-w-2xl">
-            <input
-              type="text"
-              name="q"
-              placeholder="Search by neighborhood, space type, or keyword..."
+      <main style={{ background: 'var(--paper)', color: 'var(--ink)' }} className="min-h-screen">
+        {/* HERO */}
+        <section
+          style={{
+            background: 'var(--paper)',
+            paddingTop: '5rem',
+            paddingBottom: '4rem',
+          }}
+          className="px-6 hero-section"
+        >
+          <div className="mx-auto max-w-5xl">
+            <h1
               style={{
-                border: '1px solid #d6d0c4',
-                background: 'white',
-                color: '#1a1814',
-                fontFamily: 'var(--font-body)',
-                height: '56px',
-                outline: 'none',
-                borderRight: 'none',
-                fontSize: '15px',
+                fontFamily: 'var(--font-heading)',
+                color: 'var(--ink)',
+                letterSpacing: '-0.02em',
+                lineHeight: 1.1,
               }}
-              className="hero-search-input flex-1 px-5 placeholder:text-[#6b6762]"
-            />
-            <button
-              type="submit"
-              style={{ height: '56px', fontFamily: 'var(--font-body)', border: 'none', fontSize: '15px' }}
-              className="btn-action px-8 font-medium whitespace-nowrap"
+              className="text-4xl md:text-6xl font-semibold"
             >
-              Search
-            </button>
-          </form>
-          <div className="hero-trust-row" style={{ marginTop: '20px' }}>
-            <span className="hero-count">{total} spaces in {config.displayName}</span>
-            <span className="hero-dot">·</span>
-            <a href={`/${citySlug}/art-studio`} className="hero-chip">Art Studios</a>
-            <a href={`/${citySlug}/workshop-space-rental`} className="hero-chip">Workshop</a>
-            <a href={`/${citySlug}/office-space-rental`} className="hero-chip">Office</a>
-            <a href={`/${citySlug}/photo-studio-rental`} className="hero-chip">Photo</a>
-            <a href={`/${citySlug}/dance-studio-rental`} className="hero-chip">Dance</a>
-            <a href={`/${citySlug}/music-rehearsal-space`} className="hero-chip">Music</a>
-          </div>
-        </div>
-      </section>
+              Studio space for creatives in {config.displayName}.
+            </h1>
+            <p
+              style={{
+                fontFamily: 'var(--font-body)',
+                color: 'var(--stone)',
+                fontSize: '1.125rem',
+                lineHeight: 1.5,
+                marginTop: '1.25rem',
+                maxWidth: '620px',
+              }}
+            >
+              {total} studios. Every neighborhood. Free to search.
+            </p>
 
-      <div className="mx-auto max-w-5xl space-y-16 px-6 py-14">
-        {/* Categories */}
-        <section>
-          <h2 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="mb-6 text-xl font-semibold">
-            Browse by type
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" style={{ background: '#d6d0c4', gap: '1px' }}>
-            {CATEGORIES.map((cat) => {
-              const count = countByType[cat.type] ?? 0
-              return (
-                <Link
-                  key={cat.slug}
-                  href={`/${citySlug}/${cat.slug}`}
-                  style={{ background: '#edeae2' }}
-                  className="group block p-6 hover:bg-[#e5e1d8] transition-colors"
-                >
-                  <p style={{ fontFamily: 'var(--font-heading)', color: '#1a1814', fontSize: '1.1rem' }} className="font-semibold">
+            <form
+              action={`/${citySlug}`}
+              method="GET"
+              style={{ maxWidth: '520px', marginTop: '2rem' }}
+              className="w-full"
+            >
+              <input
+                type="text"
+                name="q"
+                defaultValue={q}
+                maxLength={64}
+                placeholder="Search studios, neighborhoods, or type..."
+                style={{
+                  width: '100%',
+                  border: '1px solid var(--rule)',
+                  background: 'white',
+                  color: 'var(--ink)',
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '1rem',
+                  padding: '14px 16px',
+                  borderRadius: '2px',
+                  outline: 'none',
+                  minHeight: '48px',
+                  boxSizing: 'border-box',
+                }}
+                className="hero-search-input"
+              />
+            </form>
+
+            <div
+              style={{
+                marginTop: '1.5rem',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.75rem',
+                letterSpacing: '0.08em',
+                color: 'var(--ink)',
+              }}
+              className="flex flex-wrap items-center gap-x-2 gap-y-2"
+            >
+              {CATEGORY_PILLS.map((cat, i) => (
+                <span key={cat.slug} className="inline-flex items-center">
+                  <Link
+                    href={`/${citySlug}/${cat.slug}`}
+                    style={{ color: 'var(--ink)', textDecoration: 'none' }}
+                    className="hover:underline"
+                  >
                     {cat.label}
-                  </p>
-                  <p style={{ color: '#6b6762', fontSize: '0.85rem' }} className="mt-1">
-                    {cat.descriptor}
-                  </p>
-                  <p style={{ fontFamily: 'var(--font-mono)', color: '#6b6762', fontSize: '0.72rem' }} className="mt-2">
-                    {count} {count === 1 ? 'space' : 'spaces'}
-                  </p>
-                </Link>
-              )
-            })}
-          </div>
-        </section>
-
-        {/* Recent listings */}
-        <section>
-          <h2 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="mb-6 text-xl font-semibold">
-            Recent listings
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {recent.map((listing) => {
-              const images: string[] = Array.isArray(listing.images)
-                ? listing.images.map((x: unknown) => (typeof x === 'string' ? x : (x as Record<string, string>)?.url ?? '')).filter(Boolean)
-                : []
-              const thumb = images[0]
-              const timestamp = timeAgo(listing.created_at)
-              const hasPrice = !!listing.price_display
-              const typeKey = (listing.type ?? '').toLowerCase()
-              const borderClass = BORDER_CLASS[typeKey] ?? 'cat-border-default'
-              const textClass = TEXT_CLASS[typeKey] ?? ''
-              return (
-                <Link
-                  key={listing.id}
-                  href={`/listing/${listing.id}`}
-                  className={`listing-card-base ${borderClass} group flex flex-col`}
-                >
-                  {thumb ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={thumb} alt="" width={600} height={400} loading="lazy" className="w-full listing-card-placeholder" style={{ objectFit: 'cover', height: '200px' }} />
-                  ) : (
-                    <div className="listing-card-placeholder" />
+                  </Link>
+                  {i < CATEGORY_PILLS.length - 1 && (
+                    <span style={{ color: 'var(--rule)', margin: '0 0.5rem' }}>·</span>
                   )}
-                  <div className="flex flex-1 flex-col p-4">
-                    {listing.type && (
-                      <p style={{ fontFamily: 'var(--font-mono)' }} className={`${textClass} mb-1 text-xs uppercase`}>
-                        {listing.type}
-                      </p>
-                    )}
-                    {listing.neighborhood && (
-                      <p style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="mb-1 text-xs">
-                        {listing.neighborhood.trim()}
-                      </p>
-                    )}
-                    <h3 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="font-semibold leading-snug">
-                      {listing.title ?? 'Untitled listing'}
-                    </h3>
-                    <p style={{ fontFamily: 'var(--font-mono)', color: hasPrice ? '#1a1814' : '#9c8e84', fontStyle: hasPrice ? 'normal' : 'italic' }} className="mt-2 text-xs">
-                      {hasPrice ? listing.price_display : 'Price on request'}
-                    </p>
-                    <p style={{ color: '#a84530' }} className="mt-auto pt-3 text-xs font-medium">
-                      View space →
-                    </p>
-                    {timestamp && (
-                      <p style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="mt-1 text-xs">
-                        {timestamp}
-                      </p>
-                    )}
-                  </div>
-                </Link>
-              )
-            })}
+                </span>
+              ))}
+            </div>
           </div>
         </section>
 
-        {/* CTA band */}
-        <section style={{ background: '#edeae2', borderTop: '1px solid #d6d0c4', borderBottom: '1px solid #d6d0c4' }} className="py-12 text-center">
-          <p style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="text-xl font-semibold">
-            Have a space to rent?
-          </p>
-          <p style={{ color: '#6b6762' }} className="mx-auto mt-3 max-w-md text-sm">
-            List it free and reach {config.displayName} creatives searching right now.
-          </p>
-          <Link
-            href="/list-your-space"
-            style={{ width: 'auto' }}
-            className="btn-action mt-5 inline-block px-6 py-2.5 text-sm font-medium"
-          >
-            List your space →
-          </Link>
+        {/* Hairline */}
+        <div style={{ borderTop: '1px solid var(--rule)' }} />
+
+        {/* LISTINGS */}
+        <section style={{ paddingTop: '4rem', paddingBottom: '4rem' }} className="px-6">
+          <div className="mx-auto max-w-5xl">
+            <p
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.75rem',
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+                color: 'var(--stone)',
+                marginBottom: '0.5rem',
+              }}
+            >
+              {q ? `SEARCH · ${total} ${total === 1 ? 'RESULT' : 'RESULTS'}` : `DIRECTORY · ${total} STUDIOS`}
+            </p>
+            <h2
+              style={{
+                fontFamily: 'var(--font-heading)',
+                color: 'var(--ink)',
+                fontSize: '1.875rem',
+                fontWeight: 600,
+                letterSpacing: '-0.015em',
+                marginBottom: '2rem',
+              }}
+            >
+              {q ? (
+                <>Results for &ldquo;{q}&rdquo;</>
+              ) : (
+                <>Browse {config.displayName} studios</>
+              )}
+            </h2>
+
+            {rows.length === 0 ? (
+              <p style={{ color: 'var(--stone)' }} className="text-sm">
+                No listings match that search. Try a neighborhood or space type.
+              </p>
+            ) : (
+              <div className="home-grid">
+                {rows.map((listing) => {
+                  const images: string[] = Array.isArray(listing.images)
+                    ? listing.images
+                        .map((x: unknown) => (typeof x === 'string' ? x : (x as Record<string, string>)?.url ?? ''))
+                        .filter(Boolean)
+                    : []
+                  const thumb = images[0]
+                  const typeKey = (listing.type ?? '').toLowerCase()
+                  const borderClass = BORDER_CLASS[typeKey] ?? 'cat-border-default'
+                  const textClass = TEXT_CLASS[typeKey] ?? ''
+                  const typeLabel = TYPE_LABEL[typeKey] ?? listing.type ?? ''
+                  const priceFormatted = formatPrice(listing.price_display)
+                  const isPro = listing.tier === 'pro'
+
+                  return (
+                    <Link
+                      key={listing.id}
+                      href={`/listing/${listing.id}`}
+                      className={`listing-card ${borderClass} group`}
+                      style={{ textDecoration: 'none' }}
+                    >
+                      <div className="listing-card-image-wrap">
+                        {thumb ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            src={thumb}
+                            alt=""
+                            width={600}
+                            height={450}
+                            loading="lazy"
+                            className="listing-card-image"
+                          />
+                        ) : (
+                          <div className="listing-card-image listing-card-image-placeholder" />
+                        )}
+                        {isPro && (
+                          <span
+                            style={{
+                              position: 'absolute',
+                              top: '8px',
+                              right: '8px',
+                              background: 'var(--featured-bg)',
+                              color: 'var(--featured-color)',
+                              fontFamily: 'var(--font-mono)',
+                              fontSize: '0.7rem',
+                              letterSpacing: '0.08em',
+                              padding: '3px 8px',
+                              borderRadius: '4px',
+                              fontWeight: 500,
+                            }}
+                          >
+                            PRO
+                          </span>
+                        )}
+                      </div>
+                      <div className="listing-card-body">
+                        <h3
+                          className="listing-card-name"
+                          style={{
+                            fontFamily: 'var(--font-heading)',
+                            color: 'var(--ink)',
+                            fontSize: '1.125rem',
+                            fontWeight: 600,
+                            letterSpacing: '-0.01em',
+                            lineHeight: 1.3,
+                            margin: 0,
+                          }}
+                        >
+                          {listing.title ?? 'Untitled listing'}
+                        </h3>
+                        <p
+                          style={{
+                            fontFamily: 'var(--font-mono)',
+                            fontSize: '0.75rem',
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.08em',
+                            color: 'var(--stone)',
+                            marginTop: '4px',
+                            marginBottom: 0,
+                          }}
+                        >
+                          {listing.neighborhood || 'Portland'}
+                          {typeLabel && (
+                            <>
+                              {' · '}
+                              <span className={textClass}>{typeLabel}</span>
+                            </>
+                          )}
+                        </p>
+                        {priceFormatted && (
+                          <p
+                            style={{
+                              fontFamily: 'var(--font-heading)',
+                              fontSize: '1rem',
+                              fontWeight: 500,
+                              color: 'var(--ink)',
+                              marginTop: '8px',
+                              marginBottom: 0,
+                            }}
+                          >
+                            {priceFormatted}
+                          </p>
+                        )}
+                      </div>
+                    </Link>
+                  )
+                })}
+              </div>
+            )}
+          </div>
         </section>
-      </div>
-    </main>
+      </main>
     </>
   )
 }
