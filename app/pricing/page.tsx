@@ -13,7 +13,15 @@ export const metadata: Metadata = {
   alternates: { canonical: '/pricing' },
 }
 
-const faqs = [
+type Faq = {
+  q: string
+  a: string
+  // Optional rendered addendum (e.g. a link). Not included in JSON-LD schema
+  // so the structured-data `text` field stays a plain string.
+  aExtra?: React.ReactNode
+}
+
+const faqs: Faq[] = [
   {
     q: 'Can I cancel anytime?',
     a: 'Yes. Cancel from your dashboard or the Stripe billing portal. Your Pro features stay active through the end of your current billing period, then your listing reverts to the free tier.',
@@ -29,6 +37,18 @@ const faqs = [
   {
     q: 'Do you offer refunds?',
     a: 'Not on partial months. If you cancel mid-cycle, your Pro features continue through the end of the period you already paid for. The 30-day free trial means you can try Pro risk-free.',
+    aExtra: (
+      <>
+        {' '}
+        <Link
+          href="/refund-policy"
+          style={{ color: 'var(--action)' }}
+          className="hover:underline"
+        >
+          Read the full refund policy →
+        </Link>
+      </>
+    ),
   },
   {
     q: 'How does the 30-day free trial work?',
@@ -236,6 +256,7 @@ export default function PricingPage() {
                   className="pb-4 text-sm leading-relaxed"
                 >
                   {faq.a}
+                  {faq.aExtra}
                 </p>
               </details>
             ))}
