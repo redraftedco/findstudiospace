@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { revalidatePath } from 'next/cache'
 import { stripe } from '@/lib/stripe'
 import { createClient } from '@supabase/supabase-js'
 import Stripe from 'stripe'
@@ -79,6 +80,11 @@ export async function POST(req: NextRequest) {
           })
           .eq('id', parseInt(listing_id))
 
+        // Invalidate ISR cache so the new Pro badge / photos 6-15 render immediately.
+        // /listing/[id] has `export const revalidate = 3600`; without this call,
+        // the first-Pro-upgrade user would see stale-free content for up to an hour.
+        revalidatePath(`/listing/${listing_id}`)
+
         break
       }
 
@@ -86,26 +92,38 @@ export async function POST(req: NextRequest) {
         const subscription = event.data.object as Stripe.Subscription & { current_period_end: number }
         const isActive = ['active', 'trialing'].includes(subscription.status)
 
-        if (isActive) {
-          await supabase
-            .from('listings')
-            .update({
+        // .select('id') chained on update returns the affected row ids so we
+        // can revalidate each. Defensive: one subscription could theoretically
+        // map to multiple listings; iterate whatever came back.
+        const updatePayload = isActive
+          ? {
               tier: 'pro',
               is_featured: true,
               current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
               updated_at: new Date().toISOString(),
-            })
-            .eq('stripe_subscription_id', subscription.id)
-        } else {
-          await supabase
-            .from('listings')
-            .update({
+            }
+          : {
               tier: 'free',
               is_featured: false,
               current_period_end: null,
               updated_at: new Date().toISOString(),
-            })
-            .eq('stripe_subscription_id', subscription.id)
+            }
+
+        const { data: affectedRows } = await supabase
+          .from('listings')
+          .update(updatePayload)
+          .eq('stripe_subscription_id', subscription.id)
+          .select('id')
+
+        const rows = Array.isArray(affectedRows) ? affectedRows : []
+        if (rows.length === 0) {
+          console.warn(
+            `[stripe-webhook] subscription.updated matched 0 listings for sub=${subscription.id}; ` +
+            `ISR cache not invalidated (will stale up to 1h via revalidate=3600 backstop)`,
+          )
+        }
+        for (const row of rows) {
+          revalidatePath(`/listing/${row.id}`)
         }
 
         break
@@ -114,7 +132,7 @@ export async function POST(req: NextRequest) {
       case 'customer.subscription.deleted': {
         const subscription = event.data.object as Stripe.Subscription
 
-        await supabase
+        const { data: affectedRows } = await supabase
           .from('listings')
           .update({
             tier: 'free',
@@ -124,6 +142,18 @@ export async function POST(req: NextRequest) {
             updated_at: new Date().toISOString(),
           })
           .eq('stripe_subscription_id', subscription.id)
+          .select('id')
+
+        const rows = Array.isArray(affectedRows) ? affectedRows : []
+        if (rows.length === 0) {
+          console.warn(
+            `[stripe-webhook] subscription.deleted matched 0 listings for sub=${subscription.id}; ` +
+            `ISR cache not invalidated (will stale up to 1h via revalidate=3600 backstop)`,
+          )
+        }
+        for (const row of rows) {
+          revalidatePath(`/listing/${row.id}`)
+        }
 
         break
       }
