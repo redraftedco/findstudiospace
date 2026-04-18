@@ -110,6 +110,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <Link href="/list-your-space" className="hover:underline">List Your Space</Link>
                   <Link href="/claim" className="hover:underline">Claim a Listing</Link>
                   <Link href="/blog" className="hover:underline">Resources</Link>
+                  <Link href="/privacy" className="hover:underline">Privacy</Link>
+                  <Link href="/terms" className="hover:underline">Terms</Link>
                 </div>
               </div>
 
