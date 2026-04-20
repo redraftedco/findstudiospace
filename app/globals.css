@@ -46,6 +46,10 @@
   --action-focus: #E89A7A;
   --action-light: #FAE5DB;
 
+  /* Hero search input background: lighter than --paper body so the field
+     reads as a lifted/interactive surface without going full white. */
+  --search-bg: #DEDEDA;
+
   /* Category accent colors */
   --cat-art:      #7C5CFC;
   --cat-music:    #E5A100;
@@ -233,14 +237,20 @@ html { scroll-behavior: smooth; }
   }
 }
 
-/* Homepage hero title — larger display size at desktop, scaled down on mobile
-   so the headline still fits at 375px without breaking the phrase awkwardly. */
+/* Homepage hero title. Scales mobile to desktop: 3rem (base), 4.5rem (\u2265640px),
+   6rem (\u2265900px). Headline is the primary visual weight of the hero so the
+   top-end bump to 6rem pairs with reduced hero section padding for density. */
 .hero-title {
-  font-size: 3.25rem;
+  font-size: 3rem;
 }
-@media (min-width: 768px) {
+@media (min-width: 640px) {
   .hero-title {
-    font-size: 5rem;
+    font-size: 4.5rem;
+  }
+}
+@media (min-width: 900px) {
+  .hero-title {
+    font-size: 6rem;
   }
 }
 
