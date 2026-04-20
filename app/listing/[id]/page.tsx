@@ -283,7 +283,7 @@ export default async function ListingPage({ params, searchParams }: Props) {
               {images.length === 0 ? (
                 <div
                   style={{
-                    background: 'var(--rule)',
+                    background: '#B5B5B0',
                     aspectRatio: '16 / 9',
                     display: 'flex',
                     alignItems: 'center',
