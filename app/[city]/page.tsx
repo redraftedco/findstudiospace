@@ -97,11 +97,61 @@ export default async function CityPage({ params, searchParams }: PageProps) {
     },
   }
 
+  // BreadcrumbList — Home → {City}. Home MUST resolve to the site root, not
+  // back to this page, or Google ignores the malformed breadcrumb.
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://www.findstudiospace.com',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: config.displayName,
+      },
+    ],
+  }
+
+  // ItemList — refs-only ListItems pointing at each listing detail page.
+  // Capped at 100 per Google's crawl-budget guidance; sort order (featured
+  // first, newest second) means the first 100 are the highest-value subset.
+  // When a filter (?q=) is active, the list reflects the filtered set so the
+  // schema matches what the user and crawler actually see on the page.
+  const itemListCap = 100
+  const itemListRows = rows.slice(0, itemListCap)
+  const itemListName = q
+    ? `Search results for "${q}" in ${config.displayName}`
+    : `${config.displayName} studio listings`
+  const itemListSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: itemListName,
+    numberOfItems: itemListRows.length,
+    itemListElement: itemListRows.map((listing, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `https://www.findstudiospace.com/listing/${listing.id}`,
+    })),
+  }
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
       />
       <main style={{ background: 'var(--paper)', color: 'var(--ink)' }} className="min-h-screen">
         {/* HERO */}
