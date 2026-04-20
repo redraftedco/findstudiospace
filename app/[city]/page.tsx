@@ -171,7 +171,7 @@ export default async function CityPage({ params, searchParams }: PageProps) {
                 letterSpacing: '-0.02em',
                 lineHeight: 1.1,
               }}
-              className="text-4xl md:text-6xl font-semibold"
+              className="hero-title font-semibold"
             >
               Studio space for creatives in {config.displayName}.
             </h1>
@@ -219,11 +219,12 @@ export default async function CityPage({ params, searchParams }: PageProps) {
 
             <div
               style={{
-                marginTop: '1.5rem',
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.75rem',
+                marginTop: '2.5rem',
+                fontFamily: 'var(--font-heading)',
+                fontSize: '1rem',
                 letterSpacing: '0.08em',
                 color: 'var(--ink)',
+                textTransform: 'uppercase',
               }}
               className="flex flex-wrap items-center gap-x-2 gap-y-2"
             >

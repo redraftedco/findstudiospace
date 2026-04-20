@@ -233,6 +233,17 @@ html { scroll-behavior: smooth; }
   }
 }
 
+/* Homepage hero title — larger display size at desktop, scaled down on mobile
+   so the headline still fits at 375px without breaking the phrase awkwardly. */
+.hero-title {
+  font-size: 3.25rem;
+}
+@media (min-width: 768px) {
+  .hero-title {
+    font-size: 5rem;
+  }
+}
+
 /* Header nav tightening below 640px — keeps links on one line at 375px with
    the shorter mobile labels applied in layout.tsx (Landlords, Pricing, Add Listing). */
 @media (max-width: 640px) {
