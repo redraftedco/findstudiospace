@@ -220,7 +220,22 @@ html { scroll-behavior: smooth; }
 }
 
 @media (max-width: 640px) {
-  .listing-title { font-size: 1.875rem !important; }
+  .listing-title {
+    font-size: 1.875rem !important;
+    /* Break unhyphenated slash/underscore-joined words (e.g. "counseling/psychotherapy")
+       that would otherwise overflow the viewport horizontally. */
+    overflow-wrap: anywhere;
+  }
+}
+
+/* Header nav tightening below 640px — keeps links on one line at 375px with
+   the shorter mobile labels applied in layout.tsx (Landlords, Pricing, Add Listing). */
+@media (max-width: 640px) {
+  header .flex.gap-6 { gap: 0.875rem; }
+  header .flex.gap-6 > a {
+    font-size: 0.8125rem;
+    white-space: nowrap;
+  }
 }
 
 /* Mobile sticky inquiry bar — CSS-only, hidden on desktop */
