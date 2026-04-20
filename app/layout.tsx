@@ -84,10 +84,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <p style={{ fontFamily: 'var(--font-mono)' }} className="text-xs mt-3">
                   findstudiospace.com — Portland, OR
                 </p>
-                {/* TODO: Replace with real PO Box before cold email */}
-                <p style={{ fontFamily: 'var(--font-mono)', color: 'var(--stone)' }} className="text-xs mt-2">
-                  FindStudioSpace · [Mailing address — update before cold email]
-                </p>
               </div>
 
               {/* Column 2 — Browse by Category */}

@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   alternates: { canonical: '/refund-policy' },
 }
 
-{/* TODO: confirm this email is monitored before cold email goes out */}
 const CONTACT_EMAIL = 'hello@findstudiospace.com'
 
 export default function RefundPolicyPage() {
