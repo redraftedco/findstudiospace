@@ -16,7 +16,7 @@
 
   /* Neutrals — warm-shifted */
   --color-ink: #1A1D23;
-  --color-paper: #F5F0E8;
+  --color-paper: #C6C6C1;
   --color-stone: #6E7582;
   --color-rule: #D8D3C8;
   --color-surface: #EDE8DE;
@@ -37,7 +37,7 @@
 /* CSS custom properties for use in JS inline styles and CSS rules */
 :root {
   --ink: #1A1D23;
-  --paper: #F5F0E8;
+  --paper: #C6C6C1;
   --stone: #6E7582;
   --rule: #D8D3C8;
   --surface: #EDE8DE;
@@ -150,7 +150,9 @@ h3 {
   aspect-ratio: 4 / 3;
   overflow: hidden;
   border-radius: 2px;
-  background: var(--surface);
+  /* Matches .listing-card-image-placeholder below so image-load flash reads
+     grey-through-grey rather than cream against the darker page background. */
+  background: #B5B5B0;
   flex-shrink: 0;
 }
 .listing-card-image {
@@ -163,7 +165,10 @@ h3 {
 .listing-card-image-placeholder {
   width: 100%;
   height: 100%;
-  background: var(--surface);
+  /* Neutral grey, a few shades darker than --paper #DEDED9 so the empty-image
+     frame reads as a deliberate placeholder with shape, while "NO IMAGE" text
+     in --stone stays legible. */
+  background: #B5B5B0;
   display: flex;
   align-items: center;
   justify-content: center;
