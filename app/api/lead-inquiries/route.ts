@@ -93,7 +93,10 @@ export async function POST(req: NextRequest) {
     // Route inquiries to the verified owner email first; fall back to the
     // scraped contact_email. Owner email comes from the magic-link claim flow
     // so it's proven-controlled at a specific moment in time.
+    // If neither exists, fall back to platform operator so no inquiry is lost.
+    const PLATFORM_EMAIL = 'redraftedco@gmail.com'
     const recipientEmail = listing?.owner_email || listing?.contact_email || null
+    const notifyEmail = recipientEmail ?? PLATFORM_EMAIL
 
     const { error } = await supabaseServer.from('lead_inquiries').insert([{
       listing_id: parseInt(listing_id),
@@ -109,27 +112,48 @@ export async function POST(req: NextRequest) {
 
     if (error) return NextResponse.json({ ok: false, error: 'Something went wrong.' }, { status: 500 })
 
-    // Send host notification email — skip silently if both fields are null
-    if (recipientEmail && listing) {
-      try {
-        const listingUrl = `https://www.findstudiospace.com/listing/${listing_id}`
-        await resend.emails.send({
-          from: 'hello@findstudiospace.com',
-          to: recipientEmail,
-          subject: `New inquiry for ${listing.title}`,
-          text: [
-            `You have a new inquiry for your listing: ${listing.title}`,
-            ``,
-            `From: ${cleanName}`,
-            `Email: ${cleanEmail}`,
-            `Message: ${cleanMessage || '(no message provided)'}`,
-            ``,
-            `View your listing: ${listingUrl}`,
-          ].join('\n'),
-        })
-      } catch {
-        // Email failure must never block the inquiry from being saved
-      }
+    const listingTitle = listing?.title ?? 'your listing'
+    const listingUrl = `https://www.findstudiospace.com/listing/${listing_id}`
+
+    // Host notification — always fires (platform email if no host email on file)
+    try {
+      await resend.emails.send({
+        from: 'hello@findstudiospace.com',
+        to: notifyEmail,
+        subject: `New inquiry for ${listingTitle}`,
+        text: [
+          recipientEmail ? `You have a new inquiry for your listing: ${listingTitle}` : `[No host email on file — forward manually]\nNew inquiry for: ${listingTitle}`,
+          ``,
+          `From: ${cleanName}`,
+          `Email: ${cleanEmail}`,
+          `Message: ${cleanMessage || '(no message provided)'}`,
+          ``,
+          `View listing: ${listingUrl}`,
+        ].join('\n'),
+      })
+    } catch {
+      // Email failure must never block the inquiry from being saved
+    }
+
+    // Renter confirmation
+    try {
+      await resend.emails.send({
+        from: 'hello@findstudiospace.com',
+        to: cleanEmail,
+        subject: `We got your inquiry for ${listingTitle}`,
+        text: [
+          `Hi ${cleanName},`,
+          ``,
+          `Got it — we'll connect you with ${listingTitle} within 24 hours.`,
+          ``,
+          `Your message: ${cleanMessage || '(none)'}`,
+          ``,
+          `— FindStudioSpace`,
+          `https://www.findstudiospace.com`,
+        ].join('\n'),
+      })
+    } catch {
+      // Email failure must never block the inquiry from being saved
     }
 
     return NextResponse.json({ ok: true })
