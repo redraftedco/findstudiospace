@@ -11,12 +11,12 @@ export type CategoryConfig = {
 
 export const categoryConfigs: Record<string, CategoryConfig> = {
   'photo-studio-rental': {
-    title: 'Photo Studio Rental in Portland, OR | FindStudioSpace',
+    title: 'Photography Studios for Rent in Portland, OR | FindStudioSpace',
     metaDescription:
-      'Find photo studio space for rent in Portland, OR. Professional photography studios with backdrops, lighting, and cyclorama walls available for monthly and short-term rental.',
-    h1: 'Photo Studio Rental in Portland, OR',
+      'Find monthly photography studios in Portland — cyclorama walls, product sets, boudoir spaces, and maternity suites. Browse and book creative studio rentals.',
+    h1: 'Photography Studios for Rent in Portland',
     intro:
-      'Browse photo studio rentals in Portland, OR. Whether you need a cyclorama wall, a natural-light loft, or a fully equipped production space, Portland has photography studios across every neighborhood and budget. Submit an inquiry from any listing to connect directly with the host.',
+      'Browse Portland\'s photography studios available for monthly rental. Whether you need a cyclorama wall for seamless backgrounds, a dedicated product photography set, an intimate boudoir space, or a styled maternity suite — find the right studio for your work.',
     listingType: 'photo',
     faqs: [
       {
