@@ -49,7 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 style={{ color: 'var(--stone)', fontFamily: 'var(--font-body)' }}
                 className="text-sm hover:underline"
               >
-                For Landlords
+                <span className="hidden sm:inline">For </span>Landlords
               </Link>
               <Link
                 href="/pricing"
@@ -63,7 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               style={{ color: 'var(--action)', fontFamily: 'var(--font-body)' }}
               className="text-sm font-medium hover:underline"
             >
-              List your space
+              <span className="hidden sm:inline">List your space</span><span className="sm:hidden">Add Listing</span>
             </Link>
             </div>
           </div>
