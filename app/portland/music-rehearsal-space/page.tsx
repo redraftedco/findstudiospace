@@ -78,25 +78,25 @@ export default async function MusicRehearsalSpacePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      <main style={{ background: '#f4f1eb', color: '#1a1814' }} className="min-h-screen">
+      <main style={{ background: 'var(--paper)', color: 'var(--ink)' }} className="min-h-screen">
         <div className="mx-auto max-w-4xl px-6 py-10">
-          <nav style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="mb-6 text-xs">
+          <nav style={{ color: 'var(--stone)', fontFamily: 'var(--font-mono)' }} className="mb-6 text-xs">
             <Link href="/" className="hover:underline">FindStudioSpace</Link>
             <span className="mx-2">→</span>
             <Link href="/" className="hover:underline">Portland</Link>
             <span className="mx-2">→</span>
-            <span style={{ color: '#1a1814' }}>Music Rehearsal Space</span>
+            <span style={{ color: 'var(--ink)' }}>Music Rehearsal Space</span>
           </nav>
 
-          <h1 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="mb-4 text-3xl font-semibold">
+          <h1 style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }} className="mb-4 text-3xl font-semibold">
             Monthly Music Rehearsal Space in Portland, OR
           </h1>
-          <p style={{ color: '#6b6762' }} className="mb-10 max-w-2xl text-sm leading-relaxed">
+          <p style={{ color: 'var(--stone)' }} className="mb-10 max-w-2xl text-sm leading-relaxed">
             Find affordable monthly lockout rehearsal space in Portland for bands, musicians, and performers. Unlike hourly booking services, these spaces offer monthly leases so you have a permanent home for your practice — available 24/7 on your schedule. Browse private studios, shared rehearsal facilities, and flexible creative spaces suitable for music.
           </p>
 
           {showFallback && (
-            <p style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="mb-6 text-xs">
+            <p style={{ color: 'var(--stone)', fontFamily: 'var(--font-mono)' }} className="mb-6 text-xs">
               Browse spaces suitable for music rehearsal in Portland — contact hosts to confirm music use is permitted.
             </p>
           )}
@@ -104,27 +104,27 @@ export default async function MusicRehearsalSpacePage() {
           {listings.length > 0 ? (
             <CategoryFilter listings={listings} />
           ) : (
-            <p style={{ color: '#6b6762' }} className="mb-14">No spaces listed yet — check back soon.</p>
+            <p style={{ color: 'var(--stone)' }} className="mb-14">No spaces listed yet — check back soon.</p>
           )}
 
           {/* FAQ */}
-          <section style={{ borderTop: '1px solid #d6d0c4' }} className="pt-10">
-            <h2 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="mb-6 text-xl font-semibold">
+          <section style={{ borderTop: '1px solid var(--rule)' }} className="pt-10">
+            <h2 style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }} className="mb-6 text-xl font-semibold">
               Frequently Asked Questions
             </h2>
             <dl className="space-y-6">
               {FAQS.map(({ q, a }) => (
                 <div key={q}>
-                  <dt style={{ color: '#1a1814' }} className="mb-1 font-medium">{q}</dt>
-                  <dd style={{ color: '#6b6762' }} className="text-sm leading-relaxed">{a}</dd>
+                  <dt style={{ color: 'var(--ink)' }} className="mb-1 font-medium">{q}</dt>
+                  <dd style={{ color: 'var(--stone)' }} className="text-sm leading-relaxed">{a}</dd>
                 </div>
               ))}
             </dl>
           </section>
 
           {/* Related */}
-          <section style={{ borderTop: '1px solid #d6d0c4' }} className="mt-12 pt-8">
-            <h2 style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="mb-4 text-xs uppercase tracking-wider">
+          <section style={{ borderTop: '1px solid var(--rule)' }} className="mt-12 pt-8">
+            <h2 style={{ color: 'var(--stone)', fontFamily: 'var(--font-mono)' }} className="mb-4 text-xs uppercase tracking-wider">
               Related Searches
             </h2>
             <ul className="flex flex-wrap gap-3">
@@ -137,8 +137,8 @@ export default async function MusicRehearsalSpacePage() {
                 <li key={href}>
                   <Link
                     href={href}
-                    style={{ border: '1px solid #d6d0c4', color: '#1a1814', fontFamily: 'var(--font-mono)' }}
-                    className="inline-block px-3 py-1.5 text-xs hover:bg-[#edeae2] transition-colors"
+                    style={{ border: '1px solid var(--rule)', color: 'var(--ink)', fontFamily: 'var(--font-mono)' }}
+                    className="inline-block px-3 py-1.5 text-xs hover:bg-[var(--surface)] transition-colors"
                   >
                     {label}
                   </Link>

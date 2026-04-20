@@ -33,23 +33,23 @@ const POSTS = [
 
 export default function BlogIndex() {
   return (
-    <main style={{ background: '#f4f1eb', color: '#1a1814' }} className="min-h-screen">
+    <main style={{ background: 'var(--paper)', color: 'var(--ink)' }} className="min-h-screen">
       <div className="mx-auto max-w-3xl px-6 py-14">
-        <h1 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="mb-10 text-3xl font-semibold">
+        <h1 style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }} className="mb-10 text-3xl font-semibold">
           Resources
         </h1>
         <ul className="space-y-8">
           {POSTS.map((post) => (
-            <li key={post.slug} style={{ borderTop: '1px solid #d6d0c4' }} className="pt-8">
-              <p style={{ fontFamily: 'var(--font-mono)', color: '#6b6762' }} className="mb-2 text-xs">
+            <li key={post.slug} style={{ borderTop: '1px solid var(--rule)' }} className="pt-8">
+              <p style={{ fontFamily: 'var(--font-mono)', color: 'var(--stone)' }} className="mb-2 text-xs">
                 {post.date}
               </p>
               <Link href={`/blog/${post.slug}`}>
-                <h2 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="text-xl font-semibold hover:underline">
+                <h2 style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }} className="text-xl font-semibold hover:underline">
                   {post.title}
                 </h2>
               </Link>
-              <p style={{ color: '#6b6762' }} className="mt-2 text-sm leading-relaxed">
+              <p style={{ color: 'var(--stone)' }} className="mt-2 text-sm leading-relaxed">
                 {post.description}
               </p>
             </li>

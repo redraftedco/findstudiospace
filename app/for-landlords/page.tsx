@@ -40,7 +40,7 @@ const PRO_FEATURES = [
 
 export default function ForLandlordsPage() {
   return (
-    <main style={{ background: '#f4f1eb', color: '#1a1814' }} className="min-h-screen">
+    <main style={{ background: 'var(--paper)', color: 'var(--ink)' }} className="min-h-screen">
 
       <Suspense fallback={null}>
         <CheckoutResult />
@@ -50,17 +50,17 @@ export default function ForLandlordsPage() {
       <section
         id="proof"
         style={{
-          borderBottom: '1px solid #d6d0c4',
+          borderBottom: '1px solid var(--rule)',
           backgroundImage: 'radial-gradient(circle, #c8c4bb 1px, transparent 1px)',
           backgroundSize: '24px 24px',
         }}
         className="px-6"
       >
         <div className="mx-auto max-w-4xl py-24">
-          <h1 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="text-4xl font-semibold leading-tight sm:text-5xl">
+          <h1 style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }} className="text-4xl font-semibold leading-tight sm:text-5xl">
             Reach Portland Creatives Looking for Monthly Studio Space
           </h1>
-          <p style={{ color: '#6b6762' }} className="mt-5 max-w-2xl text-base leading-relaxed">
+          <p style={{ color: 'var(--stone)' }} className="mt-5 max-w-2xl text-base leading-relaxed">
             List your space free. Get real inquiries from artists, makers, musicians, and producers searching right now.
           </p>
           <div className="mt-8">
@@ -72,7 +72,7 @@ export default function ForLandlordsPage() {
               List Your Space Free →
             </Link>
           </div>
-          <p style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="mt-5 text-xs">
+          <p style={{ color: 'var(--stone)', fontFamily: 'var(--font-mono)' }} className="mt-5 text-xs">
             No contracts. No setup fees. Cancel anytime.
           </p>
         </div>
@@ -82,43 +82,43 @@ export default function ForLandlordsPage() {
 
         {/* Section 2: Proof of Demand */}
         <section>
-          <h2 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="mb-8 text-2xl font-semibold">
+          <h2 style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }} className="mb-8 text-2xl font-semibold">
             Portland creatives are searching right now
           </h2>
-          <div className="listing-grid mb-8" style={{ background: '#d6d0c4', gap: '1px' }}>
-            <div style={{ background: '#edeae2' }} className="p-8">
-              <p style={{ fontFamily: 'var(--font-heading)', color: '#1a1814', fontSize: '2.5rem' }} className="font-semibold leading-none">
+          <div className="listing-grid mb-8" style={{ background: 'var(--rule)', gap: '1px' }}>
+            <div style={{ background: 'var(--surface)' }} className="p-8">
+              <p style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)', fontSize: '2.5rem' }} className="font-semibold leading-none">
                 Free
               </p>
-              <p style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="mt-2 text-sm">
+              <p style={{ color: 'var(--stone)', fontFamily: 'var(--font-mono)' }} className="mt-2 text-sm">
                 to list your space — no credit card required
               </p>
             </div>
-            <div style={{ background: '#edeae2' }} className="p-8">
-              <p style={{ fontFamily: 'var(--font-heading)', color: '#1a1814', fontSize: '2.5rem' }} className="font-semibold leading-none">
+            <div style={{ background: 'var(--surface)' }} className="p-8">
+              <p style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)', fontSize: '2.5rem' }} className="font-semibold leading-none">
                 6
               </p>
-              <p style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="mt-2 text-sm">
+              <p style={{ color: 'var(--stone)', fontFamily: 'var(--font-mono)' }} className="mt-2 text-sm">
                 space categories: art, workshop, photo, office, retail, fitness
               </p>
             </div>
-            <div style={{ background: '#edeae2' }} className="p-8">
-              <p style={{ fontFamily: 'var(--font-heading)', color: '#1a1814', fontSize: '2.5rem' }} className="font-semibold leading-none">
+            <div style={{ background: 'var(--surface)' }} className="p-8">
+              <p style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)', fontSize: '2.5rem' }} className="font-semibold leading-none">
                 Monthly
               </p>
-              <p style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="mt-2 text-sm">
+              <p style={{ color: 'var(--stone)', fontFamily: 'var(--font-mono)' }} className="mt-2 text-sm">
                 rental terms — not hourly, not daily
               </p>
             </div>
           </div>
-          <p style={{ color: '#6b6762' }} className="max-w-2xl text-sm leading-relaxed">
+          <p style={{ color: 'var(--stone)' }} className="max-w-2xl text-sm leading-relaxed">
             FindStudioSpace is Portland&apos;s only directory focused on monthly creative workspace rentals. Every person who visits is looking for a space like yours — not a one-off event booking.
           </p>
         </section>
 
         {/* Section 3: How It Works */}
-        <section id="how-it-works" style={{ borderTop: '1px solid #d6d0c4' }} className="pt-16">
-          <h2 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="mb-10 text-2xl font-semibold">
+        <section id="how-it-works" style={{ borderTop: '1px solid var(--rule)' }} className="pt-16">
+          <h2 style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }} className="mb-10 text-2xl font-semibold">
             How it works
           </h2>
           <div className="listing-grid">
@@ -139,14 +139,14 @@ export default function ForLandlordsPage() {
                 desc: 'Interested tenants submit their contact info directly through your listing. You respond and connect directly.',
               },
             ].map(({ num, title, desc }) => (
-              <div key={num} style={{ background: '#edeae2', border: '1px solid #d6d0c4' }} className="p-8">
-                <p style={{ fontFamily: 'var(--font-mono)', color: '#6b6762', fontSize: '2rem' }} className="font-medium leading-none mb-4">
+              <div key={num} style={{ background: 'var(--surface)', border: '1px solid var(--rule)' }} className="p-8">
+                <p style={{ fontFamily: 'var(--font-mono)', color: 'var(--stone)', fontSize: '2rem' }} className="font-medium leading-none mb-4">
                   {num}
                 </p>
-                <p style={{ color: '#1a1814' }} className="mb-2 font-semibold">
+                <p style={{ color: 'var(--ink)' }} className="mb-2 font-semibold">
                   {title}
                 </p>
-                <p style={{ color: '#6b6762' }} className="text-sm leading-relaxed">
+                <p style={{ color: 'var(--stone)' }} className="text-sm leading-relaxed">
                   {desc}
                 </p>
               </div>
@@ -155,17 +155,17 @@ export default function ForLandlordsPage() {
         </section>
 
         {/* Section 4: What Types of Spaces */}
-        <section style={{ borderTop: '1px solid #d6d0c4' }} className="pt-16">
-          <h2 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="mb-8 text-2xl font-semibold">
+        <section style={{ borderTop: '1px solid var(--rule)' }} className="pt-16">
+          <h2 style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }} className="mb-8 text-2xl font-semibold">
             What types of spaces list here
           </h2>
           <div className="listing-grid">
             {SPACE_TYPES.map(({ label, desc, borderClass }) => (
               <div key={label} className={`listing-card-base ${borderClass} p-6`}>
-                <p style={{ color: '#1a1814' }} className="font-semibold">
+                <p style={{ color: 'var(--ink)' }} className="font-semibold">
                   {label}
                 </p>
-                <p style={{ color: '#6b6762' }} className="mt-1 text-sm">
+                <p style={{ color: 'var(--stone)' }} className="mt-1 text-sm">
                   {desc}
                 </p>
               </div>
@@ -174,48 +174,48 @@ export default function ForLandlordsPage() {
         </section>
 
         {/* Section 5: Pricing */}
-        <section style={{ borderTop: '1px solid #d6d0c4' }} className="pt-16">
-          <h2 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="mb-2 text-2xl font-semibold">
+        <section style={{ borderTop: '1px solid var(--rule)' }} className="pt-16">
+          <h2 style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }} className="mb-2 text-2xl font-semibold">
             Simple, transparent pricing
           </h2>
-          <p style={{ color: '#6b6762' }} className="mb-10 text-sm">
+          <p style={{ color: 'var(--stone)' }} className="mb-10 text-sm">
             Start free. Upgrade when you&apos;re ready.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-start max-w-2xl mx-auto">
 
             {/* Free */}
-            <div style={{ border: '1px solid #d6d0c4', background: '#edeae2' }} className="p-8">
-              <p style={{ fontFamily: 'var(--font-mono)', color: '#6b6762' }} className="mb-1 text-xs uppercase">Free forever</p>
-              <p style={{ fontFamily: 'var(--font-heading)', color: '#1a1814', fontSize: '2rem' }} className="font-semibold mb-6">
-                $0<span style={{ fontSize: '1rem', color: '#6b6762' }}>/month</span>
+            <div style={{ border: '1px solid var(--rule)', background: 'var(--surface)' }} className="p-8">
+              <p style={{ fontFamily: 'var(--font-mono)', color: 'var(--stone)' }} className="mb-1 text-xs uppercase">Free forever</p>
+              <p style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)', fontSize: '2rem' }} className="font-semibold mb-6">
+                $0<span style={{ fontSize: '1rem', color: 'var(--stone)' }}>/month</span>
               </p>
               <ul className="mb-8 space-y-2">
                 {FREE_FEATURES.map((f) => (
-                  <li key={f} style={{ color: '#6b6762' }} className="flex gap-2 text-sm">
+                  <li key={f} style={{ color: 'var(--stone)' }} className="flex gap-2 text-sm">
                     <span style={{ color: '#a84530' }}>✓</span> {f}
                   </li>
                 ))}
               </ul>
               <Link
                 href="/list-your-space"
-                style={{ border: '1px solid #1a1814', color: '#1a1814', background: 'transparent' }}
-                className="inline-block w-full py-2.5 text-center text-sm font-medium hover:bg-[#d6d0c4] transition-colors"
+                style={{ border: '1px solid var(--ink)', color: 'var(--ink)', background: 'transparent' }}
+                className="inline-block w-full py-2.5 text-center text-sm font-medium hover:bg-[var(--rule)] transition-colors"
               >
                 List for Free
               </Link>
             </div>
 
             {/* Pro */}
-            <div style={{ border: '2px solid #a84530', background: '#edeae2' }} className="p-8">
+            <div style={{ border: '2px solid #a84530', background: 'var(--surface)' }} className="p-8">
               <p style={{ fontFamily: 'var(--font-mono)', color: '#b8820a' }} className="mb-1 text-xs uppercase font-medium">
                 Most popular
               </p>
-              <p style={{ fontFamily: 'var(--font-heading)', color: '#1a1814', fontSize: '2rem' }} className="font-semibold mb-6">
-                $29<span style={{ fontSize: '1rem', color: '#6b6762' }}>/month</span>
+              <p style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)', fontSize: '2rem' }} className="font-semibold mb-6">
+                $29<span style={{ fontSize: '1rem', color: 'var(--stone)' }}>/month</span>
               </p>
               <ul className="mb-8 space-y-2">
                 {PRO_FEATURES.map((f) => (
-                  <li key={f} style={{ color: '#6b6762' }} className="flex gap-2 text-sm">
+                  <li key={f} style={{ color: 'var(--stone)' }} className="flex gap-2 text-sm">
                     <span style={{ color: '#a84530' }}>✓</span> {f}
                   </li>
                 ))}
@@ -229,7 +229,7 @@ export default function ForLandlordsPage() {
       </div>
 
       {/* Section 6: Bottom CTA */}
-      <section style={{ background: '#a84530', color: '#f4f1eb' }} className="px-6 py-20 text-center">
+      <section style={{ background: '#a84530', color: 'var(--paper)' }} className="px-6 py-20 text-center">
         <h2 style={{ fontFamily: 'var(--font-heading)' }} className="mb-3 text-2xl font-semibold">
           Ready to reach Portland creatives?
         </h2>
@@ -238,8 +238,8 @@ export default function ForLandlordsPage() {
         </p>
         <Link
           href="/list-your-space"
-          style={{ background: '#f4f1eb', color: '#a84530' }}
-          className="inline-block px-8 py-3 text-sm font-semibold hover:bg-[#edeae2] transition-colors"
+          style={{ background: 'var(--paper)', color: '#a84530' }}
+          className="inline-block px-8 py-3 text-sm font-semibold hover:bg-[var(--surface)] transition-colors"
         >
           List Your Space Free →
         </Link>

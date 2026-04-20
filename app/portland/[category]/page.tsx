@@ -107,25 +107,25 @@ export default async function CategoryPage({ params, searchParams }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <main style={{ background: '#f4f1eb', color: '#1a1814' }} className="min-h-screen">
+      <main style={{ background: 'var(--paper)', color: 'var(--ink)' }} className="min-h-screen">
         <div className="mx-auto max-w-4xl px-6 py-10">
-          <nav style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="mb-6 text-xs">
+          <nav style={{ color: 'var(--stone)', fontFamily: 'var(--font-mono)' }} className="mb-6 text-xs">
             <Link href="/" className="hover:underline">FindStudioSpace</Link>
             <span className="mx-2">→</span>
             <Link href="/" className="hover:underline">Portland</Link>
             <span className="mx-2">→</span>
-            <span style={{ color: '#1a1814' }}>{config.h1}</span>
+            <span style={{ color: 'var(--ink)' }}>{config.h1}</span>
           </nav>
 
-          <h1 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="mb-4 text-3xl font-semibold">
+          <h1 style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }} className="mb-4 text-3xl font-semibold">
             {config.h1}
           </h1>
-          <p style={{ color: '#6b6762' }} className="mb-10 max-w-2xl text-sm leading-relaxed">
+          <p style={{ color: 'var(--stone)' }} className="mb-10 max-w-2xl text-sm leading-relaxed">
             {config.intro}
           </p>
 
           {q && (
-            <p style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="mb-6 text-sm">
+            <p style={{ color: 'var(--stone)', fontFamily: 'var(--font-mono)' }} className="mb-6 text-sm">
               {listings.length > 0
                 ? `${listings.length} result${listings.length === 1 ? '' : 's'} for "${q}"`
                 : `No spaces found for "${q}."`}
@@ -138,27 +138,27 @@ export default async function CategoryPage({ params, searchParams }: Props) {
           {listings && listings.length > 0 ? (
             <CategoryFilter listings={listings} />
           ) : !q ? (
-            <p style={{ color: '#6b6762' }} className="mb-14">No spaces listed yet — check back soon.</p>
+            <p style={{ color: 'var(--stone)' }} className="mb-14">No spaces listed yet — check back soon.</p>
           ) : null}
 
           {/* FAQ */}
-          <section style={{ borderTop: '1px solid #d6d0c4' }} className="pt-10">
-            <h2 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="mb-6 text-xl font-semibold">
+          <section style={{ borderTop: '1px solid var(--rule)' }} className="pt-10">
+            <h2 style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }} className="mb-6 text-xl font-semibold">
               Frequently Asked Questions
             </h2>
             <dl className="space-y-6">
               {config.faqs.map(({ q, a }) => (
                 <div key={q}>
-                  <dt style={{ color: '#1a1814' }} className="mb-1 font-medium">{q}</dt>
-                  <dd style={{ color: '#6b6762' }} className="text-sm leading-relaxed">{a}</dd>
+                  <dt style={{ color: 'var(--ink)' }} className="mb-1 font-medium">{q}</dt>
+                  <dd style={{ color: 'var(--stone)' }} className="text-sm leading-relaxed">{a}</dd>
                 </div>
               ))}
             </dl>
           </section>
 
           {/* Related */}
-          <section style={{ borderTop: '1px solid #d6d0c4' }} className="mt-12 pt-8">
-            <h2 style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="mb-4 text-xs uppercase tracking-wider">
+          <section style={{ borderTop: '1px solid var(--rule)' }} className="mt-12 pt-8">
+            <h2 style={{ color: 'var(--stone)', fontFamily: 'var(--font-mono)' }} className="mb-4 text-xs uppercase tracking-wider">
               Related Searches
             </h2>
             <ul className="flex flex-wrap gap-3">
@@ -166,8 +166,8 @@ export default async function CategoryPage({ params, searchParams }: Props) {
                 <li key={href}>
                   <Link
                     href={href}
-                    style={{ border: '1px solid #d6d0c4', color: '#1a1814', fontFamily: 'var(--font-mono)' }}
-                    className="inline-block px-3 py-1.5 text-xs hover:bg-[#edeae2] transition-colors"
+                    style={{ border: '1px solid var(--rule)', color: 'var(--ink)', fontFamily: 'var(--font-mono)' }}
+                    className="inline-block px-3 py-1.5 text-xs hover:bg-[var(--surface)] transition-colors"
                   >
                     {label}
                   </Link>
