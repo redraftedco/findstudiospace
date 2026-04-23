@@ -52,11 +52,11 @@ export default function CategoryFilter({ listings }: Props) {
     <>
       {/* Filter bar */}
       <div
-        style={{ borderTop: '1px solid #d6d0c4', borderBottom: '1px solid #d6d0c4', background: '#edeae2' }}
+        style={{ borderTop: '1px solid var(--rule)', borderBottom: '1px solid var(--rule)', background: 'var(--surface)' }}
         className="mb-6 flex flex-wrap items-end gap-4 px-0 py-4"
       >
         <div className="flex flex-col gap-1">
-          <label style={{ fontFamily: 'var(--font-mono)', color: '#6b6762' }} className="text-xs uppercase">
+          <label style={{ fontFamily: 'var(--font-mono)', color: 'var(--stone)' }} className="text-xs uppercase">
             Neighborhood
           </label>
           <select
@@ -64,9 +64,9 @@ export default function CategoryFilter({ listings }: Props) {
             onChange={(e) => setNeighborhood(e.target.value)}
             style={{
               fontFamily: 'var(--font-body)',
-              color: '#1a1814',
-              background: '#f4f1eb',
-              border: '1px solid #d6d0c4',
+              color: 'var(--ink)',
+              background: 'var(--paper)',
+              border: '1px solid var(--rule)',
               borderRadius: 0,
               padding: '6px 10px',
               fontSize: '0.85rem',
@@ -80,7 +80,7 @@ export default function CategoryFilter({ listings }: Props) {
         </div>
 
         <div className="flex flex-col gap-1">
-          <label style={{ fontFamily: 'var(--font-mono)', color: '#6b6762' }} className="text-xs uppercase">
+          <label style={{ fontFamily: 'var(--font-mono)', color: 'var(--stone)' }} className="text-xs uppercase">
             Price range
           </label>
           <div className="flex items-center gap-2">
@@ -91,16 +91,16 @@ export default function CategoryFilter({ listings }: Props) {
               onChange={(e) => setMinPrice(e.target.value)}
               style={{
                 fontFamily: 'var(--font-mono)',
-                color: '#1a1814',
-                background: '#f4f1eb',
-                border: '1px solid #d6d0c4',
+                color: 'var(--ink)',
+                background: 'var(--paper)',
+                border: '1px solid var(--rule)',
                 borderRadius: 0,
                 padding: '6px 10px',
                 fontSize: '0.85rem',
                 width: '90px',
               }}
             />
-            <span style={{ color: '#6b6762' }} className="text-xs">—</span>
+            <span style={{ color: 'var(--stone)' }} className="text-xs">—</span>
             <input
               type="number"
               placeholder="Max $"
@@ -108,9 +108,9 @@ export default function CategoryFilter({ listings }: Props) {
               onChange={(e) => setMaxPrice(e.target.value)}
               style={{
                 fontFamily: 'var(--font-mono)',
-                color: '#1a1814',
-                background: '#f4f1eb',
-                border: '1px solid #d6d0c4',
+                color: 'var(--ink)',
+                background: 'var(--paper)',
+                border: '1px solid var(--rule)',
                 borderRadius: 0,
                 padding: '6px 10px',
                 fontSize: '0.85rem',
@@ -123,14 +123,14 @@ export default function CategoryFilter({ listings }: Props) {
         {hasFilters && (
           <button
             onClick={() => { setNeighborhood(''); setMinPrice(''); setMaxPrice('') }}
-            style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }}
-            className="text-xs underline hover:text-[#1a1814] self-end pb-1"
+            style={{ color: 'var(--stone)', fontFamily: 'var(--font-mono)' }}
+            className="text-xs underline hover:text-[var(--ink)] self-end pb-1"
           >
             Clear filters
           </button>
         )}
 
-        <p style={{ color: '#6b6762', fontFamily: 'var(--font-mono)' }} className="ml-auto self-end text-xs pb-1">
+        <p style={{ color: 'var(--stone)', fontFamily: 'var(--font-mono)' }} className="ml-auto self-end text-xs pb-1">
           {filtered.length} {filtered.length === 1 ? 'space' : 'spaces'}
         </p>
       </div>

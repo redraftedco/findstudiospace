@@ -39,8 +39,8 @@
   --ink: #1A1D23;
   --paper: #C6C6C1;
   --stone: #6E7582;
-  --rule: #D8D3C8;
-  --surface: #EDE8DE;
+  --rule: #B8B8B3;
+  --surface: #D4D4CF;
   --action: #D4724E;
   --action-hover: #B4533A;
   --action-focus: #E89A7A;
@@ -434,7 +434,7 @@ button:focus-visible {
 }
 .partner-sites-label {
   font-size: 0.75rem;
-  color: #6b6762;
+  color: var(--stone);
   font-family: var(--font-mono, monospace);
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -453,18 +453,18 @@ button:focus-visible {
 }
 .partner-site-name {
   font-size: 0.875rem;
-  color: #1a1814;
+  color: var(--ink);
   font-weight: 500;
 }
 .partner-site-desc {
   font-size: 0.8125rem;
-  color: #6b6762;
+  color: var(--stone);
 }
 .partner-site-badge {
   font-size: 0.6875rem;
-  color: #6b6762;
+  color: var(--stone);
   font-family: var(--font-mono, monospace);
-  border: 1px solid #d6d0c4;
+  border: 1px solid var(--rule);
   padding: 2px 6px;
 }
 

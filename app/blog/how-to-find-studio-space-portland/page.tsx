@@ -16,9 +16,9 @@ export const metadata: Metadata = {
 
 export default function Post() {
   return (
-    <main style={{ background: '#f4f1eb', color: '#1a1814' }} className="min-h-screen">
+    <main style={{ background: 'var(--paper)', color: 'var(--ink)' }} className="min-h-screen">
       <div className="mx-auto max-w-2xl px-6 py-14">
-        <nav style={{ fontFamily: 'var(--font-mono)', color: '#6b6762' }} className="mb-10 text-sm">
+        <nav style={{ fontFamily: 'var(--font-mono)', color: 'var(--stone)' }} className="mb-10 text-sm">
           <Link href="/" className="hover:underline">Home</Link>
           {' / '}
           <Link href="/blog" className="hover:underline">Resources</Link>
@@ -26,13 +26,13 @@ export default function Post() {
           <span>How to Find Studio Space</span>
         </nav>
 
-        <p style={{ fontFamily: 'var(--font-mono)', color: '#6b6762' }} className="mb-4 text-xs">January 15, 2025</p>
+        <p style={{ fontFamily: 'var(--font-mono)', color: 'var(--stone)' }} className="mb-4 text-xs">January 15, 2025</p>
 
-        <h1 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="mb-8 text-3xl font-semibold leading-tight">
+        <h1 style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }} className="mb-8 text-3xl font-semibold leading-tight">
           How to Find Studio Space in Portland, OR
         </h1>
 
-        <div style={{ color: '#1a1814' }} className="space-y-6 text-sm leading-relaxed">
+        <div style={{ color: 'var(--ink)' }} className="space-y-6 text-sm leading-relaxed">
 
           <p>
             Portland has one of the most active creative communities in the Pacific Northwest — painters, ceramicists, woodworkers, architects, musicians, photographers, and makers of every kind. But finding the right space to work is harder than it should be. Most listings live in Facebook groups, Craigslist, or get filled by word of mouth before they&apos;re ever posted publicly.
@@ -116,8 +116,8 @@ export default function Post() {
             <li>If it&apos;s a longer-term lease, have someone familiar with commercial leases review it before signing.</li>
           </ul>
 
-          <div style={{ borderTop: '1px solid #d6d0c4' }} className="mt-12 pt-8">
-            <p style={{ color: '#6b6762' }} className="text-sm">
+          <div style={{ borderTop: '1px solid var(--rule)' }} className="mt-12 pt-8">
+            <p style={{ color: 'var(--stone)' }} className="text-sm">
               Browse available studio and workspace listings in Portland at{' '}
               <Link href="/" style={{ color: '#a84530' }} className="hover:underline">FindStudioSpace.com</Link>.
               Free to browse. No account required.

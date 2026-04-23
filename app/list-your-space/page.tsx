@@ -58,12 +58,12 @@ export default function ListYourSpacePage() {
 
   if (status === 'success') {
     return (
-      <main style={{ background: '#f4f1eb' }} className="min-h-screen flex items-center justify-center px-6">
+      <main style={{ background: 'var(--paper)' }} className="min-h-screen flex items-center justify-center px-6">
         <div className="max-w-md text-center">
-          <p style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="text-2xl font-semibold">
+          <p style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }} className="text-2xl font-semibold">
             You&apos;re submitted.
           </p>
-          <p style={{ color: '#6b6762' }} className="mt-3 text-sm">
+          <p style={{ color: 'var(--stone)' }} className="mt-3 text-sm">
             We&apos;ll review and publish your listing within 48 hours.
           </p>
           <a href="/" style={{ color: '#a84530', fontFamily: 'var(--font-mono)' }} className="mt-6 inline-block text-sm hover:underline">
@@ -75,57 +75,57 @@ export default function ListYourSpacePage() {
   }
 
   return (
-    <main style={{ background: '#f4f1eb' }} className="min-h-screen">
+    <main style={{ background: 'var(--paper)' }} className="min-h-screen">
       <div className="mx-auto max-w-2xl px-6 py-14">
-        <h1 style={{ fontFamily: 'var(--font-heading)', color: '#1a1814' }} className="text-3xl font-semibold">
+        <h1 style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }} className="text-3xl font-semibold">
           List your space. Reach Portland creatives.
         </h1>
-        <p style={{ color: '#6b6762' }} className="mt-2 text-sm">
+        <p style={{ color: 'var(--stone)' }} className="mt-2 text-sm">
           Listing is free. We&apos;ll publish your space within 48 hours.
         </p>
 
         <form onSubmit={handleSubmit} className="mt-10 space-y-6">
           <div>
-            <label style={{ color: '#1a1814' }} className="mb-1 block text-sm font-medium">Your name</label>
+            <label style={{ color: 'var(--ink)' }} className="mb-1 block text-sm font-medium">Your name</label>
             <input name="host_name" required className="input" placeholder="Jane Smith" autoComplete="name" />
           </div>
           <div>
-            <label style={{ color: '#1a1814' }} className="mb-1 block text-sm font-medium">Your email</label>
+            <label style={{ color: 'var(--ink)' }} className="mb-1 block text-sm font-medium">Your email</label>
             <input name="email" type="email" required className="input" placeholder="you@example.com" autoComplete="email" inputMode="email" />
           </div>
 
           <div>
-            <label style={{ color: '#1a1814' }} className="mb-1 block text-sm font-medium">Space title</label>
+            <label style={{ color: 'var(--ink)' }} className="mb-1 block text-sm font-medium">Space title</label>
             <input name="title" required className="input" placeholder="Bright NE Portland Art Studio" />
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label style={{ color: '#1a1814' }} className="mb-1 block text-sm font-medium">Space type</label>
+              <label style={{ color: 'var(--ink)' }} className="mb-1 block text-sm font-medium">Space type</label>
               <select name="type" required className="input">
                 <option value="">Select type</option>
                 {TYPES.map((t) => <option key={t}>{t}</option>)}
               </select>
             </div>
             <div>
-              <label style={{ color: '#1a1814' }} className="mb-1 block text-sm font-medium">Neighborhood</label>
+              <label style={{ color: 'var(--ink)' }} className="mb-1 block text-sm font-medium">Neighborhood</label>
               <input name="neighborhood" required className="input" placeholder="NE Portland" />
             </div>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label style={{ color: '#1a1814' }} className="mb-1 block text-sm font-medium">Monthly price ($)</label>
+              <label style={{ color: 'var(--ink)' }} className="mb-1 block text-sm font-medium">Monthly price ($)</label>
               <input name="price" type="number" min="0" required className="input" placeholder="850" />
             </div>
             <div>
-              <label style={{ color: '#1a1814' }} className="mb-1 block text-sm font-medium">Square footage (optional)</label>
+              <label style={{ color: 'var(--ink)' }} className="mb-1 block text-sm font-medium">Square footage (optional)</label>
               <input name="sq_ft" type="number" min="0" className="input" placeholder="400" />
             </div>
           </div>
 
           <div>
-            <label style={{ color: '#1a1814' }} className="mb-1 block text-sm font-medium">Description</label>
+            <label style={{ color: 'var(--ink)' }} className="mb-1 block text-sm font-medium">Description</label>
             <textarea
               name="description"
               required
@@ -137,7 +137,7 @@ export default function ListYourSpacePage() {
           </div>
 
           <div>
-            <p style={{ color: '#1a1814' }} className="mb-3 text-sm font-medium">Amenities</p>
+            <p style={{ color: 'var(--ink)' }} className="mb-3 text-sm font-medium">Amenities</p>
             <div className="flex flex-wrap gap-2">
               {AMENITIES.map((a) => (
                 <button
@@ -145,9 +145,9 @@ export default function ListYourSpacePage() {
                   type="button"
                   onClick={() => toggleAmenity(a)}
                   style={{
-                    border: amenities.includes(a) ? '1px solid #a84530' : '1px solid #d6d0c4',
-                    background: amenities.includes(a) ? '#edeae2' : '#f4f1eb',
-                    color: amenities.includes(a) ? '#a84530' : '#1a1814',
+                    border: amenities.includes(a) ? '1px solid #a84530' : '1px solid var(--rule)',
+                    background: amenities.includes(a) ? 'var(--surface)' : 'var(--paper)',
+                    color: amenities.includes(a) ? '#a84530' : 'var(--ink)',
                     fontFamily: 'var(--font-mono)',
                   }}
                   className="px-3 py-1.5 text-xs transition-colors"
