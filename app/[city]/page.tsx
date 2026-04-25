@@ -3,12 +3,16 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@supabase/supabase-js'
 import ListingCard from '@/components/ListingCard'
+import { qualityGate } from '@/lib/seo/qualityGate'
+import { robotsContent } from '@/lib/seo/robotsTag'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_KEY!
 )
 
+// Static config for cities with hand-crafted copy. Cities not listed here fall
+// back to a DB lookup against the cities table at request time.
 const CITY_CONFIG: Record<string, {
   displayName: string
   state: string
@@ -44,6 +48,14 @@ function sanitizeQuery(raw: string | string[] | undefined): string {
   return raw.replace(/[^a-zA-Z0-9\s-]/g, '').trim().slice(0, 64)
 }
 
+// City resolved from DB (not in CITY_CONFIG)
+type DbCity = {
+  id: number
+  name: string
+  state: string
+  is_indexable: boolean
+}
+
 type PageProps = {
   params: Promise<{ city: string }>
   searchParams: Promise<{ q?: string | string[] }>
@@ -51,11 +63,26 @@ type PageProps = {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { city } = await params
-  const config = CITY_CONFIG[city.toLowerCase()]
-  if (!config) return {}
+  const citySlug = city.toLowerCase()
+  const staticConfig = CITY_CONFIG[citySlug]
+
+  if (staticConfig) {
+    return { title: staticConfig.title, description: staticConfig.description }
+  }
+
+  // DB fallback for dynamic cities
+  const { data: dbCity } = await supabase
+    .from('cities')
+    .select('name, state, is_indexable')
+    .eq('slug', citySlug)
+    .maybeSingle()
+
+  if (!dbCity) return {}
+
   return {
-    title: config.title,
-    description: config.description,
+    title: `Find Studio Space in ${dbCity.name}, ${dbCity.state} | FindStudioSpace`,
+    description: `Browse monthly studio rentals in ${dbCity.name} — art studios, workshops, offices, photo studios, and creative spaces for makers and producers.`,
+    robots: robotsContent(dbCity.is_indexable),
   }
 }
 
@@ -63,27 +90,96 @@ export default async function CityPage({ params, searchParams }: PageProps) {
   const { city } = await params
   const sp = await searchParams
   const citySlug = city.toLowerCase()
-  const config = CITY_CONFIG[citySlug]
-  if (!config) notFound()
+  const staticConfig = CITY_CONFIG[citySlug]
 
   const q = sanitizeQuery(sp.q)
 
-  let query = supabase
+  // ── Static-config cities (Portland, Seattle) ──────────────────────────────
+  if (staticConfig) {
+    let query = supabase
+      .from('listings')
+      .select('id, title, price_display, neighborhood, type, images, tier, is_featured')
+      .eq('status', 'active')
+      .eq('city', staticConfig.displayName)
+      .order('is_featured', { ascending: false })
+      .order('created_at', { ascending: false })
+
+    if (q) {
+      const pattern = `%${q}%`
+      query = query.or(`title.ilike.${pattern},neighborhood.ilike.${pattern},type.ilike.${pattern}`)
+    }
+
+    const { data: listings } = await query
+    const rows = listings ?? []
+    const total = rows.length
+    const config = staticConfig
+
+    return <CityPageUI citySlug={citySlug} config={config} rows={rows} total={total} q={q} isIndexable />
+  }
+
+  // ── DB-backed cities ──────────────────────────────────────────────────────
+  const { data: dbCity } = await supabase
+    .from('cities')
+    .select('id, name, state, is_indexable')
+    .eq('slug', citySlug)
+    .maybeSingle()
+
+  if (!dbCity) notFound()
+
+  const dbCityTyped = dbCity as DbCity
+
+  let dbQuery = supabase
     .from('listings')
     .select('id, title, price_display, neighborhood, type, images, tier, is_featured')
     .eq('status', 'active')
-    .eq('city', config.displayName)
+    .eq('city_id', dbCityTyped.id)
     .order('is_featured', { ascending: false })
     .order('created_at', { ascending: false })
 
   if (q) {
     const pattern = `%${q}%`
-    query = query.or(`title.ilike.${pattern},neighborhood.ilike.${pattern},type.ilike.${pattern}`)
+    dbQuery = dbQuery.or(`title.ilike.${pattern},neighborhood.ilike.${pattern},type.ilike.${pattern}`)
   }
 
-  const { data: listings } = await query
+  const { data: listings } = await dbQuery
   const rows = listings ?? []
   const total = rows.length
+
+  const gate = qualityGate({
+    listingCount: total,
+    photoRatio: total > 0
+      ? rows.filter(l => Array.isArray(l.images) && l.images.length > 0).length / total
+      : 0,
+    cityIndexable: dbCityTyped.is_indexable,
+  })
+
+  const config = {
+    displayName: dbCityTyped.name,
+    state: dbCityTyped.state,
+    title: `Find Studio Space in ${dbCityTyped.name}, ${dbCityTyped.state} | FindStudioSpace`,
+    description: `Browse monthly studio rentals in ${dbCityTyped.name} — art studios, workshops, offices, photo studios, and creative spaces for makers and producers.`,
+  }
+
+  return <CityPageUI citySlug={citySlug} config={config} rows={rows} total={total} q={q} isIndexable={gate.indexable} />
+}
+
+// ── Shared page UI ─────────────────────────────────────────────────────────────
+
+function CityPageUI({
+  citySlug,
+  config,
+  rows,
+  total,
+  q,
+  isIndexable,
+}: {
+  citySlug: string
+  config: { displayName: string; state: string; title: string; description: string }
+  rows: { id: number; title: string; price_display: string | null; neighborhood: string | null; type: string | null; images: unknown[]; tier: string; is_featured: boolean }[]
+  total: number
+  q: string
+  isIndexable: boolean
+}) {
 
   const websiteSchema = {
     '@context': 'https://schema.org',
@@ -141,6 +237,9 @@ export default async function CityPage({ params, searchParams }: PageProps) {
 
   return (
     <>
+      {!isIndexable && (
+        <meta name="robots" content="noindex, follow" />
+      )}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
