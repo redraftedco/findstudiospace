@@ -59,11 +59,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 Pricing
               </Link>
             <Link
-              href="/list-your-space"
+              href="/submit"
               style={{ color: 'var(--action)', fontFamily: 'var(--font-body)' }}
               className="text-sm font-medium hover:underline"
             >
-              <span className="hidden sm:inline">List your space</span><span className="sm:hidden">Add Listing</span>
+              <span className="hidden sm:inline">Submit your studio</span><span className="sm:hidden">Submit</span>
             </Link>
             </div>
           </div>
@@ -105,7 +105,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   Company
                 </p>
                 <div className="flex flex-col gap-2">
-                  <Link href="/list-your-space" className="hover:underline">List Your Space</Link>
+                  <Link href="/submit" className="hover:underline">Submit Your Studio</Link>
                   <Link href="/claim" className="hover:underline">Claim a Listing</Link>
                   <Link href="/blog" className="hover:underline">Resources</Link>
                   <Link href="/privacy" className="hover:underline">Privacy</Link>
