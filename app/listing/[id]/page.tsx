@@ -107,6 +107,10 @@ export default async function ListingPage({ params, searchParams }: Props) {
 
   if (!listing) notFound()
 
+  // Coerce numeric columns once for schema reuse below
+  const lat = typeof listing.latitude  === 'number' ? listing.latitude  : null
+  const lng = typeof listing.longitude === 'number' ? listing.longitude : null
+
   const attrs = listing.niche_attributes as Record<string, boolean | string | number | null> | null
   const amenities = attrs
     ? Object.entries(attrs)
@@ -133,21 +137,34 @@ export default async function ListingPage({ params, searchParams }: Props) {
   const neighborhood = listing.neighborhood ?? 'Portland'
   const isFree = (listing.tier ?? 'free') !== 'pro'
 
-  // JSON-LD
+  // JSON-LD — LocalBusiness. Conditional rendering of every nullable field;
+  // empty/undefined keys removed at the end. Google flags incomplete schema
+  // when empty-string fields are emitted, so we omit rather than blank-string.
+  const address: Record<string, string> = {
+    '@type': 'PostalAddress',
+    addressLocality: listing.city ?? 'Portland',
+    addressRegion: listing.state ?? 'OR',
+    addressCountry: 'US',
+  }
+  if (listing.address)  address.streetAddress = String(listing.address)
+  if (listing.zip_code) address.postalCode    = String(listing.zip_code)
+
   const jsonLd: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     name: listing.title,
     description: listing.description ? String(listing.description).slice(0, 300) : undefined,
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: listing.city ?? 'Portland',
-      addressRegion: listing.state ?? 'OR',
-      ...(listing.neighborhood ? { addressCountry: 'US' } : {}),
-    },
+    address,
     ...(listing.neighborhood ? { areaServed: listing.neighborhood } : {}),
+    ...(lat !== null && lng !== null
+      ? { geo: { '@type': 'GeoCoordinates', latitude: lat, longitude: lng } }
+      : {}),
+    ...(listing.contact_phone ? { telephone: String(listing.contact_phone) } : {}),
     ...(images.length > 0 ? { image: images[0] } : {}),
-    priceRange: listing.price_display ?? '$$',
+    // priceRange is for ranges (e.g. "$$" or "$50-$100"); only emit when we
+    // have a real display value. Drop the '$$' fallback — Google flags
+    // generic price symbols on LocalBusiness as low-quality.
+    ...(listing.price_display ? { priceRange: String(listing.price_display) } : {}),
     url: `https://www.findstudiospace.com/listing/${listing.id}`,
   }
   Object.keys(jsonLd).forEach((k) => jsonLd[k] === undefined && delete jsonLd[k])
