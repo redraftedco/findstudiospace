@@ -42,6 +42,17 @@ const CATEGORY_PILLS: { slug: string; label: string }[] = [
   { slug: 'makerspace', label: 'MAKERSPACE' },
 ]
 
+// Neighborhood entry points — these pages already exist in category config;
+// surfacing them on the homepage gives Google a crawl path and users a fast
+// neighborhood-first filter.
+const NEIGHBORHOOD_PILLS: { slug: string; label: string }[] = [
+  { slug: 'central-eastside', label: 'CENTRAL EASTSIDE' },
+  { slug: 'pearl-district', label: 'PEARL DISTRICT' },
+  { slug: 'alberta-arts', label: 'ALBERTA ARTS' },
+  { slug: 'division', label: 'SE DIVISION' },
+  { slug: 'mississippi', label: 'N MISSISSIPPI' },
+]
+
 // Sanitize search query: alphanumerics + spaces + hyphens, max 64 chars
 function sanitizeQuery(raw: string | string[] | undefined): string {
   if (typeof raw !== 'string') return ''
@@ -342,6 +353,36 @@ function CityPageUI({
                 </span>
               ))}
             </div>
+
+            {/* Neighborhood entry points — only shown for Portland where pages exist */}
+            {citySlug === 'portland' && (
+              <div
+                style={{
+                  marginTop: '1rem',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.75rem',
+                  letterSpacing: '0.06em',
+                  color: 'var(--stone)',
+                }}
+                className="flex flex-wrap items-center gap-x-2 gap-y-1"
+              >
+                <span style={{ textTransform: 'uppercase', marginRight: '0.25rem' }}>By neighborhood:</span>
+                {NEIGHBORHOOD_PILLS.map((n, i) => (
+                  <span key={n.slug} className="inline-flex items-center">
+                    <Link
+                      href={`/${citySlug}/${n.slug}`}
+                      style={{ color: 'var(--stone)', textDecoration: 'none' }}
+                      className="hover:underline"
+                    >
+                      {n.label}
+                    </Link>
+                    {i < NEIGHBORHOOD_PILLS.length - 1 && (
+                      <span style={{ color: 'var(--rule)', margin: '0 0.35rem' }}>·</span>
+                    )}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
         </section>
 

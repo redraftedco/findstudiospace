@@ -80,7 +80,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {children}
         <footer style={{ borderTop: '1px solid var(--rule)', color: 'var(--stone)' }} className="mt-16 px-6 py-12">
           <div className="mx-auto max-w-5xl">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 text-sm">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 text-sm">
 
               {/* Column 1 — Brand */}
               <div>
@@ -108,7 +108,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </div>
               </div>
 
-              {/* Column 3 — Company */}
+              {/* Column 3 — Browse by Neighborhood */}
+              <div>
+                <p style={{ fontFamily: 'var(--font-mono)', color: 'var(--ink)' }} className="text-xs uppercase tracking-wider font-medium mb-3">
+                  By Neighborhood
+                </p>
+                <div className="flex flex-col gap-2">
+                  <Link href="/portland/central-eastside" className="hover:underline">Central Eastside</Link>
+                  <Link href="/portland/pearl-district" className="hover:underline">Pearl District</Link>
+                  <Link href="/portland/alberta-arts" className="hover:underline">Alberta Arts District</Link>
+                  <Link href="/portland/division" className="hover:underline">SE Division</Link>
+                  <Link href="/portland/mississippi" className="hover:underline">N Mississippi</Link>
+                </div>
+              </div>
+
+              {/* Column 4 — Company */}
               <div>
                 <p style={{ fontFamily: 'var(--font-mono)', color: 'var(--ink)' }} className="text-xs uppercase tracking-wider font-medium mb-3">
                   Company
