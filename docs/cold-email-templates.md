@@ -35,7 +35,7 @@ Is your contact info current? I want to make sure any inquiries reach you direct
 
 — [Your Name]
 FindStudioSpace · findstudiospace.com
-[Physical mailing address — P0-A required before sending]
+1631 NE Broadway St, Portland, OR 97232-1425
 
 Reply "unsubscribe" to stop these emails.
 ```
@@ -76,7 +76,7 @@ Claim your listing here: findstudiospace.com/claim
 
 — [Your Name]
 FindStudioSpace · findstudiospace.com
-[Physical mailing address]
+1631 NE Broadway St, Portland, OR 97232-1425
 
 Reply "unsubscribe" to stop these emails.
 ```
@@ -108,7 +108,7 @@ Would it make sense to list [Space Name] on FindStudioSpace as well?
 
 — [Your Name]
 FindStudioSpace · findstudiospace.com
-[Physical mailing address]
+1631 NE Broadway St, Portland, OR 97232-1425
 
 Reply "unsubscribe" to stop these emails.
 ```
@@ -137,7 +137,7 @@ I'll review and publish within 48 hours. Once it's live I'll send you the link.
 
 — [Your Name]
 FindStudioSpace · findstudiospace.com
-[Physical mailing address]
+1631 NE Broadway St, Portland, OR 97232-1425
 
 Reply "unsubscribe" to stop these emails.
 ```
@@ -162,7 +162,7 @@ No obligation at all.
 
 — [Your Name]
 FindStudioSpace · findstudiospace.com
-[Physical mailing address]
+1631 NE Broadway St, Portland, OR 97232-1425
 
 Reply "unsubscribe" to stop these emails.
 ```
@@ -171,9 +171,10 @@ Reply "unsubscribe" to stop these emails.
 
 ## CAN-SPAM compliance gate
 
-**STOP. Do not send any of the above until:**
-- [ ] Physical mailing address obtained (P0-A — UPS Store mailbox)
-- [ ] Address added to every template footer above
+**CAN-SPAM gate: CLEARED. Batch-zero is unblocked.**
+
+Physical address: **1631 NE Broadway St, Portland, OR 97232-1425**
+Address is in all template footers above and hardcoded in the monthly digest route.
 
 Other requirements (already satisfied):
 - [x] FROM address is not deceptive (hello@findstudiospace.com)

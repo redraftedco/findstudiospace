@@ -91,7 +91,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   Portland&apos;s creative studio directory.
                 </p>
                 <p style={{ fontFamily: 'var(--font-mono)' }} className="text-xs mt-3">
-                  findstudiospace.com — Portland, OR
+                  findstudiospace.com
+                </p>
+                <p style={{ fontFamily: 'var(--font-mono)' }} className="text-xs mt-1">
+                  1631 NE Broadway St<br />Portland, OR 97232
                 </p>
               </div>
 

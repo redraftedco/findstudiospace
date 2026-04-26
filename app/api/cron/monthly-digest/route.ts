@@ -25,8 +25,8 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 
 const FROM = process.env.RESEND_FROM_EMAIL ?? 'hello@findstudiospace.com'
 const SITE_URL = 'https://www.findstudiospace.com'
-// Physical address for CAN-SPAM footer — set via env once UPS mailbox is active (P0-A).
-const POSTAL_ADDRESS = process.env.POSTAL_ADDRESS ?? ''
+// Physical address for CAN-SPAM footer (required by CAN-SPAM for commercial email).
+const POSTAL_ADDRESS = process.env.POSTAL_ADDRESS ?? '1631 NE Broadway St, Portland, OR 97232-1425'
 
 type Listing = {
   id: number
