@@ -186,7 +186,7 @@ export default async function ListingPage({ params, searchParams }: Props) {
       {showUpgradeSuccess && (
         <div
           style={{
-            background: 'var(--primary-100, #D4E7DB)',
+            background: 'var(--surface)',
             borderBottom: '1px solid var(--rule)',
             padding: '10px 16px',
             fontFamily: 'var(--font-mono)',
@@ -283,7 +283,7 @@ export default async function ListingPage({ params, searchParams }: Props) {
               {images.length === 0 ? (
                 <div
                   style={{
-                    background: '#B5B5B0',
+                    background: '#1F1F1F',
                     aspectRatio: '16 / 9',
                     display: 'flex',
                     alignItems: 'center',

@@ -66,7 +66,7 @@ export default function ListYourSpacePage() {
           <p style={{ color: 'var(--stone)' }} className="mt-3 text-sm">
             We&apos;ll review and publish your listing within 48 hours.
           </p>
-          <a href="/" style={{ color: '#a84530', fontFamily: 'var(--font-mono)' }} className="mt-6 inline-block text-sm hover:underline">
+          <a href="/" style={{ color: 'var(--lime)', fontFamily: 'var(--font-mono)' }} className="mt-6 inline-block text-sm hover:underline">
             ← Back to listings
           </a>
         </div>
@@ -145,9 +145,9 @@ export default function ListYourSpacePage() {
                   type="button"
                   onClick={() => toggleAmenity(a)}
                   style={{
-                    border: amenities.includes(a) ? '1px solid #a84530' : '1px solid var(--rule)',
+                    border: amenities.includes(a) ? '1px solid var(--lime)' : '1px solid var(--rule)',
                     background: amenities.includes(a) ? 'var(--surface)' : 'var(--paper)',
-                    color: amenities.includes(a) ? '#a84530' : 'var(--ink)',
+                    color: amenities.includes(a) ? 'var(--lime)' : 'var(--ink)',
                     fontFamily: 'var(--font-mono)',
                   }}
                   className="px-3 py-1.5 text-xs transition-colors"
@@ -159,7 +159,7 @@ export default function ListYourSpacePage() {
           </div>
 
           {status === 'error' && (
-            <p style={{ border: '1px solid #8b2020', color: '#8b2020', fontFamily: 'var(--font-mono)' }} className="px-4 py-2 text-sm">
+            <p style={{ border: '1px solid var(--color-error)', color: 'var(--color-error)', fontFamily: 'var(--font-mono)' }} className="px-4 py-2 text-sm">
               {errorMsg}
             </p>
           )}

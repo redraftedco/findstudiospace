@@ -1,25 +1,25 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Suspense } from 'react'
-import { Space_Grotesk, Inter, IBM_Plex_Mono } from 'next/font/google'
+import { Bebas_Neue, Inter, JetBrains_Mono } from 'next/font/google'
 import PostHogProvider from '@/components/PostHogProvider'
 import UTMCapture from '@/components/UTMCapture'
 import './globals.css'
 
-const spaceGrotesk = Space_Grotesk({
+const bebasNeue = Bebas_Neue({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-space-grotesk',
+  weight: '400',
+  variable: '--font-bebas-neue',
 })
 const inter = Inter({
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
+  weight: ['400', '500', '600', '700'],
   variable: '--font-inter',
 })
-const plexMono = IBM_Plex_Mono({
+const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
-  weight: ['400', '500'],
-  variable: '--font-plex-mono',
+  weight: ['400', '500', '600'],
+  variable: '--font-jetbrains-mono',
 })
 
 export const metadata: Metadata = {
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable} ${plexMono.variable}`}>
+    <html lang="en" className={`${bebasNeue.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
       <body>
         <PostHogProvider>
         <Suspense fallback={null}><UTMCapture /></Suspense>

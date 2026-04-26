@@ -140,12 +140,13 @@ function ClaimPageInner() {
 
         {success && (
           <div style={{
-            background: '#1a3a1a',
-            color: '#d4edda',
+            background: 'rgba(212,245,66,0.08)',
+            color: 'var(--lime)',
             padding: '16px',
             fontFamily: 'var(--font-mono)',
             fontSize: '13px',
             marginBottom: '24px',
+            border: '1px solid rgba(212,245,66,0.2)',
           }}>
             Your Pro upgrade is active. Your listing will be updated within a few minutes.
           </div>
@@ -153,12 +154,13 @@ function ClaimPageInner() {
 
         {canceled && (
           <div style={{
-            background: '#3a2a1a',
-            color: '#f5e6cc',
+            background: 'rgba(229,161,0,0.08)',
+            color: 'var(--featured-color)',
             padding: '16px',
             fontFamily: 'var(--font-mono)',
             fontSize: '13px',
             marginBottom: '24px',
+            border: '1px solid rgba(229,161,0,0.2)',
           }}>
             Checkout canceled. No charges were made.
           </div>

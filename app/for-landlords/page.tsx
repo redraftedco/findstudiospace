@@ -51,7 +51,7 @@ export default function ForLandlordsPage() {
         id="proof"
         style={{
           borderBottom: '1px solid var(--rule)',
-          backgroundImage: 'radial-gradient(circle, #c8c4bb 1px, transparent 1px)',
+          backgroundImage: 'radial-gradient(circle, rgba(250,247,239,0.06) 1px, transparent 1px)',
           backgroundSize: '24px 24px',
         }}
         className="px-6"
@@ -192,7 +192,7 @@ export default function ForLandlordsPage() {
               <ul className="mb-8 space-y-2">
                 {FREE_FEATURES.map((f) => (
                   <li key={f} style={{ color: 'var(--stone)' }} className="flex gap-2 text-sm">
-                    <span style={{ color: '#a84530' }}>✓</span> {f}
+                    <span style={{ color: 'var(--lime)' }}>✓</span> {f}
                   </li>
                 ))}
               </ul>
@@ -206,8 +206,8 @@ export default function ForLandlordsPage() {
             </div>
 
             {/* Pro */}
-            <div style={{ border: '2px solid #a84530', background: 'var(--surface)' }} className="p-8">
-              <p style={{ fontFamily: 'var(--font-mono)', color: '#b8820a' }} className="mb-1 text-xs uppercase font-medium">
+            <div style={{ border: '2px solid var(--lime)', background: 'var(--surface)' }} className="p-8">
+              <p style={{ fontFamily: 'var(--font-mono)', color: 'var(--featured-color)' }} className="mb-1 text-xs uppercase font-medium">
                 Most popular
               </p>
               <p style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)', fontSize: '2rem' }} className="font-semibold mb-6">
@@ -216,7 +216,7 @@ export default function ForLandlordsPage() {
               <ul className="mb-8 space-y-2">
                 {PRO_FEATURES.map((f) => (
                   <li key={f} style={{ color: 'var(--stone)' }} className="flex gap-2 text-sm">
-                    <span style={{ color: '#a84530' }}>✓</span> {f}
+                    <span style={{ color: 'var(--lime)' }}>✓</span> {f}
                   </li>
                 ))}
               </ul>
@@ -229,17 +229,17 @@ export default function ForLandlordsPage() {
       </div>
 
       {/* Section 6: Bottom CTA */}
-      <section style={{ background: '#a84530', color: 'var(--paper)' }} className="px-6 py-20 text-center">
+      <section style={{ background: 'var(--lime)', color: 'var(--paper)' }} className="px-6 py-20 text-center">
         <h2 style={{ fontFamily: 'var(--font-heading)' }} className="mb-3 text-2xl font-semibold">
           Ready to reach Portland creatives?
         </h2>
-        <p style={{ color: '#f5e6e0' }} className="mx-auto mb-8 max-w-md text-sm">
+        <p style={{ color: 'rgba(13,13,13,0.75)' }} className="mx-auto mb-8 max-w-md text-sm">
           Portland&apos;s creative workspace directory. First listing is always free.
         </p>
         <Link
           href="/list-your-space"
-          style={{ background: 'var(--paper)', color: '#a84530' }}
-          className="inline-block px-8 py-3 text-sm font-semibold hover:bg-[var(--surface)] transition-colors"
+          style={{ background: 'var(--paper)', color: 'var(--lime)' }}
+          className="inline-block px-8 py-3 text-sm font-semibold hover:opacity-90 transition-opacity"
         >
           List Your Space Free →
         </Link>

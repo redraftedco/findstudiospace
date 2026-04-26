@@ -1,69 +1,78 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* Primary — Forest Green (trust + craft + Portland) */
+  /* Primary — kept for legacy references, not used in new dark theme */
   --color-primary-600: #1B4332;
   --color-primary-500: #2D5A3F;
   --color-primary-400: #40714F;
-  --color-primary-100: #D4E7DB;
-  --color-primary-50:  #EDF5F0;
+  --color-primary-100: #1F1F1F;
+  --color-primary-50:  #141414;
 
-  /* Secondary — Terracotta (CTAs, warmth, Portland craft culture) */
-  --color-secondary-600: #B4533A;
-  --color-secondary-500: #D4724E;
-  --color-secondary-400: #E89A7A;
-  --color-secondary-100: #FAE5DB;
+  /* Secondary — kept for legacy references, redirected to lime accent */
+  --color-secondary-600: #B8D938;
+  --color-secondary-500: #D4F542;
+  --color-secondary-400: #E0FF55;
+  --color-secondary-100: rgba(212,245,66,0.1);
 
-  /* Neutrals — warm-shifted */
-  --color-ink: #1A1D23;
-  --color-paper: #C6C6C1;
-  --color-stone: #6E7582;
-  --color-rule: #D8D3C8;
-  --color-surface: #EDE8DE;
-  --color-featured: #b8820a;
-  --color-action: #D4724E;
-  --color-action-hover: #B4533A;
-  --color-error: #DC2626;
+  /* Neutrals — DARK theme (ink/data-sheet) */
+  --color-ink:     #FAF7EF;       /* off-white text */
+  --color-paper:   #0D0D0D;       /* near-black bg */
+  --color-card:    #141414;       /* card surface */
+  --color-stone:   #8C8578;       /* muted text */
+  --color-sub:     #C8C3B5;       /* secondary text */
+  --color-rule:    rgba(250,247,239,0.12);
+  --color-rule-strong: rgba(250,247,239,0.22);
+  --color-surface: #141414;       /* alias of --card */
+  --color-featured: #E5A100;      /* gold (kept, works on dark) */
+  --color-action:  #D4F542;       /* lime CTA */
+  --color-action-hover: #B8D938;  /* lime hover */
+  --color-error:   #DC2626;
+  --color-lime:    #D4F542;       /* explicit lime token */
 
   /* Semantic */
-  --color-success: #16A34A;
-  --color-warning: #D97706;
+  --color-success: #D4F542;       /* lime success */
+  --color-warning: #E5A100;
 
-  --font-heading: var(--font-space-grotesk), sans-serif;
-  --font-body: var(--font-inter), sans-serif;
-  --font-mono: var(--font-plex-mono), monospace;
+  --font-heading: var(--font-inter), sans-serif;
+  --font-display: var(--font-bebas-neue), sans-serif;
+  --font-body:    var(--font-inter), sans-serif;
+  --font-mono:    var(--font-jetbrains-mono), monospace;
 }
 
 /* CSS custom properties for use in JS inline styles and CSS rules */
 :root {
-  --ink: #1A1D23;
-  --paper: #C6C6C1;
-  --stone: #6E7582;
-  --rule: #B8B8B3;
-  --surface: #D4D4CF;
-  --action: #D4724E;
-  --action-hover: #B4533A;
-  --action-focus: #E89A7A;
-  --action-light: #FAE5DB;
+  --ink:     #FAF7EF;
+  --paper:   #0D0D0D;
+  --card:    #141414;
+  --stone:   #8C8578;
+  --sub:     #C8C3B5;
+  --rule:    rgba(250,247,239,0.12);
+  --rule-strong: rgba(250,247,239,0.22);
+  --surface: #141414;
 
-  /* Hero search input background: lighter than --paper body so the field
-     reads as a lifted/interactive surface without going full white. */
-  --search-bg: #DEDEDA;
+  --action:        #D4F542;
+  --action-hover:  #B8D938;
+  --action-focus:  #E0FF55;
+  --action-light:  rgba(212,245,66,0.1);
+  --lime:          #D4F542;
 
-  /* Category accent colors */
-  --cat-art:      #7C5CFC;
-  --cat-music:    #E5A100;
-  --cat-workshop: #2D8A56;
-  --cat-arch:     #4A6FA5;
+  /* Hero search input — slight lift over body */
+  --search-bg: #1A1A1A;
+
+  /* Category accent colors — kept as-is for category badges */
+  --cat-art:        #7C5CFC;
+  --cat-music:      #E5A100;
+  --cat-workshop:   #2D8A56;
+  --cat-arch:       #4A6FA5;
   --cat-production: #C4476A;
-  --cat-shared:   #2D5A3F;
-  --cat-office:   #4A6FA5;
-  --cat-photo:    #706860;
-  --cat-retail:   #8a7045;
-  --cat-fitness:  #6b7855;
+  --cat-shared:     #2D5A3F;
+  --cat-office:     #4A6FA5;
+  --cat-photo:      #706860;
+  --cat-retail:     #8a7045;
+  --cat-fitness:    #6b7855;
 
-  --featured-color: #b8820a;
-  --featured-bg:  #f7f0e0;
+  --featured-color: #E5A100;
+  --featured-bg:    rgba(229,161,0,0.08);
 }
 
 body {
@@ -74,35 +83,29 @@ body {
   line-height: 1.6;
 }
 
-/* Typography base — tokens applied. Existing inline styles / Tailwind utilities
-   still override these. Provides sane defaults when no override present. */
+::selection { background: var(--lime); color: var(--paper); }
+input::placeholder, textarea::placeholder { color: var(--stone); }
+
+/* Typography base — tokens applied. */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   color: var(--ink);
   font-weight: 600;
-}
-h1 {
-  font-size: 1.875rem;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-}
-h2 {
-  font-size: 1.5rem;
-  line-height: 1.2;
-  letter-spacing: -0.015em;
-}
-h3 {
-  font-size: 1.125rem;
-  line-height: 1.3;
   letter-spacing: -0.01em;
 }
+h1 { font-size: 1.875rem; line-height: 1.1; letter-spacing: -0.02em; }
+h2 { font-size: 1.5rem;   line-height: 1.2; letter-spacing: -0.015em; }
+h3 { font-size: 1.125rem; line-height: 1.3; }
 @media (min-width: 768px) {
   h1 { font-size: 2.5rem; }
   h2 { font-size: 1.875rem; }
   h3 { font-size: 1.25rem; }
 }
 
-/* Utility classes for consistent secondary + mono-accent typography */
+a { color: inherit; }
+a:hover { color: var(--lime); }
+
+/* Utility classes */
 .text-secondary {
   font-size: 0.875rem;
   color: var(--stone);
@@ -117,9 +120,9 @@ h3 {
   letter-spacing: 0.08em;
 }
 
-/* Editorial shadow — for card hover states only */
+/* Editorial shadow — adapted for dark bg (subtle outline + soft glow) */
 .shadow-editorial {
-  box-shadow: 0 1px 2px rgba(26, 24, 20, 0.04), 0 8px 24px rgba(26, 24, 20, 0.06);
+  box-shadow: 0 0 0 1px rgba(250,247,239,0.05), 0 8px 24px rgba(0,0,0,0.4);
 }
 
 /* Homepage / category grid (editorial card) */
@@ -135,11 +138,7 @@ h3 {
   .home-grid { grid-template-columns: 1fr; gap: 1.5rem; }
 }
 
-/* Editorial listing card — gallery-meets-workshop.
-   Flex column so all cards in a grid row equalize to the tallest — image slot
-   is aspect-ratio-locked, body flexes, price row pushed to card bottom via
-   margin-top:auto. No category left border (removed — was showing as ghost
-   vertical lines between cards in the grid). */
+/* Editorial listing card */
 .listing-card {
   display: flex;
   flex-direction: column;
@@ -154,9 +153,7 @@ h3 {
   aspect-ratio: 4 / 3;
   overflow: hidden;
   border-radius: 2px;
-  /* Matches .listing-card-image-placeholder below so image-load flash reads
-     grey-through-grey rather than cream against the darker page background. */
-  background: #B5B5B0;
+  background: #1F1F1F;
   flex-shrink: 0;
 }
 .listing-card-image {
@@ -169,10 +166,7 @@ h3 {
 .listing-card-image-placeholder {
   width: 100%;
   height: 100%;
-  /* Neutral grey, a few shades darker than --paper #DEDED9 so the empty-image
-     frame reads as a deliberate placeholder with shape, while "NO IMAGE" text
-     in --stone stays legible. */
-  background: #B5B5B0;
+  background: #1F1F1F;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -190,15 +184,21 @@ h3 {
   flex: 1;
   margin-top: 16px;
 }
-.listing-card:hover { box-shadow: 0 1px 2px rgba(26, 24, 20, 0.04), 0 8px 24px rgba(26, 24, 20, 0.06); }
+.listing-card:hover {
+  box-shadow: 0 0 0 1px rgba(212,245,66,0.4), 0 8px 24px rgba(0,0,0,0.5);
+}
 .listing-card:hover .listing-card-image { transform: scale(1.02); }
-.listing-card:hover .listing-card-name { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.listing-card:hover .listing-card-name {
+  color: var(--lime);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
 .listing-card-name {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  /* Reserve height of 2 lines so single-line titles don't collapse the card */
   min-height: calc(1.125rem * 1.3 * 2);
 }
 
@@ -219,43 +219,30 @@ html { scroll-behavior: smooth; }
 }
 
 @media (max-width: 1023px) {
-  .listing-detail-layout {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-  .listing-detail-aside {
-    position: static;
-  }
+  .listing-detail-layout { grid-template-columns: 1fr; gap: 2rem; }
+  .listing-detail-aside { position: static; }
 }
 
 @media (max-width: 640px) {
   .listing-title {
     font-size: 1.875rem !important;
-    /* Break unhyphenated slash/underscore-joined words (e.g. "counseling/psychotherapy")
-       that would otherwise overflow the viewport horizontally. */
     overflow-wrap: anywhere;
   }
 }
 
-/* Homepage hero title. Scales mobile to desktop: 3rem (base), 4.5rem (\u2265640px),
-   6rem (\u2265900px). Headline is the primary visual weight of the hero so the
-   top-end bump to 6rem pairs with reduced hero section padding for density. */
+/* Homepage hero title */
 .hero-title {
+  font-family: var(--font-display);
   font-size: 3rem;
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
 }
-@media (min-width: 640px) {
-  .hero-title {
-    font-size: 4.5rem;
-  }
-}
-@media (min-width: 900px) {
-  .hero-title {
-    font-size: 6rem;
-  }
-}
+@media (min-width: 640px) { .hero-title { font-size: 4.5rem; } }
+@media (min-width: 900px) { .hero-title { font-size: 6rem; } }
 
-/* Header nav tightening below 640px — keeps links on one line at 375px with
-   the shorter mobile labels applied in layout.tsx (Landlords, Pricing, Add Listing). */
+/* Header nav tightening */
 @media (max-width: 640px) {
   header .flex.gap-6 { gap: 0.875rem; }
   header .flex.gap-6 > a {
@@ -264,10 +251,8 @@ html { scroll-behavior: smooth; }
   }
 }
 
-/* Mobile sticky inquiry bar — CSS-only, hidden on desktop */
-.mobile-inquiry-bar {
-  display: none;
-}
+/* Mobile sticky inquiry bar */
+.mobile-inquiry-bar { display: none; }
 @media (max-width: 1023px) {
   .mobile-inquiry-bar {
     position: fixed;
@@ -277,23 +262,20 @@ html { scroll-behavior: smooth; }
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--action);
+    background: var(--lime);
     color: var(--paper);
     font-family: var(--font-heading);
     font-size: 0.875rem;
-    font-weight: 500;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     text-decoration: none;
     padding: 16px;
     min-height: 56px;
     z-index: 50;
-    box-shadow: 0 -2px 8px rgba(26, 24, 20, 0.08);
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.5);
   }
-  .mobile-inquiry-bar:hover {
-    background: var(--action-hover);
-  }
-  /* Give form + content room above sticky bar so it doesn't overlap */
+  .mobile-inquiry-bar:hover { background: var(--action-hover); }
   main { padding-bottom: 72px; }
 }
 
@@ -310,48 +292,35 @@ html { scroll-behavior: smooth; }
   min-height: 48px;
   box-sizing: border-box;
 }
-.input:focus {
-  border-color: var(--action);
-}
+.input:focus { border-color: var(--lime); }
 
 .hero-search-input:focus {
   outline: none;
-  border: 2px solid var(--action-focus);
-  box-shadow: 0 0 0 3px rgba(196, 114, 78, 0.15);
+  border: 2px solid var(--lime);
+  box-shadow: 0 0 0 3px rgba(212,245,66,0.15);
 }
 
 button:focus-visible {
-  outline: 2px solid var(--action-focus);
+  outline: 2px solid var(--lime);
   outline-offset: 3px;
 }
 
-/* Responsive listing grids — desktop-first */
+/* Responsive listing grids */
 .listing-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
 }
-@media (max-width: 768px) {
-  .listing-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media (max-width: 480px) {
-  .listing-grid {
-    grid-template-columns: 1fr;
-  }
-}
+@media (max-width: 768px) { .listing-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .listing-grid { grid-template-columns: 1fr; } }
 
-/* Two-column listing page layout — desktop-first */
+/* Two-column listing page layout */
 .listing-detail {
   display: flex;
   gap: 2rem;
   align-items: flex-start;
 }
-.listing-detail-left {
-  flex: 1;
-  min-width: 0;
-}
+.listing-detail-left { flex: 1; min-width: 0; }
 .listing-detail-right {
   width: 380px;
   flex-shrink: 0;
@@ -360,39 +329,28 @@ button:focus-visible {
   align-self: flex-start;
 }
 @media (max-width: 768px) {
-  .listing-detail {
-    flex-direction: column;
-  }
-  .listing-detail-right {
-    width: 100%;
-    position: static;
-  }
+  .listing-detail { flex-direction: column; }
+  .listing-detail-right { width: 100%; position: static; }
 }
 
 /* Uniform card image placeholder */
 .listing-card-placeholder {
   height: 200px;
-  background-color: var(--rule);
+  background-color: #1F1F1F;
 }
 
 /* Listing page mobile overrides */
 @media (max-width: 768px) {
-  .listing-page-wrapper {
-    flex-direction: column !important;
-  }
-  .listing-form-col {
-    width: 100% !important;
-    position: static !important;
-  }
+  .listing-page-wrapper { flex-direction: column !important; }
+  .listing-form-col { width: 100% !important; position: static !important; }
 }
 
-/* Listing card base — combines with cat-border-* classes */
+/* Listing card base */
 .listing-card-base {
   border: 1px solid var(--rule);
   background: var(--surface);
 }
 
-/* Category left borders — defined after listing-card-base so border-left wins */
 .cat-border-art      { border-left: 2px solid var(--cat-art); }
 .cat-border-workshop { border-left: 2px solid var(--cat-workshop); }
 .cat-border-office   { border-left: 2px solid var(--cat-office); }
@@ -401,7 +359,6 @@ button:focus-visible {
 .cat-border-fitness  { border-left: 2px solid var(--cat-fitness); }
 .cat-border-default  { border-left: 2px solid var(--rule); }
 
-/* Category text colors */
 .cat-text-art      { color: var(--cat-art); }
 .cat-text-workshop { color: var(--cat-workshop); }
 .cat-text-office   { color: var(--cat-office); }
@@ -409,22 +366,21 @@ button:focus-visible {
 .cat-text-retail   { color: var(--cat-retail); }
 .cat-text-fitness  { color: var(--cat-fitness); }
 
-/* Primary action button */
+/* Primary action button — lime CTA */
 .btn-action {
-  background-color: var(--action);
+  background-color: var(--lime);
   color: var(--paper);
+  font-weight: 700;
+  letter-spacing: 0.02em;
   min-height: 48px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  border-radius: 0;
+  transition: background-color 150ms ease-out;
 }
-.btn-action:hover {
-  background-color: var(--action-hover);
-}
-.btn-action:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
+.btn-action:hover { background-color: var(--action-hover); }
+.btn-action:disabled { opacity: 0.4; cursor: not-allowed; }
 
 /* Partner sites footer */
 .partner-sites-footer {
@@ -440,26 +396,10 @@ button:focus-visible {
   letter-spacing: 0.05em;
   margin-bottom: 0.75rem;
 }
-.partner-sites-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-.partner-site-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-}
-.partner-site-name {
-  font-size: 0.875rem;
-  color: var(--ink);
-  font-weight: 500;
-}
-.partner-site-desc {
-  font-size: 0.8125rem;
-  color: var(--stone);
-}
+.partner-sites-list { display: flex; flex-direction: column; gap: 0.5rem; }
+.partner-site-item { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+.partner-site-name { font-size: 0.875rem; color: var(--ink); font-weight: 500; }
+.partner-site-desc { font-size: 0.8125rem; color: var(--stone); }
 .partner-site-badge {
   font-size: 0.6875rem;
   color: var(--stone);
@@ -476,42 +416,29 @@ button:focus-visible {
   flex-wrap: wrap;
   margin-top: 10px;
 }
-
-.hero-count {
-  font-family: var(--font-body);
-  font-size: 13px;
-  color: var(--stone);
-}
-
-.hero-dot {
-  color: var(--rule);
-  font-size: 12px;
-}
-
+.hero-count { font-family: var(--font-body); font-size: 13px; color: var(--stone); }
+.hero-dot   { color: var(--rule); font-size: 12px; }
 .hero-chip {
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
   font-size: 11px;
   color: var(--stone);
   background: var(--surface);
   padding: 3px 10px;
   border-radius: 12px;
   text-decoration: none;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
+.hero-chip:hover { background: var(--rule-strong); color: var(--ink); }
 
-.hero-chip:hover {
-  background: var(--rule);
-}
-
-/* Featured listing treatment — reserved for future sponsored-placement product */
+/* Featured listing — subtle gold tint on dark */
 .listing-card-featured {
   border-left: 2px solid var(--featured-color);
   background-color: var(--featured-bg);
 }
-.listing-card-featured .listing-tag {
-  color: var(--featured-color);
-}
+.listing-card-featured .listing-tag { color: var(--featured-color); }
 
-/* Pro listing treatment */
+/* Pro listing badge */
 .pro-badge {
   display: inline-block;
   font-family: var(--font-mono);
@@ -519,8 +446,8 @@ button:focus-visible {
   font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--action);
-  border: 1px solid var(--action);
+  color: var(--lime);
+  border: 1px solid var(--lime);
   padding: 1px 6px;
   line-height: 1.4;
 }

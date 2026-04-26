@@ -119,7 +119,7 @@ export default function Post() {
           <div style={{ borderTop: '1px solid var(--rule)' }} className="mt-12 pt-8">
             <p style={{ color: 'var(--stone)' }} className="text-sm">
               Browse available studio and workspace listings in Portland at{' '}
-              <Link href="/" style={{ color: '#a84530' }} className="hover:underline">FindStudioSpace.com</Link>.
+              <Link href="/" style={{ color: 'var(--lime)' }} className="hover:underline">FindStudioSpace.com</Link>.
               Free to browse. No account required.
             </p>
           </div>
