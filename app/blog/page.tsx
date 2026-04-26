@@ -12,6 +12,12 @@ export const metadata: Metadata = {
 
 const POSTS = [
   {
+    slug: 'photo-studio-rental-portland',
+    title: 'How to Rent a Photography Studio in Portland, OR',
+    date: '2026-04-26',
+    description: 'What to look for when renting a photo studio in Portland — cyc walls, natural light, product setups, and green screen spaces. Current rates and neighborhood guide.',
+  },
+  {
     slug: 'art-studio-rental-guide-portland',
     title: 'How to Rent an Art Studio in Portland: A Practical Guide',
     date: '2025-04-12',
