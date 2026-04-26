@@ -33,18 +33,13 @@ const CITY_CONFIG: Record<string, {
   },
 }
 
-// Pills shown in homepage hero. Order = display order.
-// Removed: MUSIC (0 listings) + PHOTO (1 listing) — thin content, not worth pill real estate.
-// Added: OFFICE — 53 indexable listings, ~42% of inventory; utility nav even though
-// office SEO is being de-emphasized (LoopNet/CoStar/Crexi own that ecosystem; office
-// landlord acquisition handled via direct cold email, not search).
-// Slug fix: art-studio → art-studio-rental (the canonical, richer config slug).
+// Primary Portland pill nav. Keep legacy routes live, but lead users to the
+// four validated categories.
 const CATEGORY_PILLS: { slug: string; label: string }[] = [
-  { slug: 'office-space-rental',   label: 'OFFICE' },
-  { slug: 'art-studio-rental',     label: 'ART' },
-  { slug: 'workshop-space-rental', label: 'WORKSHOP' },
-  { slug: 'retail-space-for-rent', label: 'RETAIL' },
-  { slug: 'fitness-studio-rental', label: 'FITNESS' },
+  { slug: 'event-space', label: 'EVENT SPACE' },
+  { slug: 'content-studios', label: 'CONTENT STUDIOS' },
+  { slug: 'photo-studios', label: 'PHOTO STUDIOS' },
+  { slug: 'makerspace', label: 'MAKERSPACE' },
 ]
 
 // Sanitize search query: alphanumerics + spaces + hyphens, max 64 chars

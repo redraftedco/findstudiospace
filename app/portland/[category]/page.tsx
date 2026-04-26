@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import { categoryConfigs } from './config'
 import CategoryFilter from '@/components/CategoryFilter'
-import { directoryConfig } from '@/lib/directory'
+import { classifyListingToPillar } from '@/lib/pillar-category'
 
 type Props = {
   params: Promise<{ category: string }>
@@ -39,13 +39,15 @@ export default async function CategoryPage({ params, searchParams }: Props) {
     return <div className="p-8">Page not found.</div>
   }
 
+  const isPillarCategory = ['event-space', 'content-studios', 'photo-studios', 'makerspace'].includes(category)
+
   let query = supabase
     .from('listings')
     .select('*')
     .eq('status', 'active')
     .not('title', 'is', null)
     .not('neighborhood', 'ilike', '%Vancouver%')
-    .limit(48)
+    .limit(config.keywordInclude?.length ? 400 : 48)
   if (config.listingType) {
     query = query.eq('type', config.listingType)
   }
@@ -59,8 +61,14 @@ export default async function CategoryPage({ params, searchParams }: Props) {
     .order('is_featured', { ascending: false })
     .order('created_at', { ascending: false })
   const { data: rawListings } = await query
-  const listings = rawListings ?? []
-  const total = listings.length
+  const listings = (rawListings ?? [])
+    .filter((listing) => {
+      if (isPillarCategory) {
+        return classifyListingToPillar(listing) === category
+      }
+      return matchesCategoryKeywords(listing, config)
+    })
+    .slice(0, 48)
 
   const faqSchema = {
     '@context': 'https://schema.org',
@@ -179,4 +187,19 @@ export default async function CategoryPage({ params, searchParams }: Props) {
       </main>
     </>
   )
+}
+
+function matchesCategoryKeywords(
+  listing: { title: string | null; description: string | null; type: string | null },
+  config: { keywordInclude?: string[]; keywordExclude?: string[] }
+): boolean {
+  const includes = config.keywordInclude
+  if (!includes || includes.length === 0) return true
+
+  const haystack = `${listing.title ?? ''} ${listing.description ?? ''} ${listing.type ?? ''}`.toLowerCase()
+  const hasInclude = includes.some((term) => haystack.includes(term))
+  if (!hasInclude) return false
+
+  const excludes = config.keywordExclude ?? []
+  return !excludes.some((term) => haystack.includes(term))
 }

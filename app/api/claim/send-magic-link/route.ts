@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
     // Check listing exists and is not already claimed
     const { data: listing } = await supabaseService
       .from('listings')
-      .select('id, owner_user_id')
+      .select('id, owner_user_id, owner_email, contact_email')
       .eq('id', id)
       .eq('status', 'active')
       .single()
@@ -43,11 +43,30 @@ export async function POST(req: NextRequest) {
       )
     }
 
+    const normalizedEmail = email.trim().toLowerCase()
+    const ownerEmail = listing.owner_email ? String(listing.owner_email).toLowerCase() : null
+    const contactEmail = listing.contact_email ? String(listing.contact_email).toLowerCase() : null
+    const canVerify = ownerEmail || contactEmail
+
+    if (!canVerify) {
+      return NextResponse.json(
+        { error: 'This listing cannot be claimed online yet. Contact hello@findstudiospace.com.' },
+        { status: 403 }
+      )
+    }
+
+    if (normalizedEmail !== ownerEmail && normalizedEmail !== contactEmail) {
+      return NextResponse.json(
+        { error: 'Email does not match listing ownership records.' },
+        { status: 403 }
+      )
+    }
+
     const siteUrl = 'https://www.findstudiospace.com'
 
     // Send magic link via Supabase Auth (uses built-in 60s rate limit per email)
     const { error } = await supabaseAnon.auth.signInWithOtp({
-      email,
+      email: normalizedEmail,
       options: {
         emailRedirectTo: `${siteUrl}/auth/callback?listing_id=${id}`,
       },

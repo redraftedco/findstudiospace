@@ -7,18 +7,10 @@ import InquiryForm from '@/components/InquiryForm'
 import ViewCounter from '@/components/ViewCounter'
 import ProUpsell from '@/components/ProUpsell'
 import ClaimBanner from '@/components/ClaimBanner'
+import { classifyListingToPillar } from '@/lib/pillar-category'
 
 export const revalidate = 3600
-
-const TYPE_TO_SLUG: Record<string, string> = {
-  office: 'office-space-rental',
-  art: 'art-studio',
-  workshop: 'workshop-space-rental',
-  retail: 'retail-space-for-rent',
-  photo: 'photo-studio-rental',
-  fitness: 'fitness-studio-rental',
-  music: 'music-studio-rental',
-}
+const BLOCKED_PUBLIC_LISTING_IDS = new Set(['1104'])
 
 const TEXT_CLASS: Record<string, string> = {
   art:      'cat-text-art',
@@ -30,13 +22,13 @@ const TEXT_CLASS: Record<string, string> = {
 }
 
 const TYPE_TO_LABEL: Record<string, string> = {
-  office: 'Office Space',
-  art: 'Art Studio',
-  workshop: 'Workshop Space',
-  retail: 'Retail Space',
-  photo: 'Photo Studio',
-  fitness: 'Fitness & Dance',
-  music: 'Music Studio',
+  office: 'Event Space',
+  art: 'Makerspace',
+  workshop: 'Makerspace',
+  retail: 'Event Space',
+  photo: 'Photo Studios',
+  fitness: 'Makerspace',
+  music: 'Content Studios',
 }
 
 function formatPrice(raw: string | null | undefined): string {
@@ -55,10 +47,12 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params
+  if (BLOCKED_PUBLIC_LISTING_IDS.has(id)) return {}
   const { data } = await supabase
     .from('listings')
     .select('title, city, type, neighborhood, price_numeric, price_display, images')
     .eq('id', id)
+    .eq('status', 'active')
     .single()
   if (!data) return {}
 
@@ -96,6 +90,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ListingPage({ params, searchParams }: Props) {
   const { id } = await params
+  if (BLOCKED_PUBLIC_LISTING_IDS.has(id)) notFound()
   const sp = await searchParams
   const showUpgradeSuccess = sp.upgrade === 'success'
 
@@ -103,6 +98,7 @@ export default async function ListingPage({ params, searchParams }: Props) {
     .from('listings')
     .select('*')
     .eq('id', id)
+    .eq('status', 'active')
     .single()
 
   if (!listing) notFound()
@@ -129,8 +125,8 @@ export default async function ListingPage({ params, searchParams }: Props) {
   const images: string[] = clampImagesToTier(allImages, listing.tier)
 
   const typeKey = (listing.type ?? '').toLowerCase()
-  const categorySlug = TYPE_TO_SLUG[typeKey]
-  const categoryLabel = TYPE_TO_LABEL[typeKey] ?? listing.type
+  const categorySlug = classifyListingToPillar(listing)
+  const categoryLabel = TYPE_TO_LABEL[typeKey] ?? 'Content Studios'
   const priceFormatted = formatPrice(listing.price_display)
   const textClass = TEXT_CLASS[typeKey] ?? ''
   const studioName = listing.title ?? 'this listing'

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Terms of Service | FindStudioSpace',
@@ -140,9 +141,9 @@ export default function TermsPage() {
             <li>
               <strong>Refunds.</strong> We do not refund partial months. If you cancel mid-cycle,
               your paid period runs out its term.{' '}
-              <a href="/refund-policy" style={{ color: 'var(--action)' }}>
+              <Link href="/refund-policy" style={{ color: 'var(--action)' }}>
                 See our full Refund Policy.
-              </a>
+              </Link>
             </li>
             <li>
               <strong>Price changes.</strong> If we change pricing for Studio Pro, we&apos;ll email

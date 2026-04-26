@@ -5,11 +5,121 @@ export type CategoryConfig = {
   intro: string
   listingType: string | null
   neighborhood?: string | null
+  keywordInclude?: string[]
+  keywordExclude?: string[]
   faqs: { q: string; a: string }[]
   related: { label: string; href: string }[]
 }
 
 export const categoryConfigs: Record<string, CategoryConfig> = {
+  'event-space': {
+    title: 'Event Space Rental in Portland | Book Venues & Private Spaces',
+    metaDescription:
+      'Find Portland event spaces for monthly rental. Browse private venues, party spaces, and event-ready studios with direct host contact.',
+    h1: 'Event Space Rental in Portland',
+    intro:
+      'Looking for event-ready space in Portland? Browse private event venues and flexible spaces that can host pop-ups, parties, and community events.',
+    listingType: null,
+    keywordInclude: ['event', 'venue', 'party', 'wedding'],
+    keywordExclude: ['dance', 'yoga', 'fitness', 'office', 'cowork', 'class', 'cheap', 'affordable'],
+    faqs: [
+      {
+        q: 'What kinds of event spaces are listed in Portland?',
+        a: 'You will find private event venues, party-ready studios, and flexible creative spaces that can host community events or brand activations.',
+      },
+      {
+        q: 'Can I book these spaces monthly?',
+        a: 'Yes. This directory focuses on monthly studio and venue rentals. Ask each host about minimum term and event use rules.',
+      },
+    ],
+    related: [
+      { label: 'Content Studios', href: '/portland/content-studios' },
+      { label: 'Photo Studios', href: '/portland/photo-studios' },
+      { label: 'Makerspace', href: '/portland/makerspace' },
+    ],
+  },
+
+  'content-studios': {
+    title: 'Podcast & Video Studio Rental in Portland | Content Creator Spaces',
+    metaDescription:
+      'Browse content studios in Portland for podcast, video production, and creator shoots. Monthly rentals with direct host inquiries.',
+    h1: 'Podcast & Video Studio Rental in Portland',
+    intro:
+      'This category combines podcast studios, video production spaces, and creator-focused studios in one place so you can compare options fast.',
+    listingType: null,
+    keywordInclude: ['podcast', 'recording', 'video', 'production', 'creator', 'media'],
+    keywordExclude: ['dance', 'yoga', 'fitness', 'office', 'cowork', 'class', 'cheap', 'affordable'],
+    faqs: [
+      {
+        q: 'What is included in Content Studios?',
+        a: 'Content Studios includes podcast rooms, video production spaces, and creator studios. We keep these together so media-focused renters can find options quickly.',
+      },
+      {
+        q: 'Do these listings support monthly creator workflows?',
+        a: 'Yes. Listings are aimed at recurring creative use, not one-off class bookings or short-term office use.',
+      },
+    ],
+    related: [
+      { label: 'Event Space', href: '/portland/event-space' },
+      { label: 'Photo Studios', href: '/portland/photo-studios' },
+      { label: 'Makerspace', href: '/portland/makerspace' },
+    ],
+  },
+
+  'photo-studios': {
+    title: 'Photography Studio Rental in Portland | Photo Shoot Locations',
+    metaDescription:
+      'Find Portland photo studios for monthly rent, including cyc wall and backdrop-ready spaces for commercial and editorial shoots.',
+    h1: 'Photography Studio Rental in Portland',
+    intro:
+      'Browse photo-focused studios in Portland with shooting amenities like cyc walls, backdrop areas, and production-ready layouts.',
+    listingType: null,
+    keywordInclude: ['photo', 'photography', 'cyc', 'backdrop', 'shoot'],
+    keywordExclude: ['dance', 'yoga', 'fitness', 'office', 'cowork', 'class', 'cheap', 'affordable'],
+    faqs: [
+      {
+        q: 'Are cyc wall studios included here?',
+        a: 'Yes. Listings that mention cyc wall or dedicated backdrop setups are grouped under Photo Studios.',
+      },
+      {
+        q: 'Can I find commercial shoot spaces here?',
+        a: 'Yes. This route is for photo-focused rentals, including editorial and product shoot environments.',
+      },
+    ],
+    related: [
+      { label: 'Event Space', href: '/portland/event-space' },
+      { label: 'Content Studios', href: '/portland/content-studios' },
+      { label: 'Makerspace', href: '/portland/makerspace' },
+    ],
+  },
+
+  'makerspace': {
+    title: 'Makerspace in Portland | Workshop & Creative Studio Rental',
+    metaDescription:
+      'Browse Portland makerspaces and workshop rentals with equipment-ready setups for fabrication, woodwork, and craft production.',
+    h1: 'Makerspace & Workshop Space in Portland',
+    intro:
+      'Find workshop and makerspace listings in Portland for fabrication, craft, and hands-on production. Compare spaces and contact hosts directly.',
+    listingType: null,
+    keywordInclude: ['maker', 'workshop', 'wood', 'fabrication', 'jewelry', 'craft'],
+    keywordExclude: ['dance', 'yoga', 'fitness', 'office', 'cowork', 'class', 'cheap', 'affordable'],
+    faqs: [
+      {
+        q: 'What spaces count as Makerspace?',
+        a: 'Makerspace includes workshop rentals and equipment-based spaces such as woodshop, jewelry, and fabrication-focused studios.',
+      },
+      {
+        q: 'Are office and coworking listings mixed in?',
+        a: 'No. Office and coworking terms are filtered out so this route stays focused on hands-on maker use.',
+      },
+    ],
+    related: [
+      { label: 'Event Space', href: '/portland/event-space' },
+      { label: 'Content Studios', href: '/portland/content-studios' },
+      { label: 'Photo Studios', href: '/portland/photo-studios' },
+    ],
+  },
+
   'photo-studio-rental': {
     title: 'Photography Studios for Rent in Portland, OR | FindStudioSpace',
     metaDescription:

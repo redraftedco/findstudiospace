@@ -86,17 +86,22 @@ export async function POST(req: NextRequest) {
 
     const { data: listing } = await supabaseServer
       .from('listings')
-      .select('contact_email, owner_email, title')
+      .select('contact_email, owner_email, title, tier, type')
       .eq('id', parseInt(listing_id))
       .single()
 
-    // Route inquiries to the verified owner email first; fall back to the
-    // scraped contact_email. Owner email comes from the magic-link claim flow
-    // so it's proven-controlled at a specific moment in time.
-    // If neither exists, fall back to platform operator so no inquiry is lost.
+    // Lead routing policy:
+    // - Pro listing with verified owner email => exclusive lead delivery.
+    // - Free/unknown tier => shared delivery (host + platform copy).
     const PLATFORM_EMAIL = 'redraftedco@gmail.com'
     const recipientEmail = listing?.owner_email || listing?.contact_email || null
-    const notifyEmail = recipientEmail ?? PLATFORM_EMAIL
+    const isProExclusive = listing?.tier === 'pro' && !!listing?.owner_email
+    const leadRouteMode = isProExclusive ? 'exclusive' : 'shared'
+    const notifyRecipients = Array.from(new Set(
+      leadRouteMode === 'exclusive'
+        ? [listing?.owner_email].filter(Boolean)
+        : [recipientEmail, PLATFORM_EMAIL].filter(Boolean)
+    ))
 
     const { error } = await supabaseServer.from('lead_inquiries').insert([{
       listing_id: parseInt(listing_id),
@@ -119,10 +124,12 @@ export async function POST(req: NextRequest) {
     try {
       await resend.emails.send({
         from: 'hello@findstudiospace.com',
-        to: notifyEmail,
+        to: notifyRecipients,
         subject: `New inquiry for ${listingTitle}`,
         text: [
           recipientEmail ? `You have a new inquiry for your listing: ${listingTitle}` : `[No host email on file — forward manually]\nNew inquiry for: ${listingTitle}`,
+          `Lead routing: ${leadRouteMode}`,
+          `Listing type: ${listing?.type ?? 'unknown'}`,
           ``,
           `From: ${cleanName}`,
           `Email: ${cleanEmail}`,

@@ -11,17 +11,18 @@ type Props = { listingId: string; studioName: string }
 
 export default function ClaimBanner({ listingId, studioName }: Props) {
   const storageKey = `claim-banner-dismissed-${listingId}`
-  const [dismissed, setDismissed] = useState<boolean | null>(null)
+  const [dismissed, setDismissed] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return true
+    return sessionStorage.getItem(storageKey) === '1'
+  })
 
   useEffect(() => {
-    const flag = typeof window !== 'undefined' && sessionStorage.getItem(storageKey) === '1'
-    setDismissed(flag)
-    if (!flag) {
+    if (!dismissed) {
       posthog.capture('claim_banner_shown', { listing_id: listingId })
     }
-  }, [listingId, storageKey])
+  }, [dismissed, listingId])
 
-  if (dismissed !== false) return null
+  if (dismissed) return null
 
   function handleDismiss() {
     sessionStorage.setItem(storageKey, '1')

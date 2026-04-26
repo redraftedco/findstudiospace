@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { use, useState } from 'react'
 import Link from 'next/link'
 
 export default function ClaimListingPage({
@@ -8,21 +8,15 @@ export default function ClaimListingPage({
 }: {
   params: Promise<{ listingId: string }>
 }) {
+  const { listingId } = use(params)
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [sent, setSent] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [listingId, setListingId] = useState<string | null>(null)
-
-  // Resolve params
-  if (!listingId) {
-    params.then(p => setListingId(p.listingId))
-    return null
-  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (!email.trim() || !listingId) return
+    if (!email.trim()) return
 
     setLoading(true)
     setError(null)
