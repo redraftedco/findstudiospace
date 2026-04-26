@@ -22,8 +22,8 @@ const CITY_CONFIG: Record<string, {
   portland: {
     displayName: 'Portland',
     state: 'OR',
-    title: 'Find Studio Space in Portland, OR | FindStudioSpace',
-    description: 'Browse monthly studio rentals in Portland — art studios, workshops, offices, photo studios, and creative spaces for makers and producers.',
+    title: 'Studio Rental in Portland, Oregon — Creative Workspace',
+    description: 'Browse 126 Portland studio rentals — creative workspace for artists, makers, photographers, and producers across every Oregon neighborhood. Free.',
   },
   seattle: {
     displayName: 'Seattle',
@@ -277,7 +277,7 @@ function CityPageUI({
               }}
               className="hero-title font-semibold"
             >
-              Studio space for creatives in {config.displayName}.
+              {config.displayName} studio rentals & creative workspace.
             </h1>
             <p
               style={{
