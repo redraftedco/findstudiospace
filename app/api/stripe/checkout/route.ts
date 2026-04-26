@@ -52,11 +52,12 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ url: session.url })
   } catch (error: unknown) {
+    // Log full error server-side ONLY. Never echo Stripe error.message to
+    // the client — Stripe error strings can include partial key prefixes
+    // ("Expired API Key provided: sk_live_...") which leaked into UI copy.
     console.error('Stripe checkout error:', error)
-    const message =
-      error instanceof Error ? error.message : 'Failed to create checkout session'
     return NextResponse.json(
-      { error: message },
+      { error: 'Could not start checkout. Please try again.' },
       { status: 500 }
     )
   }

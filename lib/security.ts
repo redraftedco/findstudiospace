@@ -63,3 +63,15 @@ export function getIP(req: NextRequest): string {
     'unknown'
   )
 }
+
+/**
+ * Constant-time string equality. Use for comparing secrets (auth headers,
+ * tokens, signatures) to defeat trivial timing-attack signal on character
+ * mismatch position. Returns false on length mismatch without scanning.
+ */
+export function safeEqual(a: string, b: string): boolean {
+  if (a.length !== b.length) return false
+  let diff = 0
+  for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i)
+  return diff === 0
+}

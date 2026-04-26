@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseServer } from '@/lib/supabase-server'
+import { safeEqual } from '@/lib/security'
 import { Resend } from 'resend'
 
 // Monthly digest email to Pro subscribers.
@@ -20,14 +21,6 @@ const FROM = 'hello@findstudiospace.com'
 // Follow-up: consolidate to single source of truth.
 
 const SITE_URL = 'https://www.findstudiospace.com'
-
-// Constant-time-ish string compare to avoid trivial timing leaks on the secret.
-function safeEqual(a: string, b: string): boolean {
-  if (a.length !== b.length) return false
-  let diff = 0
-  for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i)
-  return diff === 0
-}
 
 type ProListing = {
   id: number

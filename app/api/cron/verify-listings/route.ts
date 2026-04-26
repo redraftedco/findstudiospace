@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { safeEqual } from '@/lib/security'
 
 /**
  * GET /api/cron/verify-listings
@@ -29,10 +30,10 @@ const supabase = createClient(
 )
 
 export async function GET(req: NextRequest) {
-  // ── Auth check ────────────────────────────────────────────────────────────
-  const authHeader = req.headers.get('authorization')
+  // ── Auth check (constant-time compare against Bearer ${CRON_SECRET}) ────
+  const authHeader = req.headers.get('authorization') ?? ''
   const secret = process.env.CRON_SECRET
-  if (!secret || authHeader !== `Bearer ${secret}`) {
+  if (!secret || !safeEqual(authHeader, `Bearer ${secret}`)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 

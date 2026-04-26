@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { safeEqual } from '@/lib/security'
 import { extractEmails } from '@/lib/enrichment/extractEmails'
 
 /**
@@ -163,9 +164,10 @@ async function findPlaceWebsite(
 // ── Route handler ─────────────────────────────────────────────────────────────
 
 export async function GET(req: NextRequest) {
-  // ── Auth ──────────────────────────────────────────────────────────────────
+  // ── Auth (constant-time compare against Bearer ${CRON_SECRET}) ──────────
   const secret = process.env.CRON_SECRET
-  if (!secret || req.headers.get('authorization') !== `Bearer ${secret}`) {
+  const auth = req.headers.get('authorization') ?? ''
+  if (!secret || !safeEqual(auth, `Bearer ${secret}`)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
