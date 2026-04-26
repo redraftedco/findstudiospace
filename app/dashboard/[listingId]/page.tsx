@@ -34,7 +34,9 @@ export default async function DashboardPage({ params }: Props) {
     .eq('listing_id', id)
 
   // Fetch 30-day view count
-  const cutoff = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
+  const cutoffDate = new Date()
+  cutoffDate.setDate(cutoffDate.getDate() - 30)
+  const cutoff = cutoffDate.toISOString()
   const { count: viewCount } = await supabaseServer
     .from('listing_views')
     .select('id', { count: 'exact', head: true })

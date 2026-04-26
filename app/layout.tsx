@@ -92,12 +92,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   Browse by Category
                 </p>
                 <div className="flex flex-col gap-2">
-                  <Link href="/portland/art-studio" className="hover:underline">Art Studios</Link>
-                  <Link href="/portland/workshop-space-rental" className="hover:underline">Workshop Space</Link>
-                  <Link href="/portland/office-space-rental" className="hover:underline">Office Space</Link>
-                  <Link href="/portland/photo-studio-rental" className="hover:underline">Photo Studios</Link>
-                  <Link href="/portland/fitness-studio-rental" className="hover:underline">Fitness &amp; Dance</Link>
-                  <Link href="/portland/music-rehearsal-space" className="hover:underline">Music Studios</Link>
+                  <Link href="/portland/event-space" className="hover:underline">Event Space</Link>
+                  <Link href="/portland/content-studios" className="hover:underline">Content Studios</Link>
+                  <Link href="/portland/photo-studios" className="hover:underline">Photo Studios</Link>
+                  <Link href="/portland/makerspace" className="hover:underline">Makerspace</Link>
                 </div>
               </div>
 

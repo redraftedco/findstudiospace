@@ -8,12 +8,13 @@ type Props = { listingId: string; listingTitle: string }
 export default function InquiryForm({ listingId }: Props) {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
   const [errorMsg, setErrorMsg] = useState('')
-  const startedAt = useRef(Date.now())
+  const startedAt = useRef<number | null>(null)
   const searchParams = useSearchParams()
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setStatus('submitting')
+    if (startedAt.current === null) startedAt.current = Date.now()
     const form = e.currentTarget
     const moveIn = (form.elements.namedItem('move_in') as HTMLInputElement).value.trim()
     const userMessage = (form.elements.namedItem('message') as HTMLTextAreaElement).value

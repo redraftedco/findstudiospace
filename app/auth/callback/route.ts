@@ -52,20 +52,33 @@ export async function GET(req: NextRequest) {
   // Set ownership if not already claimed
   const { data: listing } = await supabaseService
     .from('listings')
-    .select('owner_user_id')
+    .select('owner_user_id, owner_email, contact_email')
     .eq('id', id)
+    .eq('status', 'active')
     .single()
 
-  if (listing && !listing.owner_user_id) {
+  const userEmail = user.email?.toLowerCase() ?? ''
+  const ownerEmail = listing?.owner_email ? String(listing.owner_email).toLowerCase() : null
+  const contactEmail = listing?.contact_email ? String(listing.contact_email).toLowerCase() : null
+  const emailMatches = userEmail !== '' && (userEmail === ownerEmail || userEmail === contactEmail)
+
+  if (listing?.owner_user_id) {
+    if (listing.owner_user_id === user.id) return res
+    return NextResponse.redirect(`${siteUrl}/claim/${id}?error=ownership_mismatch`)
+  }
+
+  if (listing && emailMatches) {
     await supabaseService
       .from('listings')
       .update({
         owner_user_id: user.id,
-        owner_email: user.email,
+        owner_email: userEmail,
         claimed_at: new Date().toISOString(),
       })
       .eq('id', id)
+
+    return res
   }
 
-  return res
+  return NextResponse.redirect(`${siteUrl}/claim/${id}?error=ownership_mismatch`)
 }

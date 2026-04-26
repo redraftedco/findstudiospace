@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 
 const TYPES = ['Art Studio', 'Workshop', 'Office', 'Photo Studio', 'Retail', 'Fitness & Dance']
 
@@ -66,9 +67,9 @@ export default function ListYourSpacePage() {
           <p style={{ color: 'var(--stone)' }} className="mt-3 text-sm">
             We&apos;ll review and publish your listing within 48 hours.
           </p>
-          <a href="/" style={{ color: 'var(--lime)', fontFamily: 'var(--font-mono)' }} className="mt-6 inline-block text-sm hover:underline">
+          <Link href="/" style={{ color: 'var(--lime)', fontFamily: 'var(--font-mono)' }} className="mt-6 inline-block text-sm hover:underline">
             ← Back to listings
-          </a>
+          </Link>
         </div>
       </main>
     )

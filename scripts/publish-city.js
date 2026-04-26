@@ -1,4 +1,5 @@
 // Publish a city: flip is_indexable=true, set indexable=true on qualifying listings.
+/* eslint-disable @typescript-eslint/no-require-imports */
 //
 // Usage:
 //   CONFIRM=YES node --env-file=.env.local scripts/publish-city.js <city-slug>
