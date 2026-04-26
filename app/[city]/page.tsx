@@ -33,11 +33,16 @@ const CITY_CONFIG: Record<string, {
   },
 }
 
+// Pills shown in homepage hero. Order = display order.
+// Removed: MUSIC (0 listings) + PHOTO (1 listing) — thin content, not worth pill real estate.
+// Added: OFFICE — 53 indexable listings, ~42% of inventory; utility nav even though
+// office SEO is being de-emphasized (LoopNet/CoStar/Crexi own that ecosystem; office
+// landlord acquisition handled via direct cold email, not search).
+// Slug fix: art-studio → art-studio-rental (the canonical, richer config slug).
 const CATEGORY_PILLS: { slug: string; label: string }[] = [
-  { slug: 'art-studio',            label: 'ART' },
-  { slug: 'music-studio-rental',   label: 'MUSIC' },
+  { slug: 'office-space-rental',   label: 'OFFICE' },
+  { slug: 'art-studio-rental',     label: 'ART' },
   { slug: 'workshop-space-rental', label: 'WORKSHOP' },
-  { slug: 'photo-studio-rental',   label: 'PHOTO' },
   { slug: 'retail-space-for-rent', label: 'RETAIL' },
   { slug: 'fitness-studio-rental', label: 'FITNESS' },
 ]
