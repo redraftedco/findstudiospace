@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="FindStudioSpace — Portland's creative studio directory">
+  <rect width="1200" height="630" fill="#0D0D0D"/>
+  <rect x="60" y="60" width="1080" height="510" fill="none" stroke="#1F1F1F" stroke-width="2"/>
+  <g fill="none" stroke="#1A1A1A" stroke-width="1">
+    <line x1="60" y1="200" x2="1140" y2="200"/>
+    <line x1="60" y1="400" x2="1140" y2="400"/>
+  </g>
+  <g transform="translate(120,275)">
+    <text font-family="Bebas Neue, Arial Narrow, sans-serif" font-weight="400" font-size="120" letter-spacing="0.02em" fill="#FAF7EF">FindStudioSpace</text>
+  </g>
+  <g transform="translate(120,355)">
+    <text font-family="JetBrains Mono, Menlo, monospace" font-weight="400" font-size="22" letter-spacing="0.18em" fill="#D4F542">PORTLAND&#39;S CREATIVE STUDIO DIRECTORY</text>
+  </g>
+  <g transform="translate(120,490)">
+    <text font-family="Inter, Arial, sans-serif" font-weight="400" font-size="22" fill="#7A7A7A">Event spaces · Photo studios · Content studios · Makerspaces</text>
+  </g>
+  <g transform="translate(120,525)">
+    <text font-family="JetBrains Mono, Menlo, monospace" font-weight="400" font-size="14" letter-spacing="0.12em" fill="#7A7A7A">FINDSTUDIOSPACE.COM</text>
+  </g>
+</svg>

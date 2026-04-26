@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" role="img" aria-label="FindStudioSpace photo placeholder">
+  <rect width="1600" height="900" fill="#1F1F1F"/>
+  <g fill="none" stroke="#2A2A2A" stroke-width="1">
+    <line x1="0" y1="225" x2="1600" y2="225"/>
+    <line x1="0" y1="450" x2="1600" y2="450"/>
+    <line x1="0" y1="675" x2="1600" y2="675"/>
+    <line x1="400" y1="0" x2="400" y2="900"/>
+    <line x1="800" y1="0" x2="800" y2="900"/>
+    <line x1="1200" y1="0" x2="1200" y2="900"/>
+  </g>
+  <g transform="translate(800,420)" text-anchor="middle">
+    <text font-family="Bebas Neue, Arial Narrow, sans-serif" font-weight="400" font-size="96" letter-spacing="0.04em" fill="#FAF7EF">FindStudioSpace</text>
+  </g>
+  <g transform="translate(800,510)" text-anchor="middle">
+    <text font-family="JetBrains Mono, Menlo, monospace" font-weight="400" font-size="22" letter-spacing="0.18em" fill="#D4F542">PHOTO COMING SOON</text>
+  </g>
+  <g transform="translate(800,560)" text-anchor="middle">
+    <text font-family="JetBrains Mono, Menlo, monospace" font-weight="400" font-size="14" letter-spacing="0.12em" fill="#7A7A7A">PORTLAND, OR</text>
+  </g>
+</svg>

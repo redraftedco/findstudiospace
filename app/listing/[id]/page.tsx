@@ -294,27 +294,27 @@ export default async function ListingPage({ params, searchParams }: Props) {
             <div className="listing-detail-main">
               {/* Gallery */}
               {images.length === 0 ? (
-                <div
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src="/placeholder-studio.svg"
+                  alt=""
+                  width={1200}
+                  height={675}
                   style={{
-                    background: '#1F1F1F',
+                    width: '100%',
                     aspectRatio: '16 / 9',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    objectFit: 'cover',
+                    display: 'block',
                     borderRadius: '2px',
                   }}
-                >
-                  <p style={{ color: 'var(--stone)', fontFamily: 'var(--font-mono)' }} className="text-xs">
-                    No photos available
-                  </p>
-                </div>
+                />
               ) : (
                 <>
                   {/* Hero image */}
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={images[0]}
-                    alt=""
+                    alt={`${listing.title ?? 'Studio'} in ${listing.neighborhood ?? 'Portland'}, OR`}
                     width={1200}
                     height={675}
                     fetchPriority="high"

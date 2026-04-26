@@ -76,21 +76,19 @@ export default function ListingCard({ listing }: Props) {
       style={{ textDecoration: 'none' }}
     >
       <div className="listing-card-image-wrap">
-        {thumb ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={thumb}
-            alt=""
-            width={600}
-            height={450}
-            loading="lazy"
-            className="listing-card-image"
-          />
-        ) : (
-          <div className="listing-card-image-placeholder">
-            <span>NO IMAGE</span>
-          </div>
-        )}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={thumb ?? '/placeholder-studio.svg'}
+          alt={
+            thumb
+              ? `${listing.title ?? 'Studio'}${typeLabel ? ' — ' + typeLabel : ''} in ${listing.neighborhood ?? 'Portland'}`
+              : ''
+          }
+          width={600}
+          height={450}
+          loading="lazy"
+          className="listing-card-image"
+        />
         {isPro && (
           <span
             style={{

@@ -30,6 +30,15 @@ export const metadata: Metadata = {
   alternates: {
     canonical: './',
   },
+  openGraph: {
+    type: 'website',
+    siteName: 'FindStudioSpace',
+    images: [{ url: '/og-default.svg', width: 1200, height: 630, alt: 'FindStudioSpace — Portland creative studio directory' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: ['/og-default.svg'],
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
