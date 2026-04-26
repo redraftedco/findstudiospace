@@ -10,10 +10,32 @@ type ListingForCategory = {
   type?: string | null
 }
 
-const EVENT_TERMS = ['event', 'venue', 'party', 'wedding', 'private event']
-const MEDIA_TERMS = ['podcast', 'recording', 'video', 'production', 'creator', 'media']
-const PHOTO_TERMS = ['photo', 'photography', 'cyc', 'backdrop', 'shoot']
-const MAKER_TERMS = ['maker', 'workshop', 'wood', 'fabrication', 'jewelry', 'craft']
+// Strict rental-intent signals. Single-word matches like 'photo', 'studio',
+// 'shoot', 'wedding' triggered false positives where a general creative space
+// listed photography/events/podcasts as use cases ("perfect for photographers,
+// podcasts, weddings"). Now requires multi-word rental-specific terminology.
+const EVENT_TERMS = [
+  'event space', 'event venue', 'private event', 'venue rental',
+  'wedding venue', 'party venue', 'event rental', 'rooftop venue',
+]
+
+const MEDIA_TERMS = [
+  'podcast studio', 'podcast booth', 'recording studio', 'video production',
+  'production studio', 'sound stage', 'voiceover booth',
+  'content creator studio', 'video studio',
+]
+
+const PHOTO_TERMS = [
+  'photography studio', 'photo studio', 'cyclorama', 'cyc wall',
+  'seamless backdrop', 'product photography studio', 'headshot studio',
+  'photo shoot location', 'photography rental',
+]
+
+const MAKER_TERMS = [
+  'makerspace', 'maker space', 'wood shop', 'woodshop',
+  'fabrication lab', 'fab lab', 'metal shop', 'metalworking',
+  'ceramics studio', 'jewelry studio', '3d printing', 'workshop space',
+]
 
 const TYPE_TO_PILLAR: Record<string, PillarCategorySlug> = {
   retail: 'event-space',
