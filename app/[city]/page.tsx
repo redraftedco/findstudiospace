@@ -302,7 +302,7 @@ function CityPageUI({
                 style={{
                   width: '100%',
                   border: '1px solid var(--rule)',
-                  background: 'white',
+                  background: 'var(--search-bg)',
                   color: 'var(--ink)',
                   fontFamily: 'var(--font-body)',
                   fontSize: '1rem',

@@ -140,7 +140,7 @@ export default function ClaimListingPage({
                   border: '1px solid var(--rule)',
                   fontFamily: 'var(--font-body)',
                   fontSize: '14px',
-                  background: 'white',
+                  background: 'var(--search-bg)',
                   color: 'var(--ink)',
                   boxSizing: 'border-box',
                   outline: 'none',

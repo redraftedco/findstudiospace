@@ -212,7 +212,7 @@ function ClaimPageInner() {
               border: '1px solid var(--rule)',
               fontFamily: 'var(--font-body)',
               fontSize: '14px',
-              background: 'white',
+              background: 'var(--search-bg)',
               color: 'var(--ink)',
               minHeight: '48px',
               boxSizing: 'border-box',
@@ -291,7 +291,7 @@ function ClaimPageInner() {
             </div>
 
             <div style={{
-              background: 'white',
+              background: 'var(--surface)',
               border: '1px solid var(--rule)',
               padding: '20px',
               textAlign: 'center',

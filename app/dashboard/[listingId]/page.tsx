@@ -99,7 +99,7 @@ export default async function DashboardPage({ params }: Props) {
           marginBottom: '32px',
         }}>
           <div style={{
-            background: 'white',
+            background: 'var(--surface)',
             border: '1px solid var(--rule)',
             padding: '20px',
             textAlign: 'center',
@@ -126,7 +126,7 @@ export default async function DashboardPage({ params }: Props) {
             </p>
           </div>
           <div style={{
-            background: 'white',
+            background: 'var(--surface)',
             border: '1px solid var(--rule)',
             padding: '20px',
             textAlign: 'center',
