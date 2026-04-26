@@ -13,6 +13,13 @@ const AMENITIES = [
   'Private Bathroom',
   'WiFi',
   'Storage',
+  // Photography-specific (mapped to niche_attributes server-side; surfaced as
+  // filter facets on /portland/photo-studios). Listed here so a single form
+  // captures both general amenities and photo-equipment in one checklist.
+  'Cyc Wall',
+  'Green Screen',
+  'Product Photography Setup',
+  'Skylight / North-Facing Light',
 ]
 
 export default function ListYourSpacePage() {

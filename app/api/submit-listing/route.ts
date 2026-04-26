@@ -63,6 +63,23 @@ export async function POST(req: NextRequest) {
     const cleanEmail = String(email).trim().toLowerCase().slice(0, 200)
     const cleanHostName = host_name ? stripHtml(String(host_name)).slice(0, 100) : null
 
+    // Map photography-specific amenity labels to structured niche_attributes
+    // jsonb keys so the photo-studios filter UI can target them. General
+    // amenities stay in the amenities text[] for non-filter rendering.
+    const amenityList: string[] = Array.isArray(amenities) ? amenities : []
+    const nicheKeyMap: Record<string, string> = {
+      'Cyc Wall': 'cyc_wall',
+      'Green Screen': 'green_screen',
+      'Product Photography Setup': 'product_photography',
+      'Skylight / North-Facing Light': 'natural_light',
+      'Natural Light': 'natural_light',
+    }
+    const nicheAttrs: Record<string, boolean> = {}
+    for (const label of amenityList) {
+      const k = nicheKeyMap[label]
+      if (k) nicheAttrs[k] = true
+    }
+
     const { error } = await supabaseServer.from('listings').insert([{
       title: cleanTitle,
       description: cleanDescription,
@@ -71,7 +88,8 @@ export async function POST(req: NextRequest) {
       price_numeric: priceNum,
       price_display: `$${priceNum}/mo`,
       square_footage: square_footage ? Number(square_footage) : null,
-      amenities: Array.isArray(amenities) ? amenities : [],
+      amenities: amenityList,
+      niche_attributes: Object.keys(nicheAttrs).length > 0 ? nicheAttrs : null,
       submitted_by_email: cleanEmail,
       contact_email: cleanEmail,
       directory_id: process.env.NEXT_PUBLIC_DIRECTORY_ID || 'findstudiospace',
