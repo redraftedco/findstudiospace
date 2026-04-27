@@ -21,6 +21,7 @@ import Link from 'next/link'
 import { createClient } from '@supabase/supabase-js'
 import { qualityGate } from '@/lib/seo/qualityGate'
 import { robotsContent } from '@/lib/seo/robotsTag'
+import { hasAmenity, topAmenityOptions } from '@/lib/amenities'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -66,26 +67,6 @@ function photoRatio(listings: Listing[]): number {
   return listings.filter(l => Array.isArray(l.images) && l.images.length > 0).length / listings.length
 }
 
-function formatAmenityLabel(key: string): string {
-  return key.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
-}
-
-function amenityOptions(listings: Listing[]): { key: string; label: string; count: number }[] {
-  const counts = new Map<string, number>()
-  for (const listing of listings) {
-    const attrs = listing.niche_attributes
-    if (!attrs || typeof attrs !== 'object') continue
-    for (const [key, value] of Object.entries(attrs)) {
-      if (value === true) counts.set(key, (counts.get(key) ?? 0) + 1)
-    }
-  }
-
-  return Array.from(counts.entries())
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 12)
-    .map(([key, count]) => ({ key, count, label: formatAmenityLabel(key) }))
-}
-
 // ── Shared data loader ────────────────────────────────────────────────────────
 
 async function loadPageData(citySlug: string, segment: string, categorySlug: string) {
@@ -103,13 +84,16 @@ async function loadPageData(citySlug: string, segment: string, categorySlug: str
 
 // ── Metadata ──────────────────────────────────────────────────────────────────
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: PageProps): Promise<Metadata> {
   const { city: citySlug, segment, category: categorySlug } = await params
+  const { amenity } = await searchParams
   const data = await loadPageData(citySlug, segment, categorySlug)
   if (!data) return {}
 
   const { city, neighborhood, category } = data
-  const canonicalUrl = `${BASE}/${citySlug}/${segment}/${categorySlug}`
+  const canonicalUrl = amenity
+    ? `${BASE}/${citySlug}/${segment}/${categorySlug}?amenity=${encodeURIComponent(amenity)}`
+    : `${BASE}/${citySlug}/${segment}/${categorySlug}`
 
   // Count listings for quality gate
   const { data: catMappings } = await supabase
@@ -122,7 +106,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { data: rows } = ids.length > 0
     ? await supabase
         .from('listings')
-        .select('id, images')
+        .select('id, images, niche_attributes')
         .eq('city_id', city.id)
         .eq('status', 'active')
         .ilike('neighborhood', neighborhood.name)
@@ -130,7 +114,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         .limit(200)
     : { data: [] }
 
-  const listings = (rows ?? []) as Pick<Listing, 'id' | 'images'>[]
+  const baseListings = (rows ?? []) as Pick<Listing, 'id' | 'images' | 'niche_attributes'>[]
+  const listings = amenity
+    ? baseListings.filter((l) => hasAmenity(l.niche_attributes ?? null, amenity))
+    : baseListings
   const gate = qualityGate({
     listingCount: listings.length,
     photoRatio: photoRatio(listings as Listing[]),
@@ -181,9 +168,9 @@ export default async function IntersectionPage({ params, searchParams }: PagePro
     : { data: [] }
 
   const baseListings = (listingRows ?? []) as Listing[]
-  const amenityList = amenityOptions(baseListings)
+  const amenityList = topAmenityOptions(baseListings)
   const listings = amenity
-    ? baseListings.filter((listing) => listing.niche_attributes?.[amenity] === true)
+    ? baseListings.filter((listing) => hasAmenity(listing.niche_attributes, amenity))
     : baseListings
   const gate = qualityGate({
     listingCount: listings.length,
