@@ -2,7 +2,7 @@
 
 **Status:** Ready to send. BLOCKED on P0-A (physical mailing address for CAN-SPAM footer).
 **From:** hello@findstudiospace.com
-**Reply-to:** redraftedco@gmail.com (monitor here)
+**Reply-to:** PLATFORM_NOTIFY_EMAIL env var (set in .env.local and Vercel)
 **Goal per template is noted. Optimize for that goal only — don't stack goals.**
 
 ---

@@ -93,7 +93,7 @@ export async function POST(req: NextRequest) {
     // Lead routing policy:
     // - Pro listing with verified owner email => exclusive lead delivery.
     // - Free/unknown tier => shared delivery (host + platform copy).
-    const PLATFORM_EMAIL = 'redraftedco@gmail.com'
+    const PLATFORM_EMAIL = process.env.PLATFORM_NOTIFY_EMAIL ?? 'hello@findstudiospace.com'
     const recipientEmail = listing?.owner_email || listing?.contact_email || null
     const isProExclusive = listing?.tier === 'pro' && !!listing?.owner_email
     const leadRouteMode = isProExclusive ? 'exclusive' : 'shared'
