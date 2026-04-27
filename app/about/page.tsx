@@ -31,6 +31,10 @@ export default function AboutPage() {
     description:
       'An independent directory of monthly creative studio rentals in Portland, OR — photo studios, art studios, content studios, makerspaces, and event spaces.',
     foundingDate: '2026',
+    founder: {
+      '@type': 'Person',
+      name: 'Taylor',
+    },
     areaServed: {
       '@type': 'City',
       name: 'Portland',
@@ -209,7 +213,7 @@ export default function AboutPage() {
                 Independent and bootstrapped
               </h2>
               <p style={{ color: 'var(--stone)' }} className="text-sm leading-relaxed">
-                FindStudioSpace is independently operated. No outside investors, no parent company, no affiliate relationships with the platforms we&apos;re alternatives to. Listings are not paid placements unless explicitly marked as &quot;Featured&quot; under our Pro tier, which gives priority search placement to landlords paying a flat $29/month subscription. Featured listings are clearly distinguished from organic results.
+                FindStudioSpace was founded and is independently operated by Taylor, a Portland-based founder. No outside investors, no parent company, no affiliate relationships with the platforms we&apos;re alternatives to. Listings are not paid placements unless explicitly marked as &quot;Featured&quot; under our Pro tier, which gives priority search placement to landlords paying a flat $29/month subscription. Featured listings are clearly distinguished from organic results.
               </p>
             </section>
 
