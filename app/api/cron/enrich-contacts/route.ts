@@ -239,16 +239,25 @@ export async function GET(req: NextRequest) {
 
         const domain = new URL(origin).hostname.replace(/^www\./, '')
 
-        // ── Step 3: scrape homepage + /contact + /about in parallel ───────
-        const [homeResult, contactResult, aboutResult] = await Promise.allSettled([
-          fetchHtml(origin,                   listingController.signal),
-          fetchHtml(`${origin}/contact`,      listingController.signal),
-          fetchHtml(`${origin}/about`,        listingController.signal),
+        // ── Step 3: scrape homepage + contact paths in parallel ───────────
+        const [homeResult, contactResult, aboutResult,
+               bookingResult, rentalsResult, privateEventsResult,
+               hostResult, inquiriesResult] = await Promise.allSettled([
+          fetchHtml(origin,                        listingController.signal),
+          fetchHtml(`${origin}/contact`,           listingController.signal),
+          fetchHtml(`${origin}/about`,             listingController.signal),
+          fetchHtml(`${origin}/booking`,           listingController.signal),
+          fetchHtml(`${origin}/rentals`,           listingController.signal),
+          fetchHtml(`${origin}/private-events`,    listingController.signal),
+          fetchHtml(`${origin}/host`,              listingController.signal),
+          fetchHtml(`${origin}/inquiries`,         listingController.signal),
         ])
 
         // ── Step 4: extract and rank emails ──────────────────────────────
         const allEmails: string[] = []
-        for (const result of [homeResult, contactResult, aboutResult]) {
+        for (const result of [homeResult, contactResult, aboutResult,
+                               bookingResult, rentalsResult, privateEventsResult,
+                               hostResult, inquiriesResult]) {
           if (result.status === 'fulfilled' && result.value) {
             allEmails.push(...extractEmails(result.value))
           }

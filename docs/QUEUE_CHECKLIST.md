@@ -18,6 +18,32 @@
   - [ ] Run production data audit and export unclassified/edge-case listings (requires live DB run).
 
 ## Next in Queue
+
+- [ ] **Supply-acquisition scraper buildout** — prospector + enrichment + outreach pipeline.
+  Adds `acquisition_targets` table, Google Places `textsearch` cron, Yelp
+  Fusion cron (gated on `YELP_API_KEY`), Apollo email fallback, content
+  classifier, robots.txt + per-domain throttle, Apollo sequence push at
+  priority ≥70. Plan in `docs/fact-check-2026-04-26.md`.
+
+- [ ] **Footer mailing address (CAN-SPAM blocker)** — replace
+  `findstudiospace.com — Portland, OR` in `app/layout.tsx` with real UPS
+  Store / postal address. Runtime gate added by scraper buildout will
+  hard-fail outbound email until this is set. Required before sending any
+  cold outreach legally.
+
+- [ ] **Google Business Profile setup** — manual. Maps pack visibility for
+  "near me" searches (event 3.4K/mo, podcast 2K/mo, photo 1.4K/mo). 20 min
+  to create, 5–14 days for postcard verification.
+
+- [ ] **Podcast standalone page** at `/portland/podcast-studio` — covers
+  three BUILD-NOW keywords as one cluster:
+  - podcast studio near me — SV 2,000, KD 0, CPC $0.80, TP 4,100
+  - podcast studio rental near me — SV 250, KD 4, CPC $0.70, TP 500
+  - podcast recording studio near me — SV 150, KD 1, CPC $0.80, TP 400
+  Architectural decision: split out from `content-studios` pillar or keep
+  nested. Standalone page wins on page-level topical focus. Needs nav,
+  sitemap, internal links, FAQ schema, and category-mapping update.
+
 - [ ] **STEP X — Legal & Policy Compliance Audit (mandatory pre-check)** (full text stored in `docs/queue_items/step-x-legal-policy-compliance-audit.md`)
 - [ ] Schema completion pass:
   - [ ] Category pages `ItemList` JSON-LD
