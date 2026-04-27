@@ -59,7 +59,7 @@ export default function InquiryForm({ listingId }: Props) {
           lineHeight: 1.5,
         }}
       >
-        Message sent. The host typically responds within 48 hours.
+        Message sent. The host may respond by email.
       </div>
     )
   }
@@ -119,7 +119,7 @@ export default function InquiryForm({ listingId }: Props) {
           marginTop: '8px',
         }}
       >
-        Free to inquire. No commitment. Response typically within 48 hours.
+        Free to inquire. No commitment. Response times vary by host.
       </p>
     </form>
   )

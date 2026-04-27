@@ -1,6 +1,6 @@
 ## STEP Y — PLATFORM LEGAL HARDENING + TRUST SAFETY PASS
 
-Status: queued (Tier 1 starts immediately after queue insertion)
+Status: in progress (Tier 1 completed on April 27, 2026 UTC)
 
 Objective:
 Ship a full legal + UX risk-reduction pass before scale and before any monetization changes.

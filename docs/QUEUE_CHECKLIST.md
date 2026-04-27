@@ -17,7 +17,7 @@
   - [x] Use classifier for listing → category breadcrumb link.
   - [ ] Run production data audit and export unclassified/edge-case listings (requires live DB run).
 - [ ] **STEP Y — Platform legal hardening + trust safety pass** (Tier 1 started; full checklist in `docs/queue_items/step-y-platform-legal-hardening.md`)
-  - [ ] Tier 1 complete (Terms rewrite + liability cap + role clarity + assumption of risk + as-is clause)
+  - [x] Tier 1 complete (Terms rewrite + liability cap + role clarity + assumption of risk + as-is clause)
   - [ ] Tier 2 complete (listing disclaimers + verification labeling + no intermediary implication + inquiry expectation language)
   - [ ] Tier 3 complete (privacy/data-sharing disclosure + lead data security verification)
   - [ ] Tier 4 complete (copyright + takedown/update process + messaging authority audit)

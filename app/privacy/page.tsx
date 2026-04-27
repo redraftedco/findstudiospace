@@ -120,6 +120,10 @@ export default function PrivacyPage() {
             </li>
           </ul>
           <p className="text-base leading-relaxed mt-3">
+            When you submit an inquiry, your name, email, and message are shared with the listing
+            contact (studio owner/operator) so they can reply to you directly.
+          </p>
+          <p className="text-base leading-relaxed mt-3">
             We do not sell or rent email addresses. We do not use your email for marketing from third
             parties.
           </p>
