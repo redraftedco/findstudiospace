@@ -78,6 +78,55 @@ export default function ForLandlordsPage() {
         </div>
       </section>
 
+      {/* Section 1.5: Free Photography Offer (P2-A — caps at n=10) */}
+      <section
+        style={{
+          borderBottom: '1px solid var(--rule)',
+          background: 'var(--surface)',
+        }}
+        className="px-6"
+      >
+        <div className="mx-auto max-w-4xl py-14">
+          <p style={{
+            fontFamily: 'var(--font-mono)',
+            color: 'var(--lime)',
+            fontSize: '11px',
+            textTransform: 'uppercase',
+            letterSpacing: '0.12em',
+          }} className="mb-3">
+            Limited · First 10 landlords only
+          </p>
+          <h2 style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }} className="text-3xl font-semibold leading-tight sm:text-4xl">
+            Free professional photos for your space
+          </h2>
+          <p style={{ color: 'var(--stone)' }} className="mt-4 max-w-2xl text-base leading-relaxed">
+            Listings with professional photography get 3–5x more inquiries than phone snapshots. We&apos;re offering a free 1-hour photo shoot to the first 10 landlords who list — no strings, photos are yours to keep regardless of whether you upgrade to Pro.
+          </p>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <Link
+              href="/list-your-space"
+              className="btn-action inline-block px-6 py-3 text-sm font-medium"
+            >
+              Claim your free photos →
+            </Link>
+            <Link
+              href="#how-it-works"
+              style={{
+                border: '1px solid var(--rule)',
+                color: 'var(--ink)',
+                fontFamily: 'var(--font-mono)',
+              }}
+              className="inline-block px-6 py-3 text-xs uppercase tracking-wider hover:bg-[var(--paper)] transition-colors"
+            >
+              How it works
+            </Link>
+          </div>
+          <p style={{ color: 'var(--stone)', fontFamily: 'var(--font-mono)' }} className="mt-5 text-xs">
+            Submit your listing first — we&apos;ll reach out within 48 hours to schedule.
+          </p>
+        </div>
+      </section>
+
       <div className="mx-auto max-w-4xl space-y-20 px-6 py-16">
 
         {/* Section 2: Proof of Demand */}

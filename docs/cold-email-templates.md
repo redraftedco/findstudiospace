@@ -144,6 +144,40 @@ Reply "unsubscribe" to stop these emails.
 
 ---
 
+## Template F — Free photography offer (P2-A, caps at 10)
+
+**Use for:** First 10 landlord targets. After 10 claim, this template retires.
+**Goal:** Get them to submit a listing.
+
+**Subject:** `Free photo shoot for [Space Name]?`
+
+```
+Hi [First Name],
+
+I'm [Name], founder of FindStudioSpace — Portland's directory for monthly studio rentals.
+
+I'm offering a free 1-hour professional photo shoot to the first 10 landlords who list on the platform. Listings with professional photos get 3–5x more inquiries than phone snapshots. The photos are yours to keep — no strings, no requirement to upgrade.
+
+If you'd like to claim a slot, submit [Space Name] here and I'll reach out within 48 hours: findstudiospace.com/list-your-space
+
+— [Your Name]
+FindStudioSpace · findstudiospace.com
+1631 NE Broadway St, Portland, OR 97232-1425
+
+Reply "unsubscribe" to stop these emails.
+```
+
+**Why this converts:**
+- Concrete, scarce, free, no strings — strongest cold-outreach formula.
+- "First 10" creates urgency without pressure.
+- "3–5x more inquiries" is the proof of value.
+- "Photos are yours to keep" removes the lock-in objection.
+- Single CTA: submit listing. Don't ask for a meeting first.
+
+**Tracking:** Maintain a count of claims (max 10). When count hits 10, stop sending this template and revert to Template A. Update for-landlords page banner if exhausted.
+
+---
+
 ## Template E — Landlord referral (after first pro conversion)
 
 **Trigger:** Pro subscriber has been on platform 30+ days with no complaints.
