@@ -21,6 +21,7 @@ import Link from 'next/link'
 import { createClient } from '@supabase/supabase-js'
 import { qualityGate } from '@/lib/seo/qualityGate'
 import { robotsContent } from '@/lib/seo/robotsTag'
+import { hasAmenity, topAmenityOptions } from '@/lib/amenities'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -37,12 +38,14 @@ type Listing = {
   neighborhood: string | null
   type: string | null
   images: unknown[]
+  niche_attributes: Record<string, unknown> | null
   tier: string
   is_featured: boolean
 }
 
 type PageProps = {
   params: Promise<{ city: string; segment: string; category: string }>
+  searchParams: Promise<{ amenity?: string }>
 }
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
@@ -81,13 +84,16 @@ async function loadPageData(citySlug: string, segment: string, categorySlug: str
 
 // ── Metadata ──────────────────────────────────────────────────────────────────
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: PageProps): Promise<Metadata> {
   const { city: citySlug, segment, category: categorySlug } = await params
+  const { amenity } = await searchParams
   const data = await loadPageData(citySlug, segment, categorySlug)
   if (!data) return {}
 
   const { city, neighborhood, category } = data
-  const canonicalUrl = `${BASE}/${citySlug}/${segment}/${categorySlug}`
+  const canonicalUrl = amenity
+    ? `${BASE}/${citySlug}/${segment}/${categorySlug}?amenity=${encodeURIComponent(amenity)}`
+    : `${BASE}/${citySlug}/${segment}/${categorySlug}`
 
   // Count listings for quality gate
   const { data: catMappings } = await supabase
@@ -100,7 +106,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { data: rows } = ids.length > 0
     ? await supabase
         .from('listings')
-        .select('id, images')
+        .select('id, images, niche_attributes')
         .eq('city_id', city.id)
         .eq('status', 'active')
         .ilike('neighborhood', neighborhood.name)
@@ -108,7 +114,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         .limit(200)
     : { data: [] }
 
-  const listings = (rows ?? []) as Pick<Listing, 'id' | 'images'>[]
+  const baseListings = (rows ?? []) as Pick<Listing, 'id' | 'images' | 'niche_attributes'>[]
+  const listings = amenity
+    ? baseListings.filter((l) => hasAmenity(l.niche_attributes ?? null, amenity))
+    : baseListings
   const gate = qualityGate({
     listingCount: listings.length,
     photoRatio: photoRatio(listings as Listing[]),
@@ -129,8 +138,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 // ── Page ──────────────────────────────────────────────────────────────────────
 
-export default async function IntersectionPage({ params }: PageProps) {
+export default async function IntersectionPage({ params, searchParams }: PageProps) {
   const { city: citySlug, segment, category: categorySlug } = await params
+  const { amenity } = await searchParams
   const data = await loadPageData(citySlug, segment, categorySlug)
   if (!data) notFound()
 
@@ -147,7 +157,7 @@ export default async function IntersectionPage({ params }: PageProps) {
   const { data: listingRows } = ids.length > 0
     ? await supabase
         .from('listings')
-        .select('id, title, price_display, price_numeric, neighborhood, type, images, tier, is_featured')
+        .select('id, title, price_display, price_numeric, neighborhood, type, images, niche_attributes, tier, is_featured')
         .eq('city_id', city.id)
         .eq('status', 'active')
         .ilike('neighborhood', neighborhood.name)
@@ -157,7 +167,11 @@ export default async function IntersectionPage({ params }: PageProps) {
         .limit(200)
     : { data: [] }
 
-  const listings = (listingRows ?? []) as Listing[]
+  const baseListings = (listingRows ?? []) as Listing[]
+  const amenityList = topAmenityOptions(baseListings)
+  const listings = amenity
+    ? baseListings.filter((listing) => hasAmenity(listing.niche_attributes, amenity))
+    : baseListings
   const gate = qualityGate({
     listingCount: listings.length,
     photoRatio: photoRatio(listings),
@@ -221,6 +235,32 @@ export default async function IntersectionPage({ params }: PageProps) {
           <p style={{ fontFamily: 'var(--font-body)', color: 'var(--stone)', fontSize: '1rem', lineHeight: 1.6, maxWidth: '640px', marginBottom: '2.5rem' }}>
             {intro}
           </p>
+
+          {amenityList.length > 0 && (
+            <div className="mb-6 flex flex-wrap gap-2">
+              {amenityList.map((item) => {
+                const active = amenity === item.key
+                return (
+                  <Link
+                    key={item.key}
+                    href={active ? `/${citySlug}/${segment}/${categorySlug}` : `/${citySlug}/${segment}/${categorySlug}?amenity=${item.key}`}
+                    style={{
+                      border: '1px solid var(--rule)',
+                      background: active ? 'var(--ink)' : 'var(--surface)',
+                      color: active ? 'var(--paper)' : 'var(--ink)',
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '0.72rem',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em',
+                      padding: '6px 10px',
+                    }}
+                  >
+                    {item.label} ({item.count})
+                  </Link>
+                )
+              })}
+            </div>
+          )}
 
           {/* Dev quality gate notice */}
           {!gate.indexable && process.env.NODE_ENV !== 'production' && (

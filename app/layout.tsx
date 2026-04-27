@@ -101,7 +101,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   FindStudioSpace
                 </p>
                 <p style={{ fontFamily: 'var(--font-mono)', lineHeight: 1.6 }} className="text-xs">
-                  Portland&apos;s creative studio directory.
+                  Lead-generation platform for Portland creative spaces.
                 </p>
                 <p style={{ fontFamily: 'var(--font-mono)' }} className="text-xs mt-3">
                   findstudiospace.com — Portland, OR

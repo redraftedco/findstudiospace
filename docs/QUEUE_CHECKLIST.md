@@ -16,8 +16,17 @@
   - [x] Use classifier on pillar category pages.
   - [x] Use classifier for listing → category breadcrumb link.
   - [ ] Run production data audit and export unclassified/edge-case listings (requires live DB run).
+- [ ] **STEP Y — Platform legal hardening + trust safety pass** (Tier 1 started; full checklist in `docs/queue_items/step-y-platform-legal-hardening.md`)
+  - [x] Tier 1 complete (Terms rewrite + liability cap + role clarity + assumption of risk + as-is clause)
+  - [ ] Tier 2 complete (listing disclaimers + verification labeling + no intermediary implication + inquiry expectation language)
+  - [ ] Tier 3 complete (privacy/data-sharing disclosure + lead data security verification)
+  - [ ] Tier 4 complete (copyright + takedown/update process + messaging authority audit)
+  - [ ] Tier 5 complete (monetization/legal alignment)
+  - [ ] Tier 6 complete (route cleanup + footer legal links + end-to-end journey QA)
 
 ## Next in Queue
+
+- [ ] **Master architecture action list execution** — run from `docs/action-list-master-playbook.md` in phase order (Phase 0 → Phase 4), with weekly KPI checkpointing.
 
 - [ ] **Supply-acquisition scraper buildout** — prospector + enrichment + outreach pipeline.
   Adds `acquisition_targets` table, Google Places `textsearch` cron, Yelp
@@ -45,6 +54,7 @@
   sitemap, internal links, FAQ schema, and category-mapping update.
 
 - [ ] **STEP X — Legal & Policy Compliance Audit (mandatory pre-check)** (full text stored in `docs/queue_items/step-x-legal-policy-compliance-audit.md`)
+- [ ] **STEP Y — Platform legal hardening + trust safety pass** (full text stored in `docs/queue_items/step-y-platform-legal-hardening.md`)
 - [ ] Schema completion pass:
   - [ ] Category pages `ItemList` JSON-LD
   - [ ] Listing pages `LocalBusiness` JSON-LD field audit (no empty/null keys)

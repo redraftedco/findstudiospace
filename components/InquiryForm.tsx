@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 
-type Props = { listingId: string; listingTitle: string }
+type Props = { listingId: string }
 
 export default function InquiryForm({ listingId }: Props) {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
@@ -16,14 +16,7 @@ export default function InquiryForm({ listingId }: Props) {
     setStatus('submitting')
     if (startedAt.current === null) startedAt.current = Date.now()
     const form = e.currentTarget
-    const moveIn = (form.elements.namedItem('move_in') as HTMLInputElement).value.trim()
     const userMessage = (form.elements.namedItem('message') as HTMLTextAreaElement).value
-
-    // Preferred move-in is display-only in the UI; append to the message body
-    // so the host sees it without requiring an API-level schema change.
-    const composedMessage = moveIn
-      ? `${userMessage}\n\nPreferred move-in: ${moveIn}`
-      : userMessage
 
     try {
       const res = await fetch('/api/lead-inquiries', {
@@ -33,7 +26,7 @@ export default function InquiryForm({ listingId }: Props) {
           listing_id: listingId,
           name: (form.elements.namedItem('name') as HTMLInputElement).value,
           email: (form.elements.namedItem('email') as HTMLInputElement).value,
-          message: composedMessage,
+          message: userMessage,
           website: (form.elements.namedItem('website') as HTMLInputElement).value,
           form_started_at: startedAt.current,
           utm_source: searchParams.get('utm_source') || undefined,
@@ -66,7 +59,7 @@ export default function InquiryForm({ listingId }: Props) {
           lineHeight: 1.5,
         }}
       >
-        Message sent. The host typically responds within 48 hours.
+        Message sent. The host may respond by email.
       </div>
     )
   }
@@ -83,12 +76,6 @@ export default function InquiryForm({ listingId }: Props) {
         placeholder="Your email"
         autoComplete="email"
         inputMode="email"
-        className="input"
-      />
-      <input
-        name="move_in"
-        type="text"
-        placeholder="Preferred move-in (e.g. Flexible)"
         className="input"
       />
       <textarea
@@ -132,7 +119,7 @@ export default function InquiryForm({ listingId }: Props) {
           marginTop: '8px',
         }}
       >
-        Free to inquire. No commitment. Response typically within 48 hours.
+        Free to inquire. No commitment. Response times vary by host.
       </p>
     </form>
   )

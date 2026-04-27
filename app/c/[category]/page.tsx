@@ -19,6 +19,7 @@ import Link from 'next/link'
 import { createClient } from '@supabase/supabase-js'
 import { qualityGate } from '@/lib/seo/qualityGate'
 import { robotsContent } from '@/lib/seo/robotsTag'
+import { hasAmenity, topAmenityOptions } from '@/lib/amenities'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -36,12 +37,14 @@ type Listing = {
   city: string | null
   type: string | null
   images: unknown[]
+  niche_attributes: Record<string, unknown> | null
   tier: string
   is_featured: boolean
 }
 
 type PageProps = {
   params: Promise<{ category: string }>
+  searchParams: Promise<{ amenity?: string }>
 }
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
@@ -65,8 +68,9 @@ function photoRatio(listings: Listing[]): number {
 
 // ── Metadata ──────────────────────────────────────────────────────────────────
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: PageProps): Promise<Metadata> {
   const { category: categorySlug } = await params
+  const { amenity } = await searchParams
 
   const { data: category } = await supabase
     .from('categories')
@@ -86,21 +90,26 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { data: rows } = ids.length > 0
     ? await supabase
         .from('listings')
-        .select('id, images')
+        .select('id, images, niche_attributes')
         .eq('status', 'active')
         .eq('indexable', true)
         .in('id', ids)
         .limit(200)
     : { data: [] }
 
-  const listings = (rows ?? []) as Pick<Listing, 'id' | 'images'>[]
+  const baseListings = (rows ?? []) as Pick<Listing, 'id' | 'images' | 'niche_attributes'>[]
+  const listings = amenity
+    ? baseListings.filter((l) => hasAmenity(l.niche_attributes ?? null, amenity))
+    : baseListings
   const gate = qualityGate({
     listingCount: listings.length,
     photoRatio: photoRatio(listings as Listing[]),
     cityIndexable: true,
   })
 
-  const canonicalUrl = `${BASE}/c/${categorySlug}`
+  const canonicalUrl = amenity
+    ? `${BASE}/c/${categorySlug}?amenity=${encodeURIComponent(amenity)}`
+    : `${BASE}/c/${categorySlug}`
   const title = `${category.plural_name} for Rent | FindStudioSpace`
   const description = `Browse ${listings.length} ${category.plural_name.toLowerCase()} available for monthly rent across all cities. No brokers, no long-term leases.`
 
@@ -115,8 +124,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 // ── Page ──────────────────────────────────────────────────────────────────────
 
-export default async function NationalCategoryPage({ params }: PageProps) {
+export default async function NationalCategoryPage({ params, searchParams }: PageProps) {
   const { category: categorySlug } = await params
+  const { amenity } = await searchParams
 
   const { data: category } = await supabase
     .from('categories')
@@ -137,7 +147,7 @@ export default async function NationalCategoryPage({ params }: PageProps) {
   const { data: listingRows } = ids.length > 0
     ? await supabase
         .from('listings')
-        .select('id, title, price_display, price_numeric, neighborhood, city, type, images, tier, is_featured')
+        .select('id, title, price_display, price_numeric, neighborhood, city, type, images, niche_attributes, tier, is_featured')
         .eq('status', 'active')
         .eq('indexable', true)
         .in('id', ids)
@@ -146,7 +156,11 @@ export default async function NationalCategoryPage({ params }: PageProps) {
         .limit(200)
     : { data: [] }
 
-  const listings = (listingRows ?? []) as Listing[]
+  const baseListings = (listingRows ?? []) as Listing[]
+  const amenityList = topAmenityOptions(baseListings)
+  const listings = amenity
+    ? baseListings.filter((listing) => hasAmenity(listing.niche_attributes, amenity))
+    : baseListings
   const gate = qualityGate({
     listingCount: listings.length,
     photoRatio: photoRatio(listings),
@@ -207,6 +221,32 @@ export default async function NationalCategoryPage({ params }: PageProps) {
           <p style={{ fontFamily: 'var(--font-body)', color: 'var(--stone)', fontSize: '1rem', lineHeight: 1.6, maxWidth: '640px', marginBottom: '2.5rem' }}>
             {intro}
           </p>
+
+          {amenityList.length > 0 && (
+            <div className="mb-6 flex flex-wrap gap-2">
+              {amenityList.map((item) => {
+                const active = amenity === item.key
+                return (
+                  <Link
+                    key={item.key}
+                    href={active ? `/c/${categorySlug}` : `/c/${categorySlug}?amenity=${item.key}`}
+                    style={{
+                      border: '1px solid var(--rule)',
+                      background: active ? 'var(--ink)' : 'var(--surface)',
+                      color: active ? 'var(--paper)' : 'var(--ink)',
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '0.72rem',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em',
+                      padding: '6px 10px',
+                    }}
+                  >
+                    {item.label} ({item.count})
+                  </Link>
+                )
+              })}
+            </div>
+          )}
 
           {/* Dev quality gate notice */}
           {!gate.indexable && process.env.NODE_ENV !== 'production' && (

@@ -68,6 +68,7 @@ export default function ListingCard({ listing }: Props) {
   const typeLabel = TYPE_LABEL[typeKey] ?? listing.type ?? ''
   const priceFormatted = formatPrice(listing.price_display)
   const isPro = listing.tier === 'pro'
+  const verificationLabel = isPro ? 'Verified listing' : 'Unverified listing'
 
   return (
     <Link
@@ -155,6 +156,19 @@ export default function ListingCard({ listing }: Props) {
           }}
         >
           {priceFormatted ?? 'Price on request'}
+        </p>
+        <p
+          style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.68rem',
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+            color: 'var(--stone)',
+            marginTop: '6px',
+            marginBottom: 0,
+          }}
+        >
+          {verificationLabel}
         </p>
       </div>
     </Link>

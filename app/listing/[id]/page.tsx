@@ -132,6 +132,7 @@ export default async function ListingPage({ params, searchParams }: Props) {
   const studioName = listing.title ?? 'this listing'
   const neighborhood = listing.neighborhood ?? 'Portland'
   const isFree = (listing.tier ?? 'free') !== 'pro'
+  const isVerified = listing.tier === 'pro'
 
   // JSON-LD — LocalBusiness. Conditional rendering of every nullable field;
   // empty/undefined keys removed at the end. Google flags incomplete schema
@@ -283,6 +284,19 @@ export default async function ListingPage({ params, searchParams }: Props) {
                 <span>{listing.square_footage.toLocaleString('en-US')} SF</span>
               </>
             )}
+          </p>
+
+          <p
+            style={{
+              margin: '0 0 1.25rem',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.72rem',
+              textTransform: 'uppercase',
+              letterSpacing: '0.08em',
+              color: 'var(--stone)',
+            }}
+          >
+            Listing status: {isVerified ? 'Verified listing' : 'Unverified listing'} · FindStudioSpace is a lead-generation platform, not a broker.
           </p>
 
           <ViewCounter listingId={String(listing.id)} tier={listing.tier ?? 'free'} />
@@ -518,7 +532,23 @@ export default async function ListingPage({ params, searchParams }: Props) {
               >
                 per month
               </p>
-              <InquiryForm listingId={String(listing.id)} listingTitle={studioName} />
+              <InquiryForm listingId={String(listing.id)} />
+
+              <div
+                style={{
+                  border: '1px solid var(--rule)',
+                  background: 'var(--surface)',
+                  padding: '12px',
+                  marginTop: '12px',
+                  color: 'var(--stone)',
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '0.8rem',
+                  lineHeight: 1.55,
+                }}
+              >
+                Listing information is provided by the owner/operator or public sources and may change.
+                Please verify availability, pricing, permits, and fit before entering any agreement.
+              </div>
 
               {isFree && <ProUpsell listingId={String(listing.id)} />}
             </aside>
