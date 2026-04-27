@@ -8,12 +8,12 @@ This converts the strategy playbook into a prioritized, operator-ready checklist
 
 ## Phase 0 (Today–72 hours): Stabilize trust + conversion baseline
 
-- [ ] Add listing-page trust block everywhere (owner-supplied data, verify before transacting).
-- [ ] Add explicit listing status labels (`Verified` vs `Unverified`) across listing cards and detail pages.
-- [ ] Remove/replace any copy implying guaranteed outcomes (response times, booking certainty).
-- [ ] Audit all placeholder/missing listing images and patch top 25 traffic listings first.
-- [ ] Publish clear landlord pricing details and feature matrix on public pages.
-- [ ] Confirm footer legal links (`/terms`, `/privacy`) are present and crawlable on all routes.
+- [x] Add listing-page trust block everywhere (owner-supplied data, verify before transacting).
+- [x] Add explicit listing status labels (`Verified` vs `Unverified`) across listing cards and detail pages.
+- [x] Remove/replace any copy implying guaranteed outcomes (response times, booking certainty).
+- [ ] Audit all placeholder/missing listing images and patch top 25 traffic listings first. *(Audit script added: `scripts/audit-listing-images.mjs`; requires production Supabase env vars to run.)*
+- [x] Publish clear landlord pricing details and feature matrix on public pages.
+- [x] Confirm footer legal links (`/terms`, `/privacy`) are present and crawlable on all routes.
 
 **KPIs**
 - Listing-to-inquiry conversion rate > current baseline

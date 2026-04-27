@@ -280,6 +280,35 @@ export default function ForLandlordsPage() {
             </div>
 
           </div>
+
+          <div style={{ border: '1px solid var(--rule)', background: 'var(--surface)' }} className="mt-8 overflow-x-auto">
+            <table className="w-full min-w-[620px]" style={{ borderCollapse: 'collapse' }}>
+              <thead>
+                <tr style={{ borderBottom: '1px solid var(--rule)' }}>
+                  <th style={{ fontFamily: 'var(--font-mono)', color: 'var(--stone)' }} className="px-4 py-3 text-left text-xs uppercase">Feature</th>
+                  <th style={{ fontFamily: 'var(--font-mono)', color: 'var(--stone)' }} className="px-4 py-3 text-left text-xs uppercase">Free</th>
+                  <th style={{ fontFamily: 'var(--font-mono)', color: 'var(--stone)' }} className="px-4 py-3 text-left text-xs uppercase">Pro</th>
+                  <th style={{ fontFamily: 'var(--font-mono)', color: 'var(--stone)' }} className="px-4 py-3 text-left text-xs uppercase">Done-for-you</th>
+                </tr>
+              </thead>
+              <tbody style={{ color: 'var(--stone)' }}>
+                {[
+                  ['Monthly price', '$0', '$29/month', '$149 one-time setup'],
+                  ['Listing placement', 'Standard', 'Featured placement', 'Built for you, then Free/Pro'],
+                  ['Photo limit', 'Up to 5', 'Up to 15', 'We organize and optimize photos'],
+                  ['Analytics', 'Basic', 'Monthly digest + dashboard', 'Included setup guidance'],
+                  ['Support level', 'Self-serve', 'Priority visibility', 'Hands-on onboarding in 48h'],
+                ].map((row) => (
+                  <tr key={row[0]} style={{ borderTop: '1px solid var(--rule)' }}>
+                    <td className="px-4 py-3 text-sm" style={{ color: 'var(--ink)' }}>{row[0]}</td>
+                    <td className="px-4 py-3 text-sm">{row[1]}</td>
+                    <td className="px-4 py-3 text-sm">{row[2]}</td>
+                    <td className="px-4 py-3 text-sm">{row[3]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </section>
 
       </div>
