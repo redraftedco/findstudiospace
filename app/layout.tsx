@@ -41,10 +41,23 @@ export const metadata: Metadata = {
   },
 }
 
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'FindStudioSpace',
+  url: 'https://www.findstudiospace.com',
+  description: 'Portland\'s creative studio directory — find and book photo studios, art studios, podcast studios, event spaces, makerspaces, and creative workspace.',
+  sameAs: [],
+}
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${bebasNeue.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
         <PostHogProvider>
         <Suspense fallback={null}><UTMCapture /></Suspense>
         <header style={{ borderBottom: '1px solid var(--rule)', background: 'var(--paper)' }} className="px-6 py-4">

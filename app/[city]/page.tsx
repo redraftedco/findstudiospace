@@ -78,7 +78,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const staticConfig = CITY_CONFIG[citySlug]
 
   if (staticConfig) {
-    return { title: staticConfig.title, description: staticConfig.description }
+    return {
+      title: staticConfig.title,
+      description: staticConfig.description,
+      alternates: { canonical: `https://www.findstudiospace.com/${citySlug}` },
+    }
   }
 
   // DB fallback for dynamic cities
@@ -93,6 +97,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `Find Studio Space in ${dbCity.name}, ${dbCity.state} | FindStudioSpace`,
     description: `Browse monthly studio rentals in ${dbCity.name} — art studios, workshops, offices, photo studios, and creative spaces for makers and producers.`,
+    alternates: { canonical: `https://www.findstudiospace.com/${citySlug}` },
     robots: robotsContent(dbCity.is_indexable),
   }
 }
@@ -192,6 +197,28 @@ function CityPageUI({
   isIndexable: boolean
 }) {
 
+  // LocalBusiness — Portland only. Signals to Google Maps / Knowledge Panel that
+  // findstudiospace.com is a Portland-area business. Omit street address
+  // intentionally (privacy); city+state satisfies schema.org requirements.
+  const localBusinessSchema = citySlug === 'portland' ? {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: 'FindStudioSpace',
+    description: 'Portland\'s creative studio rental directory — photo studios, event space, podcast studios, makerspace, and creative workspace.',
+    url: 'https://www.findstudiospace.com/portland',
+    areaServed: {
+      '@type': 'City',
+      name: 'Portland',
+      sameAs: 'https://en.wikipedia.org/wiki/Portland,_Oregon',
+    },
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Portland',
+      addressRegion: 'OR',
+      addressCountry: 'US',
+    },
+  } : null
+
   const websiteSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
@@ -250,6 +277,12 @@ function CityPageUI({
     <>
       {!isIndexable && (
         <meta name="robots" content="noindex, follow" />
+      )}
+      {localBusinessSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+        />
       )}
       <script
         type="application/ld+json"
