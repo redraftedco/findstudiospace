@@ -39,7 +39,10 @@ const PLACEHOLDER_PATTERNS = [
  * Call this at the top of every function that sends outbound email.
  */
 export function assertCanSpamCompliant(): void {
+  // Fallback matches the address already used in monthly-digest (POSTAL_ADDRESS).
+  // Set MAILING_ADDRESS in Vercel env vars to override with a different address.
   const address = process.env.MAILING_ADDRESS?.trim()
+    ?? 'FindStudioSpace, 1631 NE Broadway St, Portland, OR 97232-1425'
 
   if (!address) {
     throw new Error(
