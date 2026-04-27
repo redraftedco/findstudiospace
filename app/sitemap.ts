@@ -36,6 +36,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/blog/art-studio-rental-guide-portland`,         lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE}/blog/photo-studio-rental-portland`,             lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/for-landlords`,                                 lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE}/done-for-you`,                                  lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
   ]
 
   // City hub pages — one per indexable city

@@ -73,18 +73,19 @@ function buildEmail(args: {
   const inquiriesLabel = inquiries30d === 1 ? 'inquiry' : 'inquiries'
 
   // CTA block differs by tier
+  const trialLine = 'Want more views? Pro placement puts you at the top of every search. Start your 30-day free trial.'
   const ctaText = isPro
     ? `View your dashboard: ${dashboardUrl}`
     : [
         `View your listing: ${SITE_URL}/listing/${listingId}`,
         '',
-        `Upgrade to Pro for featured placement and priority search ranking: ${upgradeUrl}`,
+        `${trialLine} ${upgradeUrl}`,
       ].join('\n')
 
   const ctaHtml = isPro
     ? `<p style="font-size:14px;margin:0 0 12px;"><a href="${dashboardUrl}" style="color:#1A6B3C;text-decoration:none;">View your dashboard →</a></p>`
     : `<p style="font-size:14px;margin:0 0 8px;"><a href="${SITE_URL}/listing/${listingId}" style="color:#1A6B3C;text-decoration:none;">View your listing →</a></p>
-<p style="font-size:14px;margin:0 0 24px;padding:12px 16px;background:#F5F5F0;border-left:3px solid #1A6B3C;">Upgrade to <strong>Pro</strong> for featured placement and priority search ranking. <a href="${upgradeUrl}" style="color:#1A6B3C;text-decoration:none;">See plans →</a></p>`
+<p style="font-size:14px;margin:0 0 24px;padding:12px 16px;background:#F5F5F0;border-left:3px solid #1A6B3C;">${trialLine} <a href="${upgradeUrl}" style="color:#1A6B3C;text-decoration:none;">Start trial →</a></p>`
 
   const postalLine = POSTAL_ADDRESS
     ? `<p style="font-size:11px;color:#6E7582;margin:4px 0 0;">${escapeHtml(POSTAL_ADDRESS)}</p>`

@@ -63,13 +63,20 @@ export default function ForLandlordsPage() {
           <p style={{ color: 'var(--stone)' }} className="mt-5 max-w-2xl text-base leading-relaxed">
             List your space free. Get real inquiries from artists, makers, musicians, and producers searching right now.
           </p>
-          <div className="mt-8">
+          <div className="mt-8 flex flex-wrap gap-3">
             <Link
               href="/list-your-space"
               style={{ width: 'auto' }}
               className="btn-action inline-block px-6 py-3 text-sm font-medium"
             >
               List Your Space Free →
+            </Link>
+            <Link
+              href="/done-for-you"
+              style={{ border: '1px solid var(--rule)', color: 'var(--ink)' }}
+              className="inline-block px-6 py-3 text-xs uppercase tracking-wider"
+            >
+              Need setup help? See done-for-you
             </Link>
           </div>
           <p style={{ color: 'var(--stone)', fontFamily: 'var(--font-mono)' }} className="mt-5 text-xs">

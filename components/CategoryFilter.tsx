@@ -13,16 +13,36 @@ type Listing = {
   description: string | null
   created_at: string | null
   tier: string | null
+  niche_attributes?: Record<string, unknown> | null
 }
 
 type Props = {
   listings: Listing[]
 }
 
+type AmenityOption = {
+  key: string
+  label: string
+}
+
+const AMENITY_LABELS: Record<string, string> = {
+  cyc_wall: 'Cyc Wall',
+  natural_light: 'Natural Light',
+  green_screen: 'Green Screen',
+  product_photography: 'Product Photography',
+  self_service: 'Self-Service',
+  photo_shoot_friendly: 'Photo Shoot Friendly',
+}
+
+function formatAmenityLabel(key: string): string {
+  return AMENITY_LABELS[key] ?? key.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
+}
+
 export default function CategoryFilter({ listings }: Props) {
   const [neighborhood, setNeighborhood] = useState('')
   const [minPrice, setMinPrice] = useState('')
   const [maxPrice, setMaxPrice] = useState('')
+  const [amenity, setAmenity] = useState('')
 
   const neighborhoods = useMemo(() => {
     const set = new Set<string>()
@@ -30,6 +50,24 @@ export default function CategoryFilter({ listings }: Props) {
       if (l.neighborhood) set.add(l.neighborhood)
     }
     return Array.from(set).sort()
+  }, [listings])
+
+  const amenities = useMemo(() => {
+    const counts = new Map<string, number>()
+    for (const listing of listings) {
+      const attrs = listing.niche_attributes
+      if (!attrs || typeof attrs !== 'object') continue
+      for (const [key, value] of Object.entries(attrs)) {
+        if (value === true) {
+          counts.set(key, (counts.get(key) ?? 0) + 1)
+        }
+      }
+    }
+
+    return Array.from(counts.entries())
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 12)
+      .map(([key]) => ({ key, label: formatAmenityLabel(key) } satisfies AmenityOption))
   }, [listings])
 
   const filtered = useMemo(() => {
@@ -42,11 +80,15 @@ export default function CategoryFilter({ listings }: Props) {
         if (minPrice && price < Number(minPrice)) return false
         if (maxPrice && price > Number(maxPrice)) return false
       }
+      if (amenity) {
+        const attrs = l.niche_attributes
+        if (!attrs || attrs[amenity] !== true) return false
+      }
       return true
     })
-  }, [listings, neighborhood, minPrice, maxPrice])
+  }, [listings, neighborhood, minPrice, maxPrice, amenity])
 
-  const hasFilters = neighborhood || minPrice || maxPrice
+  const hasFilters = neighborhood || minPrice || maxPrice || amenity
 
   return (
     <>
@@ -122,7 +164,7 @@ export default function CategoryFilter({ listings }: Props) {
 
         {hasFilters && (
           <button
-            onClick={() => { setNeighborhood(''); setMinPrice(''); setMaxPrice('') }}
+            onClick={() => { setNeighborhood(''); setMinPrice(''); setMaxPrice(''); setAmenity('') }}
             style={{ color: 'var(--stone)', fontFamily: 'var(--font-mono)' }}
             className="text-xs underline hover:text-[var(--ink)] self-end pb-1"
           >
@@ -134,6 +176,33 @@ export default function CategoryFilter({ listings }: Props) {
           {filtered.length} {filtered.length === 1 ? 'space' : 'spaces'}
         </p>
       </div>
+
+      {amenities.length > 0 && (
+        <div className="mb-6 flex flex-wrap gap-2">
+          {amenities.map((item) => {
+            const active = amenity === item.key
+            return (
+              <button
+                key={item.key}
+                type="button"
+                onClick={() => setAmenity(active ? '' : item.key)}
+                style={{
+                  border: '1px solid var(--rule)',
+                  background: active ? 'var(--ink)' : 'var(--surface)',
+                  color: active ? 'var(--paper)' : 'var(--ink)',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.72rem',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em',
+                  padding: '6px 10px',
+                }}
+              >
+                {item.label}
+              </button>
+            )
+          })}
+        </div>
+      )}
 
       {/* Grid */}
       {filtered.length > 0 ? (
