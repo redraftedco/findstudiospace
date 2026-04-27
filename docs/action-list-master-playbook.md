@@ -120,11 +120,11 @@ This converts the strategy playbook into a prioritized, operator-ready checklist
 - [ ] Ensure host-directed pricing to avoid prohibited algorithmic coordination risks.
 
 ### Security engineering
-- [ ] Add/verify hardened security headers and CSP policy.
-- [ ] Enforce edge auth/rate limits on sensitive routes.
+- [x] Add/verify hardened security headers and CSP policy.
+- [x] Enforce edge auth/rate limits on sensitive routes.
 - [ ] Validate all server actions/API inputs with strict schemas.
 - [ ] Confirm Supabase RLS coverage on all multi-tenant tables.
-- [ ] Verify Stripe webhook signatures and secret isolation.
+- [x] Verify Stripe webhook signatures and secret isolation.
 
 **Security KPIs**
 - 100% protected table RLS coverage
