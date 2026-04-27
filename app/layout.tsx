@@ -128,6 +128,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   Company
                 </p>
                 <div className="flex flex-col gap-2">
+                  <Link href="/about" className="hover:underline">About</Link>
                   <Link href="/submit" className="hover:underline">Submit Your Studio</Link>
                   <Link href="/claim" className="hover:underline">Claim a Listing</Link>
                   <Link href="/blog" className="hover:underline">Resources</Link>
