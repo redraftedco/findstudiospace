@@ -26,6 +26,8 @@
 
 ## Next in Queue
 
+- [ ] **Master architecture action list execution** — run from `docs/action-list-master-playbook.md` in phase order (Phase 0 → Phase 4), with weekly KPI checkpointing.
+
 - [ ] **Supply-acquisition scraper buildout** — prospector + enrichment + outreach pipeline.
   Adds `acquisition_targets` table, Google Places `textsearch` cron, Yelp
   Fusion cron (gated on `YELP_API_KEY`), Apollo email fallback, content
