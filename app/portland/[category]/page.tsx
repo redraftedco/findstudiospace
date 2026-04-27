@@ -207,6 +207,28 @@ export default async function CategoryPage({ params, searchParams }: Props) {
     })),
   }
 
+  // ItemList — gives Google an explicit structured list of every listing on the
+  // page so each pillar/category surface emits a discovery manifest. Capped at
+  // 100 per Google's crawl-budget guidance; sort matches what users see (featured
+  // first, newest second). When amenity filter is active, list reflects the
+  // filtered subset so schema matches rendered content.
+  const itemListCap = 100
+  const itemListRows = listings.slice(0, itemListCap)
+  const itemListName = amenityMeta
+    ? `${config.h1} · ${amenityMeta.label}`
+    : config.h1
+  const itemListSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: itemListName,
+    numberOfItems: itemListRows.length,
+    itemListElement: itemListRows.map((listing, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `https://www.findstudiospace.com/listing/${listing.id}`,
+    })),
+  }
+
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -255,6 +277,12 @@ export default async function CategoryPage({ params, searchParams }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
+      {itemListRows.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+        />
+      )}
 
       <main style={{ background: 'var(--paper)', color: 'var(--ink)' }} className="min-h-screen">
         <div className="mx-auto max-w-4xl px-6 py-10">
