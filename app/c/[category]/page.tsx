@@ -36,12 +36,14 @@ type Listing = {
   city: string | null
   type: string | null
   images: unknown[]
+  niche_attributes: Record<string, unknown> | null
   tier: string
   is_featured: boolean
 }
 
 type PageProps = {
   params: Promise<{ category: string }>
+  searchParams: Promise<{ amenity?: string }>
 }
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
@@ -61,6 +63,26 @@ function priceRange(listings: Listing[]): string | null {
 function photoRatio(listings: Listing[]): number {
   if (listings.length === 0) return 0
   return listings.filter(l => Array.isArray(l.images) && l.images.length > 0).length / listings.length
+}
+
+function formatAmenityLabel(key: string): string {
+  return key.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
+}
+
+function amenityOptions(listings: Listing[]): { key: string; label: string; count: number }[] {
+  const counts = new Map<string, number>()
+  for (const listing of listings) {
+    const attrs = listing.niche_attributes
+    if (!attrs || typeof attrs !== 'object') continue
+    for (const [key, value] of Object.entries(attrs)) {
+      if (value === true) counts.set(key, (counts.get(key) ?? 0) + 1)
+    }
+  }
+
+  return Array.from(counts.entries())
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 12)
+    .map(([key, count]) => ({ key, count, label: formatAmenityLabel(key) }))
 }
 
 // ── Metadata ──────────────────────────────────────────────────────────────────
@@ -115,8 +137,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 // ── Page ──────────────────────────────────────────────────────────────────────
 
-export default async function NationalCategoryPage({ params }: PageProps) {
+export default async function NationalCategoryPage({ params, searchParams }: PageProps) {
   const { category: categorySlug } = await params
+  const { amenity } = await searchParams
 
   const { data: category } = await supabase
     .from('categories')
@@ -137,7 +160,7 @@ export default async function NationalCategoryPage({ params }: PageProps) {
   const { data: listingRows } = ids.length > 0
     ? await supabase
         .from('listings')
-        .select('id, title, price_display, price_numeric, neighborhood, city, type, images, tier, is_featured')
+        .select('id, title, price_display, price_numeric, neighborhood, city, type, images, niche_attributes, tier, is_featured')
         .eq('status', 'active')
         .eq('indexable', true)
         .in('id', ids)
@@ -146,7 +169,11 @@ export default async function NationalCategoryPage({ params }: PageProps) {
         .limit(200)
     : { data: [] }
 
-  const listings = (listingRows ?? []) as Listing[]
+  const baseListings = (listingRows ?? []) as Listing[]
+  const amenityList = amenityOptions(baseListings)
+  const listings = amenity
+    ? baseListings.filter((listing) => listing.niche_attributes?.[amenity] === true)
+    : baseListings
   const gate = qualityGate({
     listingCount: listings.length,
     photoRatio: photoRatio(listings),
@@ -207,6 +234,32 @@ export default async function NationalCategoryPage({ params }: PageProps) {
           <p style={{ fontFamily: 'var(--font-body)', color: 'var(--stone)', fontSize: '1rem', lineHeight: 1.6, maxWidth: '640px', marginBottom: '2.5rem' }}>
             {intro}
           </p>
+
+          {amenityList.length > 0 && (
+            <div className="mb-6 flex flex-wrap gap-2">
+              {amenityList.map((item) => {
+                const active = amenity === item.key
+                return (
+                  <Link
+                    key={item.key}
+                    href={active ? `/c/${categorySlug}` : `/c/${categorySlug}?amenity=${item.key}`}
+                    style={{
+                      border: '1px solid var(--rule)',
+                      background: active ? 'var(--ink)' : 'var(--surface)',
+                      color: active ? 'var(--paper)' : 'var(--ink)',
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '0.72rem',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em',
+                      padding: '6px 10px',
+                    }}
+                  >
+                    {item.label} ({item.count})
+                  </Link>
+                )
+              })}
+            </div>
+          )}
 
           {/* Dev quality gate notice */}
           {!gate.indexable && process.env.NODE_ENV !== 'production' && (

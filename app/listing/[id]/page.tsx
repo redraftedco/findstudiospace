@@ -518,7 +518,7 @@ export default async function ListingPage({ params, searchParams }: Props) {
               >
                 per month
               </p>
-              <InquiryForm listingId={String(listing.id)} listingTitle={studioName} />
+              <InquiryForm listingId={String(listing.id)} />
 
               {isFree && <ProUpsell listingId={String(listing.id)} />}
             </aside>

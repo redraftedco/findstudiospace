@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 
-type Props = { listingId: string; listingTitle: string }
+type Props = { listingId: string }
 
 export default function InquiryForm({ listingId }: Props) {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
