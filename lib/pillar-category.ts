@@ -38,20 +38,20 @@ const MAKER_TERMS = [
 ]
 
 const TYPE_TO_PILLAR: Record<string, PillarCategorySlug> = {
-  retail: 'event-space',
-  music: 'content-studios',
-  photo: 'photo-studios',
-  art: 'makerspace',
+  music:    'content-studios',
+  photo:    'photo-studios',
+  art:      'makerspace',
   workshop: 'makerspace',
-  office: 'event-space',
-  fitness: 'makerspace',
+  fitness:  'makerspace',
+  // office and retail intentionally omitted — they have their own keyword routes
+  // and must not pollute pillar pages via type fallback
 }
 
 function hasAnyTerm(haystack: string, terms: string[]): boolean {
   return terms.some((term) => haystack.includes(term))
 }
 
-export function classifyListingToPillar(listing: ListingForCategory): PillarCategorySlug {
+export function classifyListingToPillar(listing: ListingForCategory): PillarCategorySlug | null {
   const haystack = `${listing.title ?? ''} ${listing.description ?? ''} ${listing.type ?? ''}`.toLowerCase()
   const typeKey = (listing.type ?? '').toLowerCase()
 
@@ -60,5 +60,5 @@ export function classifyListingToPillar(listing: ListingForCategory): PillarCate
   if (hasAnyTerm(haystack, MAKER_TERMS)) return 'makerspace'
   if (hasAnyTerm(haystack, MEDIA_TERMS)) return 'content-studios'
 
-  return TYPE_TO_PILLAR[typeKey] ?? 'content-studios'
+  return TYPE_TO_PILLAR[typeKey] ?? null
 }
