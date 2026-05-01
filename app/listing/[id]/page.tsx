@@ -221,10 +221,10 @@ export default async function ListingPage({ params, searchParams }: Props) {
           <nav
             style={{
               color: 'var(--stone)',
-              fontFamily: 'var(--font-mono)',
+              fontFamily: 'var(--font-body)',
               fontSize: '0.75rem',
               textTransform: 'uppercase',
-              letterSpacing: '0.08em',
+              letterSpacing: '0.06em',
               marginBottom: '1.5rem',
             }}
           >
@@ -352,20 +352,11 @@ export default async function ListingPage({ params, searchParams }: Props) {
                   >
                     Amenities
                   </h2>
-                  <ul
-                    style={{
-                      listStyle: 'disc',
-                      paddingLeft: '1.25rem',
-                      margin: 0,
-                      color: 'var(--ink)',
-                      fontSize: '1rem',
-                      lineHeight: 1.6,
-                    }}
-                  >
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
                     {amenities.map((a) => (
-                      <li key={a}>{a}</li>
+                      <span key={a} className="amenity-chip">{a}</span>
                     ))}
-                  </ul>
+                  </div>
                 </section>
               )}
 
@@ -437,29 +428,32 @@ export default async function ListingPage({ params, searchParams }: Props) {
 
             {/* Right column — sticky inquiry form */}
             <aside className="listing-detail-aside">
-              <p
-                style={{
-                  fontFamily: 'var(--font-heading)',
-                  color: 'var(--ink)',
-                  fontSize: '1.5rem',
-                  fontWeight: 500,
-                  margin: '0 0 2px',
-                  letterSpacing: '-0.01em',
-                }}
-              >
-                {priceFormatted}
-              </p>
-              <p
-                style={{
-                  fontFamily: 'var(--font-body)',
-                  color: 'var(--stone)',
-                  fontSize: '0.875rem',
-                  margin: '0 0 2rem',
-                }}
-              >
-                per month
-              </p>
-              <InquiryForm listingId={String(listing.id)} listingTitle={studioName} />
+              <div className="listing-sidebar-card">
+                <p
+                  style={{
+                    fontFamily: 'var(--font-heading)',
+                    color: 'var(--lime)',
+                    fontSize: '2rem',
+                    fontWeight: 700,
+                    margin: '0 0 2px',
+                    letterSpacing: '-0.02em',
+                    lineHeight: 1,
+                  }}
+                >
+                  {priceFormatted}
+                </p>
+                <p
+                  style={{
+                    fontFamily: 'var(--font-body)',
+                    color: 'var(--stone)',
+                    fontSize: '0.8125rem',
+                    margin: '0 0 1.5rem',
+                  }}
+                >
+                  per month
+                </p>
+                <InquiryForm listingId={String(listing.id)} listingTitle={studioName} />
+              </div>
 
               {isFree && <ProUpsell listingId={String(listing.id)} />}
             </aside>

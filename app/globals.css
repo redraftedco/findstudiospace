@@ -444,6 +444,25 @@ button:focus-visible {
 }
 .listing-card-featured .listing-tag { color: var(--featured-color); }
 
+/* Listing detail sidebar card */
+.listing-sidebar-card {
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  padding: 1.5rem;
+}
+
+/* Amenity chip — reuses hero-chip shape, slightly different color */
+.amenity-chip {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--sub);
+  background: transparent;
+  border: 1px solid var(--rule);
+  padding: 4px 10px;
+  letter-spacing: 0.02em;
+  display: inline-block;
+}
+
 /* Listing card price row — separator + weight */
 .listing-card-price {
   font-family: var(--font-heading);
