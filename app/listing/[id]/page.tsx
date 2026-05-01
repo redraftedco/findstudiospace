@@ -3,6 +3,7 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 import { supabase } from '@/lib/supabase'
 import { clampImagesToTier } from '@/lib/photo-limits'
+import ListingGallery from '@/components/ListingGallery'
 import InquiryForm from '@/components/InquiryForm'
 import ViewCounter from '@/components/ViewCounter'
 import ProUpsell from '@/components/ProUpsell'
@@ -292,72 +293,12 @@ export default async function ListingPage({ params, searchParams }: Props) {
 
             {/* Left column */}
             <div className="listing-detail-main">
-              {/* Gallery */}
-              {images.length === 0 ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src="/placeholder-studio.svg"
-                  alt=""
-                  width={1200}
-                  height={675}
-                  style={{
-                    width: '100%',
-                    aspectRatio: '16 / 9',
-                    objectFit: 'cover',
-                    display: 'block',
-                    borderRadius: '2px',
-                  }}
-                />
-              ) : (
-                <>
-                  {/* Hero image */}
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={images[0]}
-                    alt={`${listing.title ?? 'Studio'} in ${listing.neighborhood ?? 'Portland'}, OR`}
-                    width={1200}
-                    height={675}
-                    fetchPriority="high"
-                    loading="eager"
-                    style={{
-                      width: '100%',
-                      aspectRatio: '16 / 9',
-                      objectFit: 'cover',
-                      display: 'block',
-                      borderRadius: '2px',
-                    }}
-                  />
-                  {images.length > 1 && (
-                    <div
-                      style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(4, 1fr)',
-                        gap: '1rem',
-                        marginTop: '1rem',
-                      }}
-                    >
-                      {images.slice(1, 5).map((src, i) => (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          key={i}
-                          src={src}
-                          alt=""
-                          width={300}
-                          height={225}
-                          loading="lazy"
-                          style={{
-                            width: '100%',
-                            aspectRatio: '4 / 3',
-                            objectFit: 'cover',
-                            display: 'block',
-                            borderRadius: '2px',
-                          }}
-                        />
-                      ))}
-                    </div>
-                  )}
-                </>
-              )}
+              {/* Gallery — hover any thumbnail to preview in the hero slot */}
+              <ListingGallery
+                images={images}
+                title={listing.title ?? 'Studio'}
+                neighborhood={listing.neighborhood ?? 'Portland'}
+              />
 
               {/* Hairline */}
               <hr
