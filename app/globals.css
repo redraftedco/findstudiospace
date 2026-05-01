@@ -243,6 +243,11 @@ html { scroll-behavior: smooth; }
 @media (min-width: 640px) { .hero-title { font-size: 2rem; } }
 @media (min-width: 900px) { .hero-title { font-size: 2.5rem; } }
 
+/* Center-align homepage hero */
+.hero-section { text-align: center; }
+.hero-section form { margin-left: auto; margin-right: auto; }
+.hero-section .flex { justify-content: center; }
+
 /* Header nav tightening */
 @media (max-width: 640px) {
   header .flex.gap-6 { gap: 0.875rem; }
