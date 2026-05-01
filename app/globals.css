@@ -27,10 +27,11 @@
   --color-action:  #111111;       /* links — near-black on light */
   --color-action-hover: #111111;
   --color-error:   #B91C1C;
-  --color-lime:    #D4F542;       /* CTA button bg */
+  --color-lime:    #1A6B3A;       /* forest green — text/link color */
+  --color-lime-bg: #D4F542;       /* bright lime — CTA button bg only */
 
   /* Semantic */
-  --color-success: #D4F542;       /* lime success */
+  --color-success: #1A6B3A;       /* green success text */
   --color-warning: #E5A100;
 
   --font-heading: var(--font-inter), sans-serif;
@@ -54,7 +55,9 @@
   --action-hover:  #111111;
   --action-focus:  #111111;
   --action-light:  rgba(0,0,0,0.06);
-  --lime:          #D4F542;
+  --lime:          #1A6B3A;       /* forest green — text/link color */
+  --lime-bg:       #D4F542;       /* bright lime — CTA button bg only */
+  --lime-bg-hover: #B8D938;       /* lime hover */
 
   /* Hero search input — slight lift over body */
   --search-bg: #EBEBEB;
@@ -83,7 +86,7 @@ body {
   line-height: 1.6;
 }
 
-::selection { background: var(--lime); color: var(--paper); }
+::selection { background: var(--lime-bg); color: var(--ink); }
 input::placeholder, textarea::placeholder { color: var(--stone); }
 
 /* Typography base — tokens applied. */
@@ -268,8 +271,8 @@ html { scroll-behavior: smooth; }
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--lime);
-    color: var(--paper);
+    background: var(--lime-bg);
+    color: var(--ink);
     font-family: var(--font-heading);
     font-size: 0.875rem;
     font-weight: 600;
@@ -279,9 +282,9 @@ html { scroll-behavior: smooth; }
     padding: 16px;
     min-height: 56px;
     z-index: 50;
-    box-shadow: 0 -2px 8px rgba(28,25,23,0.15);
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.12);
   }
-  .mobile-inquiry-bar:hover { background: var(--action-hover); }
+  .mobile-inquiry-bar:hover { background: var(--lime-bg-hover); }
   main { padding-bottom: 72px; }
 }
 
@@ -298,16 +301,16 @@ html { scroll-behavior: smooth; }
   min-height: 48px;
   box-sizing: border-box;
 }
-.input:focus { border-color: var(--lime); }
+.input:focus { border-color: var(--lime-bg); }
 
 .hero-search-input:focus {
   outline: none;
-  border: 2px solid var(--lime);
+  border: 2px solid var(--lime-bg);
   box-shadow: 0 0 0 3px rgba(212,245,66,0.40);
 }
 
 button:focus-visible {
-  outline: 2px solid var(--lime);
+  outline: 2px solid var(--lime-bg);
   outline-offset: 3px;
 }
 
@@ -374,8 +377,8 @@ button:focus-visible {
 
 /* Primary action button — lime CTA */
 .btn-action {
-  background-color: var(--lime);
-  color: var(--paper);
+  background-color: var(--lime-bg);
+  color: var(--ink);
   font-weight: 700;
   letter-spacing: 0.02em;
   min-height: 48px;
@@ -385,7 +388,7 @@ button:focus-visible {
   border-radius: 0;
   transition: background-color 150ms ease-out;
 }
-.btn-action:hover { background-color: var(--action-hover); }
+.btn-action:hover { background-color: var(--lime-bg-hover); }
 .btn-action:disabled { opacity: 0.4; cursor: not-allowed; }
 
 /* Partner sites footer */
