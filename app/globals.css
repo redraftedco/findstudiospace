@@ -16,7 +16,7 @@
 
   /* Neutrals — DARK theme (ink/data-sheet) */
   --color-ink:     #FAF7EF;       /* off-white text */
-  --color-paper:   #0D0D0D;       /* near-black bg */
+  --color-paper:   #2A2A2A;       /* dark grey bg */
   --color-card:    #141414;       /* card surface */
   --color-stone:   #8C8578;       /* muted text */
   --color-sub:     #C8C3B5;       /* secondary text */
@@ -42,7 +42,7 @@
 /* CSS custom properties for use in JS inline styles and CSS rules */
 :root {
   --ink:     #FAF7EF;
-  --paper:   #0D0D0D;
+  --paper:   #2A2A2A;
   --card:    #141414;
   --stone:   #8C8578;
   --sub:     #C8C3B5;
