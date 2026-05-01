@@ -297,12 +297,12 @@ function CityPageUI({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
       />
       <main style={{ background: 'var(--paper)', color: 'var(--ink)' }} className="min-h-screen">
-        {/* HERO */}
+        {/* HERO — headline → stat → search only */}
         <section
           style={{
             background: 'var(--paper)',
             paddingTop: '5rem',
-            paddingBottom: '4rem',
+            paddingBottom: '3rem',
           }}
           className="px-6 hero-section"
         >
@@ -355,50 +355,6 @@ function CityPageUI({
                 className="hero-search-input"
               />
             </form>
-
-            <div
-              style={{ marginTop: '2rem' }}
-              className="flex flex-wrap items-center gap-2"
-            >
-              {CATEGORY_PILLS.map((cat) => (
-                <Link
-                  key={cat.slug}
-                  href={`/${citySlug}/${cat.slug}`}
-                  className="hero-chip"
-                >
-                  {cat.label}
-                </Link>
-              ))}
-            </div>
-
-            {/* Neighborhood entry points — only shown for Portland where pages exist */}
-            {citySlug === 'portland' && (
-              <div
-                style={{ marginTop: '0.75rem' }}
-                className="flex flex-wrap items-center gap-2"
-              >
-                <span
-                  style={{
-                    fontFamily: 'var(--font-body)',
-                    fontSize: '11px',
-                    letterSpacing: '0.06em',
-                    textTransform: 'uppercase',
-                    color: 'var(--stone)',
-                  }}
-                >
-                  By neighborhood:
-                </span>
-                {NEIGHBORHOOD_PILLS.map((n) => (
-                  <Link
-                    key={n.slug}
-                    href={`/${citySlug}/${n.slug}`}
-                    className="hero-chip"
-                  >
-                    {n.label}
-                  </Link>
-                ))}
-              </div>
-            )}
           </div>
         </section>
 
@@ -406,36 +362,35 @@ function CityPageUI({
         <div style={{ borderTop: '1px solid var(--rule)' }} />
 
         {/* LISTINGS */}
-        <section style={{ paddingTop: '4rem', paddingBottom: '4rem' }} className="px-6">
+        <section style={{ paddingTop: '3rem', paddingBottom: '4rem' }} className="px-6">
           <div className="mx-auto max-w-5xl">
-            <p
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.75rem',
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-                color: 'var(--stone)',
-                marginBottom: '0.5rem',
-              }}
-            >
-              {q ? `SEARCH · ${total} ${total === 1 ? 'RESULT' : 'RESULTS'}` : `DIRECTORY · ${total} STUDIOS`}
-            </p>
-            <h2
-              style={{
-                fontFamily: 'var(--font-heading)',
-                color: 'var(--ink)',
-                fontSize: '1.875rem',
-                fontWeight: 600,
-                letterSpacing: '-0.015em',
-                marginBottom: '2rem',
-              }}
-            >
-              {q ? (
-                <>Results for &ldquo;{q}&rdquo;</>
-              ) : (
-                <>Browse {config.displayName} studios</>
-              )}
-            </h2>
+
+            {/* Category filter strip — above grid, below hero */}
+            {!q && (
+              <div
+                style={{ marginBottom: '2rem' }}
+                className="flex flex-wrap items-center gap-2"
+              >
+                {CATEGORY_PILLS.map((cat) => (
+                  <Link key={cat.slug} href={`/${citySlug}/${cat.slug}`} className="hero-chip">
+                    {cat.label}
+                  </Link>
+                ))}
+              </div>
+            )}
+
+            {q && (
+              <p
+                style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '0.875rem',
+                  color: 'var(--stone)',
+                  marginBottom: '1.5rem',
+                }}
+              >
+                {total} {total === 1 ? 'result' : 'results'} for &ldquo;{q}&rdquo;
+              </p>
+            )}
 
             {rows.length === 0 ? (
               <p style={{ color: 'var(--stone)' }} className="text-sm">
@@ -445,6 +400,30 @@ function CityPageUI({
               <div className="home-grid">
                 {rows.map((listing) => (
                   <ListingCard key={listing.id} listing={listing} />
+                ))}
+              </div>
+            )}
+
+            {/* Neighborhood links — SEO crawl path, not primary nav */}
+            {citySlug === 'portland' && (
+              <div
+                style={{
+                  marginTop: '3rem',
+                  paddingTop: '1.5rem',
+                  borderTop: '1px solid var(--rule)',
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '0.5rem',
+                  alignItems: 'center',
+                }}
+              >
+                <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.75rem', color: 'var(--stone)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  By neighborhood:
+                </span>
+                {NEIGHBORHOOD_PILLS.map((n) => (
+                  <Link key={n.slug} href={`/${citySlug}/${n.slug}`} className="hero-chip">
+                    {n.label}
+                  </Link>
                 ))}
               </div>
             )}
