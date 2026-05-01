@@ -39,12 +39,14 @@ const PLACEHOLDER_PATTERNS = [
  * Call this at the top of every function that sends outbound email.
  */
 export function assertCanSpamCompliant(): void {
-  const address = process.env.MAILING_ADDRESS?.trim()
+  // MAILING_ADDRESS takes precedence; POSTAL_ADDRESS is the fallback already
+  // used by the monthly-digest cron. Set MAILING_ADDRESS in Vercel to override.
+  const address = (process.env.MAILING_ADDRESS ?? process.env.POSTAL_ADDRESS)?.trim()
 
   if (!address) {
     throw new Error(
-      '[CAN-SPAM] MAILING_ADDRESS env var is not set. ' +
-      'Set it to a full physical postal address before sending any outreach. ' +
+      '[CAN-SPAM] Neither MAILING_ADDRESS nor POSTAL_ADDRESS env var is set. ' +
+      'Set MAILING_ADDRESS to a full physical postal address before sending any outreach. ' +
       'See lib/outreach/canSpamGate.ts for setup instructions.'
     )
   }
@@ -52,8 +54,8 @@ export function assertCanSpamCompliant(): void {
   for (const pattern of PLACEHOLDER_PATTERNS) {
     if (pattern.test(address)) {
       throw new Error(
-        `[CAN-SPAM] MAILING_ADDRESS appears to be a placeholder: "${address}". ` +
-        'Set it to a real physical postal address.'
+        `[CAN-SPAM] Mailing address appears to be a placeholder: "${address}". ` +
+        'Set MAILING_ADDRESS to a real physical postal address.'
       )
     }
   }
@@ -64,5 +66,5 @@ export function assertCanSpamCompliant(): void {
  * Call assertCanSpamCompliant() first.
  */
 export function getMailingAddress(): string {
-  return process.env.MAILING_ADDRESS!.trim()
+  return ((process.env.MAILING_ADDRESS ?? process.env.POSTAL_ADDRESS) ?? '').trim()
 }
