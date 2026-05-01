@@ -13,26 +13,39 @@ export type CategoryConfig = {
 
 export const categoryConfigs: Record<string, CategoryConfig> = {
   'event-space': {
-    title: 'Event Space Rental in Portland | Book Venues & Private Spaces',
+    title: 'Event Space for Rent in Portland, OR | Private Venues & Pop-Up Spaces',
     metaDescription:
-      'Find Portland event spaces for monthly rental. Browse private venues, party spaces, and event-ready studios with direct host contact.',
-    h1: 'Event Space Rental in Portland',
+      'Find private event space for rent in Portland, OR. Browse venues for pop-ups, brand activations, private parties, and community events. Monthly rentals — contact hosts directly.',
+    h1: 'Event Space for Rent in Portland, OR',
     intro:
-      'Looking for event-ready space in Portland? Browse private event venues and flexible spaces that can host pop-ups, parties, and community events.',
+      'Browse private event spaces and venues available for monthly rent in Portland, OR. Whether you need a space for recurring pop-ups, monthly community events, a brand activation, or a private party venue you can access on your schedule — Portland has flex event-ready spaces across every neighborhood. Submit an inquiry from any listing to contact the host directly.',
     listingType: null,
-    keywordInclude: ['event', 'venue', 'party', 'wedding'],
+    keywordInclude: ['event', 'venue', 'party', 'wedding', 'pop-up', 'activation', 'gallery'],
     keywordExclude: ['dance', 'yoga', 'fitness', 'office', 'cowork', 'class', 'cheap', 'affordable'],
     faqs: [
       {
-        q: 'What kinds of event spaces are listed in Portland?',
-        a: 'You will find private event venues, party-ready studios, and flexible creative spaces that can host community events or brand activations.',
+        q: 'What kinds of event spaces are available in Portland?',
+        a: 'Portland has private event venues, loft-style spaces, gallery-style rooms, warehouse flex spaces with open floor plans, and rooftop venues. Most are available for recurring monthly use — ideal for brands, collectives, and organizers who host events on a regular schedule.',
       },
       {
-        q: 'Can I book these spaces monthly?',
-        a: 'Yes. This directory focuses on monthly studio and venue rentals. Ask each host about minimum term and event use rules.',
+        q: 'How much does event space rental cost in Portland per month?',
+        a: 'Monthly event space rentals in Portland range from $500–$3,500/month depending on size, infrastructure, and neighborhood. Raw flex spaces in the Central Eastside start lower; purpose-built venues with built-in AV, furniture, and kitchen access run higher. Most hosts are open to negotiating terms for longer commitments.',
+      },
+      {
+        q: 'Can I use a rented Portland event space for a pop-up shop or brand activation?',
+        a: 'Yes. Many monthly rental spaces in Portland permit commercial events, pop-ups, and brand activations under standard terms. Confirm with the host that public foot traffic and commercial use are allowed — some buildings have restrictions on signage, hours, or occupancy for public-facing events. Ask in your inquiry before committing.',
+      },
+      {
+        q: 'What neighborhoods in Portland have private event spaces for rent?',
+        a: 'Private event venues and flex spaces are concentrated in the Pearl District, Central Eastside Industrial District, and NE Portland. SE Portland and the Alberta Arts area also have creative flex spaces well-suited for community events and pop-ups. Central Eastside in particular has a strong inventory of warehouse-style venues with high ceilings and open floor plans.',
+      },
+      {
+        q: 'What is the difference between hourly venue rental and monthly event space rental?',
+        a: 'Hourly venues charge per session — convenient for one-off events but expensive if you host regularly. A monthly rental gives you flexible access throughout the month, including setup and breakdown time between events, without competing for booking slots. If you host monthly pop-ups, recurring community events, or need on-site storage between uses, a monthly term is almost always more cost-effective.',
       },
     ],
     related: [
+      { label: 'Retail Space for Rent', href: '/portland/retail-space-for-rent' },
       { label: 'Content Studios', href: '/portland/content-studios' },
       { label: 'Photo Studios', href: '/portland/photo-studios' },
       { label: 'Makerspace', href: '/portland/makerspace' },
