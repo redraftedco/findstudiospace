@@ -313,7 +313,7 @@ export default async function ListingPage({ params, searchParams }: Props) {
               />
 
               {/* About */}
-              <section style={{ maxWidth: '680px' }}>
+              <section style={{ maxWidth: '65ch' }}>
                 <h2
                   style={{
                     fontFamily: 'var(--font-heading)',
@@ -342,7 +342,7 @@ export default async function ListingPage({ params, searchParams }: Props) {
 
               {/* Amenities */}
               {amenities.length > 0 && (
-                <section style={{ maxWidth: '680px', marginTop: '2.5rem' }}>
+                <section style={{ maxWidth: '65ch', marginTop: '2.5rem' }}>
                   <h2
                     style={{
                       fontFamily: 'var(--font-heading)',

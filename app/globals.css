@@ -18,7 +18,7 @@
   --color-ink:     #FAF7EF;       /* off-white text */
   --color-paper:   #2A2A2A;       /* dark grey bg */
   --color-card:    #141414;       /* card surface */
-  --color-stone:   #8C8578;       /* muted text */
+  --color-stone:   #A09A8C;       /* muted text — AA contrast on --paper */
   --color-sub:     #C8C3B5;       /* secondary text */
   --color-rule:    rgba(250,247,239,0.12);
   --color-rule-strong: rgba(250,247,239,0.22);
@@ -44,7 +44,7 @@
   --ink:     #FAF7EF;
   --paper:   #2A2A2A;
   --card:    #141414;
-  --stone:   #8C8578;
+  --stone:   #A09A8C;
   --sub:     #C8C3B5;
   --rule:    rgba(250,247,239,0.12);
   --rule-strong: rgba(250,247,239,0.22);

@@ -126,10 +126,10 @@ export default function ListingCard({ listing }: Props) {
         </h3>
         <p
           style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '0.75rem',
+            fontFamily: 'var(--font-body)',
+            fontSize: '0.8125rem',
             textTransform: 'uppercase',
-            letterSpacing: '0.08em',
+            letterSpacing: '0.06em',
             color: 'var(--stone)',
             marginTop: '4px',
             marginBottom: 0,
