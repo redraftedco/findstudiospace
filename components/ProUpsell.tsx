@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 export default function ProUpsell({ listingId }: { listingId: string }) {
   return (
     <div
@@ -29,9 +31,9 @@ export default function ProUpsell({ listingId }: { listingId: string }) {
           lineHeight: 1.5,
         }}
       >
-        Get featured placement, Instagram and website links, and monthly analytics.
+        Claim your listing to manage it, see inquiry stats, and get sponsored placement.
       </p>
-      <a
+      <Link
         href={`/claim?listing_id=${listingId}`}
         className="btn-action"
         style={{
@@ -48,8 +50,8 @@ export default function ProUpsell({ listingId }: { listingId: string }) {
           color: 'var(--paper)',
         }}
       >
-        Start 30-day free trial →
-      </a>
+        Claim your listing →
+      </Link>
       <p
         style={{
           fontFamily: 'var(--font-body)',
@@ -58,7 +60,7 @@ export default function ProUpsell({ listingId }: { listingId: string }) {
           margin: '12px 0 0',
         }}
       >
-        $29/month after. Cancel anytime.
+        Free. Sponsored placement from $49/mo.
       </p>
     </div>
   )

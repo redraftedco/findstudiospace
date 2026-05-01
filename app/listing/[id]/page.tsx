@@ -43,7 +43,6 @@ function formatPrice(raw: string | null | undefined): string {
 
 type Props = {
   params: Promise<{ id: string }>
-  searchParams: Promise<{ upgrade?: string }>
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -89,11 +88,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default async function ListingPage({ params, searchParams }: Props) {
+export default async function ListingPage({ params }: Props) {
   const { id } = await params
   if (BLOCKED_PUBLIC_LISTING_IDS.has(id)) notFound()
-  const sp = await searchParams
-  const showUpgradeSuccess = sp.upgrade === 'success'
 
   const { data: listing } = await supabase
     .from('listings')
@@ -135,7 +132,6 @@ export default async function ListingPage({ params, searchParams }: Props) {
   const textClass = TEXT_CLASS[typeKey] ?? ''
   const studioName = listing.title ?? 'this listing'
   const neighborhood = listing.neighborhood ?? 'Portland'
-  const isFree = (listing.tier ?? 'free') !== 'pro'
 
   // JSON-LD — LocalBusiness. Conditional rendering of every nullable field;
   // empty/undefined keys removed at the end. Google flags incomplete schema
@@ -197,25 +193,7 @@ export default async function ListingPage({ params, searchParams }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
 
       {/* Claim banner — above breadcrumb, full-width, dismissible */}
-      {isFree && <ClaimBanner listingId={String(listing.id)} studioName={studioName} />}
-
-      {/* Upgrade success banner — display-only; tier check stays on DB */}
-      {showUpgradeSuccess && (
-        <div
-          style={{
-            background: 'var(--surface)',
-            borderBottom: '1px solid var(--rule)',
-            padding: '10px 16px',
-            fontFamily: 'var(--font-mono)',
-            fontSize: '12px',
-            color: 'var(--ink)',
-            textAlign: 'center',
-            letterSpacing: '0.02em',
-          }}
-        >
-          Your listing is now Pro — featured placement is live.
-        </div>
-      )}
+      <ClaimBanner listingId={String(listing.id)} studioName={studioName} />
 
       <main style={{ background: 'var(--paper)', color: 'var(--ink)' }} className="min-h-screen">
         <div className="mx-auto" style={{ maxWidth: '1200px', padding: '2rem 1.5rem 4rem' }}>
@@ -258,11 +236,6 @@ export default async function ListingPage({ params, searchParams }: Props) {
             className="listing-title"
           >
             {studioName}
-            {listing.tier === 'pro' && (
-              <span style={{ marginLeft: '0.75rem', verticalAlign: 'middle', display: 'inline-block' }}>
-                <span className="pro-badge">Pro</span>
-              </span>
-            )}
           </h1>
 
           {/* Metadata line: Neighborhood · Type · Sqft */}
@@ -363,8 +336,8 @@ export default async function ListingPage({ params, searchParams }: Props) {
                 </section>
               )}
 
-              {/* Pro links — website & Instagram (Pro tier only) */}
-              {listing.tier === 'pro' && (listing.website_url || listing.instagram_url) && (
+              {/* External links — website & Instagram */}
+              {(listing.website_url || listing.instagram_url) && (
                 <section style={{ maxWidth: '680px', marginTop: '2.5rem' }}>
                   <h2
                     style={{
@@ -458,7 +431,7 @@ export default async function ListingPage({ params, searchParams }: Props) {
                 <InquiryForm listingId={String(listing.id)} listingTitle={studioName} />
               </div>
 
-              {isFree && <ProUpsell listingId={String(listing.id)} />}
+              <ProUpsell listingId={String(listing.id)} />
             </aside>
           </div>
         </div>
