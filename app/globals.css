@@ -425,7 +425,7 @@ button:focus-visible {
 .hero-count { font-family: var(--font-body); font-size: 13px; color: var(--stone); }
 .hero-dot   { color: var(--rule); font-size: 12px; }
 .hero-chip {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 11px;
   color: var(--stone);
   background: var(--surface);

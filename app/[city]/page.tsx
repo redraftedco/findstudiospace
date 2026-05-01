@@ -379,7 +379,7 @@ function CityPageUI({
               >
                 <span
                   style={{
-                    fontFamily: 'var(--font-mono)',
+                    fontFamily: 'var(--font-body)',
                     fontSize: '11px',
                     letterSpacing: '0.06em',
                     textTransform: 'uppercase',
