@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { supabase } from '@/lib/supabase'
@@ -123,6 +123,9 @@ export default async function ListingPage({ params, searchParams }: Props) {
         .map((x: unknown) => (typeof x === 'string' ? x : (x as Record<string, string>)?.url ?? ''))
         .filter(Boolean)
     : []
+
+  if (allImages.length === 0) redirect('/portland')
+
   const images: string[] = clampImagesToTier(allImages, listing.tier)
 
   const typeKey = (listing.type ?? '').toLowerCase()

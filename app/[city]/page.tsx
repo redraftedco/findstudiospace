@@ -126,7 +126,9 @@ export default async function CityPage({ params, searchParams }: PageProps) {
     }
 
     const { data: listings } = await query
-    const rows = listings ?? []
+    const rows = (listings ?? []).filter(
+      l => Array.isArray(l.images) && l.images.length > 0
+    )
     const total = rows.length
     const config = staticConfig
 
@@ -158,7 +160,9 @@ export default async function CityPage({ params, searchParams }: PageProps) {
   }
 
   const { data: listings } = await dbQuery
-  const rows = listings ?? []
+  const rows = (listings ?? []).filter(
+    l => Array.isArray(l.images) && l.images.length > 0
+  )
   const total = rows.length
 
   const gate = qualityGate({
