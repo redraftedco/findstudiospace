@@ -152,7 +152,7 @@ export default async function ListingPage({ params, searchParams }: Props) {
   const jsonLd: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
-    name: listing.title,
+    name: listing.title ?? 'Studio',
     description: listing.description ? String(listing.description).slice(0, 300) : undefined,
     address,
     ...(listing.neighborhood ? { areaServed: listing.neighborhood } : {}),
@@ -167,7 +167,7 @@ export default async function ListingPage({ params, searchParams }: Props) {
     ...(listing.price_display ? { priceRange: String(listing.price_display) } : {}),
     url: `https://www.findstudiospace.com/listing/${listing.id}`,
   }
-  Object.keys(jsonLd).forEach((k) => jsonLd[k] === undefined && delete jsonLd[k])
+  Object.keys(jsonLd).forEach((k) => (jsonLd[k] === undefined || jsonLd[k] === null) && delete jsonLd[k])
 
   const breadcrumbLd = {
     '@context': 'https://schema.org',
