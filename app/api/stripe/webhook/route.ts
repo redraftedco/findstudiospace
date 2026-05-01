@@ -64,8 +64,19 @@ export async function POST(req: NextRequest) {
         const placementId = parseInt(placementIdStr, 10)
         const listingId   = parseInt(listingIdStr, 10)
 
-        if (isNaN(placementId) || isNaN(listingId)) {
+        if (isNaN(placementId) || isNaN(listingId) || placementId <= 0 || listingId <= 0) {
           console.warn('[webhook] checkout.session.completed: non-integer placement_id or listing_id — skipping')
+          break
+        }
+
+        const { data: placement } = await supabase
+          .from('visibility_placements')
+          .select('listing_id')
+          .eq('id', placementId)
+          .single()
+
+        if (!placement || placement.listing_id !== listingId) {
+          console.warn('[webhook] checkout.session.completed: placement_id/listing_id mismatch — skipping')
           break
         }
 

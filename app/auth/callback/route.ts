@@ -76,6 +76,7 @@ export async function GET(req: NextRequest) {
         claimed_at: new Date().toISOString(),
       })
       .eq('id', id)
+      .is('owner_user_id', null)
 
     return res
   }
