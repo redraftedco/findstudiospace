@@ -435,6 +435,48 @@ function CityPageUI({
               </div>
             )}
 
+            {/* Submit CTA — studio owner prompt */}
+            {!q && (
+              <div
+                style={{
+                  marginTop: '3rem',
+                  padding: '28px 32px',
+                  border: '1px solid var(--rule)',
+                  background: 'var(--surface)',
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: '16px',
+                }}
+              >
+                <div>
+                  <p style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)', fontSize: '1.125rem', fontWeight: 600, margin: '0 0 4px' }}>
+                    Own a studio in {config.displayName}?
+                  </p>
+                  <p style={{ fontFamily: 'var(--font-body)', color: 'var(--stone)', fontSize: '0.875rem', margin: 0 }}>
+                    Free to list. No commission. Renters contact you directly.
+                  </p>
+                </div>
+                <Link
+                  href="/submit"
+                  className="btn-action"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    padding: '12px 20px',
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '0.875rem',
+                    fontWeight: 500,
+                    textDecoration: 'none',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  Submit your studio →
+                </Link>
+              </div>
+            )}
+
             {/* Neighborhood links — SEO crawl path, not primary nav */}
             {citySlug === 'portland' && (
               <div
