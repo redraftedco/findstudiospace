@@ -13,12 +13,9 @@ async function isDuplicate(eventId: string): Promise<boolean> {
   const { error } = await supabase
     .from('stripe_events')
     .insert({ event_id: eventId })
-
-  // PK conflict = already processed
   if (error?.code === '23505') return true
   if (error) {
     console.error('stripe_events insert error:', error)
-    // If we can't record the event, don't process — fail safe
     return true
   }
   return false
@@ -48,7 +45,6 @@ export async function POST(req: NextRequest) {
     )
   }
 
-  // Idempotency: dedup by event.id before any mutation
   if (await isDuplicate(event.id)) {
     return NextResponse.json({ received: true })
   }
@@ -57,104 +53,76 @@ export async function POST(req: NextRequest) {
     switch (event.type) {
       case 'checkout.session.completed': {
         const session = event.data.object as Stripe.Checkout.Session
-        const listing_id = session.metadata?.listing_id
-        if (!listing_id) break
+        const placementIdStr = session.metadata?.placement_id
+        const listingIdStr   = session.metadata?.listing_id
 
-        const subscription_id = session.subscription as string
-        const customer_id = session.customer as string
+        if (!placementIdStr || !listingIdStr) {
+          console.warn('[webhook] checkout.session.completed: missing placement_id or listing_id in metadata — skipping')
+          break
+        }
 
-        // Fetch subscription to get current_period_end
-        const subResponse = await stripe.subscriptions.retrieve(subscription_id)
-        const periodEnd = (subResponse as unknown as { current_period_end: number }).current_period_end
-        const periodEndISO = new Date(periodEnd * 1000).toISOString()
+        const placementId = parseInt(placementIdStr, 10)
+        const listingId   = parseInt(listingIdStr, 10)
+
+        if (isNaN(placementId) || isNaN(listingId)) {
+          console.warn('[webhook] checkout.session.completed: non-integer placement_id or listing_id — skipping')
+          break
+        }
 
         await supabase
-          .from('listings')
+          .from('visibility_placements')
           .update({
-            tier: 'pro',
-            is_featured: true,
-            stripe_customer_id: customer_id,
-            stripe_subscription_id: subscription_id,
-            current_period_end: periodEndISO,
+            stripe_customer_id:     session.customer as string,
+            stripe_subscription_id: session.subscription as string,
             updated_at: new Date().toISOString(),
+            // status stays 'pending' — admin must approve before placement goes live
           })
-          .eq('id', parseInt(listing_id))
+          .eq('id', placementId)
 
-        // Invalidate ISR cache so the new Pro badge / photos 6-15 render immediately.
-        // /listing/[id] has `export const revalidate = 3600`; without this call,
-        // the first-Pro-upgrade user would see stale-free content for up to an hour.
-        revalidatePath(`/listing/${listing_id}`)
-
+        revalidatePath(`/listing/${listingId}`)
         break
       }
 
       case 'customer.subscription.updated': {
-        const subscription = event.data.object as Stripe.Subscription & { current_period_end: number }
+        const subscription = event.data.object as Stripe.Subscription
         const isActive = ['active', 'trialing'].includes(subscription.status)
 
-        // .select('id') chained on update returns the affected row ids so we
-        // can revalidate each. Defensive: one subscription could theoretically
-        // map to multiple listings; iterate whatever came back.
-        const updatePayload = isActive
-          ? {
-              tier: 'pro',
-              is_featured: true,
-              current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
+        // Only act on transitions to an inactive state. Admin controls pending→active;
+        // we don't auto-activate on renewal so admin approval is preserved.
+        if (!isActive) {
+          const { data: rows } = await supabase
+            .from('visibility_placements')
+            .update({
+              status: 'cancelled',
               updated_at: new Date().toISOString(),
-            }
-          : {
-              tier: 'free',
-              is_featured: false,
-              current_period_end: null,
-              updated_at: new Date().toISOString(),
-            }
+            })
+            .eq('stripe_subscription_id', subscription.id)
+            .select('listing_id, target_type, target_slug')
 
-        const { data: affectedRows } = await supabase
-          .from('listings')
-          .update(updatePayload)
-          .eq('stripe_subscription_id', subscription.id)
-          .select('id')
-
-        const rows = Array.isArray(affectedRows) ? affectedRows : []
-        if (rows.length === 0) {
-          console.warn(
-            `[stripe-webhook] subscription.updated matched 0 listings for sub=${subscription.id}; ` +
-            `ISR cache not invalidated (will stale up to 1h via revalidate=3600 backstop)`,
-          )
+          for (const row of (rows ?? [])) {
+            revalidatePath(`/listing/${row.listing_id}`)
+            revalidatePath(`/portland/${row.target_slug}`)
+          }
         }
-        for (const row of rows) {
-          revalidatePath(`/listing/${row.id}`)
-        }
-
         break
       }
 
       case 'customer.subscription.deleted': {
         const subscription = event.data.object as Stripe.Subscription
 
-        const { data: affectedRows } = await supabase
-          .from('listings')
+        const { data: rows } = await supabase
+          .from('visibility_placements')
           .update({
-            tier: 'free',
-            is_featured: false,
-            stripe_subscription_id: null,
-            current_period_end: null,
+            status: 'cancelled',
             updated_at: new Date().toISOString(),
           })
           .eq('stripe_subscription_id', subscription.id)
-          .select('id')
+          .select('listing_id, target_type, target_slug')
 
-        const rows = Array.isArray(affectedRows) ? affectedRows : []
-        if (rows.length === 0) {
-          console.warn(
-            `[stripe-webhook] subscription.deleted matched 0 listings for sub=${subscription.id}; ` +
-            `ISR cache not invalidated (will stale up to 1h via revalidate=3600 backstop)`,
-          )
+        for (const row of (rows ?? [])) {
+          revalidatePath(`/listing/${row.listing_id}`)
+          revalidatePath(`/portland/${row.target_slug}`)
         }
-        for (const row of rows) {
-          revalidatePath(`/listing/${row.id}`)
-        }
-
         break
       }
     }

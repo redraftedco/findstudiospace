@@ -2,65 +2,37 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Pricing — Free or $29/month | FindStudioSpace',
+  title: 'Advertise — Sponsored Placement for Portland Studios | FindStudioSpace',
   description:
-    'Free Portland studio listings or $29/month Studio Pro with featured placement, analytics, and direct contact links. 30-day free trial.',
+    'Get your Portland studio in front of renters browsing by category or neighborhood. Sponsored placements from $49/month. No commission. Renters contact you directly.',
   openGraph: {
-    title: 'Pricing — Free or $29/month | FindStudioSpace',
+    title: 'Advertise — Sponsored Placement for Portland Studios | FindStudioSpace',
     description:
-      'Free Portland studio listings or $29/month Studio Pro with featured placement, analytics, and direct contact links. 30-day free trial.',
+      'Get your Portland studio in front of renters browsing by category or neighborhood. Sponsored placements from $49/month. No commission. Renters contact you directly.',
   },
   alternates: { canonical: '/pricing' },
 }
 
-type Faq = {
-  q: string
-  a: string
-  // Optional rendered addendum (e.g. a link). Not included in JSON-LD schema
-  // so the structured-data `text` field stays a plain string.
-  aExtra?: React.ReactNode
-}
-
-const faqs: Faq[] = [
+const faqs = [
   {
-    q: 'Can I cancel anytime?',
-    a: 'Yes. Cancel from your dashboard or the Stripe billing portal. Your Pro features stay active through the end of your current billing period, then your listing reverts to the free tier.',
+    q: 'What is a sponsored placement?',
+    a: 'Your listing appears in a "Sponsored" section at the top of a category or neighborhood page — above organic results, labeled "Sponsored." Renters browsing that page see your studio first.',
   },
   {
-    q: 'What happens when I downgrade?',
-    a: 'Your listing stays live. Featured placement and extra photos (beyond 5) are removed, and your website and Instagram links no longer display on your listing page.',
+    q: 'How is this different from a free listing?',
+    a: 'Free listings appear in organic results ranked by recency. Sponsored placements appear above them on the specific page you choose. Your listing content and direct contact links stay the same either way.',
+  },
+  {
+    q: 'Does this guarantee bookings or inquiries?',
+    a: 'No. Sponsored placement puts your studio in front of renters browsing that page. What happens next depends on your listing quality, pricing, and fit for the renter.',
   },
   {
     q: 'How does billing work?',
-    a: 'Monthly is $29 billed each month. Starts with a 30-day free trial. You are not charged until the trial ends.',
+    a: 'Placements are billed monthly through Stripe. Cancel from the billing portal at any time. Your placement stays active through the end of the paid period.',
   },
   {
-    q: 'Do you offer refunds?',
-    a: 'Not on partial months. If you cancel mid-cycle, your Pro features continue through the end of the period you already paid for. The 30-day free trial means you can try Pro risk-free.',
-    aExtra: (
-      <>
-        {' '}
-        <Link
-          href="/refund-policy"
-          style={{ color: 'var(--action)' }}
-          className="hover:underline"
-        >
-          Read the full refund policy →
-        </Link>
-      </>
-    ),
-  },
-  {
-    q: 'How does the 30-day free trial work?',
-    a: 'You get full Pro features for 30 days at no charge. Cancel anytime before day 30 and you are never billed. After day 30, your card is charged $29 and Pro continues monthly until you cancel.',
-  },
-  {
-    q: 'Is my studio already listed?',
-    a: 'If you run a creative studio in Portland, there is a good chance your studio is already in the directory. Search your studio name on the homepage, or check your inbox — we may have already reached out about claiming your listing.',
-  },
-  {
-    q: 'How do I claim my listing?',
-    a: 'Click "Claim your free listing" above, search for your studio, and verify ownership via a magic link sent to your email. The whole process takes about 30 seconds. Once claimed, you can edit your listing and upgrade to Pro from your dashboard.',
+    q: 'How do I start?',
+    a: 'Claim your listing first, then reach out. We review each placement to confirm it is relevant to the page before it goes live.',
   },
 ]
 
@@ -70,12 +42,49 @@ const faqSchema = {
   mainEntity: faqs.map((f) => ({
     '@type': 'Question',
     name: f.q,
-    acceptedAnswer: {
-      '@type': 'Answer',
-      text: f.a,
-    },
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
   })),
 }
+
+const placements = [
+  {
+    name: 'Featured Category',
+    price: '$49',
+    period: '/month',
+    description: 'Appear in the Sponsored section of one Portland category page.',
+    features: [
+      'Sponsored placement on one category page',
+      'Above organic listings, labeled "Sponsored"',
+      'Up to 3 sponsored slots per page',
+      'Cancel anytime',
+    ],
+  },
+  {
+    name: 'Featured Neighborhood',
+    price: '$49',
+    period: '/month',
+    description: 'Appear in the Sponsored section of one Portland neighborhood page.',
+    features: [
+      'Sponsored placement on one neighborhood page',
+      'Above organic listings, labeled "Sponsored"',
+      'Up to 3 sponsored slots per page',
+      'Cancel anytime',
+    ],
+  },
+  {
+    name: 'Featured Studio',
+    price: '$149',
+    period: '/month',
+    description: 'Sponsored placement across one category and one relevant browsing path.',
+    features: [
+      'Sponsored on one category page',
+      'Sponsored on one neighborhood or related page',
+      'Broader reach for studios in high-demand categories',
+      'Cancel anytime',
+    ],
+    highlight: true,
+  },
+]
 
 export default function PricingPage() {
   return (
@@ -85,145 +94,150 @@ export default function PricingPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <div className="mx-auto max-w-5xl">
+
         <div className="text-center mb-12 md:mb-16">
           <h1
             style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }}
             className="text-4xl md:text-5xl font-semibold tracking-tight mb-4"
           >
-            Get more renters to your studio.
+            Appear where renters compare Portland studio space.
           </h1>
           <p
             style={{ color: 'var(--stone)', fontFamily: 'var(--font-body)' }}
             className="text-base md:text-lg max-w-2xl mx-auto"
           >
-            List your space for free, or upgrade to Pro for featured placement, view analytics, and direct contact links.
+            List for free. Pay only when you want sponsored visibility on a category or neighborhood page. No commission. Renters contact your studio directly.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16 md:mb-20">
-          <div
-            style={{ borderColor: 'var(--rule)', background: 'var(--surface)' }}
-            className="border p-8"
-          >
-            <div className="mb-6">
+        {/* Free tier */}
+        <div
+          style={{ borderColor: 'var(--rule)', background: 'var(--surface)' }}
+          className="border p-6 mb-6"
+        >
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
               <h2
                 style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }}
-                className="text-2xl font-semibold mb-1"
+                className="text-xl font-semibold mb-1"
               >
-                Free
+                Free Listing
               </h2>
-              <p style={{ color: 'var(--stone)' }} className="text-sm">
-                For studios starting out.
+              <p style={{ color: 'var(--stone)', fontFamily: 'var(--font-body)' }} className="text-sm">
+                Standard directory listing — visible to renters browsing Portland studios.
+                Up to 5 photos. Renters contact you directly via email or phone.
               </p>
             </div>
-            <div className="mb-6">
-              <span
-                style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }}
-                className="text-5xl font-semibold"
+            <div className="flex-shrink-0">
+              <Link
+                href="/claim"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  minHeight: '44px',
+                  padding: '10px 20px',
+                  border: '1px solid var(--ink)',
+                  background: 'transparent',
+                  color: 'var(--ink)',
+                  fontFamily: 'var(--font-body)',
+                  fontWeight: 500,
+                  fontSize: '14px',
+                  textDecoration: 'none',
+                  whiteSpace: 'nowrap',
+                }}
               >
-                $0
-              </span>
-              <span style={{ color: 'var(--stone)' }} className="text-sm ml-2">
-                forever
-              </span>
+                Claim your free listing
+              </Link>
             </div>
-            <ul
-              style={{ color: 'var(--ink)', fontFamily: 'var(--font-body)' }}
-              className="space-y-2 mb-8 text-sm"
-            >
-              <li>Standard listing in the directory</li>
-              <li>Up to 5 photos</li>
-              <li>Inquiry form — renters email you directly</li>
-              <li>Appears in city and category pages</li>
-            </ul>
-            <Link
-              href="/claim"
-              style={{
-                background: 'var(--paper)',
-                color: 'var(--ink)',
-                border: '1px solid var(--ink)',
-                textDecoration: 'none',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                minHeight: '48px',
-                fontFamily: 'var(--font-body)',
-                fontWeight: 500,
-              }}
-              className="w-full"
-            >
-              Claim your free listing
-            </Link>
-          </div>
-
-          <div
-            style={{
-              borderColor: 'var(--action)',
-              borderWidth: '2px',
-              background: 'var(--paper)',
-              position: 'relative',
-            }}
-            className="border p-8"
-          >
-            <span
-              style={{
-                position: 'absolute',
-                top: '-12px',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                background: 'var(--action)',
-                color: 'var(--paper)',
-                fontFamily: 'var(--font-mono)',
-                fontSize: '11px',
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-                padding: '4px 12px',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              Most Popular
-            </span>
-            <div className="mb-6">
-              <h2
-                style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }}
-                className="text-2xl font-semibold mb-1"
-              >
-                Studio Pro
-              </h2>
-              <p style={{ color: 'var(--stone)' }} className="text-sm">
-                For studios that want more inquiries.
-              </p>
-            </div>
-            <div className="mb-2">
-              <span
-                style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }}
-                className="text-5xl font-semibold"
-              >
-                $29
-              </span>
-              <span style={{ color: 'var(--stone)' }} className="text-sm ml-2">
-                /month
-              </span>
-            </div>
-            <p style={{ color: 'var(--stone)' }} className="text-sm mb-6">
-              30-day free trial, cancel anytime
-            </p>
-            <ul
-              style={{ color: 'var(--ink)', fontFamily: 'var(--font-body)' }}
-              className="space-y-2 mb-8 text-sm"
-            >
-              <li>Featured placement above free listings</li>
-              <li>Up to 15 photos</li>
-              <li>Website and Instagram links on your listing</li>
-              <li>Monthly view count and inquiry analytics</li>
-              <li>30-day free trial, cancel anytime</li>
-            </ul>
-            <Link href="/claim" className="btn-action w-full" style={{ textDecoration: 'none' }}>
-              Start 30-day free trial
-            </Link>
           </div>
         </div>
 
+        {/* Placement tiers */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 md:mb-20">
+          {placements.map((p) => (
+            <div
+              key={p.name}
+              style={{
+                borderColor: p.highlight ? 'var(--action)' : 'var(--rule)',
+                borderWidth: p.highlight ? '2px' : '1px',
+                background: 'var(--paper)',
+                position: 'relative',
+              }}
+              className="border p-8"
+            >
+              {p.highlight && (
+                <span
+                  style={{
+                    position: 'absolute',
+                    top: '-12px',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    background: 'var(--action)',
+                    color: 'var(--paper)',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '11px',
+                    letterSpacing: '0.08em',
+                    textTransform: 'uppercase',
+                    padding: '4px 12px',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  Best value
+                </span>
+              )}
+              <h2
+                style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }}
+                className="text-xl font-semibold mb-2"
+              >
+                {p.name}
+              </h2>
+              <p style={{ color: 'var(--stone)', fontFamily: 'var(--font-body)' }} className="text-sm mb-4">
+                {p.description}
+              </p>
+              <div className="mb-6">
+                <span
+                  style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }}
+                  className="text-4xl font-semibold"
+                >
+                  {p.price}
+                </span>
+                <span style={{ color: 'var(--stone)' }} className="text-sm ml-1">
+                  {p.period}
+                </span>
+              </div>
+              <ul
+                style={{ color: 'var(--ink)', fontFamily: 'var(--font-body)' }}
+                className="space-y-2 mb-8 text-sm"
+              >
+                {p.features.map((f) => (
+                  <li key={f}>{f}</li>
+                ))}
+              </ul>
+              <Link
+                href="/advertise"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  minHeight: '44px',
+                  fontFamily: 'var(--font-body)',
+                  fontWeight: 500,
+                  fontSize: '14px',
+                  textDecoration: 'none',
+                  ...(p.highlight
+                    ? { background: 'var(--action)', color: 'var(--paper)' }
+                    : { border: '1px solid var(--ink)', background: 'transparent', color: 'var(--ink)' }),
+                }}
+                className="w-full"
+              >
+                Get started
+              </Link>
+            </div>
+          ))}
+        </div>
+
+        {/* FAQ */}
         <div className="max-w-2xl mx-auto">
           <h2
             style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }}
@@ -247,16 +261,13 @@ export default function PricingPage() {
                   className="py-4 font-medium text-base flex justify-between items-center gap-4"
                 >
                   <span>{faq.q}</span>
-                  <span style={{ color: 'var(--stone)' }} className="text-xl flex-shrink-0">
-                    +
-                  </span>
+                  <span style={{ color: 'var(--stone)' }} className="text-xl flex-shrink-0">+</span>
                 </summary>
                 <p
                   style={{ color: 'var(--stone)', fontFamily: 'var(--font-body)' }}
                   className="pb-4 text-sm leading-relaxed"
                 >
                   {faq.a}
-                  {faq.aExtra}
                 </p>
               </details>
             ))}

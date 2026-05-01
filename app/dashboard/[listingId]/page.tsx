@@ -10,16 +10,14 @@ export default async function DashboardPage({ params }: Props) {
   const id = parseInt(listingId, 10)
   if (isNaN(id)) redirect('/')
 
-  // Verify auth
   const supabase = await createAuthClient()
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) redirect(`/claim/${id}`)
 
-  // Fetch listing with ownership check
   const { data: listing } = await supabaseServer
     .from('listings')
-    .select('id, title, neighborhood, type, tier, stripe_customer_id, owner_user_id, owner_email')
+    .select('id, title, neighborhood, type, owner_user_id')
     .eq('id', id)
     .eq('status', 'active')
     .single()
@@ -27,23 +25,18 @@ export default async function DashboardPage({ params }: Props) {
   if (!listing) redirect('/')
   if (listing.owner_user_id !== user.id) redirect('/')
 
-  // Fetch inquiry count
   const { count: inquiryCount } = await supabaseServer
     .from('lead_inquiries')
     .select('id', { count: 'exact', head: true })
     .eq('listing_id', id)
 
-  // Fetch 30-day view count
-  const cutoffDate = new Date()
-  cutoffDate.setDate(cutoffDate.getDate() - 30)
-  const cutoff = cutoffDate.toISOString()
+  const cutoff = new Date()
+  cutoff.setDate(cutoff.getDate() - 30)
   const { count: viewCount } = await supabaseServer
     .from('listing_views')
     .select('id', { count: 'exact', head: true })
     .eq('listing_id', id)
-    .gte('viewed_at', cutoff)
-
-  const isPro = listing.tier === 'pro'
+    .gte('viewed_at', cutoff.toISOString())
 
   return (
     <div style={{
@@ -67,7 +60,6 @@ export default async function DashboardPage({ params }: Props) {
           ← View listing
         </Link>
 
-        {/* Header */}
         <div style={{ marginBottom: '32px' }}>
           <p style={{
             fontFamily: 'var(--font-mono)',
@@ -79,18 +71,15 @@ export default async function DashboardPage({ params }: Props) {
           }}>
             {listing.type} · {listing.neighborhood}
           </p>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <h1 style={{
-              fontFamily: 'var(--font-heading)',
-              fontSize: '24px',
-              fontWeight: 700,
-              color: 'var(--ink)',
-              margin: 0,
-            }}>
-              {listing.title}
-            </h1>
-            {isPro && <span className="pro-badge">Pro</span>}
-          </div>
+          <h1 style={{
+            fontFamily: 'var(--font-heading)',
+            fontSize: '24px',
+            fontWeight: 700,
+            color: 'var(--ink)',
+            margin: 0,
+          }}>
+            {listing.title}
+          </h1>
         </div>
 
         {/* Stats */}
@@ -156,135 +145,43 @@ export default async function DashboardPage({ params }: Props) {
           </div>
         </div>
 
-        {/* Free vs Pro comparison */}
-        {!isPro && (
-          <div style={{
-            border: '1px solid var(--rule)',
-            marginBottom: '24px',
+        {/* Placement upsell */}
+        <div style={{ border: '1px solid var(--rule)', padding: '24px', marginBottom: '24px' }}>
+          <p style={{
+            fontFamily: 'var(--font-heading)',
+            fontSize: '16px',
+            fontWeight: 600,
+            color: 'var(--ink)',
+            margin: '0 0 8px',
           }}>
-            <div style={{
-              padding: '16px 20px',
-              borderBottom: '1px solid var(--rule)',
-            }}>
-              <p style={{
-                fontFamily: 'var(--font-heading)',
-                fontSize: '16px',
-                fontWeight: 600,
-                color: 'var(--ink)',
-                margin: 0,
-              }}>
-                Get more from your listing
-              </p>
-            </div>
-            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-              <thead>
-                <tr>
-                  <th style={{ ...thStyle, textAlign: 'left' }}>Feature</th>
-                  <th style={thStyle}>Free</th>
-                  <th style={{ ...thStyle, color: 'var(--action)' }}>Pro</th>
-                </tr>
-              </thead>
-              <tbody>
-                <CompareRow label="View count" free="Basic" pro="Full analytics" />
-                <CompareRow label="Photos" free="3" pro="15" />
-                <CompareRow label="Website link" free="—" pro="Shown on listing" />
-                <CompareRow label="Instagram link" free="—" pro="Shown on listing" />
-                <CompareRow label="Verified badge" free="—" pro="Pro badge" />
-                <CompareRow label="Search ranking" free="Standard" pro="Featured" />
-              </tbody>
-            </table>
-            <div style={{ padding: '16px 20px' }}>
-              <a
-                href={`/claim?listing_id=${id}`}
-                className="btn-action"
-                style={{
-                  display: 'block',
-                  width: '100%',
-                  padding: '14px',
-                  textAlign: 'center',
-                  fontFamily: 'var(--font-heading)',
-                  fontSize: '0.875rem',
-                  fontWeight: 500,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.05em',
-                  textDecoration: 'none',
-                  border: 'none',
-                  boxSizing: 'border-box',
-                }}
-              >
-                Start 30-day free trial →
-              </a>
-              <p style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: '13px',
-                color: 'var(--stone)',
-                textAlign: 'center',
-                margin: '8px 0 0',
-              }}>
-                $29/month after. Cancel anytime.
-              </p>
-            </div>
-          </div>
-        )}
+            Get more visibility
+          </p>
+          <p style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: '14px',
+            color: 'var(--stone)',
+            margin: '0 0 16px',
+            lineHeight: 1.5,
+          }}>
+            Sponsored placement puts your studio at the top of a category or neighborhood page — from $49/month. No commission. Renters contact you directly.
+          </p>
+          <Link
+            href="/advertise"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              fontFamily: 'var(--font-body)',
+              fontSize: '14px',
+              fontWeight: 500,
+              color: 'var(--action)',
+              textDecoration: 'none',
+            }}
+          >
+            Learn about sponsored placement →
+          </Link>
+        </div>
 
-        {/* Pro: manage subscription */}
-        {isPro && listing.stripe_customer_id && (
-          <ProPortalButton customerId={listing.stripe_customer_id} listingId={id} />
-        )}
       </div>
     </div>
-  )
-}
-
-const thStyle: React.CSSProperties = {
-  fontFamily: 'var(--font-mono)',
-  fontSize: '10px',
-  color: 'var(--stone)',
-  textTransform: 'uppercase',
-  letterSpacing: '0.08em',
-  padding: '10px 20px',
-  borderBottom: '1px solid var(--rule)',
-  textAlign: 'center',
-}
-
-function CompareRow({ label, free, pro }: { label: string; free: string; pro: string }) {
-  const cellStyle: React.CSSProperties = {
-    fontFamily: 'var(--font-mono)',
-    fontSize: '12px',
-    padding: '10px 20px',
-    borderBottom: '1px solid var(--rule)',
-    textAlign: 'center',
-  }
-  return (
-    <tr>
-      <td style={{ ...cellStyle, textAlign: 'left', color: 'var(--ink)' }}>{label}</td>
-      <td style={{ ...cellStyle, color: 'var(--stone)' }}>{free}</td>
-      <td style={{ ...cellStyle, color: 'var(--ink)' }}>{pro}</td>
-    </tr>
-  )
-}
-
-function ProPortalButton({ customerId, listingId }: { customerId: string; listingId: number }) {
-  return (
-    <form action="/api/stripe/portal" method="POST">
-      <input type="hidden" name="customer_id" value={customerId} />
-      <input type="hidden" name="listing_id" value={listingId} />
-      <button
-        type="submit"
-        style={{
-          width: '100%',
-          padding: '10px',
-          border: '1px solid var(--ink)',
-          background: 'transparent',
-          color: 'var(--ink)',
-          fontFamily: 'var(--font-body)',
-          fontSize: '14px',
-          fontWeight: 500,
-          cursor: 'pointer',
-        }}
-      >
-        Manage subscription →
-      </button>
-    </form>
   )
 }

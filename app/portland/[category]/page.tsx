@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
+import { supabaseServer } from '@/lib/supabase-server'
 import { categoryConfigs } from './config'
 import CategoryFilter from '@/components/CategoryFilter'
+import ListingCard from '@/components/ListingCard'
 import { classifyListingToPillar } from '@/lib/pillar-category'
 
 type Props = {
@@ -192,6 +194,26 @@ export default async function CategoryPage({ params, searchParams }: Props) {
     })
     .slice(0, 48)
 
+  // Sponsored placements — service role only, max 3, status=active
+  const { data: placements } = await supabaseServer
+    .from('visibility_placements')
+    .select('listing_id')
+    .eq('target_type', 'category')
+    .eq('target_slug', category)
+    .eq('status', 'active')
+    .limit(3)
+
+  const sponsoredIds = (placements ?? []).map((p) => p.listing_id as number)
+  let sponsoredListings: { id: number; title: string | null; price_display: string | null; neighborhood: string | null; type: string | null; images: unknown; tier: string | null }[] = []
+  if (sponsoredIds.length > 0) {
+    const { data: sl } = await supabaseServer
+      .from('listings')
+      .select('id, title, price_display, neighborhood, type, images, tier')
+      .in('id', sponsoredIds)
+      .eq('status', 'active')
+    sponsoredListings = sl ?? []
+  }
+
   // Page heading + intro swap when amenity filter is active
   const pageH1 = amenityMeta?.h1 ?? config.h1
   const pageIntro = amenityMeta?.description ?? config.intro
@@ -352,6 +374,26 @@ export default async function CategoryPage({ params, searchParams }: Props) {
                 <> <Link href={`/portland/${category}`} className="underline">Browse all spaces →</Link></>
               )}
             </p>
+          )}
+
+          {sponsoredListings.length > 0 && (
+            <div style={{ marginBottom: '32px' }}>
+              <p style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '10px',
+                color: 'var(--stone)',
+                textTransform: 'uppercase',
+                letterSpacing: '0.08em',
+                marginBottom: '12px',
+              }}>
+                Sponsored
+              </p>
+              <div className="listing-grid">
+                {sponsoredListings.map((listing) => (
+                  <ListingCard key={listing.id} listing={listing} sponsored />
+                ))}
+              </div>
+            </div>
           )}
 
           {listings && listings.length > 0 ? (

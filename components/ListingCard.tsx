@@ -15,7 +15,7 @@ type Listing = {
   tier: string | null
 }
 
-type Props = { listing: Listing }
+type Props = { listing: Listing; sponsored?: boolean }
 
 const TEXT_CLASS: Record<string, string> = {
   art:      'cat-text-art',
@@ -61,13 +61,12 @@ function formatPrice(raw: string | null | undefined): string | null {
   return `$${num.toLocaleString('en-US')}/mo`
 }
 
-export default function ListingCard({ listing }: Props) {
+export default function ListingCard({ listing, sponsored }: Props) {
   const thumb = getThumb(listing.images, listing.tier)
   const typeKey = (listing.type ?? '').toLowerCase()
   const textClass = TEXT_CLASS[typeKey] ?? ''
   const typeLabel = TYPE_LABEL[typeKey] ?? listing.type ?? ''
   const priceFormatted = formatPrice(listing.price_display)
-  const isPro = listing.tier === 'pro'
 
   return (
     <Link
@@ -89,23 +88,22 @@ export default function ListingCard({ listing }: Props) {
           loading="lazy"
           className="listing-card-image"
         />
-        {isPro && (
+        {sponsored && (
           <span
             style={{
               position: 'absolute',
               top: '8px',
               right: '8px',
-              background: 'var(--featured-bg)',
-              color: 'var(--featured-color)',
+              background: 'rgba(0,0,0,0.55)',
+              color: '#fff',
               fontFamily: 'var(--font-mono)',
-              fontSize: '0.7rem',
+              fontSize: '0.65rem',
               letterSpacing: '0.08em',
               padding: '3px 8px',
-              borderRadius: '4px',
               fontWeight: 500,
             }}
           >
-            PRO
+            Sponsored
           </span>
         )}
       </div>
