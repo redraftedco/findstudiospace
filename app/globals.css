@@ -14,18 +14,18 @@
   --color-secondary-400: #E0FF55;
   --color-secondary-100: rgba(212,245,66,0.1);
 
-  /* Neutrals — LIGHT theme (editorial print) */
-  --color-ink:     #1C1917;       /* near-black text */
-  --color-paper:   #F7F4EE;       /* warm off-white bg */
-  --color-card:    #EDEAE2;       /* card surface */
-  --color-stone:   #5C574F;       /* muted text ~6:1 on paper */
-  --color-sub:     #3D3830;       /* secondary text ~9:1 on paper */
-  --color-rule:    rgba(28,25,23,0.14);
-  --color-rule-strong: rgba(28,25,23,0.26);
-  --color-surface: #EDEAE2;       /* alias of --card */
+  /* Neutrals — LIGHT theme (cool neutral) */
+  --color-ink:     #111111;       /* near-black text */
+  --color-paper:   #FAFAFA;       /* cool neutral bg */
+  --color-card:    #F0F0F0;       /* card surface */
+  --color-stone:   #595959;       /* muted text ~7:1 on paper */
+  --color-sub:     #383838;       /* secondary text ~10:1 on paper */
+  --color-rule:    rgba(0,0,0,0.10);
+  --color-rule-strong: rgba(0,0,0,0.20);
+  --color-surface: #F0F0F0;       /* alias of --card */
   --color-featured: #7A4800;      /* amber, readable on light */
-  --color-action:  #1C1917;       /* links — near-black on light */
-  --color-action-hover: #1C1917;
+  --color-action:  #111111;       /* links — near-black on light */
+  --color-action-hover: #111111;
   --color-error:   #B91C1C;
   --color-lime:    #D4F542;       /* CTA button bg */
 
@@ -41,23 +41,23 @@
 
 /* CSS custom properties for use in JS inline styles and CSS rules */
 :root {
-  --ink:     #1C1917;
-  --paper:   #F7F4EE;
-  --card:    #EDEAE2;
-  --stone:   #5C574F;
-  --sub:     #3D3830;
-  --rule:    rgba(28,25,23,0.14);
-  --rule-strong: rgba(28,25,23,0.26);
-  --surface: #EDEAE2;
+  --ink:     #111111;
+  --paper:   #FAFAFA;
+  --card:    #F0F0F0;
+  --stone:   #595959;
+  --sub:     #383838;
+  --rule:    rgba(0,0,0,0.10);
+  --rule-strong: rgba(0,0,0,0.20);
+  --surface: #F0F0F0;
 
-  --action:        #1C1917;
-  --action-hover:  #1C1917;
-  --action-focus:  #1C1917;
-  --action-light:  rgba(28,25,23,0.06);
+  --action:        #111111;
+  --action-hover:  #111111;
+  --action-focus:  #111111;
+  --action-light:  rgba(0,0,0,0.06);
   --lime:          #D4F542;
 
   /* Hero search input — slight lift over body */
-  --search-bg: #EAE7DF;
+  --search-bg: #EBEBEB;
 
   /* Category accent colors — kept as-is for category badges */
   --cat-art:        #5239C4;
@@ -122,7 +122,7 @@ a:hover { color: var(--lime); }
 
 /* Editorial shadow — light bg */
 .shadow-editorial {
-  box-shadow: 0 1px 3px rgba(28,25,23,0.07), 0 4px 16px rgba(28,25,23,0.05);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.05);
 }
 
 /* Homepage / category grid (editorial card) */
@@ -185,7 +185,7 @@ a:hover { color: var(--lime); }
   margin-top: 16px;
 }
 .listing-card:hover {
-  box-shadow: 0 4px 20px rgba(28,25,23,0.09), 0 1px 4px rgba(28,25,23,0.06);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.09), 0 1px 4px rgba(0,0,0,0.06);
 }
 .listing-card:hover .listing-card-image { transform: scale(1.02); }
 .listing-card:hover .listing-card-name {
@@ -430,7 +430,7 @@ button:focus-visible {
   font-weight: 500;
   color: var(--ink);
   background: transparent;
-  border: 1px solid rgba(28,25,23,0.22);
+  border: 1px solid rgba(0,0,0,0.18);
   padding: 5px 13px;
   border-radius: 3px;
   text-decoration: none;
