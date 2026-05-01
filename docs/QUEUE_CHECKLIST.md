@@ -18,9 +18,9 @@
 
 ## CRITICAL — blocks revenue or has a live bug
 
-- [ ] **Set `MAILING_ADDRESS` in Vercel env vars** (manual — Vercel dashboard)
+- [ ] **Set `POSTAL_ADDRESS` in Vercel env vars** (manual — Vercel dashboard)
   Value: `FindStudioSpace, 1631 NE Broadway St, Portland, OR 97232-1425`
-  Unblocks cold outreach. `POSTAL_ADDRESS` is already set as fallback but explicit is better.
+  Unblocks cold outreach.
 
 - [ ] **Send batch-zero cold outreach** — 24 ranked targets in `docs/batch-zero-send-list.md`.
   Run: `GET /api/cron/send-outreach` with `Authorization: Bearer <CRON_SECRET>`.

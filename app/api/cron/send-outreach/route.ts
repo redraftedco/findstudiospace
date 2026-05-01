@@ -23,7 +23,7 @@ import {
  * Cap: 20 emails per run to stay well inside Resend's daily limit.
  * Override via OUTREACH_DAILY_CAP env var.
  *
- * CAN-SPAM gate: assertCanSpamCompliant() hard-throws if MAILING_ADDRESS
+ * CAN-SPAM gate: assertCanSpamCompliant() hard-throws if POSTAL_ADDRESS
  * is not set, blocking all sends until a physical address is configured.
  *
  * Auth: Authorization: Bearer <CRON_SECRET>
