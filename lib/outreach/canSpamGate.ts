@@ -10,18 +10,16 @@
  *
  * HOW TO ACTIVATE:
  *   1. Get a physical mailing address (UPS Store, CMRA, or real address).
- *   2. Set env var MAILING_ADDRESS to the full address string, e.g.:
- *      MAILING_ADDRESS="FindStudioSpace, 123 NW Example St #456, Portland OR 97209"
+ *   2. Set env var POSTAL_ADDRESS to the full address string, e.g.:
+ *      POSTAL_ADDRESS="FindStudioSpace, 123 NW Example St #456, Portland OR 97209"
  *   3. Update the footer in app/layout.tsx to display the same address.
- *   4. The gate will pass automatically once MAILING_ADDRESS is set.
+ *   4. The gate will pass automatically once POSTAL_ADDRESS is set.
  *
  * USAGE:
  *   import { assertCanSpamCompliant } from '@/lib/outreach/canSpamGate'
  *   assertCanSpamCompliant() // throws if not configured — call before any send
  *
  * DESIGN: Hard throw, not soft warn. Soft warnings get silenced.
- * The footer placeholder was added (8d06eb8) and removed (1b11a6b) without
- * ever being filled in. A runtime error cannot be silenced the same way.
  */
 
 const PLACEHOLDER_PATTERNS = [
@@ -39,12 +37,12 @@ const PLACEHOLDER_PATTERNS = [
  * Call this at the top of every function that sends outbound email.
  */
 export function assertCanSpamCompliant(): void {
-  const address = process.env.MAILING_ADDRESS?.trim()
+  const address = process.env.POSTAL_ADDRESS?.trim()
 
   if (!address) {
     throw new Error(
-      '[CAN-SPAM] MAILING_ADDRESS env var is not set. ' +
-      'Set it to a full physical postal address before sending any outreach. ' +
+      '[CAN-SPAM] POSTAL_ADDRESS env var is not set. ' +
+      'Set POSTAL_ADDRESS to a full physical postal address before sending any outreach. ' +
       'See lib/outreach/canSpamGate.ts for setup instructions.'
     )
   }
@@ -52,8 +50,8 @@ export function assertCanSpamCompliant(): void {
   for (const pattern of PLACEHOLDER_PATTERNS) {
     if (pattern.test(address)) {
       throw new Error(
-        `[CAN-SPAM] MAILING_ADDRESS appears to be a placeholder: "${address}". ` +
-        'Set it to a real physical postal address.'
+        `[CAN-SPAM] POSTAL_ADDRESS appears to be a placeholder: "${address}". ` +
+        'Set POSTAL_ADDRESS to a real physical postal address.'
       )
     }
   }
@@ -64,5 +62,5 @@ export function assertCanSpamCompliant(): void {
  * Call assertCanSpamCompliant() first.
  */
 export function getMailingAddress(): string {
-  return process.env.MAILING_ADDRESS!.trim()
+  return (process.env.POSTAL_ADDRESS ?? '').trim()
 }

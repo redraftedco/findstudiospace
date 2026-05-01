@@ -1,8 +1,9 @@
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { supabase } from '@/lib/supabase'
 import { clampImagesToTier } from '@/lib/photo-limits'
+import ListingGallery from '@/components/ListingGallery'
 import InquiryForm from '@/components/InquiryForm'
 import ViewCounter from '@/components/ViewCounter'
 import ProUpsell from '@/components/ProUpsell'
@@ -122,6 +123,9 @@ export default async function ListingPage({ params, searchParams }: Props) {
         .map((x: unknown) => (typeof x === 'string' ? x : (x as Record<string, string>)?.url ?? ''))
         .filter(Boolean)
     : []
+
+  if (allImages.length === 0) redirect('/portland')
+
   const images: string[] = clampImagesToTier(allImages, listing.tier)
 
   const typeKey = (listing.type ?? '').toLowerCase()
@@ -220,10 +224,10 @@ export default async function ListingPage({ params, searchParams }: Props) {
           <nav
             style={{
               color: 'var(--stone)',
-              fontFamily: 'var(--font-mono)',
+              fontFamily: 'var(--font-body)',
               fontSize: '0.75rem',
               textTransform: 'uppercase',
-              letterSpacing: '0.08em',
+              letterSpacing: '0.06em',
               marginBottom: '1.5rem',
             }}
           >
@@ -292,72 +296,12 @@ export default async function ListingPage({ params, searchParams }: Props) {
 
             {/* Left column */}
             <div className="listing-detail-main">
-              {/* Gallery */}
-              {images.length === 0 ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src="/placeholder-studio.svg"
-                  alt=""
-                  width={1200}
-                  height={675}
-                  style={{
-                    width: '100%',
-                    aspectRatio: '16 / 9',
-                    objectFit: 'cover',
-                    display: 'block',
-                    borderRadius: '2px',
-                  }}
-                />
-              ) : (
-                <>
-                  {/* Hero image */}
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={images[0]}
-                    alt={`${listing.title ?? 'Studio'} in ${listing.neighborhood ?? 'Portland'}, OR`}
-                    width={1200}
-                    height={675}
-                    fetchPriority="high"
-                    loading="eager"
-                    style={{
-                      width: '100%',
-                      aspectRatio: '16 / 9',
-                      objectFit: 'cover',
-                      display: 'block',
-                      borderRadius: '2px',
-                    }}
-                  />
-                  {images.length > 1 && (
-                    <div
-                      style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(4, 1fr)',
-                        gap: '1rem',
-                        marginTop: '1rem',
-                      }}
-                    >
-                      {images.slice(1, 5).map((src, i) => (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          key={i}
-                          src={src}
-                          alt=""
-                          width={300}
-                          height={225}
-                          loading="lazy"
-                          style={{
-                            width: '100%',
-                            aspectRatio: '4 / 3',
-                            objectFit: 'cover',
-                            display: 'block',
-                            borderRadius: '2px',
-                          }}
-                        />
-                      ))}
-                    </div>
-                  )}
-                </>
-              )}
+              {/* Gallery — hover any thumbnail to preview in the hero slot */}
+              <ListingGallery
+                images={images}
+                title={listing.title ?? 'Studio'}
+                neighborhood={listing.neighborhood ?? 'Portland'}
+              />
 
               {/* Hairline */}
               <hr
@@ -369,7 +313,7 @@ export default async function ListingPage({ params, searchParams }: Props) {
               />
 
               {/* About */}
-              <section style={{ maxWidth: '680px' }}>
+              <section style={{ maxWidth: '65ch' }}>
                 <h2
                   style={{
                     fontFamily: 'var(--font-heading)',
@@ -398,7 +342,7 @@ export default async function ListingPage({ params, searchParams }: Props) {
 
               {/* Amenities */}
               {amenities.length > 0 && (
-                <section style={{ maxWidth: '680px', marginTop: '2.5rem' }}>
+                <section style={{ maxWidth: '65ch', marginTop: '2.5rem' }}>
                   <h2
                     style={{
                       fontFamily: 'var(--font-heading)',
@@ -411,20 +355,11 @@ export default async function ListingPage({ params, searchParams }: Props) {
                   >
                     Amenities
                   </h2>
-                  <ul
-                    style={{
-                      listStyle: 'disc',
-                      paddingLeft: '1.25rem',
-                      margin: 0,
-                      color: 'var(--ink)',
-                      fontSize: '1rem',
-                      lineHeight: 1.6,
-                    }}
-                  >
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
                     {amenities.map((a) => (
-                      <li key={a}>{a}</li>
+                      <span key={a} className="amenity-chip">{a}</span>
                     ))}
-                  </ul>
+                  </div>
                 </section>
               )}
 
@@ -496,29 +431,32 @@ export default async function ListingPage({ params, searchParams }: Props) {
 
             {/* Right column — sticky inquiry form */}
             <aside className="listing-detail-aside">
-              <p
-                style={{
-                  fontFamily: 'var(--font-heading)',
-                  color: 'var(--ink)',
-                  fontSize: '1.5rem',
-                  fontWeight: 500,
-                  margin: '0 0 2px',
-                  letterSpacing: '-0.01em',
-                }}
-              >
-                {priceFormatted}
-              </p>
-              <p
-                style={{
-                  fontFamily: 'var(--font-body)',
-                  color: 'var(--stone)',
-                  fontSize: '0.875rem',
-                  margin: '0 0 2rem',
-                }}
-              >
-                per month
-              </p>
-              <InquiryForm listingId={String(listing.id)} listingTitle={studioName} />
+              <div className="listing-sidebar-card">
+                <p
+                  style={{
+                    fontFamily: 'var(--font-heading)',
+                    color: 'var(--lime)',
+                    fontSize: '2rem',
+                    fontWeight: 700,
+                    margin: '0 0 2px',
+                    letterSpacing: '-0.02em',
+                    lineHeight: 1,
+                  }}
+                >
+                  {priceFormatted}
+                </p>
+                <p
+                  style={{
+                    fontFamily: 'var(--font-body)',
+                    color: 'var(--stone)',
+                    fontSize: '0.8125rem',
+                    margin: '0 0 1.5rem',
+                  }}
+                >
+                  per month
+                </p>
+                <InquiryForm listingId={String(listing.id)} listingTitle={studioName} />
+              </div>
 
               {isFree && <ProUpsell listingId={String(listing.id)} />}
             </aside>
