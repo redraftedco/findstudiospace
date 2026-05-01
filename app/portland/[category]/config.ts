@@ -92,6 +92,46 @@ export const categoryConfigs: Record<string, CategoryConfig> = {
     ],
   },
 
+  'podcast-studios': {
+    title: 'Podcast Studios for Rent in Portland, OR | FindStudioSpace',
+    metaDescription:
+      'Find podcast studios for rent in Portland, OR. Soundproofed recording booths, acoustic rooms, and production-ready spaces available for monthly rental. Contact hosts directly.',
+    h1: 'Podcast Studios for Rent in Portland, OR',
+    intro:
+      'Browse podcast studios and recording spaces available for monthly rent in Portland, OR. From single-host booths with acoustic treatment to full production rooms with video rigs, Portland has recording space for solo podcasters, co-hosted shows, and hybrid podcast-video setups. Submit an inquiry from any listing to connect directly with the host.',
+    listingType: null,
+    keywordInclude: ['podcast', 'recording', 'audio', 'sound booth', 'vocal booth'],
+    keywordExclude: ['dance', 'yoga', 'fitness', 'office', 'cowork', 'class'],
+    faqs: [
+      {
+        q: 'How do I find a podcast studio to rent in Portland?',
+        a: 'Browse the listings above — each shows location, photos, monthly pricing, and included equipment. Submit an inquiry directly from any listing page and the host will respond. No platform fee, no booking middleman.',
+      },
+      {
+        q: 'How much does it cost to rent a podcast studio in Portland per month?',
+        a: 'Monthly podcast studio rentals in Portland range from $300–$1,200/month depending on room size, soundproofing quality, and included equipment. Single-host booths for solo podcasters start on the lower end; larger production rooms with full mic setups, video rigs, and acoustic treatment run higher.',
+      },
+      {
+        q: 'What equipment is typically included in a Portland podcast studio rental?',
+        a: 'Most Portland podcast studios include microphones, audio interfaces, headphones, and studio monitors. Some add acoustic panels, mixing boards, and camera setups for hybrid podcast-video production. Check each listing description for the specific gear list — and ask the host to confirm before committing.',
+      },
+      {
+        q: 'Can I rent a Portland podcast studio on a month-to-month basis?',
+        a: 'Yes. Monthly terms are the standard arrangement in this directory — not hourly blocks. A monthly rental gives you consistent, flexible access without competing for booking slots. Some hosts offer month-to-month terms; others prefer a 2–3 month minimum. Mention your preferred term in your inquiry.',
+      },
+      {
+        q: 'What neighborhoods in Portland have podcast studios for rent?',
+        a: 'Podcast and audio recording studios in Portland are concentrated in the Central Eastside Industrial District and NE Portland, where converted warehouse and commercial buildings offer the acoustic isolation and high ceilings needed for recording. A smaller number of studios are available in SE Portland and the Pearl District.',
+      },
+    ],
+    related: [
+      { label: 'Content Studios', href: '/portland/content-studios' },
+      { label: 'Event Space', href: '/portland/event-space' },
+      { label: 'Photo Studios', href: '/portland/photo-studios' },
+      { label: 'Makerspace', href: '/portland/makerspace' },
+    ],
+  },
+
   'content-studios': {
     title: 'Podcast & Video Studio Rental in Portland | Content Creator Spaces',
     metaDescription:
