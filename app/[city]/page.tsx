@@ -308,27 +308,23 @@ function CityPageUI({
         >
           <div className="mx-auto max-w-5xl">
             <h1
-              style={{
-                fontFamily: 'var(--font-heading)',
-                color: 'var(--ink)',
-                letterSpacing: '-0.02em',
-                lineHeight: 1.1,
-              }}
-              className="hero-title font-semibold"
+              style={{ color: 'var(--ink)' }}
+              className="hero-title"
             >
               {config.displayName} studio rentals & creative workspace.
             </h1>
             <p
               style={{
                 fontFamily: 'var(--font-body)',
-                color: 'var(--stone)',
+                color: 'var(--sub)',
                 fontSize: '1.125rem',
                 lineHeight: 1.5,
                 marginTop: '1.25rem',
                 maxWidth: '620px',
               }}
             >
-              {total} studios. Every neighborhood. Free to search.
+              <span style={{ color: 'var(--lime)', fontWeight: 600 }}>{total}</span>
+              {' '}studios. Every neighborhood. Free to search.
             </p>
 
             <form
@@ -361,58 +357,45 @@ function CityPageUI({
             </form>
 
             <div
-              style={{
-                marginTop: '2.5rem',
-                fontFamily: 'var(--font-heading)',
-                fontSize: '1rem',
-                letterSpacing: '0.08em',
-                color: 'var(--ink)',
-                textTransform: 'uppercase',
-              }}
-              className="flex flex-wrap items-center gap-x-2 gap-y-2"
+              style={{ marginTop: '2rem' }}
+              className="flex flex-wrap items-center gap-2"
             >
-              {CATEGORY_PILLS.map((cat, i) => (
-                <span key={cat.slug} className="inline-flex items-center">
-                  <Link
-                    href={`/${citySlug}/${cat.slug}`}
-                    style={{ color: 'var(--ink)', textDecoration: 'none' }}
-                    className="hover:underline"
-                  >
-                    {cat.label}
-                  </Link>
-                  {i < CATEGORY_PILLS.length - 1 && (
-                    <span style={{ color: 'var(--rule)', margin: '0 0.5rem' }}>·</span>
-                  )}
-                </span>
+              {CATEGORY_PILLS.map((cat) => (
+                <Link
+                  key={cat.slug}
+                  href={`/${citySlug}/${cat.slug}`}
+                  className="hero-chip"
+                >
+                  {cat.label}
+                </Link>
               ))}
             </div>
 
             {/* Neighborhood entry points — only shown for Portland where pages exist */}
             {citySlug === 'portland' && (
               <div
-                style={{
-                  marginTop: '1rem',
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.75rem',
-                  letterSpacing: '0.06em',
-                  color: 'var(--stone)',
-                }}
-                className="flex flex-wrap items-center gap-x-2 gap-y-1"
+                style={{ marginTop: '0.75rem' }}
+                className="flex flex-wrap items-center gap-2"
               >
-                <span style={{ textTransform: 'uppercase', marginRight: '0.25rem' }}>By neighborhood:</span>
-                {NEIGHBORHOOD_PILLS.map((n, i) => (
-                  <span key={n.slug} className="inline-flex items-center">
-                    <Link
-                      href={`/${citySlug}/${n.slug}`}
-                      style={{ color: 'var(--stone)', textDecoration: 'none' }}
-                      className="hover:underline"
-                    >
-                      {n.label}
-                    </Link>
-                    {i < NEIGHBORHOOD_PILLS.length - 1 && (
-                      <span style={{ color: 'var(--rule)', margin: '0 0.35rem' }}>·</span>
-                    )}
-                  </span>
+                <span
+                  style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '11px',
+                    letterSpacing: '0.06em',
+                    textTransform: 'uppercase',
+                    color: 'var(--stone)',
+                  }}
+                >
+                  By neighborhood:
+                </span>
+                {NEIGHBORHOOD_PILLS.map((n) => (
+                  <Link
+                    key={n.slug}
+                    href={`/${citySlug}/${n.slug}`}
+                    className="hero-chip"
+                  >
+                    {n.label}
+                  </Link>
                 ))}
               </div>
             )}

@@ -233,20 +233,20 @@ html { scroll-behavior: smooth; }
 /* Homepage hero title */
 .hero-title {
   font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   font-weight: 400;
-  line-height: 0.95;
-  letter-spacing: -0.01em;
+  line-height: 0.92;
+  letter-spacing: 0.01em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-@media (min-width: 640px) { .hero-title { font-size: 2rem; } }
-@media (min-width: 900px) { .hero-title { font-size: 2.5rem; } }
+@media (min-width: 640px) { .hero-title { font-size: 3.5rem; } }
+@media (min-width: 900px) { .hero-title { font-size: 4.5rem; } }
 
-/* Center-align homepage hero */
-.hero-section { text-align: center; }
-.hero-section form { margin-left: auto; margin-right: auto; }
-.hero-section .flex { justify-content: center; }
+/* Left-align homepage hero */
+.hero-section { text-align: left; }
+.hero-section form { margin-left: 0; margin-right: 0; }
+.hero-section .flex { justify-content: flex-start; }
 
 /* Header nav tightening */
 @media (max-width: 640px) {
@@ -443,6 +443,19 @@ button:focus-visible {
   background-color: var(--featured-bg);
 }
 .listing-card-featured .listing-tag { color: var(--featured-color); }
+
+/* Listing card price row — separator + weight */
+.listing-card-price {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+  border-top: 1px solid var(--rule);
+  margin-top: 12px;
+  padding-top: 10px;
+  margin-bottom: 0;
+}
+.listing-card-price--muted { color: var(--stone); font-weight: 400; }
 
 /* Pro listing badge */
 .pro-badge {

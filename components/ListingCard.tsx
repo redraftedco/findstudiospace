@@ -143,17 +143,7 @@ export default function ListingCard({ listing }: Props) {
             </>
           )}
         </p>
-        <p
-          style={{
-            fontFamily: 'var(--font-heading)',
-            fontSize: '1rem',
-            fontWeight: 500,
-            color: priceFormatted ? 'var(--ink)' : 'var(--stone)',
-            marginTop: 'auto',
-            paddingTop: '8px',
-            marginBottom: 0,
-          }}
-        >
+        <p className={`listing-card-price${priceFormatted ? '' : ' listing-card-price--muted'}`}>
           {priceFormatted ?? 'Price on request'}
         </p>
       </div>
