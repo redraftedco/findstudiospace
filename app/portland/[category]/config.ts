@@ -421,9 +421,9 @@ export const categoryConfigs: Record<string, CategoryConfig> = {
       { q: 'What neighborhoods have fitness and dance studios in Portland?', a: 'Movement and fitness studios are spread across Portland, with concentrations in NE, SE, and North Portland neighborhoods.' },
     ],
     related: [
-      { label: 'Dance Studio for Rent', href: '/portland/dance-studio-rental' },
       { label: 'Art Studio for Rent', href: '/portland/art-studio-rental' },
       { label: 'Studio Space Rental', href: '/portland/studio-space-rental' },
+      { label: 'Workshop Space', href: '/portland/workshop-space-rental' },
     ],
   },
 
@@ -496,7 +496,7 @@ export const categoryConfigs: Record<string, CategoryConfig> = {
     ],
     related: [
       { label: 'Music Rehearsal Space', href: '/portland/music-rehearsal-space' },
-      { label: 'Dance Studio for Rent', href: '/portland/dance-studio-rental' },
+      { label: 'Podcast Studios', href: '/podcast-studios' },
       { label: 'Studio Space Rental', href: '/portland/studio-space-rental' },
     ],
   },

@@ -132,7 +132,7 @@ export default async function MusicRehearsalSpacePage() {
                 { label: 'Music Studio Rental', href: '/portland/music-studio-rental' },
                 { label: 'Art Studio Space', href: '/portland/art-studio' },
                 { label: 'Workshop Space', href: '/portland/workshop-space-rental' },
-                { label: 'Dance Studio Rental', href: '/portland/dance-studio-rental' },
+                { label: 'Podcast Studios', href: '/podcast-studios' },
               ].map(({ label, href }) => (
                 <li key={href}>
                   <Link
