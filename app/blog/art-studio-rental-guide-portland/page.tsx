@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://www.findstudiospace.com/blog/art-studio-rental-guide-portland' },
   title: 'How to Rent an Art Studio in Portland: A Practical Guide | FindStudioSpace',
   description:
     'What to look for, what to ask, and what to avoid when renting an art studio in Portland, OR. A guide for painters, ceramicists, sculptors, and mixed media artists.',
@@ -14,9 +15,33 @@ export const metadata: Metadata = {
   },
 }
 
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'How to Rent an Art Studio in Portland: A Practical Guide',
+  datePublished: '2025-04-12',
+  dateModified: '2026-05-01',
+  author: { '@type': 'Organization', name: 'FindStudioSpace', url: 'https://www.findstudiospace.com' },
+  publisher: { '@type': 'Organization', name: 'FindStudioSpace', url: 'https://www.findstudiospace.com', logo: { '@type': 'ImageObject', url: 'https://www.findstudiospace.com/og-default.svg' } },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://www.findstudiospace.com/blog/art-studio-rental-guide-portland' },
+}
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.findstudiospace.com' },
+    { '@type': 'ListItem', position: 2, name: 'Resources', item: 'https://www.findstudiospace.com/blog' },
+    { '@type': 'ListItem', position: 3, name: 'How to Rent an Art Studio in Portland' },
+  ],
+}
+
 export default function Post() {
   return (
-    <main style={{ background: 'var(--paper)', color: 'var(--ink)' }} className="min-h-screen">
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <main style={{ background: 'var(--paper)', color: 'var(--ink)' }} className="min-h-screen">
       <div className="mx-auto max-w-2xl px-6 py-14">
         <nav style={{ fontFamily: 'var(--font-mono)', color: 'var(--stone)' }} className="mb-10 text-sm">
           <Link href="/" className="hover:underline">Home</Link>
@@ -176,5 +201,6 @@ export default function Post() {
 
       </div>
     </main>
+    </>
   )
 }

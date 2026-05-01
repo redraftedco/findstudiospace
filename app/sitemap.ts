@@ -45,6 +45,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/slabtown`,                                       lastModified: new Date(), changeFrequency: 'weekly',  priority: 0.85 },
     { url: `${BASE}/makerspace-portland`,                            lastModified: new Date(), changeFrequency: 'weekly',  priority: 0.85 },
     { url: `${BASE}/video-production-studios-portland`,              lastModified: new Date(), changeFrequency: 'weekly',  priority: 0.85 },
+    { url: `${BASE}/kerns`,                                          lastModified: new Date(), changeFrequency: 'weekly',  priority: 0.80 },
+    { url: `${BASE}/mississippi-ave`,                                lastModified: new Date(), changeFrequency: 'weekly',  priority: 0.80 },
+    { url: `${BASE}/division-street`,                                lastModified: new Date(), changeFrequency: 'weekly',  priority: 0.80 },
+    { url: `${BASE}/sellwood`,                                       lastModified: new Date(), changeFrequency: 'weekly',  priority: 0.80 },
+    { url: `${BASE}/st-johns`,                                       lastModified: new Date(), changeFrequency: 'weekly',  priority: 0.80 },
+    { url: `${BASE}/blog/creative-workspace-rental-portland-guide`,  lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${BASE}/blog/portland-studio-market-2026`,               lastModified: new Date(), changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${BASE}/blog/how-to-negotiate-studio-lease-portland`,    lastModified: new Date(), changeFrequency: 'monthly', priority: 0.70 },
+    { url: `${BASE}/blog/pearl-district-vs-central-eastside-studio`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.70 },
+    { url: `${BASE}/blog/questions-to-ask-before-renting-studio-portland`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.70 },
+    { url: `${BASE}/blog/private-studio-vs-shared-coop-portland`,    lastModified: new Date(), changeFrequency: 'monthly', priority: 0.70 },
+    { url: `${BASE}/blog/makerspace-vs-private-workshop-portland`,   lastModified: new Date(), changeFrequency: 'monthly', priority: 0.70 },
+    { url: `${BASE}/blog/how-to-rent-podcast-studio-portland`,       lastModified: new Date(), changeFrequency: 'monthly', priority: 0.70 },
+    { url: `${BASE}/blog/how-to-rent-event-space-portland`,          lastModified: new Date(), changeFrequency: 'monthly', priority: 0.70 },
+    { url: `${BASE}/blog/what-to-look-for-viewing-studio-space`,     lastModified: new Date(), changeFrequency: 'monthly', priority: 0.70 },
+    { url: `${BASE}/blog/photography-studio-setup-budget-portland`,  lastModified: new Date(), changeFrequency: 'monthly', priority: 0.70 },
+    { url: `${BASE}/blog/how-to-sublease-studio-space-portland`,     lastModified: new Date(), changeFrequency: 'monthly', priority: 0.70 },
   ]
 
   // City hub pages — one per indexable city

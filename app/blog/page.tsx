@@ -12,6 +12,78 @@ export const metadata: Metadata = {
 
 const POSTS = [
   {
+    slug: 'creative-workspace-rental-portland-guide',
+    title: 'Creative Workspace for Rent in Portland: A Complete Guide',
+    date: '2026-05-01',
+    description: 'The complete guide to renting creative workspace in Portland — studio types, neighborhoods, price ranges, and how to choose the right space for your practice.',
+  },
+  {
+    slug: 'portland-studio-market-2026',
+    title: 'Portland Studio Space Market Report 2026',
+    date: '2026-05-01',
+    description: 'Average monthly rents for art studios, photo studios, workshops, and creative offices in Portland — broken down by neighborhood and space type. Updated 2026.',
+  },
+  {
+    slug: 'how-to-negotiate-studio-lease-portland',
+    title: 'How to Negotiate a Month-to-Month Studio Lease in Portland',
+    date: '2026-05-01',
+    description: 'How to negotiate month-to-month terms on a Portland studio rental — what landlords expect, what to ask for, and what to get in writing before you sign.',
+  },
+  {
+    slug: 'pearl-district-vs-central-eastside-studio',
+    title: "Pearl District vs. Central Eastside: Which Is Right for Your Studio?",
+    date: '2026-05-01',
+    description: "Comparing Portland's two top studio neighborhoods — prices, character, and who belongs where.",
+  },
+  {
+    slug: 'questions-to-ask-before-renting-studio-portland',
+    title: '12 Questions to Ask Before Renting a Studio Space in Portland',
+    date: '2026-05-01',
+    description: 'Before you sign a studio lease in Portland, ask these 12 questions — access hours, utilities, permitted uses, storage, and what must be in writing.',
+  },
+  {
+    slug: 'private-studio-vs-shared-coop-portland',
+    title: 'Private Art Studio vs. Shared Co-op in Portland: Pros and Cons',
+    date: '2026-05-01',
+    description: 'The real trade-offs between a private studio and a shared artist co-op in Portland — cost, community, equipment access, and flexibility.',
+  },
+  {
+    slug: 'makerspace-vs-private-workshop-portland',
+    title: 'Makerspace vs. Private Workshop in Portland: Which Is Right for You?',
+    date: '2026-05-01',
+    description: 'Cost, equipment access, noise, and flexibility — how to choose between a makerspace membership and a private workshop rental in Portland.',
+  },
+  {
+    slug: 'how-to-rent-podcast-studio-portland',
+    title: 'How to Rent a Podcast Studio in Portland, OR',
+    date: '2026-05-01',
+    description: 'What to look for when renting a podcast studio in Portland — soundproofing, equipment, monthly vs. hourly rates, and what to ask before booking.',
+  },
+  {
+    slug: 'how-to-rent-event-space-portland',
+    title: 'How to Rent Event Space in Portland for Pop-Ups and Private Events',
+    date: '2026-05-01',
+    description: 'A guide to renting event space and private venues in Portland for pop-ups, brand activations, and private gatherings — what to look for and what to ask.',
+  },
+  {
+    slug: 'what-to-look-for-viewing-studio-space',
+    title: 'What to Look for When Viewing a Studio Space in Portland',
+    date: '2026-05-01',
+    description: 'A practical checklist for studio viewings — light, power, noise, access, moisture, and structural red flags to check before committing.',
+  },
+  {
+    slug: 'photography-studio-setup-budget-portland',
+    title: 'How to Set Up a Photography Studio on a Budget in Portland',
+    date: '2026-05-01',
+    description: 'What you actually need, what to rent vs. buy, and how to set up a photography studio in Portland without overspending.',
+  },
+  {
+    slug: 'how-to-sublease-studio-space-portland',
+    title: 'How to Sublease a Studio Space in Portland, OR',
+    date: '2026-05-01',
+    description: 'A practical guide to subleasing a studio space in Portland — landlord approval, pricing, finding a subtenant, and documenting the arrangement.',
+  },
+  {
     slug: 'photo-studio-rental-portland',
     title: 'How to Rent a Photography Studio in Portland, OR',
     date: '2026-04-26',

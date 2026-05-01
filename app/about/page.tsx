@@ -213,7 +213,7 @@ export default function AboutPage() {
                 Independent and bootstrapped
               </h2>
               <p style={{ color: 'var(--stone)' }} className="text-sm leading-relaxed">
-                FindStudioSpace was founded and is independently operated by Taylor, a Portland-based founder. No outside investors, no parent company, no affiliate relationships with the platforms we&apos;re alternatives to. Listings are not paid placements unless explicitly marked as &quot;Featured&quot; under our Pro tier, which gives priority search placement to landlords paying a flat $29/month subscription. Featured listings are clearly distinguished from organic results.
+                FindStudioSpace was founded and is independently operated by Taylor, a Portland-based founder. No outside investors, no parent company, no affiliate relationships with the platforms we&apos;re alternatives to. Listings are not paid placements unless explicitly marked as &quot;Featured.&quot; Hosts can purchase sponsored category and neighborhood placement starting at $49/month — always clearly distinguished from organic results.
               </p>
             </section>
 
