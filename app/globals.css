@@ -238,6 +238,8 @@ html { scroll-behavior: smooth; }
   line-height: 0.95;
   letter-spacing: -0.01em;
   text-transform: uppercase;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 @media (min-width: 640px) { .hero-title { font-size: 2rem; } }
 @media (min-width: 900px) { .hero-title { font-size: 2.5rem; } }
