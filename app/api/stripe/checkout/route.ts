@@ -1,64 +1,75 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { stripe } from '@/lib/stripe'
-import { checkOrigin } from '@/lib/security'
+import { stripe, STRIPE_PRICES } from '@/lib/stripe'
+import { supabaseServer } from '@/lib/supabase-server'
+import {
+  isValidEmail,
+  parsePositiveInt,
+  isOneOf,
+  rateLimit,
+  getClientIp,
+} from '@/lib/validation'
 
-const PRICE_IDS: Record<string, string | undefined> = {
-  monthly: process.env.STRIPE_PRICE_PRO_MONTHLY_ID,
-  annual: process.env.STRIPE_PRICE_PRO_ANNUAL_ID,
-}
+const VALID_TIERS = ['pro', 'featured'] as const
 
 export async function POST(req: NextRequest) {
-  const originError = checkOrigin(req)
-  if (originError) return originError
-
   try {
+    const ip = getClientIp(req)
+    const rl = rateLimit(`checkout:${ip}`, { windowMs: 15 * 60 * 1000, maxRequests: 5 })
+    if (!rl.allowed) {
+      return NextResponse.json(
+        { error: 'Too many requests. Please try again later.' },
+        { status: 429, headers: { 'Retry-After': String(Math.ceil(rl.retryAfterMs / 1000)) } },
+      )
+    }
+
     const body = await req.json()
-    const { listing_id, email, interval } = body
+    const { tier, listing_id, email } = body
 
-    if (!listing_id) {
-      return NextResponse.json(
-        { error: 'listing_id is required' },
-        { status: 400 }
-      )
+    if (!isOneOf(tier, VALID_TIERS)) {
+      return NextResponse.json({ error: 'tier must be pro or featured' }, { status: 400 })
     }
 
-    const plan = interval === 'annual' ? 'annual' : 'monthly'
-    const priceId = PRICE_IDS[plan]
-
-    if (!priceId) {
-      return NextResponse.json(
-        { error: 'This plan is not available yet.' },
-        { status: 400 }
-      )
+    const listingId = parsePositiveInt(listing_id)
+    if (!listingId) {
+      return NextResponse.json({ error: 'Valid listing_id is required' }, { status: 400 })
     }
 
-    const siteUrl = 'https://www.findstudiospace.com'
+    if (!isValidEmail(email)) {
+      return NextResponse.json({ error: 'A valid email is required' }, { status: 400 })
+    }
+
+    const { data: listing, error: listingError } = await supabaseServer
+      .from('listings')
+      .select('id, status, contact_email')
+      .eq('id', listingId)
+      .eq('status', 'active')
+      .single()
+
+    if (listingError || !listing) {
+      return NextResponse.json({ error: 'Listing not found or not active' }, { status: 404 })
+    }
+
+    const priceId = STRIPE_PRICES[tier]
 
     const session = await stripe.checkout.sessions.create({
       mode: 'subscription',
       payment_method_types: ['card'],
-      ...(email ? { customer_email: email } : {}),
+      customer_email: email.trim().toLowerCase(),
       line_items: [{ price: priceId, quantity: 1 }],
-      subscription_data: {
-        trial_period_days: 30,
-      },
       metadata: {
-        listing_id: String(listing_id),
-        tier: 'pro',
+        listing_id: String(listingId),
+        tier,
       },
-      success_url: `${siteUrl}/listing/${listing_id}?upgrade=success`,
-      cancel_url: `${siteUrl}/claim?listing_id=${listing_id}&canceled=true`,
+      success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/for-landlords?success=true`,
+      cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/for-landlords?canceled=true`,
     })
 
     return NextResponse.json({ url: session.url })
-  } catch (error: unknown) {
-    // Log full error server-side ONLY. Never echo Stripe error.message to
-    // the client — Stripe error strings can include partial key prefixes
-    // ("Expired API Key provided: sk_live_...") which leaked into UI copy.
-    console.error('Stripe checkout error:', error)
+  } catch (error) {
+    console.error('Stripe checkout error:', (error as Error).message)
     return NextResponse.json(
-      { error: 'Could not start checkout. Please try again.' },
-      { status: 500 }
+      { error: 'Failed to create checkout session' },
+      { status: 500 },
     )
   }
 }

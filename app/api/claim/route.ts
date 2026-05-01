@@ -1,47 +1,50 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@supabase/supabase-js'
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_KEY!
-)
+import { supabaseServer } from '@/lib/supabase-server'
+import { parsePositiveInt, rateLimit, getClientIp } from '@/lib/validation'
 
 export async function GET(req: NextRequest) {
-  const { searchParams } = new URL(req.url)
-  const listing_id = searchParams.get('listing_id')
-
-  if (!listing_id || isNaN(parseInt(listing_id))) {
+  const ip = getClientIp(req)
+  const rl = rateLimit(`claim:${ip}`, { windowMs: 15 * 60 * 1000, maxRequests: 10 })
+  if (!rl.allowed) {
     return NextResponse.json(
-      { error: 'Valid listing_id is required' },
-      { status: 400 }
+      { error: 'Too many requests. Please try again later.' },
+      { status: 429, headers: { 'Retry-After': String(Math.ceil(rl.retryAfterMs / 1000)) } },
     )
   }
 
-  // Get the listing
-  const { data: listing, error: listingError } = await supabase
+  const { searchParams } = new URL(req.url)
+  const listingId = parsePositiveInt(searchParams.get('listing_id'))
+
+  if (!listingId) {
+    return NextResponse.json(
+      { error: 'Valid listing_id is required' },
+      { status: 400 },
+    )
+  }
+
+  const { data: listing, error: listingError } = await supabaseServer
     .from('listings')
-    .select('id, title, neighborhood, type, status, tier, stripe_customer_id')
-    .eq('id', parseInt(listing_id))
+    .select('id, title, neighborhood, type, status')
+    .eq('id', listingId)
     .eq('status', 'active')
     .single()
 
   if (listingError || !listing) {
     return NextResponse.json(
       { error: 'Listing not found' },
-      { status: 404 }
+      { status: 404 },
     )
   }
 
-  // Count inquiries for this listing
-  const { count, error: countError } = await supabase
+  const { count, error: countError } = await supabaseServer
     .from('lead_inquiries')
     .select('*', { count: 'exact', head: true })
-    .eq('listing_id', parseInt(listing_id))
+    .eq('listing_id', listingId)
 
   if (countError) {
     return NextResponse.json(
       { error: 'Failed to fetch inquiry count' },
-      { status: 500 }
+      { status: 500 },
     )
   }
 
@@ -51,7 +54,5 @@ export async function GET(req: NextRequest) {
     neighborhood: listing.neighborhood,
     type: listing.type,
     inquiry_count: count ?? 0,
-    tier: listing.tier ?? 'free',
-    stripe_customer_id: listing.stripe_customer_id ?? null,
   })
 }

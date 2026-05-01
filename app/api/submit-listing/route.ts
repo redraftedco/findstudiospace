@@ -1,7 +1,16 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 import { supabaseServer } from '@/lib/supabase-server'
-import { checkOrigin } from '@/lib/security'
-import { imageCountExceedsTier } from '@/lib/photo-limits'
+import {
+  isValidEmail,
+  isValidString,
+  isValidNumber,
+  isOneOf,
+  sanitizeText,
+  rateLimit,
+  getClientIp,
+} from '@/lib/validation'
+
+const VALID_TYPES = ['Art Studio', 'Workshop', 'Office', 'Photo Studio', 'Retail', 'Fitness & Dance'] as const
 
 const TYPE_MAP: Record<string, string> = {
   'Art Studio': 'art',
@@ -12,92 +21,73 @@ const TYPE_MAP: Record<string, string> = {
   'Fitness & Dance': 'fitness',
 }
 
-const VALID_TYPES = new Set(Object.values(TYPE_MAP))
+const VALID_AMENITIES = ['Parking', '24hr Access', 'Natural Light', 'Utilities Included', 'Private Bathroom', 'WiFi', 'Storage']
 
-function stripHtml(str: string): string {
-  return str.replace(/(<([^>]+)>)/gi, '').trim()
-}
-
-function isValidEmail(email: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-}
-
-export async function POST(req: NextRequest) {
-  const originError = checkOrigin(req)
-  if (originError) return originError
-
+export async function POST(req: Request) {
   try {
+    const ip = getClientIp(req)
+    const rl = rateLimit(`submit:${ip}`, { windowMs: 60 * 60 * 1000, maxRequests: 3 })
+    if (!rl.allowed) {
+      return NextResponse.json(
+        { success: false, error: 'Too many submissions. Please try again later.' },
+        { status: 429, headers: { 'Retry-After': String(Math.ceil(rl.retryAfterMs / 1000)) } },
+      )
+    }
+
     const body = await req.json()
-    const { host_name, email, title, type, neighborhood, price_monthly, square_footage, description, amenities, images } = body
+    const { host_name, email, title, type, neighborhood, price_monthly, square_footage, description, amenities } = body
 
-    // Photo limit guard — new listings submit as free tier, so limit is 5.
-    // Body does not currently include images (submission form has no upload
-    // UI). Guard is prophylactic for a future upload surface; rejects oversized
-    // payloads if anything starts sending them.
-    if (images !== undefined && imageCountExceedsTier(images, 'free')) {
-      return NextResponse.json({ success: false, error: 'Too many photos for free tier (max 5).' }, { status: 400 })
+    if (!isValidString(title, { min: 3, max: 200 })) {
+      return NextResponse.json({ success: false, error: 'Title must be 3-200 characters.' }, { status: 400 })
     }
-
-    if (!title || !email || !type || !neighborhood || !description || !price_monthly) {
-      return NextResponse.json({ success: false, error: 'Missing required fields.' }, { status: 400 })
-    }
-
     if (!isValidEmail(email)) {
-      return NextResponse.json({ success: false, error: 'Invalid email address.' }, { status: 400 })
+      return NextResponse.json({ success: false, error: 'A valid email is required.' }, { status: 400 })
     }
-
-    const mappedType = TYPE_MAP[type] ?? null
-    if (!mappedType || !VALID_TYPES.has(mappedType)) {
+    if (!isOneOf(type, VALID_TYPES)) {
       return NextResponse.json({ success: false, error: 'Invalid space type.' }, { status: 400 })
     }
-
-    const priceNum = Number(price_monthly)
-    if (isNaN(priceNum) || priceNum < 0) {
-      return NextResponse.json({ success: false, error: 'Invalid price.' }, { status: 400 })
+    if (!isValidString(neighborhood, { min: 1, max: 200 })) {
+      return NextResponse.json({ success: false, error: 'Neighborhood is required.' }, { status: 400 })
+    }
+    if (!isValidString(description, { min: 50, max: 10000 })) {
+      return NextResponse.json({ success: false, error: 'Description must be 50-10000 characters.' }, { status: 400 })
+    }
+    if (!isValidNumber(price_monthly, { min: 0, max: 100000 })) {
+      return NextResponse.json({ success: false, error: 'Price must be between $0 and $100,000.' }, { status: 400 })
+    }
+    if (square_footage !== null && square_footage !== undefined && square_footage !== '') {
+      if (!isValidNumber(square_footage, { min: 0, max: 1000000 })) {
+        return NextResponse.json({ success: false, error: 'Invalid square footage.' }, { status: 400 })
+      }
+    }
+    if (host_name && !isValidString(host_name, { max: 200 })) {
+      return NextResponse.json({ success: false, error: 'Host name is too long.' }, { status: 400 })
     }
 
-    // Sanitize text inputs
-    const cleanTitle = stripHtml(String(title)).slice(0, 200)
-    const cleanDescription = stripHtml(String(description)).slice(0, 5000)
-    const cleanNeighborhood = stripHtml(String(neighborhood)).slice(0, 100)
-    const cleanEmail = String(email).trim().toLowerCase().slice(0, 200)
-    const cleanHostName = host_name ? stripHtml(String(host_name)).slice(0, 100) : null
-
-    // Map photography-specific amenity labels to structured niche_attributes
-    // jsonb keys so the photo-studios filter UI can target them. General
-    // amenities stay in the amenities text[] for non-filter rendering.
-    const amenityList: string[] = Array.isArray(amenities) ? amenities : []
-    const nicheKeyMap: Record<string, string> = {
-      'Cyc Wall': 'cyc_wall',
-      'Green Screen': 'green_screen',
-      'Product Photography Setup': 'product_photography',
-      'Skylight / North-Facing Light': 'natural_light',
-      'Natural Light': 'natural_light',
-    }
-    const nicheAttrs: Record<string, boolean> = {}
-    for (const label of amenityList) {
-      const k = nicheKeyMap[label]
-      if (k) nicheAttrs[k] = true
-    }
+    const safeAmenities = Array.isArray(amenities)
+      ? amenities.filter((a: unknown) => typeof a === 'string' && VALID_AMENITIES.includes(a))
+      : []
 
     const { error } = await supabaseServer.from('listings').insert([{
-      title: cleanTitle,
-      description: cleanDescription,
-      type: mappedType,
-      neighborhood: cleanNeighborhood,
-      price_numeric: priceNum,
-      price_display: `$${priceNum}/mo`,
+      title: sanitizeText(title),
+      description: sanitizeText(description),
+      type: TYPE_MAP[type] ?? type.toLowerCase(),
+      neighborhood: sanitizeText(neighborhood),
+      price_numeric: Number(price_monthly),
+      price_display: `$${Number(price_monthly)}/mo`,
       square_footage: square_footage ? Number(square_footage) : null,
-      amenities: amenityList,
-      niche_attributes: Object.keys(nicheAttrs).length > 0 ? nicheAttrs : null,
-      submitted_by_email: cleanEmail,
-      contact_email: cleanEmail,
+      amenities: safeAmenities,
+      submitted_by_email: email.trim().toLowerCase(),
+      contact_email: email.trim().toLowerCase(),
       directory_id: process.env.NEXT_PUBLIC_DIRECTORY_ID || 'findstudiospace',
       city: 'Portland',
       status: 'pending',
     }])
 
-    if (error) return NextResponse.json({ success: false, error: 'Something went wrong.' }, { status: 500 })
+    if (error) {
+      console.error('Listing insert error:', error.code)
+      return NextResponse.json({ success: false, error: 'Failed to save listing.' }, { status: 500 })
+    }
 
     return NextResponse.json({ success: true })
   } catch {
