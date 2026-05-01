@@ -14,20 +14,20 @@
   --color-secondary-400: #E0FF55;
   --color-secondary-100: rgba(212,245,66,0.1);
 
-  /* Neutrals — DARK theme (ink/data-sheet) */
-  --color-ink:     #FAF7EF;       /* off-white text */
-  --color-paper:   #0D0D0D;       /* near-black bg */
-  --color-card:    #141414;       /* card surface */
-  --color-stone:   #8C8578;       /* muted text */
-  --color-sub:     #C8C3B5;       /* secondary text */
-  --color-rule:    rgba(250,247,239,0.12);
-  --color-rule-strong: rgba(250,247,239,0.22);
-  --color-surface: #141414;       /* alias of --card */
-  --color-featured: #E5A100;      /* gold (kept, works on dark) */
-  --color-action:  #D4F542;       /* lime CTA */
-  --color-action-hover: #B8D938;  /* lime hover */
-  --color-error:   #DC2626;
-  --color-lime:    #D4F542;       /* explicit lime token */
+  /* Neutrals — LIGHT theme (editorial print) */
+  --color-ink:     #1C1917;       /* near-black text */
+  --color-paper:   #F7F4EE;       /* warm off-white bg */
+  --color-card:    #EDEAE2;       /* card surface */
+  --color-stone:   #5C574F;       /* muted text ~6:1 on paper */
+  --color-sub:     #3D3830;       /* secondary text ~9:1 on paper */
+  --color-rule:    rgba(28,25,23,0.14);
+  --color-rule-strong: rgba(28,25,23,0.26);
+  --color-surface: #EDEAE2;       /* alias of --card */
+  --color-featured: #7A4800;      /* amber, readable on light */
+  --color-action:  #1C1917;       /* links — near-black on light */
+  --color-action-hover: #1C1917;
+  --color-error:   #B91C1C;
+  --color-lime:    #D4F542;       /* CTA button bg */
 
   /* Semantic */
   --color-success: #D4F542;       /* lime success */
@@ -41,38 +41,38 @@
 
 /* CSS custom properties for use in JS inline styles and CSS rules */
 :root {
-  --ink:     #FAF7EF;
-  --paper:   #0D0D0D;
-  --card:    #141414;
-  --stone:   #8C8578;
-  --sub:     #C8C3B5;
-  --rule:    rgba(250,247,239,0.12);
-  --rule-strong: rgba(250,247,239,0.22);
-  --surface: #141414;
+  --ink:     #1C1917;
+  --paper:   #F7F4EE;
+  --card:    #EDEAE2;
+  --stone:   #5C574F;
+  --sub:     #3D3830;
+  --rule:    rgba(28,25,23,0.14);
+  --rule-strong: rgba(28,25,23,0.26);
+  --surface: #EDEAE2;
 
-  --action:        #D4F542;
-  --action-hover:  #B8D938;
-  --action-focus:  #E0FF55;
-  --action-light:  rgba(212,245,66,0.1);
+  --action:        #1C1917;
+  --action-hover:  #1C1917;
+  --action-focus:  #1C1917;
+  --action-light:  rgba(28,25,23,0.06);
   --lime:          #D4F542;
 
   /* Hero search input — slight lift over body */
-  --search-bg: #1A1A1A;
+  --search-bg: #EAE7DF;
 
   /* Category accent colors — kept as-is for category badges */
-  --cat-art:        #7C5CFC;
-  --cat-music:      #E5A100;
-  --cat-workshop:   #2D8A56;
-  --cat-arch:       #4A6FA5;
-  --cat-production: #C4476A;
-  --cat-shared:     #2D5A3F;
-  --cat-office:     #4A6FA5;
-  --cat-photo:      #706860;
-  --cat-retail:     #8a7045;
-  --cat-fitness:    #6b7855;
+  --cat-art:        #5239C4;
+  --cat-music:      #7A4C00;
+  --cat-workshop:   #1A6040;
+  --cat-arch:       #1A4A8A;
+  --cat-production: #8B1A48;
+  --cat-shared:     #1A4030;
+  --cat-office:     #1A4A8A;
+  --cat-photo:      #3D3228;
+  --cat-retail:     #5C3810;
+  --cat-fitness:    #374820;
 
-  --featured-color: #E5A100;
-  --featured-bg:    rgba(229,161,0,0.08);
+  --featured-color: #7A4800;
+  --featured-bg:    rgba(122,72,0,0.09);
 }
 
 body {
@@ -120,9 +120,9 @@ a:hover { color: var(--lime); }
   letter-spacing: 0.08em;
 }
 
-/* Editorial shadow — adapted for dark bg (subtle outline + soft glow) */
+/* Editorial shadow — light bg */
 .shadow-editorial {
-  box-shadow: 0 0 0 1px rgba(250,247,239,0.05), 0 8px 24px rgba(0,0,0,0.4);
+  box-shadow: 0 1px 3px rgba(28,25,23,0.07), 0 4px 16px rgba(28,25,23,0.05);
 }
 
 /* Homepage / category grid (editorial card) */
@@ -153,7 +153,7 @@ a:hover { color: var(--lime); }
   aspect-ratio: 4 / 3;
   overflow: hidden;
   border-radius: 2px;
-  background: #1F1F1F;
+  background: #E5E2DA;
   flex-shrink: 0;
 }
 .listing-card-image {
@@ -166,7 +166,7 @@ a:hover { color: var(--lime); }
 .listing-card-image-placeholder {
   width: 100%;
   height: 100%;
-  background: #1F1F1F;
+  background: #E5E2DA;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -185,11 +185,11 @@ a:hover { color: var(--lime); }
   margin-top: 16px;
 }
 .listing-card:hover {
-  box-shadow: 0 0 0 1px rgba(212,245,66,0.4), 0 8px 24px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 20px rgba(28,25,23,0.09), 0 1px 4px rgba(28,25,23,0.06);
 }
 .listing-card:hover .listing-card-image { transform: scale(1.02); }
 .listing-card:hover .listing-card-name {
-  color: var(--lime);
+  color: var(--ink);
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
@@ -273,7 +273,7 @@ html { scroll-behavior: smooth; }
     padding: 16px;
     min-height: 56px;
     z-index: 50;
-    box-shadow: 0 -2px 8px rgba(0,0,0,0.5);
+    box-shadow: 0 -2px 8px rgba(28,25,23,0.15);
   }
   .mobile-inquiry-bar:hover { background: var(--action-hover); }
   main { padding-bottom: 72px; }
@@ -297,7 +297,7 @@ html { scroll-behavior: smooth; }
 .hero-search-input:focus {
   outline: none;
   border: 2px solid var(--lime);
-  box-shadow: 0 0 0 3px rgba(212,245,66,0.15);
+  box-shadow: 0 0 0 3px rgba(212,245,66,0.40);
 }
 
 button:focus-visible {
@@ -336,7 +336,7 @@ button:focus-visible {
 /* Uniform card image placeholder */
 .listing-card-placeholder {
   height: 200px;
-  background-color: #1F1F1F;
+  background-color: #E5E2DA;
 }
 
 /* Listing page mobile overrides */
@@ -419,17 +419,20 @@ button:focus-visible {
 .hero-count { font-family: var(--font-body); font-size: 13px; color: var(--stone); }
 .hero-dot   { color: var(--rule); font-size: 12px; }
 .hero-chip {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--stone);
-  background: var(--surface);
-  padding: 3px 10px;
-  border-radius: 12px;
+  font-family: var(--font-body);
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid rgba(28,25,23,0.22);
+  padding: 5px 13px;
+  border-radius: 3px;
   text-decoration: none;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
+  display: inline-block;
 }
-.hero-chip:hover { background: var(--rule-strong); color: var(--ink); }
+.hero-chip:hover { background: var(--surface); border-color: var(--ink); }
 
 /* Featured listing — subtle gold tint on dark */
 .listing-card-featured {
@@ -446,8 +449,45 @@ button:focus-visible {
   font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--lime);
-  border: 1px solid var(--lime);
+  color: var(--ink);
+  border: 1px solid var(--rule-strong);
   padding: 1px 6px;
   line-height: 1.4;
+}
+
+/* Listing card — price row */
+.listing-card-price {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+  border-top: 1px solid var(--rule);
+  margin-top: 12px;
+  padding-top: 10px;
+  margin-bottom: 0;
+}
+.listing-card-price--muted {
+  color: var(--stone);
+  font-weight: 400;
+}
+
+/* Listing detail — sticky contact sidebar */
+.listing-sidebar-card {
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  padding: 1.5rem;
+  border-radius: 2px;
+}
+
+/* Amenity chip tags */
+.amenity-chip {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--sub);
+  background: transparent;
+  border: 1px solid var(--rule);
+  padding: 4px 10px;
+  letter-spacing: 0.02em;
+  display: inline-block;
+  border-radius: 2px;
 }
