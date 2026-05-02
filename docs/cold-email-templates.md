@@ -33,7 +33,7 @@ Your [Space Name] is live on FindStudioSpace — Portland's directory for monthl
 
 Is your contact info current? I want to make sure any inquiries reach you directly.
 
-— Trevor
+— T
 FindStudioSpace · findstudiospace.com
 findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 
@@ -74,7 +74,7 @@ It's $29/month — first 30 days free, cancel any time.
 
 Claim your listing here: findstudiospace.com/claim
 
-— Trevor
+— T
 FindStudioSpace · findstudiospace.com
 findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 
@@ -106,7 +106,7 @@ Peerspace charges ~15–30% per booking in platform fees. FindStudioSpace is a f
 
 Would it make sense to list [Space Name] on FindStudioSpace as well?
 
-— Trevor
+— T
 FindStudioSpace · findstudiospace.com
 findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 
@@ -135,7 +135,7 @@ Easy — takes about 5 minutes to list: findstudiospace.com/list-your-space
 
 I'll review and publish within 48 hours. Once it's live I'll send you the link.
 
-— Trevor
+— T
 FindStudioSpace · findstudiospace.com
 findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 
@@ -160,7 +160,7 @@ I'm offering a free 1-hour professional photo shoot to the first 10 landlords wh
 
 If you'd like to claim a slot, submit [Space Name] here and I'll reach out within 48 hours: findstudiospace.com/list-your-space
 
-— Trevor
+— T
 FindStudioSpace · findstudiospace.com
 findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 
@@ -194,7 +194,7 @@ Do you know any other Portland landlords with studio or workshop space? A name o
 
 No obligation at all.
 
-— Trevor
+— T
 FindStudioSpace · findstudiospace.com
 findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 

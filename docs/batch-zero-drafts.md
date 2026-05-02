@@ -16,7 +16,7 @@ Your 5 listings (the historic NW 5th & Flanders office, the NE Portland office s
 
 Quick question: who's the right person to send inquiry notifications to as they come in? I want to make sure leads reach you directly.
 
-— Trevor
+— T
 FindStudioSpace · findstudiospace.com
 findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 
@@ -40,7 +40,7 @@ It's the only cyc wall studio in our directory right now, which means it's the t
 
 Can you confirm leasing@beamdevelopment.com is the right address for inquiries to go to? Want to make sure they don't sit in a generic inbox.
 
-— Trevor
+— T
 FindStudioSpace · findstudiospace.com
 findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 
@@ -62,7 +62,7 @@ Your 4 listings (Suite 225 the deck garden suite, Suite 235 creative office, Sui
 
 Renters are searching for Central Eastside office space, and your suites are coming up in our directory. Quick question: is thegeodepdx@gmail.com still the best place for inquiries to land, or should they route somewhere else?
 
-— Trevor
+— T
 FindStudioSpace · findstudiospace.com
 findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 
@@ -82,7 +82,7 @@ Your 4 SE Portland spaces (the large garage studio with dual access, the spaciou
 
 Workshop and creative space inquiries are starting to come through the directory. Want to make sure I'm sending them to the right person — is info@artdesignxchange.com the best address, or do you prefer they go somewhere else?
 
-— Trevor
+— T
 FindStudioSpace · findstudiospace.com
 findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 
@@ -102,7 +102,7 @@ IdeaWorks's 3 listings (the small creative workspace, the warehouse Bay G, and t
 
 Quick question: when someone submits an inquiry through the listing page, where would you like that to land? Want to make sure it goes to whoever handles new memberships, not a general inbox.
 
-— Trevor
+— T
 FindStudioSpace · findstudiospace.com
 findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 
@@ -134,5 +134,3 @@ When they reply with a different routing email:
 
 When they don't reply within 7 days:
 - Send a 1-line follow-up: "Hi — circling back. Want me to assume info@ned.space is right?" — that's it. Single sentence breaks through a noise inbox.
-
-
