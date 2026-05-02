@@ -131,7 +131,7 @@ Reply "unsubscribe" to stop these emails.
 ```
 Hi [First Name],
 
-Easy — takes about 5 minutes to submit: findstudiospace.com/submit
+Easy — takes about 5 minutes to list: findstudiospace.com/list-your-space
 
 I'll review and publish within 48 hours. Once it's live I'll send you the link.
 

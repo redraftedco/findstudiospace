@@ -144,7 +144,7 @@ export default function Post() {
 
             <div style={{ borderTop: '1px solid var(--rule)' }} className="mt-12 pt-8">
               <p style={{ color: 'var(--stone)' }} className="text-sm">
-                Listing a studio for sublease? <Link href="/submit" style={{ color: 'var(--ink)' }} className="underline">Submit your space on FindStudioSpace</Link> — free to list, no commission.
+                Listing a studio for sublease? <Link href="/list-your-space" style={{ color: 'var(--ink)' }} className="underline">List your space on FindStudioSpace</Link> — free to list, no commission.
               </p>
             </div>
 

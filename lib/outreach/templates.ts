@@ -98,7 +98,7 @@ function listingUrl(id: number): string {
 }
 
 function claimUrl(id: number): string {
-  return id > 0 ? `https://www.findstudiospace.com/claim/${id}` : 'https://www.findstudiospace.com/claim'
+  return id > 0 ? `https://www.findstudiospace.com/claim?listing_id=${id}` : 'https://www.findstudiospace.com/claim'
 }
 
 // ── Templates ──────────────────────────────────────────────────────────────
