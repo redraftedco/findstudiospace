@@ -55,8 +55,17 @@ export function classifyListingToPillar(listing: ListingForCategory): PillarCate
   const haystack = `${listing.title ?? ''} ${listing.description ?? ''} ${listing.type ?? ''}`.toLowerCase()
   const typeKey = (listing.type ?? '').toLowerCase()
 
+  // Event and photo keywords always win regardless of type
   if (hasAnyTerm(haystack, EVENT_TERMS)) return 'event-space'
   if (hasAnyTerm(haystack, PHOTO_TERMS)) return 'photo-studios'
+
+  // For hands-on types, use the DB type directly — don't let incidental media
+  // keywords in the description (e.g. "great for video production") pull a
+  // painter's studio onto the content-studios page.
+  if (typeKey === 'art' || typeKey === 'workshop' || typeKey === 'fitness') {
+    return TYPE_TO_PILLAR[typeKey]
+  }
+
   if (hasAnyTerm(haystack, MAKER_TERMS)) return 'makerspace'
   if (hasAnyTerm(haystack, MEDIA_TERMS)) return 'content-studios'
 
