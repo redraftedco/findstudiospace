@@ -12,7 +12,6 @@ interface ClaimResult {
   type: string
   inquiry_count: number
   tier: string
-  stripe_customer_id: string | null
 }
 
 function ClaimPageInner() {
@@ -55,7 +54,7 @@ function ClaimPageInner() {
   }
 
   async function handlePortal() {
-    if (!result?.stripe_customer_id) return
+    if (!result) return
     setPortalLoading(true)
     setError(null)
 
@@ -63,10 +62,7 @@ function ClaimPageInner() {
       const res = await fetch('/api/stripe/portal', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          customer_id: result.stripe_customer_id,
-          listing_id: result.listing_id,
-        }),
+        body: JSON.stringify({ listing_id: result.listing_id }),
       })
       const data = await res.json()
       if (data.url) {
@@ -285,7 +281,7 @@ function ClaimPageInner() {
             </div>
 
             {/* Pro state: manage subscription */}
-            {result.tier === 'pro' && result.stripe_customer_id && (
+            {result.tier === 'pro' && (
               <button
                 onClick={handlePortal}
                 disabled={portalLoading}

@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
   // Get the listing
   const { data: listing, error: listingError } = await supabase
     .from('listings')
-    .select('id, title, neighborhood, type, status, tier, stripe_customer_id')
+    .select('id, title, neighborhood, type, status, tier')
     .eq('id', parseInt(listing_id))
     .eq('status', 'active')
     .single()
@@ -52,6 +52,5 @@ export async function GET(req: NextRequest) {
     type: listing.type,
     inquiry_count: count ?? 0,
     tier: listing.tier ?? 'free',
-    stripe_customer_id: listing.stripe_customer_id ?? null,
   })
 }
