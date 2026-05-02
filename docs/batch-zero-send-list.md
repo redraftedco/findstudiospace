@@ -1,7 +1,7 @@
 # Batch-Zero Cold Outreach Send List
 
 **Generated:** 2026-04-26 from Supabase `listings` table
-**Status:** Ready to send. Address (1631 NE Broadway St) in templates. Use `docs/cold-email-templates.md` Template A.
+**Status:** Ready to send manually. Current mailing address is in `docs/cold-email-templates.md` Template A.
 **Excluded:** test row id 1104 (redraftedco@gmail.com), test row id 1105 (testing@example.com), id 559 (malformed email prefix).
 
 ---
@@ -87,7 +87,7 @@ Personal Gmail or business-of-one. Still worth contacting; reply rate generally 
 
 ## Sending mechanics
 
-1. Send manually from Resend or your Gmail (DO NOT bulk-send via Resend API for cold outreach — different deliverability path than transactional).
+1. Send manually from Resend or your Gmail. Do not bulk-send via the cron/API for batch-zero; manual sends are easier to review and safer for deliverability.
 2. Personalize **[Space Name]** and **[First Name]** for each. For generic addresses (info@, leasing@, etc.), use the company name in [Space Name] and skip [First Name] — open with "Hi there,"
 3. Log each send in a spreadsheet: date, email, subject used, template, reply (Y/N), reply date, outcome.
 4. Monitor `redraftedco@gmail.com` (or whatever you set `PLATFORM_NOTIFY_EMAIL` to in Vercel) for replies.

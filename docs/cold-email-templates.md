@@ -1,6 +1,6 @@
 # Cold Email Templates
 
-**Status:** Ready to send. BLOCKED on P0-A (physical mailing address for CAN-SPAM footer).
+**Status:** Ready to send manually. Confirm `POSTAL_ADDRESS` is set in Vercel before using any API sender.
 **From:** hello@findstudiospace.com
 **Reply-to:** PLATFORM_NOTIFY_EMAIL env var (set in .env.local and Vercel)
 **Goal per template is noted. Optimize for that goal only — don't stack goals.**
@@ -33,9 +33,9 @@ Your [Space Name] is live on FindStudioSpace — Portland's directory for monthl
 
 Is your contact info current? I want to make sure any inquiries reach you directly.
 
-— [Your Name]
+— Trevor
 FindStudioSpace · findstudiospace.com
-1631 NE Broadway St, Portland, OR 97232-1425
+findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 
 Reply "unsubscribe" to stop these emails.
 ```
@@ -74,9 +74,9 @@ It's $29/month — first 30 days free, cancel any time.
 
 Claim your listing here: findstudiospace.com/claim
 
-— [Your Name]
+— Trevor
 FindStudioSpace · findstudiospace.com
-1631 NE Broadway St, Portland, OR 97232-1425
+findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 
 Reply "unsubscribe" to stop these emails.
 ```
@@ -106,9 +106,9 @@ Peerspace charges ~15–30% per booking in platform fees. FindStudioSpace is a f
 
 Would it make sense to list [Space Name] on FindStudioSpace as well?
 
-— [Your Name]
+— Trevor
 FindStudioSpace · findstudiospace.com
-1631 NE Broadway St, Portland, OR 97232-1425
+findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 
 Reply "unsubscribe" to stop these emails.
 ```
@@ -135,9 +135,9 @@ Easy — takes about 5 minutes to list: findstudiospace.com/list-your-space
 
 I'll review and publish within 48 hours. Once it's live I'll send you the link.
 
-— [Your Name]
+— Trevor
 FindStudioSpace · findstudiospace.com
-1631 NE Broadway St, Portland, OR 97232-1425
+findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 
 Reply "unsubscribe" to stop these emails.
 ```
@@ -160,9 +160,9 @@ I'm offering a free 1-hour professional photo shoot to the first 10 landlords wh
 
 If you'd like to claim a slot, submit [Space Name] here and I'll reach out within 48 hours: findstudiospace.com/list-your-space
 
-— [Your Name]
+— Trevor
 FindStudioSpace · findstudiospace.com
-1631 NE Broadway St, Portland, OR 97232-1425
+findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 
 Reply "unsubscribe" to stop these emails.
 ```
@@ -194,9 +194,9 @@ Do you know any other Portland landlords with studio or workshop space? A name o
 
 No obligation at all.
 
-— [Your Name]
+— Trevor
 FindStudioSpace · findstudiospace.com
-1631 NE Broadway St, Portland, OR 97232-1425
+findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 
 Reply "unsubscribe" to stop these emails.
 ```
@@ -205,10 +205,10 @@ Reply "unsubscribe" to stop these emails.
 
 ## CAN-SPAM compliance gate
 
-**CAN-SPAM gate: CLEARED. Batch-zero is unblocked.**
+**CAN-SPAM gate: CLEARED for manual sending. API sending still requires `POSTAL_ADDRESS` in Vercel.**
 
-Physical address: **1631 NE Broadway St, Portland, OR 97232-1425**
-Address is in all template footers above and hardcoded in the monthly digest route.
+Physical address: **findstudiospace, 9169 W State St #1791, Garden City, ID 83714**
+Address is in all manual template footers above. API emails read the address from `POSTAL_ADDRESS`.
 
 Other requirements (already satisfied):
 - [x] FROM address is not deceptive (hello@findstudiospace.com)
@@ -220,7 +220,7 @@ Other requirements (already satisfied):
 
 ## Batch-zero execution checklist
 
-1. [ ] P0-A: Get physical address. Add to all templates above.
+1. [x] P0-A: Physical address added to manual templates above.
 2. [ ] Pull send list: `SELECT id, title, contact_email FROM listings WHERE status='active' AND contact_email IS NOT NULL ORDER BY created_at DESC LIMIT 20`
 3. [ ] Personalize [First Name] and [Space Name] for each row — no mail merge, do it manually for batch-zero.
 4. [ ] Send Template A Option 1 to first 5 contacts, Option 2 to next 4.

@@ -17,16 +17,15 @@ import { Resend } from 'resend'
 //
 // Dry-run: append `?dry_run=1` to get counts without sending.
 //
-// CAN-SPAM physical address: add POSTAL_ADDRESS env var once UPS Store mailbox is active.
-// Until then the unsubscribe instruction alone satisfies minimum compliance for transactional
-// relationship email (landlord submitted their own listing). Update footer when P0-A resolves.
+// CAN-SPAM physical address: set POSTAL_ADDRESS in production.
+// Fallback keeps the footer compliant in local/dev dry runs without exposing secrets.
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
 const FROM = process.env.RESEND_FROM_EMAIL ?? 'hello@findstudiospace.com'
 const SITE_URL = 'https://www.findstudiospace.com'
 // Physical address for CAN-SPAM footer (required by CAN-SPAM for commercial email).
-const POSTAL_ADDRESS = process.env.POSTAL_ADDRESS ?? '1631 NE Broadway St, Portland, OR 97232-1425'
+const POSTAL_ADDRESS = process.env.POSTAL_ADDRESS ?? 'findstudiospace, 9169 W State St #1791, Garden City, ID 83714'
 
 type Listing = {
   id: number

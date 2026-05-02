@@ -25,9 +25,9 @@ Your "Wellness Space" yoga studio in SE Portland is live on FindStudioSpace — 
 
 Is hello@breathingroomcollective.com the right address for inquiry notifications, or should they go somewhere else?
 
-— Taylor
+— Trevor
 FindStudioSpace · findstudiospace.com
-1631 NE Broadway St, Portland, OR 97232-1425
+findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 
 Reply "unsubscribe" to stop these emails.
 ```
@@ -43,9 +43,9 @@ Your "Beautiful Private Creative/Work Space" listing in NW Portland is live on F
 
 Quick question: is membership@pastlives.space the right address for inquiry notifications, or do you prefer a different one?
 
-— Taylor
+— Trevor
 FindStudioSpace · findstudiospace.com
-1631 NE Broadway St, Portland, OR 97232-1425
+findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 
 Reply "unsubscribe" to stop these emails.
 ```
@@ -61,9 +61,9 @@ Your yoga/dance/movement studio in N Portland is live on FindStudioSpace — Por
 
 Is connect@thebymc.com still the best place for inquiry notifications to land? Want to make sure they reach you fast.
 
-— Taylor
+— Trevor
 FindStudioSpace · findstudiospace.com
-1631 NE Broadway St, Portland, OR 97232-1425
+findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 
 Reply "unsubscribe" to stop these emails.
 ```
@@ -79,9 +79,9 @@ Your "Cozy Maker Space" listing is live on FindStudioSpace — Portland's direct
 
 Quick note: I noticed the contact email on the listing is donate@pdxhs.org — is that intentional, or should inquiry notifications route to a different address (e.g., a programs / studios / membership inbox)? Want to make sure they reach the right person.
 
-— Taylor
+— Trevor
 FindStudioSpace · findstudiospace.com
-1631 NE Broadway St, Portland, OR 97232-1425
+findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 
 Reply "unsubscribe" to stop these emails.
 ```
@@ -97,9 +97,9 @@ Your "Make Room for Your Art" listing in SE Portland is live on FindStudioSpace 
 
 Is hello@theartroompdx.com the right address for inquiry notifications? Want to make sure leads reach you directly.
 
-— Taylor
+— Trevor
 FindStudioSpace · findstudiospace.com
-1631 NE Broadway St, Portland, OR 97232-1425
+findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 
 Reply "unsubscribe" to stop these emails.
 ```
@@ -115,9 +115,9 @@ Your "Ink, Art, Fashion, Beauty — Your Empire Starts Here" listing in NW Portl
 
 Quick question: customerservice@tenderlovingempire.com is currently set as the inquiry contact — is that the right address, or do you have a leasing / studios inbox you'd prefer inquiries to land in?
 
-— Taylor
+— Trevor
 FindStudioSpace · findstudiospace.com
-1631 NE Broadway St, Portland, OR 97232-1425
+findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 
 Reply "unsubscribe" to stop these emails.
 ```
@@ -133,9 +133,9 @@ Your "Therapy/Personal Care/Office/Studio" listing is live on FindStudioSpace �
 
 Is info@therapyworks-pdx.com the right place for inquiry notifications, or should they route somewhere specific?
 
-— Taylor
+— Trevor
 FindStudioSpace · findstudiospace.com
-1631 NE Broadway St, Portland, OR 97232-1425
+findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 
 Reply "unsubscribe" to stop these emails.
 ```
@@ -151,9 +151,9 @@ Your 950 SF commercial space on SE Milwaukie Ave is live on FindStudioSpace — 
 
 Quick question: is leasing@nwflexspace.com the right inbox for inquiries on this listing, or do you have a Portland-specific leasing contact?
 
-— Taylor
+— Trevor
 FindStudioSpace · findstudiospace.com
-1631 NE Broadway St, Portland, OR 97232-1425
+findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 
 Reply "unsubscribe" to stop these emails.
 ```
@@ -169,9 +169,9 @@ Your "Prime Commercial Space for Lease in Portland Broadway District" listing is
 
 Is info@crmgco.com the right contact for inquiries on this property, or should they route to a specific broker?
 
-— Taylor
+— Trevor
 FindStudioSpace · findstudiospace.com
-1631 NE Broadway St, Portland, OR 97232-1425
+findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 
 Reply "unsubscribe" to stop these emails.
 ```
@@ -187,9 +187,9 @@ Your "Private Studios for Artists, DIY & Small Business" listing in NW Portland 
 
 Is hello@mikebennettstudios.com the right address for inquiry notifications to come through?
 
-— Taylor
+— Trevor
 FindStudioSpace · findstudiospace.com
-1631 NE Broadway St, Portland, OR 97232-1425
+findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 
 Reply "unsubscribe" to stop these emails.
 ```
@@ -205,9 +205,9 @@ Your "Load in. Store smart. Work better" SE Portland creative space is live on F
 
 Quick question: is info@smartbins.store the right inbox for studio inquiries to land in, or do you have a separate email for that?
 
-— Taylor
+— Trevor
 FindStudioSpace · findstudiospace.com
-1631 NE Broadway St, Portland, OR 97232-1425
+findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 
 Reply "unsubscribe" to stop these emails.
 ```
@@ -223,9 +223,9 @@ Your Suite 350 creative office (2,600 RSF, Central Eastside) is live on FindStud
 
 Is contact@northrimpdx.com the right address for inquiries, or do you have a leasing-specific contact you'd prefer they go to?
 
-— Taylor
+— Trevor
 FindStudioSpace · findstudiospace.com
-1631 NE Broadway St, Portland, OR 97232-1425
+findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 
 Reply "unsubscribe" to stop these emails.
 ```
@@ -241,9 +241,9 @@ Your Eliot neighborhood creative office (522 N. Thompson) is live on FindStudioS
 
 Is hello@shoppracticespace.com the right place for inquiry notifications, or should they go somewhere else?
 
-— Taylor
+— Trevor
 FindStudioSpace · findstudiospace.com
-1631 NE Broadway St, Portland, OR 97232-1425
+findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 
 Reply "unsubscribe" to stop these emails.
 ```
@@ -259,9 +259,9 @@ Your "Creative Warehouse in Pearl District" listing is live on FindStudioSpace �
 
 Quick question: is civilianstudios@gmail.com the right place for inquiries to land, or should they route somewhere else?
 
-— Taylor
+— Trevor
 FindStudioSpace · findstudiospace.com
-1631 NE Broadway St, Portland, OR 97232-1425
+findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 
 Reply "unsubscribe" to stop these emails.
 ```
@@ -277,9 +277,9 @@ Your EBCC 135 creative office/showroom space (417 RSF, Central Eastside) is live
 
 Is info@creativeofficeresources.com the best address for inquiries on this listing?
 
-— Taylor
+— Trevor
 FindStudioSpace · findstudiospace.com
-1631 NE Broadway St, Portland, OR 97232-1425
+findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 
 Reply "unsubscribe" to stop these emails.
 ```
@@ -295,9 +295,9 @@ Your 615 SF office with private bathroom (Unit 102) is live on FindStudioSpace �
 
 Quick question: is eudistrict.reception@industriousoffice.com the right inbox for inquiries on Unit 102 specifically, or do you have a leasing contact for member-prospect inquiries?
 
-— Taylor
+— Trevor
 FindStudioSpace · findstudiospace.com
-1631 NE Broadway St, Portland, OR 97232-1425
+findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 
 Reply "unsubscribe" to stop these emails.
 ```
@@ -315,9 +315,9 @@ Your "Workshops/Garages/Warehouses for Businesses" listing is live on FindStudio
 
 Quick question: is henry@flexwh.com the right place for inquiries to land, or should they route to a different contact?
 
-— Taylor
+— Trevor
 FindStudioSpace · findstudiospace.com
-1631 NE Broadway St, Portland, OR 97232-1425
+findstudiospace, 9169 W State St #1791, Garden City, ID 83714
 
 Reply "unsubscribe" to stop these emails.
 ```
@@ -354,3 +354,5 @@ Expected aggregate: 5-8 replies. If you got:
 - **2-4 replies:** Normal. Continue to Tier 3 + start P0-B (the 83 contact-less listings).
 - **5-8 replies:** Excellent. Consider whether to skip Tier 3 and prioritize converting the conversations you already have over generating more.
 - **9+ replies:** You found a strong message-market fit. Document what worked and replicate.
+
+
