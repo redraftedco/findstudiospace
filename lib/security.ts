@@ -1,5 +1,6 @@
 import 'server-only'
 import { NextRequest, NextResponse } from 'next/server'
+import { createClient } from '@supabase/supabase-js'
 
 const ALLOWED_ORIGINS = [
   'https://www.findstudiospace.com',
@@ -9,6 +10,12 @@ const ALLOWED_ORIGINS = [
 if (process.env.NODE_ENV === 'development') {
   ALLOWED_ORIGINS.push('http://localhost:3000', 'http://localhost:3001')
 }
+
+// Service-role client for rate_limits table writes — never exposed to browser
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_KEY!,
+)
 
 /**
  * Validates the request origin against allowed origins.
@@ -35,25 +42,69 @@ export function checkOrigin(req: NextRequest): NextResponse | null {
   return null
 }
 
-// In-memory rate limiter
-const rateLimits = new Map<string, { count: number; resetAt: number }>()
-
-export function rateLimit(
+/**
+ * Supabase-backed rate limiter — survives Vercel cold starts and scales across
+ * multiple serverless instances. Uses upsert with increment to handle races.
+ *
+ * Falls back to allowing the request on any DB error to avoid blocking users
+ * due to infrastructure issues. Log errors are emitted so failures are visible.
+ */
+export async function rateLimit(
   key: string,
   maxRequests: number,
   windowMs: number
-): boolean {
-  const now = Date.now()
-  const record = rateLimits.get(key)
+): Promise<boolean> {
+  const now     = new Date()
+  const resetAt = new Date(Date.now() + windowMs)
 
-  if (!record || now > record.resetAt) {
-    rateLimits.set(key, { count: 1, resetAt: now + windowMs })
+  try {
+    // Try to insert a fresh row (first request in window)
+    const { error: insertErr } = await supabase
+      .from('rate_limits')
+      .insert({ key, count: 1, reset_at: resetAt.toISOString() })
+
+    if (!insertErr) return true // fresh row inserted — request allowed
+
+    if (insertErr.code !== '23505') {
+      // Unexpected DB error — fail open
+      console.error('[rateLimit] insert error:', insertErr.message)
+      return true
+    }
+
+    // Row exists — fetch current state
+    const { data, error: selectErr } = await supabase
+      .from('rate_limits')
+      .select('count, reset_at')
+      .eq('key', key)
+      .single()
+
+    if (selectErr || !data) {
+      console.error('[rateLimit] select error:', selectErr?.message)
+      return true
+    }
+
+    // If window has expired, reset the counter
+    if (now > new Date(data.reset_at)) {
+      await supabase
+        .from('rate_limits')
+        .update({ count: 1, reset_at: resetAt.toISOString() })
+        .eq('key', key)
+      return true
+    }
+
+    if (data.count >= maxRequests) return false
+
+    // Increment within the current window
+    await supabase
+      .from('rate_limits')
+      .update({ count: data.count + 1 })
+      .eq('key', key)
+
     return true
+  } catch (err) {
+    console.error('[rateLimit] unexpected error:', err)
+    return true // fail open
   }
-
-  if (record.count >= maxRequests) return false
-  record.count++
-  return true
 }
 
 export function getIP(req: NextRequest): string {

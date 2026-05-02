@@ -30,10 +30,11 @@ const supabase = createClient(
 )
 
 export async function GET(req: NextRequest) {
-  // ── Auth check (constant-time compare against Bearer ${CRON_SECRET}) ────
-  const authHeader = req.headers.get('authorization') ?? ''
-  const secret = process.env.CRON_SECRET
-  if (!secret || !safeEqual(authHeader, `Bearer ${secret}`)) {
+  // ── Auth — require Bearer token + x-vercel-cron header (defense-in-depth) ─
+  const authHeader  = req.headers.get('authorization') ?? ''
+  const isCronCall  = req.headers.get('x-vercel-cron') === '1'
+  const secret      = process.env.CRON_SECRET
+  if (!secret || !safeEqual(authHeader, `Bearer ${secret}`) || !isCronCall) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 

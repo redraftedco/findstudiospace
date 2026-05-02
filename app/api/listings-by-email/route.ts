@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
   if (originError) return originError
 
   const ip = getIP(req)
-  if (!rateLimit(`email-lookup:${ip}`, 5, 60_000)) {
+  if (!await rateLimit(`email-lookup:${ip}`, 5, 60_000)) {
     return NextResponse.json(
       { error: 'Too many requests. Please wait a moment.' },
       { status: 429 }

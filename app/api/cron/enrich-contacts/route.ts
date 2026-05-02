@@ -164,10 +164,11 @@ async function findPlaceWebsite(
 // ── Route handler ─────────────────────────────────────────────────────────────
 
 export async function GET(req: NextRequest) {
-  // ── Auth (constant-time compare against Bearer ${CRON_SECRET}) ──────────
-  const secret = process.env.CRON_SECRET
-  const auth = req.headers.get('authorization') ?? ''
-  if (!secret || !safeEqual(auth, `Bearer ${secret}`)) {
+  // ── Auth — require Bearer token + x-vercel-cron header (defense-in-depth) ─
+  const secret     = process.env.CRON_SECRET
+  const auth       = req.headers.get('authorization') ?? ''
+  const isCronCall = req.headers.get('x-vercel-cron') === '1'
+  if (!secret || !safeEqual(auth, `Bearer ${secret}`) || !isCronCall) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
