@@ -306,7 +306,6 @@ function CityPageUI({
         <section
           style={{
             background: 'var(--paper)',
-            minHeight: 'calc(100vh - 4rem)',
             minHeight: 'calc(100svh - 4rem)',
             paddingTop: '7rem',
             paddingBottom: '4rem',

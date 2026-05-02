@@ -104,7 +104,7 @@ export default function AdvertisePage() {
           <li>Claim your listing to verify ownership.</li>
           <li>Choose a placement — which page and which product.</li>
           <li>We review your placement to confirm relevance before it goes live.</li>
-          <li>Your listing appears in the Sponsored section, labeled "Sponsored."</li>
+          <li>Your listing appears in the Sponsored section, labeled &quot;Sponsored.&quot;</li>
           <li>Renters see your studio and contact you directly.</li>
         </ol>
 

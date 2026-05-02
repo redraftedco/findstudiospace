@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'FindStudioSpaceBot — Web Crawler Disclosure | FindStudioSpace',
@@ -97,9 +98,9 @@ export default function BotPage() {
             The crawler helps us keep listings accurate and discover spaces that aren&apos;t yet in
             the directory. If your space appears in our directory and the listing is inaccurate, you
             can claim and update it for free at{' '}
-            <a href="/claim" style={{ color: 'var(--action)' }}>
+            <Link href="/claim" style={{ color: 'var(--action)' }}>
               findstudiospace.com/claim
-            </a>
+            </Link>
             .
           </p>
           <p className="text-base leading-relaxed">

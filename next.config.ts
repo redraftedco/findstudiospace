@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
+import path from "node:path";
 
 const nextConfig: NextConfig = {
+  turbopack: {
+    root: path.resolve(__dirname),
+  },
   async headers() {
     return [
       {
@@ -34,8 +38,8 @@ const nextConfig: NextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' js.stripe.com",
-              "connect-src 'self' api.stripe.com *.supabase.co",
+              "script-src 'self' 'unsafe-inline' js.stripe.com www.googletagmanager.com",
+              "connect-src 'self' api.stripe.com *.supabase.co www.google-analytics.com *.google-analytics.com stats.g.doubleclick.net",
               "frame-src js.stripe.com",
               "frame-ancestors 'none'",
               "img-src 'self' data: blob: *",
