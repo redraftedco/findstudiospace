@@ -302,20 +302,24 @@ function CityPageUI({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
       />
       <main style={{ background: 'var(--paper)', color: 'var(--ink)' }} className="min-h-screen">
-        {/* HERO — headline → stat → search only */}
+        {/* HERO — fills viewport; headline+search top, pills+CTA bottom */}
         <section
           style={{
             background: 'var(--paper)',
-            paddingTop: '5rem',
-            paddingBottom: '3rem',
+            minHeight: 'calc(100vh - 4rem)',
+            minHeight: 'calc(100svh - 4rem)',
+            paddingTop: '7rem',
+            paddingBottom: '4rem',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
           }}
           className="px-6 hero-section"
         >
-          <div className="mx-auto max-w-5xl">
+          {/* Top: headline + stat + search */}
+          <div className="mx-auto max-w-5xl w-full">
             <h1
-              style={{
-                color: 'var(--ink)',
-              }}
+              style={{ color: 'var(--ink)' }}
               className="hero-title"
             >
               {config.displayName} studio rentals & creative workspace.
@@ -326,7 +330,7 @@ function CityPageUI({
                 color: 'var(--sub)',
                 fontSize: '1.125rem',
                 lineHeight: 1.5,
-                marginTop: '1.25rem',
+                marginTop: '2rem',
                 maxWidth: '620px',
               }}
             >
@@ -337,7 +341,7 @@ function CityPageUI({
             <form
               action={`/${citySlug}`}
               method="GET"
-              style={{ maxWidth: '520px', marginTop: '2rem' }}
+              style={{ maxWidth: '520px', marginTop: '2.75rem' }}
               className="w-full"
             >
               <input
@@ -362,11 +366,11 @@ function CityPageUI({
                 className="hero-search-input"
               />
             </form>
+          </div>
 
-            <div
-              style={{ marginTop: '2.5rem' }}
-              className="flex flex-wrap items-center gap-2"
-            >
+          {/* Bottom: browse pills + landlord CTA */}
+          <div className="mx-auto max-w-5xl w-full" style={{ marginTop: '3rem' }}>
+            <div className="flex flex-wrap items-center gap-2">
               {CATEGORY_PILLS.map((cat) => (
                 <Link key={cat.slug} href={`/${citySlug}/${cat.slug}`} className="hero-chip">
                   {cat.label}
@@ -377,7 +381,7 @@ function CityPageUI({
             {/* Neighborhood entry points — only shown for Portland where pages exist */}
             {citySlug === 'portland' && (
               <div
-                style={{ marginTop: '1rem' }}
+                style={{ marginTop: '1.25rem' }}
                 className="flex flex-wrap items-center gap-2"
               >
                 {NEIGHBORHOOD_PILLS.map((n) => (
@@ -386,6 +390,15 @@ function CityPageUI({
                   </Link>
                 ))}
               </div>
+            )}
+
+            {!q && (
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.8125rem', color: 'var(--stone)', marginTop: '2rem' }}>
+                Own a studio in {config.displayName}?{' '}
+                <Link href="/list-your-space" style={{ color: 'var(--action)', textDecoration: 'underline' }}>
+                  List free →
+                </Link>
+              </p>
             )}
           </div>
         </section>
@@ -407,15 +420,6 @@ function CityPageUI({
                 }}
               >
                 {total} {total === 1 ? 'result' : 'results'} for &ldquo;{q}&rdquo;
-              </p>
-            )}
-
-            {!q && (
-              <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.8125rem', color: 'var(--stone)', marginBottom: '1.5rem' }}>
-                Own a studio in {config.displayName}?{' '}
-                <Link href="/list-your-space" style={{ color: 'var(--action)', textDecoration: 'underline' }}>
-                  List free →
-                </Link>
               </p>
             )}
 
