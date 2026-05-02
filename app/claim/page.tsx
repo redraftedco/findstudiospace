@@ -381,7 +381,7 @@ function ClaimPageInner() {
                   textAlign: 'center',
                   margin: '8px 0 0',
                 }}>
-                  $29/month after. Cancel anytime.
+                  $49/month after. Cancel anytime.
                 </p>
               </>
             )}

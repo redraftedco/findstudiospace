@@ -2,13 +2,13 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Pricing — Free & Studio Pro | FindStudioSpace',
+  title: 'Pricing — Free & Studio Pro $49/mo | FindStudioSpace',
   description:
-    'List your Portland studio for free. Upgrade to Studio Pro for $29/month to receive inquiries by email, get a Verified Space badge, and rank higher in search.',
+    'List your Portland studio for free. Upgrade to Studio Pro for $49/month to receive inquiries by email, get a Verified Space badge, and rank higher in search.',
   openGraph: {
-    title: 'Pricing — Free & Studio Pro | FindStudioSpace',
+    title: 'Pricing — Free & Studio Pro $49/mo | FindStudioSpace',
     description:
-      'List your Portland studio for free. Upgrade to Studio Pro for $29/month to receive inquiries by email, get a Verified Space badge, and rank higher in search.',
+      'List your Portland studio for free. Upgrade to Studio Pro for $49/month to receive inquiries by email, get a Verified Space badge, and rank higher in search.',
   },
   alternates: { canonical: '/pricing' },
 }
@@ -28,7 +28,7 @@ const faqs = [
   },
   {
     q: 'How does billing work?',
-    a: 'Studio Pro is $29/month, billed monthly through Stripe. Cancel from your dashboard or the Stripe billing portal at any time. Pro features stay active through the end of the paid period.',
+    a: 'Studio Pro is $49/month, billed monthly through Stripe. Cancel from your dashboard or the Stripe billing portal at any time. Pro features stay active through the end of the paid period.',
   },
   {
     q: 'How do I get started?',
@@ -183,7 +183,7 @@ export default function PricingPage() {
                 style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }}
                 className="text-4xl font-semibold"
               >
-                $29
+                $49
               </span>
               <span style={{ color: 'var(--stone)' }} className="text-sm ml-1">/month</span>
             </div>
@@ -225,7 +225,7 @@ export default function PricingPage() {
                 marginTop: '8px',
               }}
             >
-              $29/month after trial. Cancel anytime.
+              $49/month after trial. Cancel anytime.
             </p>
           </div>
 

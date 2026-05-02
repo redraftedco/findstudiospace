@@ -130,7 +130,7 @@ export default function TermsPage() {
               charged until the trial ends.
             </li>
             <li>
-              <strong>Billing.</strong> After the trial, Studio Pro is $29 per month, billed each
+              <strong>Billing.</strong> After the trial, Studio Pro is $49 per month, billed each
               month until you cancel.
             </li>
             <li>

@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Suspense } from 'react'
-import { UpgradeButton } from '@/components/UpgradeButton'
 import { CheckoutResult } from '@/components/CheckoutResult'
 
 export const metadata: Metadata = {
@@ -255,21 +254,30 @@ export default function ForLandlordsPage() {
             </div>
 
             {/* Pro */}
-            <div style={{ border: '2px solid var(--lime)', background: 'var(--surface)' }} className="p-8">
-              <p style={{ fontFamily: 'var(--font-mono)', color: 'var(--featured-color)' }} className="mb-1 text-xs uppercase font-medium">
+            <div style={{ border: '2px solid var(--action)', background: 'var(--surface)', position: 'relative' }} className="p-8">
+              <p style={{ fontFamily: 'var(--font-mono)', color: 'var(--action)' }} className="mb-1 text-xs uppercase font-medium">
                 Most popular
               </p>
               <p style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)', fontSize: '2rem' }} className="font-semibold mb-6">
-                $29<span style={{ fontSize: '1rem', color: 'var(--stone)' }}>/month</span>
+                $49<span style={{ fontSize: '1rem', color: 'var(--stone)' }}>/month</span>
               </p>
               <ul className="mb-8 space-y-2">
                 {PRO_FEATURES.map((f) => (
                   <li key={f} style={{ color: 'var(--stone)' }} className="flex gap-2 text-sm">
-                    <span style={{ color: 'var(--lime)' }}>✓</span> {f}
+                    <span style={{ color: 'var(--action)' }}>✓</span> {f}
                   </li>
                 ))}
               </ul>
-              <UpgradeButton tier="pro" label="Start Pro →" />
+              <Link
+                href="/claim"
+                style={{ background: 'var(--action)', color: 'var(--paper)', border: 'none' }}
+                className="inline-block w-full py-2.5 text-center text-sm font-medium"
+              >
+                Start 30-day free trial →
+              </Link>
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: '12px', color: 'var(--stone)', textAlign: 'center', marginTop: '8px' }}>
+                $49/month after trial. Cancel anytime.
+              </p>
             </div>
 
           </div>
