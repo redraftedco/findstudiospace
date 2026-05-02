@@ -2,13 +2,13 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Pricing — Free & Studio Pro $49/mo | FindStudioSpace',
+  title: 'Pricing — Free Listings & Sponsored Placement | FindStudioSpace',
   description:
-    'List your Portland studio for free. Upgrade to Studio Pro for $49/month to receive inquiries by email, get a Verified Space badge, and rank higher in search.',
+    'List your Portland studio for free. Add sponsored placement from $49/month to appear where renters compare category and neighborhood pages.',
   openGraph: {
-    title: 'Pricing — Free & Studio Pro $49/mo | FindStudioSpace',
+    title: 'Pricing — Free Listings & Sponsored Placement | FindStudioSpace',
     description:
-      'List your Portland studio for free. Upgrade to Studio Pro for $49/month to receive inquiries by email, get a Verified Space badge, and rank higher in search.',
+      'List your Portland studio for free. Add sponsored placement from $49/month to appear where renters compare category and neighborhood pages.',
   },
   alternates: { canonical: '/pricing' },
 }
@@ -19,20 +19,20 @@ const faqs = [
     a: 'Yes. Your studio appears in the directory, is searchable by Portland renters, and includes a direct inquiry form. No credit card, no trial — free forever.',
   },
   {
-    q: 'What does Studio Pro add?',
-    a: 'Pro delivers inquiries directly to your inbox, adds a Verified Space badge to your listing, and gives you priority placement in search results.',
+    q: 'What does sponsored placement add?',
+    a: 'Sponsored placement puts your listing above organic results on a relevant Portland category or neighborhood page. It is labeled clearly as Sponsored.',
   },
   {
-    q: 'Does Studio Pro include a free trial?',
-    a: 'Yes — 30 days free. You will not be charged until the trial ends. Cancel anytime before that and you owe nothing.',
+    q: 'Is sponsored placement guaranteed to bring renters?',
+    a: 'No. Sponsored placement buys visibility, not a guaranteed renter, inquiry, booking, or lease. Renters contact your studio directly.',
   },
   {
     q: 'How does billing work?',
-    a: 'Studio Pro is $49/month, billed monthly through Stripe. Cancel from your dashboard or the Stripe billing portal at any time. Pro features stay active through the end of the paid period.',
+    a: 'Sponsored placement starts at $49/month and is billed monthly through Stripe. You can cancel from the Stripe billing portal at any time.',
   },
   {
     q: 'How do I get started?',
-    a: 'Claim your free listing first. Once claimed, you can upgrade to Studio Pro from your dashboard.',
+    a: 'Claim your free listing first, then choose the category or neighborhood page where sponsored placement makes sense.',
   },
 ]
 
@@ -54,12 +54,12 @@ const FREE_FEATURES = [
   'No credit card required',
 ]
 
-const PRO_FEATURES = [
+const SPONSORED_FEATURES = [
   'Everything in Free',
-  'Inquiries delivered to your inbox',
-  'Verified Space badge on your listing',
-  'Priority in search results',
-  '30-day free trial — cancel anytime',
+  'Sponsored placement on one page',
+  'Category or neighborhood targeting',
+  'Clearly labeled Sponsored slot',
+  'Monthly billing through Stripe',
 ]
 
 export default function PricingPage() {
@@ -82,7 +82,7 @@ export default function PricingPage() {
             style={{ color: 'var(--stone)', fontFamily: 'var(--font-body)' }}
             className="text-base md:text-lg max-w-xl mx-auto"
           >
-            Start free. Upgrade when you want inquiries in your inbox.
+            Start free. Pay only when you want more visibility.
           </p>
         </div>
 
@@ -142,7 +142,7 @@ export default function PricingPage() {
             </Link>
           </div>
 
-          {/* Studio Pro */}
+          {/* Sponsored Placement */}
           <div
             style={{
               border: '2px solid var(--action)',
@@ -167,16 +167,16 @@ export default function PricingPage() {
                 whiteSpace: 'nowrap',
               }}
             >
-              Most popular
+              Fastest revenue path
             </span>
             <h2
               style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }}
               className="text-xl font-semibold mb-1"
             >
-              Studio Pro
+              Sponsored Placement
             </h2>
             <p style={{ color: 'var(--stone)', fontFamily: 'var(--font-body)' }} className="text-sm mb-6">
-              Get serious inquiries in your inbox and stand out from other listings.
+              Appear above organic results on one relevant category or neighborhood page.
             </p>
             <div className="mb-6">
               <span
@@ -191,14 +191,14 @@ export default function PricingPage() {
               style={{ color: 'var(--ink)', fontFamily: 'var(--font-body)' }}
               className="space-y-2 mb-8 text-sm"
             >
-              {PRO_FEATURES.map((f) => (
+              {SPONSORED_FEATURES.map((f) => (
                 <li key={f} className="flex gap-2">
                   <span style={{ color: 'var(--action)' }}>✓</span> {f}
                 </li>
               ))}
             </ul>
             <Link
-              href="/claim"
+              href="/advertise"
               style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -214,7 +214,7 @@ export default function PricingPage() {
               }}
               className="w-full"
             >
-              Start 30-day free trial
+              See placement options
             </Link>
             <p
               style={{
@@ -225,7 +225,7 @@ export default function PricingPage() {
                 marginTop: '8px',
               }}
             >
-              $49/month after trial. Cancel anytime.
+              Starts at $49/month. Cancel anytime.
             </p>
           </div>
 
