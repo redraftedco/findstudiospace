@@ -417,47 +417,6 @@ export default async function ListingPage({ params }: Props) {
                 )}
               </section>
 
-              {/* External links — website & Instagram */}
-              {(listing.website_url || listing.instagram_url) && (
-                <section style={{ maxWidth: '680px', marginTop: '2.5rem' }}>
-                  <h2
-                    style={{
-                      fontFamily: 'var(--font-heading)',
-                      color: 'var(--ink)',
-                      fontSize: '1.5rem',
-                      fontWeight: 600,
-                      letterSpacing: '-0.015em',
-                      margin: '0 0 1rem',
-                    }}
-                  >
-                    Links
-                  </h2>
-                  <div className="flex flex-wrap gap-4">
-                    {listing.website_url && (
-                      <a
-                        href={listing.website_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{ color: 'var(--action)', fontFamily: 'var(--font-body)' }}
-                        className="text-sm hover:underline"
-                      >
-                        Website ↗
-                      </a>
-                    )}
-                    {listing.instagram_url && (
-                      <a
-                        href={listing.instagram_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{ color: 'var(--action)', fontFamily: 'var(--font-body)' }}
-                        className="text-sm hover:underline"
-                      >
-                        Instagram ↗
-                      </a>
-                    )}
-                  </div>
-                </section>
-              )}
 
               {/* Hairline */}
               <hr
