@@ -120,10 +120,11 @@ ${postalLine}
 }
 
 export async function GET(req: NextRequest) {
-  const auth = req.headers.get('authorization') ?? ''
-  const expected = `Bearer ${process.env.CRON_SECRET ?? ''}`
+  const auth       = req.headers.get('authorization') ?? ''
+  const expected   = `Bearer ${process.env.CRON_SECRET ?? ''}`
+  const isCronCall = req.headers.get('x-vercel-cron') === '1'
 
-  if (!process.env.CRON_SECRET || !safeEqual(auth, expected)) {
+  if (!process.env.CRON_SECRET || !safeEqual(auth, expected) || !isCronCall) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
