@@ -30,11 +30,12 @@ const FREE_FEATURES = [
   'No credit card required',
 ]
 
-const PRO_FEATURES = [
+const SPONSORED_FEATURES = [
   'Everything in Free',
-  'Inquiries delivered to your inbox',
-  'Verified Space badge',
-  'Priority in search results',
+  'Sponsored placement on one page',
+  'Category or neighborhood targeting',
+  'Clearly labeled Sponsored slot',
+  'Monthly billing through Stripe',
 ]
 
 export default function ForLandlordsPage() {
@@ -99,7 +100,7 @@ export default function ForLandlordsPage() {
             Free professional photos for your space
           </h2>
           <p style={{ color: 'var(--stone)' }} className="mt-4 max-w-2xl text-base leading-relaxed">
-            Listings with professional photography get 3–5x more inquiries than phone snapshots. We&apos;re offering a free 1-hour photo shoot to the first 10 landlords who list — no strings, photos are yours to keep regardless of whether you upgrade to Pro.
+            Listings with professional photography get 3–5x more inquiries than phone snapshots. We&apos;re offering a free 1-hour photo shoot to the first 10 landlords who list — no strings, photos are yours to keep, and there is no requirement to buy sponsored placement.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
             <Link
@@ -227,7 +228,7 @@ export default function ForLandlordsPage() {
             Simple, transparent pricing
           </h2>
           <p style={{ color: 'var(--stone)' }} className="mb-10 text-sm">
-            Start free. Upgrade when you&apos;re ready.
+            Start free. Add sponsored placement when you want more visibility.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-start max-w-2xl mx-auto">
 
@@ -253,30 +254,30 @@ export default function ForLandlordsPage() {
               </Link>
             </div>
 
-            {/* Pro */}
+            {/* Sponsored Placement */}
             <div style={{ border: '2px solid var(--action)', background: 'var(--surface)', position: 'relative' }} className="p-8">
               <p style={{ fontFamily: 'var(--font-mono)', color: 'var(--action)' }} className="mb-1 text-xs uppercase font-medium">
-                Most popular
+                Sponsored placement
               </p>
               <p style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)', fontSize: '2rem' }} className="font-semibold mb-6">
                 $49<span style={{ fontSize: '1rem', color: 'var(--stone)' }}>/month</span>
               </p>
               <ul className="mb-8 space-y-2">
-                {PRO_FEATURES.map((f) => (
+                {SPONSORED_FEATURES.map((f) => (
                   <li key={f} style={{ color: 'var(--stone)' }} className="flex gap-2 text-sm">
                     <span style={{ color: 'var(--action)' }}>✓</span> {f}
                   </li>
                 ))}
               </ul>
               <Link
-                href="/claim"
+                href="/advertise"
                 style={{ background: 'var(--action)', color: 'var(--paper)', border: 'none' }}
                 className="inline-block w-full py-2.5 text-center text-sm font-medium"
               >
-                Start 30-day free trial →
+                See placement options →
               </Link>
               <p style={{ fontFamily: 'var(--font-body)', fontSize: '12px', color: 'var(--stone)', textAlign: 'center', marginTop: '8px' }}>
-                $49/month after trial. Cancel anytime.
+                Starts at $49/month. Cancel anytime.
               </p>
             </div>
 

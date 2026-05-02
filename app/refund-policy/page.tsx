@@ -4,7 +4,7 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'Refund Policy | FindStudioSpace',
   description:
-    'How refunds work on Studio Pro subscriptions — 30-day free trial, no partial-month refunds, and how to request an exception for billing errors.',
+    'How refunds work on sponsored placements — monthly billing, no partial-month refunds, and how to request a billing correction.',
   alternates: { canonical: '/refund-policy' },
 }
 
@@ -33,9 +33,8 @@ export default function RefundPolicyPage() {
 
         <section className="mb-8">
           <p className="text-base leading-relaxed">
-            Studio Pro subscriptions include a 30-day free trial — cancel before day 30 and you
-            are never charged. After the trial, Pro is billed monthly and we do not refund partial
-            months. Full details below.
+            Sponsored placements are billed monthly through Stripe. You can cancel any time, but
+            we do not refund partial months unless there was a billing error. Full details below.
           </p>
         </section>
 
@@ -44,18 +43,15 @@ export default function RefundPolicyPage() {
             style={{ fontFamily: 'var(--font-heading)' }}
             className="text-2xl font-semibold mb-3"
           >
-            The 30-day free trial
+            Monthly sponsored placement billing
           </h2>
           <p className="text-base leading-relaxed mb-3">
-            When you start Studio Pro, Stripe collects your card but does not bill it for 30 days.
-            You can cancel any time during the trial from your dashboard or the Stripe billing
-            portal. If you cancel before day 30, your card is never billed and your listing
-            reverts to the free tier.
+            Sponsored placement buys visibility in a clearly labeled ad slot. It does not guarantee
+            renters, inquiries, bookings, or revenue.
           </p>
           <p className="text-base leading-relaxed">
-            The trial is the primary way to try Pro risk-free. If you know Pro isn&apos;t right for
-            your studio, cancel during the trial rather than after the first charge — that&apos;s
-            the simplest, fastest path.
+            Billing starts when your placement order is confirmed. You can cancel from the Stripe
+            billing portal, and your placement remains active through the end of the paid period.
           </p>
         </section>
 
@@ -64,16 +60,15 @@ export default function RefundPolicyPage() {
             style={{ fontFamily: 'var(--font-heading)' }}
             className="text-2xl font-semibold mb-3"
           >
-            Monthly subscriptions after the trial
+            Cancellations
           </h2>
           <p className="text-base leading-relaxed mb-3">
-            Once the trial ends, Studio Pro renews each month at the price shown on the{' '}
+            Sponsored placement renews each month at the price shown on the{' '}
             <Link href="/pricing" style={{ color: 'var(--action)' }} className="hover:underline">
               pricing page
             </Link>
-            . If you cancel mid-cycle, your Pro features remain active through the end of the
-            period you already paid for. At the end of that period, your listing reverts to the
-            free tier. We do not refund partial months.
+            . If you cancel mid-cycle, the placement remains active through the end of the period
+            you already paid for. We do not refund partial months.
           </p>
           <p className="text-base leading-relaxed">
             This matches the{' '}

@@ -7,8 +7,8 @@ import { Resend } from 'resend'
 // Triggered by Vercel Cron on the 1st of each month at 09:00 UTC (see vercel.json).
 //
 // Audience split:
-//   - pro tier  → stats + dashboard link (retention)
-//   - free/other → stats + upgrade CTA (upsell)
+//   - paid tier → stats + dashboard link (retention)
+//   - free/other → stats + sponsored placement CTA (upsell)
 //
 // Security:
 // - Vercel sends `Authorization: Bearer ${CRON_SECRET}` when CRON_SECRET env is set.
@@ -66,7 +66,7 @@ function buildEmail(args: {
   const { studioName, listingId, views30d, inquiries30d, isPro } = args
   const safeName = escapeHtml(studioName)
   const dashboardUrl = `${SITE_URL}/dashboard/${listingId}`
-  const upgradeUrl = `${SITE_URL}/pricing`
+  const upgradeUrl = `${SITE_URL}/advertise`
 
   const viewsLabel = views30d === 1 ? 'view' : 'views'
   const inquiriesLabel = inquiries30d === 1 ? 'inquiry' : 'inquiries'
@@ -77,13 +77,13 @@ function buildEmail(args: {
     : [
         `View your listing: ${SITE_URL}/listing/${listingId}`,
         '',
-        `Upgrade to Pro for featured placement and priority search ranking: ${upgradeUrl}`,
+        `Add sponsored placement for more visibility: ${upgradeUrl}`,
       ].join('\n')
 
   const ctaHtml = isPro
     ? `<p style="font-size:14px;margin:0 0 12px;"><a href="${dashboardUrl}" style="color:#1A6B3C;text-decoration:none;">View your dashboard →</a></p>`
     : `<p style="font-size:14px;margin:0 0 8px;"><a href="${SITE_URL}/listing/${listingId}" style="color:#1A6B3C;text-decoration:none;">View your listing →</a></p>
-<p style="font-size:14px;margin:0 0 24px;padding:12px 16px;background:#F5F5F0;border-left:3px solid #1A6B3C;">Upgrade to <strong>Pro</strong> for featured placement and priority search ranking. <a href="${upgradeUrl}" style="color:#1A6B3C;text-decoration:none;">See plans →</a></p>`
+<p style="font-size:14px;margin:0 0 24px;padding:12px 16px;background:#F5F5F0;border-left:3px solid #1A6B3C;">Add <strong>sponsored placement</strong> if you want more visibility on a category or neighborhood page. <a href="${upgradeUrl}" style="color:#1A6B3C;text-decoration:none;">See options →</a></p>`
 
   const postalLine = POSTAL_ADDRESS
     ? `<p style="font-size:11px;color:#6E7582;margin:4px 0 0;">${escapeHtml(POSTAL_ADDRESS)}</p>`
@@ -130,8 +130,8 @@ export async function GET(req: NextRequest) {
   const url = new URL(req.url)
   const isDryRun = url.searchParams.get('dry_run') === '1'
 
-  // All active listings with a contact_email — free and pro both get a digest.
-  // Pro gets dashboard link (retention); free gets upgrade CTA (upsell).
+  // All active listings with a contact_email — free and paid both get a digest.
+  // Paid gets dashboard link (retention); free gets sponsored placement CTA (upsell).
   const { data: listings, error } = await supabaseServer
     .from('listings')
     .select('id, title, contact_email, tier')

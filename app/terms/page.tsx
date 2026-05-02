@@ -4,7 +4,7 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'Terms of Service | FindStudioSpace',
   description:
-    'The terms for using FindStudioSpace — acceptable use, listing ownership, Pro subscription terms, and contact information.',
+    'The terms for using FindStudioSpace — acceptable use, listing ownership, sponsored placement terms, and contact information.',
   alternates: { canonical: '/terms' },
 }
 
@@ -122,21 +122,22 @@ export default function TermsPage() {
             style={{ fontFamily: 'var(--font-heading)' }}
             className="text-2xl font-semibold mb-3"
           >
-            Pro subscriptions
+            Sponsored placements
           </h2>
           <ul className="list-disc pl-6 space-y-2 text-base leading-relaxed">
             <li>
-              <strong>Free trial.</strong> Studio Pro includes a 30-day free trial. You will not be
-              charged until the trial ends.
+              <strong>What you are buying.</strong> Sponsored placement is a paid advertising
+              product. Payment buys visibility in a clearly labeled placement; it does not
+              guarantee renters, inquiries, bookings, or revenue.
             </li>
             <li>
-              <strong>Billing.</strong> After the trial, Studio Pro is $49 per month, billed each
-              month until you cancel.
+              <strong>Billing.</strong> Sponsored placement is billed monthly through Stripe at the
+              price shown when you order, until you cancel.
             </li>
             <li>
-              <strong>Cancellation.</strong> You can cancel at any time from your dashboard or via
-              the Stripe billing portal. Pro features remain active through the end of the current
-              billing period, then your listing reverts to the free tier.
+              <strong>Cancellation.</strong> You can cancel at any time via the Stripe billing
+              portal. Your placement remains active through the end of the current paid period
+              unless removed for policy, relevance, or listing-quality reasons.
             </li>
             <li>
               <strong>Refunds.</strong> We do not refund partial months. If you cancel mid-cycle,
@@ -146,9 +147,9 @@ export default function TermsPage() {
               </Link>
             </li>
             <li>
-              <strong>Price changes.</strong> If we change pricing for Studio Pro, we&apos;ll email
-              existing subscribers at least 30 days before any change takes effect on their
-              subscription.
+              <strong>Price changes.</strong> If we change pricing for sponsored placement,
+              we&apos;ll email existing placement customers at least 30 days before any change
+              takes effect on their subscription.
             </li>
           </ul>
         </section>
@@ -238,7 +239,7 @@ export default function TermsPage() {
           <p className="text-base leading-relaxed">
             We may update these terms as the site evolves. The &ldquo;Last updated&rdquo; date at
             the top reflects the most recent change. If we make a material change, we&apos;ll flag
-            it on the site and, for Pro subscribers, by email.
+            it on the site and, for sponsored placement customers, by email.
           </p>
         </section>
 
