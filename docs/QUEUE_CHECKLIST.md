@@ -56,6 +56,7 @@
 
 ## DEFERRED / FUTURE SPRINTS
 
+- [ ] **Decide fastest high-monetization business model** — compare Pro subscriptions, paid lead routing, take-rate bookings, sponsored placement, and concierge listing services. Pick the model with the fastest path to first revenue and the highest upside after traffic grows.
 - [ ] **Google Business Profile** — deferred by owner.
 - [ ] **Monetization pivot to take-rate** — booking flow, Stripe Connect, calendar/availability. Day-90 revenue target dependency.
 - [ ] **IP-based rate limiting on `/api/claim/send-magic-link`** — defer until abuse observed.
