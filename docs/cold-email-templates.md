@@ -70,7 +70,7 @@ Quick update: [Space Name] has been viewed [X] times in the last 30 days. [Omit 
 
 Landlords on Pro show up at the top of search results, get a verified badge, and can add up to 15 photos. Most see significantly more inquiries within the first month.
 
-It's $29/month — first 30 days free, cancel any time.
+It's $49/month — first 30 days free, cancel any time.
 
 Claim your listing here: findstudiospace.com/claim
 
@@ -86,7 +86,7 @@ Reply "unsubscribe" to stop these emails.
 - View count (if non-zero) = proof their listing is working = loss aversion ("I'm already getting views, don't want to miss inquiries").
 - Single CTA with direct URL. No friction.
 - Trial framing ("first 30 days free") removes the payment objection.
-- "$29/month" stated plainly — don't hide the price, it signals confidence.
+- "$49/month" stated plainly — don't hide the price, it signals confidence.
 
 ---
 
@@ -102,7 +102,7 @@ Hi [First Name],
 
 I'm [Name], founder of FindStudioSpace — a Portland directory for monthly studio rentals.
 
-Peerspace charges ~15–30% per booking in platform fees. FindStudioSpace is a flat $29/month — no commission, you keep everything.
+Peerspace charges ~15–30% per booking in platform fees. FindStudioSpace is a flat $49/month — no commission, you keep everything.
 
 Would it make sense to list [Space Name] on FindStudioSpace as well?
 

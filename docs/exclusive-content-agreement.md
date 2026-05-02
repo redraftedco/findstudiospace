@@ -23,7 +23,7 @@ These are the landlords whose absence would hurt the platform. Lock them in.
 ## What we offer the landlord
 
 In exchange for exclusivity, FindStudioSpace provides:
-1. **Free Pro tier for the duration of the agreement** (normal price: $29/month).
+1. **Free Pro tier for the duration of the agreement** (normal price: $49/month).
 2. **Top-of-search placement** in their primary category (above all other listings).
 3. **Quarterly content feature** — written profile + photo set published on /blog and shared on social.
 4. **Quarterly performance report** with traffic, inquiry, and conversion data.
@@ -48,7 +48,7 @@ The landlord agrees to:
 - **Term:** 12 months from the date both parties sign.
 - **Either party may terminate** at any time with 30 days written notice (email is fine — to redraftedco@gmail.com from the landlord, or to the landlord's listing contact email from us). No reason required, no penalty.
 - **At termination,** the landlord keeps all photos and content provided. FindStudioSpace removes the listing from featured placement at the next ISR cycle and reverts to standard placement (unless the listing is also being delisted entirely).
-- **At end of term,** either party may renew by mutual written agreement. If neither party objects, the agreement converts to a standard Pro subscription at $29/month with no exclusivity obligations.
+- **At end of term,** either party may renew by mutual written agreement. If neither party objects, the agreement converts to a standard Pro subscription at $49/month with no exclusivity obligations.
 
 ---
 
