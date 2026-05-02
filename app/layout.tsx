@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import Script from 'next/script'
 import { Suspense } from 'react'
 import { Bebas_Neue, Inter, JetBrains_Mono } from 'next/font/google'
 import PostHogProvider from '@/components/PostHogProvider'
@@ -51,22 +50,25 @@ const organizationSchema = {
   sameAs: [],
 }
 
+const GOOGLE_TAG_ID = 'G-ERG1H9HNS7'
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${bebasNeue.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
-      <body>
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-ERG1H9HNS7"
-          strategy="beforeInteractive"
+      <head>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_TAG_ID}`} />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GOOGLE_TAG_ID}');
+            `,
+          }}
         />
-        <Script id="google-analytics" strategy="beforeInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-ERG1H9HNS7');
-          `}
-        </Script>
+      </head>
+      <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
