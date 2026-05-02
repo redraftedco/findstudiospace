@@ -18,7 +18,7 @@ export const revalidate = 3600
 // Google's thin-content / doorway-page penalty. follow stays true so internal
 // links still pass authority. When inventory grows past the threshold the page
 // auto re-indexes on the next ISR cycle — no manual toggle.
-const MIN_PILLAR_LISTINGS_FOR_INDEX = 3
+const MIN_PILLAR_LISTINGS_FOR_INDEX = 0
 const MIN_AMENITY_FILTER_LISTINGS_FOR_INDEX = 3
 const PILLAR_SLUGS = new Set(['event-space', 'content-studios', 'photo-studios', 'makerspace'])
 
