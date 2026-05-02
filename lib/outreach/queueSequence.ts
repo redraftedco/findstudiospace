@@ -64,7 +64,7 @@ export async function queueHighPriorityTargets(): Promise<QueueResult> {
 
   const { error: updateErr } = await supabase
     .from('acquisition_targets')
-    .update({ outreach_status: 'pending' })
+    .update({ outreach_status: 'review' })
     .in('id', ids)
 
   if (updateErr) {
@@ -73,8 +73,8 @@ export async function queueHighPriorityTargets(): Promise<QueueResult> {
   }
 
   console.log(
-    `[queueSequence] marked ${ids.length} targets as pending outreach. ` +
-    `Run apollo:sequence-load to enroll them.`
+    `[queueSequence] marked ${ids.length} targets as outreach_status='review'. ` +
+    `Human approval required before send — run the approval query in Supabase.`
   )
 
   return { queued: ids.length, skipped: 0 }

@@ -94,13 +94,15 @@ export async function GET(req: NextRequest) {
   const url      = new URL(req.url)
   const isDryRun = url.searchParams.get('dry_run') === '1'
 
-  // ── Fetch pending targets ─────────────────────────────────────────────────
+  // ── Fetch approved targets ────────────────────────────────────────────────
+  // Hard gate: only rows explicitly set to outreach_status='approved' are sent.
+  // Enrichment sets 'review'; you must approve in Supabase before anything sends.
   const { data, error: fetchErr } = await supabase
     .from('acquisition_targets')
     .select(
       'id, business_name, category, city, neighborhood, contact_email, website_url, promoted_listing_id, acquisition_priority',
     )
-    .eq('outreach_status', 'pending')
+    .eq('outreach_status', 'approved')
     .not('contact_email', 'is', null)
     .order('acquisition_priority', { ascending: false })
     .limit(DAILY_SEND_CAP)
