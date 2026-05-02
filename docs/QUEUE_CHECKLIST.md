@@ -15,7 +15,7 @@
 - [x] Category mapping hardening: centralized classifier, use on pillar pages + breadcrumbs.
 - [x] Cron endpoints hardened — x-vercel-cron header + Bearer token required.
 - [x] Rate limiting migrated from in-memory Map to Supabase-backed `rate_limits` table.
-- [x] /pricing page — two tiers only: Free ($0) + Studio Pro ($49/mo).
+- [x] /pricing page — two offers only: Free listing ($0) + Sponsored Placement (from $49/mo).
 - [x] Nav/footer category pills updated to 6 real DB types (art, workshop, photo, office, retail, fitness).
 - [x] Homepage CATEGORY_PILLS updated; duplicate strip removed; CTA → /list-your-space.
 - [x] /about page — categories, vetting copy, schema, browse links all updated.
@@ -39,6 +39,9 @@
 - [x] Dashboard analytics charts — marked complete by owner.
 - [x] Search Console submission / verification — marked complete by owner.
 - [x] Homepage “By area” links tiled cards — neighborhood links now match the “Browse by space” grid/card treatment.
+- [x] Fastest high-monetization business model — chosen staged model: free listings, sponsored placement now, paid lead routing next, take-rate bookings later.
+- [x] Site accent color standardized for conversion — bright lime replaced with accessible forest green accent system.
+- [x] Claim/pricing conversion path aligned — retired Pro checkout CTA removed; owners are routed to Sponsored Placement.
 
 ---
 
@@ -57,8 +60,6 @@
 
 ## DEFERRED / FUTURE SPRINTS
 
-- [ ] **Decide fastest high-monetization business model** — compare Pro subscriptions, paid lead routing, take-rate bookings, sponsored placement, and concierge listing services. Pick the model with the fastest path to first revenue and the highest upside after traffic grows.
-- [ ] **Audit and standardize site accent color for conversion** — research evidence-informed color choice for creative studio renters/landlords, then apply one accessible accent system across CTAs, links, badges, focus states, and pricing/claim flows.
 - [ ] **Google Business Profile** — deferred by owner.
 - [ ] **Monetization pivot to take-rate** — booking flow, Stripe Connect, calendar/availability. Day-90 revenue target dependency.
 - [ ] **IP-based rate limiting on `/api/claim/send-magic-link`** — defer until abuse observed.
