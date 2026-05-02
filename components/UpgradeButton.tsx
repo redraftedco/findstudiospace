@@ -7,7 +7,6 @@ interface Listing {
   title: string
   type: string
   is_featured: boolean
-  stripe_subscription_id: string | null
 }
 
 interface UpgradeButtonProps {

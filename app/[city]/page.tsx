@@ -321,7 +321,7 @@ function CityPageUI({
               style={{ color: 'var(--ink)' }}
               className="hero-title"
             >
-              {config.displayName} studio rentals & creative workspace.
+              <span style={{ color: 'var(--lime)' }}>{config.displayName}</span> studio rentals & creative workspace.
             </h1>
             <p
               style={{

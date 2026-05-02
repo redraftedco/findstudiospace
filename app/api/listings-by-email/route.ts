@@ -29,13 +29,13 @@ export async function POST(req: NextRequest) {
     const [r1, r2] = await Promise.all([
       supabaseServer
         .from('listings')
-        .select('id, title, type, status, is_featured, stripe_subscription_id')
+        .select('id, title, type, status, is_featured')
         .eq('submitted_by_email', cleaned)
         .eq('status', 'active')
         .order('created_at', { ascending: false }),
       supabaseServer
         .from('listings')
-        .select('id, title, type, status, is_featured, stripe_subscription_id')
+        .select('id, title, type, status, is_featured')
         .eq('contact_email', cleaned)
         .eq('status', 'active')
         .order('created_at', { ascending: false }),
