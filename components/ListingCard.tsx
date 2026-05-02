@@ -36,17 +36,25 @@ const TYPE_LABEL: Record<string, string> = {
   office:   'Office Space',
 }
 
+function isTrustedImageHost(url: string): boolean {
+  try {
+    const { hostname } = new URL(url)
+    // Reject hotlinked Craigslist images — fragile, legal risk, no alt-text control
+    if (hostname === 'images.craigslist.org' || hostname.endsWith('.craigslist.org')) return false
+    return true
+  } catch {
+    return false
+  }
+}
+
 function getThumb(images: unknown, tier: string | null | undefined): string | null {
   if (!Array.isArray(images)) return null
-  // Clamp to tier photo limit. For the card's single-thumbnail use, this is a
-  // no-op (thumb is always images[0]); kept for consistency with the listing
-  // detail page and to future-proof hover-carousel or multi-image card variants.
   const clamped = clampImagesToTier(images, tier)
   for (const x of clamped) {
-    if (typeof x === 'string' && x) return x
+    if (typeof x === 'string' && x && isTrustedImageHost(x)) return x
     if (typeof x === 'object' && x !== null && 'url' in x) {
       const url = (x as Record<string, string>).url
-      if (typeof url === 'string' && url) return url
+      if (typeof url === 'string' && url && isTrustedImageHost(url)) return url
     }
   }
   return null

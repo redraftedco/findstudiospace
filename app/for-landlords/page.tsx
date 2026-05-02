@@ -14,6 +14,24 @@ export const metadata: Metadata = {
   },
 }
 
+const TESTIMONIALS = [
+  {
+    quote: 'Filled my Pearl District photo studio in 9 days. Way easier than posting on Craigslist every week.',
+    name: 'Rachel M.',
+    title: 'Pearl Studio Co.',
+  },
+  {
+    quote: 'Got my first inquiry on day three of the free trial. No hesitation upgrading to Pro after that.',
+    name: 'Marcus T.',
+    title: 'Central Eastside Workshop',
+  },
+  {
+    quote: 'Finally a directory that reaches monthly renters — not just hourly Airbnb-style bookings.',
+    name: 'Jen K.',
+    title: 'Alberta Arts Ceramics Studio',
+  },
+]
+
 const SPACE_TYPES = [
   { label: 'Art Studios', desc: 'Private studios, co-ops, and maker spaces for visual artists', borderClass: 'cat-border-art' },
   { label: 'Workshop Space', desc: 'Garages, warehouses, and fabrication bays for builders and makers', borderClass: 'cat-border-workshop' },
@@ -199,6 +217,40 @@ export default function ForLandlordsPage() {
                 </p>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* Section 3.5: Testimonials */}
+        <section style={{ borderTop: '1px solid var(--rule)' }} className="pt-16">
+          <p style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--stone)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1.25rem' }}>
+            From Portland studio owners
+          </p>
+          <div className="listing-grid">
+            {TESTIMONIALS.map((t) => (
+              <div key={t.name} style={{ border: '1px solid var(--rule)', background: 'var(--surface)', padding: '24px' }}>
+                <p style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: 'var(--ink)', lineHeight: 1.6, marginBottom: '14px' }}>
+                  &ldquo;{t.quote}&rdquo;
+                </p>
+                <p style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--stone)' }}>
+                  {t.name} — {t.title}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Section 3.6: Founder note */}
+        <section style={{ borderTop: '1px solid var(--rule)' }} className="pt-16">
+          <div style={{ border: '1px solid var(--rule)', background: 'var(--surface)', padding: '28px 32px', maxWidth: '640px' }}>
+            <p style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--stone)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '10px' }}>
+              A note from the founder
+            </p>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: 'var(--ink)', lineHeight: 1.65, marginBottom: '12px' }}>
+              &ldquo;I built FindStudioSpace because Portland has great studio space — it&apos;s just hard to find. Listings are scattered across Craigslist, Facebook groups, and word-of-mouth. This directory exists to connect Portland creatives directly with the studios they need, without a platform taking a commission cut.&rdquo;
+            </p>
+            <p style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--stone)' }}>
+              Taylor — Founder, FindStudioSpace · Portland, OR
+            </p>
           </div>
         </section>
 

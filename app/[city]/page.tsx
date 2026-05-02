@@ -23,7 +23,7 @@ const CITY_CONFIG: Record<string, {
     displayName: 'Portland',
     state: 'OR',
     title: 'Studio Rental in Portland, Oregon — Creative Workspace',
-    description: 'Browse 126 Portland studio rentals — creative workspace for artists, makers, photographers, and producers across every Oregon neighborhood. Free.',
+    description: 'Browse Portland studio rentals — creative workspace for artists, makers, photographers, and producers across every Oregon neighborhood. Free to search.',
   },
   seattle: {
     displayName: 'Seattle',
@@ -53,6 +53,26 @@ const NEIGHBORHOOD_PILLS: { slug: string; label: string }[] = [
   { slug: 'division', label: 'SE DIVISION' },
   { slug: 'mississippi', label: 'N MISSISSIPPI' },
 ]
+
+// Parse numeric price from a price_display string like "$400/mo" → 400.
+// Returns null when the string is missing, free/negotiable, or unparseable.
+function parsePriceNumber(raw: string | null | undefined): number | null {
+  if (!raw) return null
+  const digits = raw.replace(/[^0-9]/g, '')
+  if (!digits) return null
+  const n = parseInt(digits, 10)
+  return isNaN(n) ? null : n
+}
+
+// Minimum price threshold: anything below $100/mo is almost certainly
+// placeholder/junk data from scraping (e.g. $1, $13, $22 seen in DB).
+const MIN_LISTING_PRICE = 100
+
+function isValidPrice(raw: string | null | undefined): boolean {
+  const n = parsePriceNumber(raw)
+  if (n === null) return true  // no price = "price on request" — allow
+  return n >= MIN_LISTING_PRICE
+}
 
 // Sanitize search query: alphanumerics + spaces + hyphens, max 64 chars
 function sanitizeQuery(raw: string | string[] | undefined): string {
@@ -128,7 +148,7 @@ export default async function CityPage({ params, searchParams }: PageProps) {
 
     const { data: listings } = await query
     const rows = (listings ?? []).filter(
-      l => Array.isArray(l.images) && l.images.length > 0
+      l => Array.isArray(l.images) && l.images.length > 0 && isValidPrice(l.price_display)
     )
     const total = rows.length
     const config = staticConfig
@@ -162,7 +182,7 @@ export default async function CityPage({ params, searchParams }: PageProps) {
 
   const { data: listings } = await dbQuery
   const rows = (listings ?? []).filter(
-    l => Array.isArray(l.images) && l.images.length > 0
+    l => Array.isArray(l.images) && l.images.length > 0 && isValidPrice(l.price_display)
   )
   const total = rows.length
 
@@ -451,7 +471,7 @@ function CityPageUI({
                     Own a studio in {config.displayName}?
                   </p>
                   <p style={{ fontFamily: 'var(--font-body)', color: 'var(--stone)', fontSize: '0.875rem', margin: 0 }}>
-                    Free to list. No commission. Renters contact you directly.
+                    Free basic listing — no credit card. Upgrade to Pro ($49/mo) to get inquiries in your inbox.
                   </p>
                 </div>
                 <Link
@@ -470,6 +490,56 @@ function CityPageUI({
                 >
                   List your space free →
                 </Link>
+              </div>
+            )}
+
+            {/* Renter demand capture — email list for renters who found nothing */}
+            {!q && citySlug === 'portland' && (
+              <div
+                style={{
+                  marginTop: '3rem',
+                  padding: '28px 32px',
+                  border: '1px solid var(--rule)',
+                  background: 'var(--surface)',
+                }}
+              >
+                <p style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)', fontSize: '1.125rem', fontWeight: 600, margin: '0 0 6px' }}>
+                  Not finding the right space?
+                </p>
+                <p style={{ fontFamily: 'var(--font-body)', color: 'var(--stone)', fontSize: '0.875rem', margin: '0 0 16px' }}>
+                  Tell us what you&apos;re looking for and we&apos;ll match you when something lands.
+                </p>
+                <form
+                  action="/api/lead-inquiries"
+                  method="POST"
+                  style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', maxWidth: '480px' }}
+                >
+                  <input type="hidden" name="type" value="renter_waitlist" />
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    placeholder="your@email.com"
+                    style={{
+                      flex: '1 1 200px',
+                      border: '1px solid var(--rule)',
+                      background: 'var(--paper)',
+                      color: 'var(--ink)',
+                      fontFamily: 'var(--font-body)',
+                      fontSize: '0.875rem',
+                      padding: '10px 14px',
+                      minHeight: '44px',
+                      outline: 'none',
+                    }}
+                  />
+                  <button
+                    type="submit"
+                    className="btn-action"
+                    style={{ padding: '10px 20px', fontSize: '0.875rem', fontFamily: 'var(--font-body)', fontWeight: 500, border: 'none', cursor: 'pointer' }}
+                  >
+                    Notify me →
+                  </button>
+                </form>
               </div>
             )}
 
