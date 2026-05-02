@@ -8,7 +8,6 @@ import InquiryForm from '@/components/InquiryForm'
 import ViewCounter from '@/components/ViewCounter'
 import ProUpsell from '@/components/ProUpsell'
 import ClaimBanner from '@/components/ClaimBanner'
-import { classifyListingToPillar } from '@/lib/pillar-category'
 
 export const revalidate = 3600
 const BLOCKED_PUBLIC_LISTING_IDS = new Set(['1104'])
@@ -23,13 +22,23 @@ const TEXT_CLASS: Record<string, string> = {
 }
 
 const TYPE_TO_LABEL: Record<string, string> = {
-  office: 'Event Space',
-  art: 'Makerspace',
-  workshop: 'Makerspace',
-  retail: 'Event Space',
-  photo: 'Photo Studios',
-  fitness: 'Makerspace',
-  music: 'Content Studios',
+  art:      'Art Studio',
+  workshop: 'Workshop Space',
+  office:   'Office Space',
+  photo:    'Photo Studio',
+  retail:   'Retail Space',
+  fitness:  'Fitness & Dance',
+  music:    'Music Studio',
+}
+
+const TYPE_TO_CATEGORY_SLUG: Record<string, string> = {
+  art:      'art-studio-rental',
+  workshop: 'workshop-space-rental',
+  office:   'office-space-rental',
+  photo:    'photo-studios',
+  retail:   'retail-space-for-rent',
+  fitness:  'fitness-studio-rental',
+  music:    'music-studio-rental',
 }
 
 function formatPrice(raw: string | null | undefined): string {
@@ -126,8 +135,8 @@ export default async function ListingPage({ params }: Props) {
   const images: string[] = clampImagesToTier(allImages, listing.tier)
 
   const typeKey = (listing.type ?? '').toLowerCase()
-  const categorySlug = classifyListingToPillar(listing)
-  const categoryLabel = TYPE_TO_LABEL[typeKey] ?? 'Content Studios'
+  const categorySlug = TYPE_TO_CATEGORY_SLUG[typeKey] ?? null
+  const categoryLabel = TYPE_TO_LABEL[typeKey] ?? 'Studio'
   const priceFormatted = formatPrice(listing.price_display)
   const textClass = TEXT_CLASS[typeKey] ?? ''
   const studioName = listing.title ?? 'this listing'
