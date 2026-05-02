@@ -133,8 +133,10 @@ export async function GET(req: NextRequest) {
             enrichment_status:  'pending',
           },
           {
-            // uq_acq_place index: deduplicate by place_id
-            onConflict:     'google_place_id',
+            // uq_acq_place is a partial index (WHERE google_place_id IS NOT NULL)
+            // which PostgREST cannot reference via onConflict column name.
+            // Omitting onConflict emits ON CONFLICT DO NOTHING, which respects
+            // all unique constraints including uq_acq_place and uq_acq_name_city.
             ignoreDuplicates: true,
           }
         )
