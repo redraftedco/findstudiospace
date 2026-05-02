@@ -13,87 +13,53 @@
 - [x] `tier-policy.ts` free photo limit aligned to 5 (matches pricing page + submit API).
 - [x] `.env.example` added to repo.
 - [x] Category mapping hardening: centralized classifier, use on pillar pages + breadcrumbs.
+- [x] Cron endpoints hardened — x-vercel-cron header + Bearer token required.
+- [x] Rate limiting migrated from in-memory Map to Supabase-backed `rate_limits` table.
+- [x] /pricing page — two tiers only: Free ($0) + Studio Pro ($49/mo).
+- [x] Nav/footer category pills updated to 6 real DB types (art, workshop, photo, office, retail, fitness).
+- [x] Homepage CATEGORY_PILLS updated; duplicate strip removed; CTA → /list-your-space.
+- [x] /about page — categories, vetting copy, schema, browse links all updated.
+- [x] /for-landlords — removed Music Studios, $49 pricing, Pro CTA → /claim.
+- [x] /terms, /claim — $49/mo pricing corrected.
+- [x] Blog post dates spread across April 2026 for crawl optics.
+- [x] claimUrl() bug fixed: was generating /claim/:id (404), now /claim?listing_id=:id.
+- [x] Cold email template doc and sublease blog: /submit → /list-your-space.
+- [x] Duplicate listings deactivated: 28, 42, 84, 102 (kept 21 and 97).
+- [x] Category data audit: deactivated 55 (therapy office), 60 (wellness co-op), 73 (LEASE PENDING).
+- [x] Pillar classifier fixed: type=art/workshop/fitness short-circuits to TYPE_TO_PILLAR before MEDIA_TERMS.
+- [x] Listing page TYPE_TO_LABEL fixed (office/retail were 'Event Space', fitness was 'Makerspace').
+- [x] Listing page breadcrumb now links to real category routes (not old 4-pillar slugs).
+- [x] ListingCard 'Workshop' label aligned to 'Workshop Space'.
+- [x] Schema completion: FAQPage + ItemList + BreadcrumbList on all category pages; LocalBusiness null-cleanup on listing pages.
+- [x] Trust signal pass: website, instagram, neighborhood all displayed on listing page. Phone skipped — 0 of 119 active listings have contact_phone data.
+- [x] Submit CTA pass: /submit refs → /list-your-space throughout.
+- [x] Build `/portland/event-space` pillar page — config, FAQ schema, ItemList, BreadcrumbList all live.
+- [x] Build `/podcast-studios` national page — live at app/podcast-studios/page.tsx.
+- [x] Ahrefs niche restructure (Ticket 5) — 10 blog posts, 5 neighborhood pages, schema shipped.
 
 ---
 
-## CRITICAL — blocks revenue or has a live bug
+## AWAITING USER ACTION (manual steps — cannot be automated)
 
-- [ ] **Set `POSTAL_ADDRESS` in Vercel env vars** (manual — Vercel dashboard)
-  Value: `FindStudioSpace, 1631 NE Broadway St, Portland, OR 97232-1425`
-  Unblocks cold outreach.
+- [ ] **Set `POSTAL_ADDRESS` in Vercel env vars**
+  Key: `POSTAL_ADDRESS`
+  Value: `findstudiospace, 9169 W State St #1791, Garden City, ID 83714`
+  → Unblocks cold outreach pipeline.
 
-- [ ] **Send batch-zero cold outreach** — 24 ranked targets in `docs/batch-zero-send-list.md`.
-  Run: `GET /api/cron/send-outreach` with `Authorization: Bearer <CRON_SECRET>`.
-  Dry-run first: append `?dry_run=1` to preview count without sending.
+- [ ] **Send batch-zero cold outreach** (blocked by above)
+  24 targets ranked in `docs/batch-zero-send-list.md`.
+  Run: `GET /api/cron/send-outreach?dry_run=1` first, then without dry_run.
 
----
-
-## HIGH — directly blocks traffic or revenue
-
-- [ ] **Build `/portland/event-space` pillar page**
-  KD 0, 660/mo Portland, 7K/mo national. Zero competition. Highest-value missing page.
-  Needs: category config in `lib/config.ts`, FAQ schema, filters (rooftop, brewery, capacity,
-  neighborhood), nav pill, sitemap update.
-
-- [ ] **Build `/podcast-studios` national page** (NOT Portland-gated)
-  KD 0–4, 2K/mo national. Fastest organic SEO win on the board.
-  National URL = no `/portland/` prefix. Separate route under `app/podcast-studios/`.
-  Needs: FAQ schema, JSON-LD ItemList, meta, sitemap, internal links from category pages.
-
-- [ ] **Google Business Profile setup** (20 min manual, 5–14 day postcard verification lag)
-  Maps pack for "near me" searches: event 3.4K/mo, podcast 2K/mo, photo 1.4K/mo.
-  Do this before any other manual tasks — the lag is the constraint.
-
-- [ ] **Production category data audit** — run live DB query to find listings that
-  `classifyListingToPillar()` returns `null` or multiple matches. Export list.
-  Requires Supabase session or MCP execute_sql.
+- [ ] **Google Business Profile** (20 min manual, 5–14 day postcard lag)
+  Maps pack for "near me" searches. Do this before any other outreach.
 
 ---
 
-## MEDIUM — growth work
+## DEFERRED / FUTURE SPRINTS
 
-- [ ] **Ahrefs niche restructure** (TODO.md Ticket 5 — full plan there)
-  Kill intent-trap pills: dance, yoga, recording-studio, art-studio (generic).
-  Build 6 new landing pages in priority order (event, podcast, photo, industrial, neighborhood, maker/video).
-  SEO title rule: every page must include "rental," "book," or "for rent."
-
-- [ ] **Monetization pivot to take-rate** — 10% per booking for short-term spaces
-  (event, photo, podcast, video, industrial). Keep $29/mo for long-term (maker, artist studio).
-  Requires: booking request flow, calendar/availability, Stripe Connect or hold-and-capture.
-  Prerequisite for Day-90 $1.5K MRR target.
-
-- [ ] **Dashboard analytics charts** (Phase 2, gate behind `tier = 'pro'`)
-  Daily views chart, inquiry trend line, "rank in neighborhood" metric.
-  TODO.md Ticket 4.
-
-- [ ] **Schema completion pass**
-  - [ ] Category pages `ItemList` JSON-LD (verify all 21 configs have it)
-  - [ ] Listing pages `LocalBusiness` JSON-LD field audit (no empty/null keys emitted)
-
-- [ ] **Trust signal pass on listing pages**
-  - [ ] website link displayed
-  - [ ] instagram displayed
-  - [ ] phone displayed
-  - [ ] neighborhood/address visibility
-
-- [ ] **Submit CTA pass**
-  - [ ] Header link to `/submit`
-  - [ ] Homepage CTA to `/submit`
-
----
-
-## LOW — deferred / stable
-
-- [ ] **IP-based rate limiting on `/api/claim/send-magic-link`** — deferred until abuse observed.
-  Current: relies on Supabase built-in OTP 60s rate limit.
-  Fix when needed: Upstash Redis or Vercel edge rate limiting.
-
-- [ ] **GSC submission verification** — blocked on Search Console access/session.
-
----
-
-## Blocked / External
-
-- [ ] Inventory rebalance ingest (5–10 content + 5–10 photo): requires ingestion data source run.
-- [ ] Apollo email enrichment activation: requires `APOLLO_API_KEY` and REST API access.
-  See `lib/enrichment/apolloFallback.ts` for activation steps.
+- [ ] **Monetization pivot to take-rate** — booking flow, Stripe Connect, calendar/availability. Day-90 revenue target dependency.
+- [ ] **Dashboard analytics charts** — Phase 2, gate behind `tier = 'pro'`.
+- [ ] **IP-based rate limiting on `/api/claim/send-magic-link`** — defer until abuse observed.
+- [ ] **GSC submission verification** — blocked on Search Console access.
+- [ ] **Apollo email enrichment** — requires `APOLLO_API_KEY`. See `lib/enrichment/apolloFallback.ts`.
+- [ ] **Inventory rebalance ingest** — requires ingestion data source run.

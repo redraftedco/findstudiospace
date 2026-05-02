@@ -29,7 +29,7 @@ const TEXT_CLASS: Record<string, string> = {
 const TYPE_LABEL: Record<string, string> = {
   art:      'Art Studio',
   music:    'Music Studio',
-  workshop: 'Workshop',
+  workshop: 'Workshop Space',
   photo:    'Photo Studio',
   retail:   'Retail Space',
   fitness:  'Fitness & Dance',
