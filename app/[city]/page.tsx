@@ -46,12 +46,12 @@ const CATEGORY_PILLS: { slug: string; label: string; note: string }[] = [
 // Neighborhood entry points — these pages already exist in category config;
 // surfacing them on the homepage gives Google a crawl path and users a fast
 // neighborhood-first filter.
-const NEIGHBORHOOD_PILLS: { slug: string; label: string }[] = [
-  { slug: 'central-eastside', label: 'Central Eastside' },
-  { slug: 'pearl-district', label: 'Pearl District' },
-  { slug: 'alberta-arts', label: 'Alberta Arts' },
-  { slug: 'division', label: 'SE Division' },
-  { slug: 'mississippi', label: 'N Mississippi' },
+const NEIGHBORHOOD_PILLS: { slug: string; label: string; note: string }[] = [
+  { slug: 'central-eastside', label: 'Central Eastside', note: 'Industrial rooms, offices' },
+  { slug: 'pearl-district', label: 'Pearl District', note: 'Photo, art, creative suites' },
+  { slug: 'alberta-arts', label: 'Alberta Arts', note: 'Artist studios, small shops' },
+  { slug: 'division', label: 'SE Division', note: 'Retail, wellness, workshops' },
+  { slug: 'mississippi', label: 'N Mississippi', note: 'Maker space, offices' },
 ]
 
 // Sanitize search query: alphanumerics + spaces + hyphens, max 64 chars
@@ -381,13 +381,16 @@ function CityPageUI({
 
             {/* Neighborhood entry points — only shown for Portland where pages exist */}
             {citySlug === 'portland' && (
-              <div className="hero-neighborhood-row">
-                <span className="hero-browse-kicker">By area</span>
+              <div className="hero-area-panel">
+                <div className="hero-browse-kicker">By area</div>
+                <div className="hero-area-grid">
                 {NEIGHBORHOOD_PILLS.map((n) => (
-                  <Link key={n.slug} href={`/${citySlug}/${n.slug}`} className="hero-chip">
-                    {n.label}
+                  <Link key={n.slug} href={`/${citySlug}/${n.slug}`} className="hero-category-card">
+                    <span className="hero-category-title">{n.label}</span>
+                    <span className="hero-category-note">{n.note}</span>
                   </Link>
                 ))}
+                </div>
               </div>
             )}
 

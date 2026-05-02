@@ -472,15 +472,13 @@ button:focus-visible {
   line-height: 1.35;
   color: var(--stone);
 }
-.hero-neighborhood-row {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex-wrap: wrap;
+.hero-area-panel {
   margin-top: 1rem;
 }
-.hero-neighborhood-row .hero-browse-kicker {
-  margin: 0 0.25rem 0 0;
+.hero-area-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.625rem;
 }
 .hero-chip {
   font-family: var(--font-body);
@@ -499,9 +497,11 @@ button:focus-visible {
 .hero-chip:hover { background: var(--surface); border-color: var(--ink); }
 @media (max-width: 720px) {
   .hero-category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hero-area-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 460px) {
   .hero-category-grid { grid-template-columns: 1fr; }
+  .hero-area-grid { grid-template-columns: 1fr; }
   .hero-category-card { min-height: 58px; }
 }
 
