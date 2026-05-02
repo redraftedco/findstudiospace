@@ -81,11 +81,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 Pricing
               </Link>
             <Link
-              href="/submit"
+              href="/list-your-space"
               style={{ color: 'var(--action)', fontFamily: 'var(--font-body)' }}
               className="text-sm font-medium hover:underline"
             >
-              <span className="hidden sm:inline">Submit your studio</span><span className="sm:hidden">Submit</span>
+              <span className="hidden sm:inline">List your space</span><span className="sm:hidden">List</span>
             </Link>
             </div>
           </div>
@@ -114,10 +114,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   Browse by Category
                 </p>
                 <div className="flex flex-col gap-2">
-                  <Link href="/portland/event-space" className="hover:underline">Event Space</Link>
-                  <Link href="/portland/content-studios" className="hover:underline">Content Studios</Link>
+                  <Link href="/portland/art-studio-rental" className="hover:underline">Art Studios</Link>
+                  <Link href="/portland/workshop-space-rental" className="hover:underline">Workshop Space</Link>
                   <Link href="/portland/photo-studios" className="hover:underline">Photo Studios</Link>
-                  <Link href="/portland/makerspace" className="hover:underline">Makerspace</Link>
+                  <Link href="/portland/office-space-rental" className="hover:underline">Office Space</Link>
+                  <Link href="/portland/fitness-studio-rental" className="hover:underline">Fitness &amp; Dance</Link>
                 </div>
               </div>
 
@@ -142,7 +143,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </p>
                 <div className="flex flex-col gap-2">
                   <Link href="/about" className="hover:underline">About</Link>
-                  <Link href="/submit" className="hover:underline">Submit Your Studio</Link>
+                  <Link href="/list-your-space" className="hover:underline">List Your Space</Link>
                   <Link href="/claim" className="hover:underline">Claim a Listing</Link>
                   <Link href="/blog" className="hover:underline">Resources</Link>
                   <Link href="/privacy" className="hover:underline">Privacy</Link>

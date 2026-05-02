@@ -394,7 +394,18 @@ function ClaimPageInner() {
 
 export default function ClaimPage() {
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={
+      <main className="px-6 py-16">
+        <div className="mx-auto max-w-lg">
+          <h1 style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }} className="text-3xl font-semibold mb-3">
+            Claim your listing
+          </h1>
+          <p style={{ color: 'var(--stone)', fontFamily: 'var(--font-body)' }} className="text-sm leading-relaxed">
+            Enter your listing ID to find and claim your studio. Loading...
+          </p>
+        </div>
+      </main>
+    }>
       <ClaimPageInner />
     </Suspense>
   )

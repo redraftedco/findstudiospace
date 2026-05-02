@@ -33,13 +33,14 @@ const CITY_CONFIG: Record<string, {
   },
 }
 
-// Primary Portland pill nav. Keep legacy routes live, but lead users to the
-// four validated categories.
+// Primary Portland pill nav — matches actual listing types in the DB.
 const CATEGORY_PILLS: { slug: string; label: string }[] = [
-  { slug: 'event-space', label: 'EVENT SPACE' },
-  { slug: 'content-studios', label: 'CONTENT STUDIOS' },
+  { slug: 'art-studio-rental', label: 'ART STUDIOS' },
+  { slug: 'workshop-space-rental', label: 'WORKSHOP' },
   { slug: 'photo-studios', label: 'PHOTO STUDIOS' },
-  { slug: 'makerspace', label: 'MAKERSPACE' },
+  { slug: 'office-space-rental', label: 'OFFICE SPACE' },
+  { slug: 'retail-space-for-rent', label: 'RETAIL SPACE' },
+  { slug: 'fitness-studio-rental', label: 'FITNESS & DANCE' },
 ]
 
 // Neighborhood entry points — these pages already exist in category config;
@@ -396,20 +397,6 @@ function CityPageUI({
         <section style={{ paddingTop: '3rem', paddingBottom: '4rem' }} className="px-6">
           <div className="mx-auto max-w-5xl">
 
-            {/* Category filter strip — above grid, below hero */}
-            {!q && (
-              <div
-                style={{ marginBottom: '2rem' }}
-                className="flex flex-wrap items-center gap-2"
-              >
-                {CATEGORY_PILLS.map((cat) => (
-                  <Link key={cat.slug} href={`/${citySlug}/${cat.slug}`} className="hero-chip">
-                    {cat.label}
-                  </Link>
-                ))}
-              </div>
-            )}
-
             {q && (
               <p
                 style={{
@@ -420,6 +407,15 @@ function CityPageUI({
                 }}
               >
                 {total} {total === 1 ? 'result' : 'results'} for &ldquo;{q}&rdquo;
+              </p>
+            )}
+
+            {!q && (
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.8125rem', color: 'var(--stone)', marginBottom: '1.5rem' }}>
+                Own a studio in {config.displayName}?{' '}
+                <Link href="/list-your-space" style={{ color: 'var(--action)', textDecoration: 'underline' }}>
+                  List free →
+                </Link>
               </p>
             )}
 
@@ -459,7 +455,7 @@ function CityPageUI({
                   </p>
                 </div>
                 <Link
-                  href="/submit"
+                  href="/list-your-space"
                   className="btn-action"
                   style={{
                     display: 'inline-flex',
@@ -472,7 +468,7 @@ function CityPageUI({
                     whiteSpace: 'nowrap',
                   }}
                 >
-                  Submit your studio →
+                  List your space free →
                 </Link>
               </div>
             )}

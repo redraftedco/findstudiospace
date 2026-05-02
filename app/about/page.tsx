@@ -29,7 +29,7 @@ export default function AboutPage() {
     url: SITE_URL,
     logo: `${SITE_URL}/og-default.svg`,
     description:
-      'An independent directory of monthly creative studio rentals in Portland, OR — photo studios, art studios, content studios, makerspaces, and event spaces.',
+      'An independent directory of monthly creative studio rentals in Portland, OR — art studios, workshop space, photo studios, office space, retail space, and fitness studios.',
     foundingDate: '2026',
     founder: {
       '@type': 'Person',
@@ -123,28 +123,38 @@ export default function AboutPage() {
                 What we list
               </h2>
               <p style={{ color: 'var(--stone)' }} className="mb-3 text-sm leading-relaxed">
-                Every listing falls into one of four pillar categories:
+                Listings span six categories of creative and production workspace:
               </p>
               <ul style={{ color: 'var(--stone)' }} className="space-y-2 text-sm">
                 <li>
+                  <Link href="/portland/art-studio-rental" style={{ color: 'var(--lime)' }} className="hover:underline">
+                    <strong>Art Studios</strong>
+                  </Link>{' '}— private studios, shared co-ops, and ceramics spaces for painters, sculptors, printmakers, and mixed media artists.
+                </li>
+                <li>
+                  <Link href="/portland/workshop-space-rental" style={{ color: 'var(--lime)' }} className="hover:underline">
+                    <strong>Workshop Space</strong>
+                  </Link>{' '}— fabrication bays, woodshops, and maker spaces for builders, craftspeople, and small-batch producers.
+                </li>
+                <li>
                   <Link href="/portland/photo-studios" style={{ color: 'var(--lime)' }} className="hover:underline">
                     <strong>Photo Studios</strong>
-                  </Link>{' '}— cyc walls, natural light, product setups, green screen rooms, and general photography studios for monthly rental.
+                  </Link>{' '}— cyc walls, natural light, product setups, and green screen rooms for photographers and production work.
                 </li>
                 <li>
-                  <Link href="/portland/content-studios" style={{ color: 'var(--lime)' }} className="hover:underline">
-                    <strong>Content Studios</strong>
-                  </Link>{' '}— podcast rooms, video production spaces, and creator-focused studios for media work.
+                  <Link href="/portland/office-space-rental" style={{ color: 'var(--lime)' }} className="hover:underline">
+                    <strong>Office Space</strong>
+                  </Link>{' '}— private offices and creative suites for freelancers, designers, and small teams.
                 </li>
                 <li>
-                  <Link href="/portland/event-space" style={{ color: 'var(--lime)' }} className="hover:underline">
-                    <strong>Event Space</strong>
-                  </Link>{' '}— private venues and event-ready studios for community events, pop-ups, and brand activations.
+                  <Link href="/portland/retail-space-for-rent" style={{ color: 'var(--lime)' }} className="hover:underline">
+                    <strong>Retail Space</strong>
+                  </Link>{' '}— storefronts and pop-up spaces for makers, designers, and commercial tenants.
                 </li>
                 <li>
-                  <Link href="/portland/makerspace" style={{ color: 'var(--lime)' }} className="hover:underline">
-                    <strong>Makerspace</strong>
-                  </Link>{' '}— workshop rentals, fabrication bays, ceramics studios, and art studios for hands-on production.
+                  <Link href="/portland/fitness-studio-rental" style={{ color: 'var(--lime)' }} className="hover:underline">
+                    <strong>Fitness &amp; Dance</strong>
+                  </Link>{' '}— yoga studios, dance floors, and movement spaces for instructors and practitioners.
                 </li>
               </ul>
             </section>
@@ -167,7 +177,7 @@ export default function AboutPage() {
                   <strong style={{ color: 'var(--ink)' }}>Category fit.</strong> Each listing is classified into exactly one of the four pillar categories using a rules-based classifier. Office and coworking listings are filtered out of creative pillars to keep results focused.
                 </li>
                 <li>
-                  <strong style={{ color: 'var(--ink)' }}>Contact verification.</strong> Hosts must provide a working contact email. Inquiries route directly to the host with a copy to the platform for quality monitoring.
+                  <strong style={{ color: 'var(--ink)' }}>Contact verification.</strong> Claimed listings are associated with a verified owner email. Inquiries route directly to the host.
                 </li>
                 <li>
                   <strong style={{ color: 'var(--ink)' }}>Honest descriptions.</strong> Listings claiming amenities they don&apos;t have (cyc walls, natural light, equipment) are removed when the discrepancy is reported.
@@ -234,10 +244,11 @@ export default function AboutPage() {
             <div className="flex flex-wrap gap-3">
               {[
                 { label: 'All Studios', href: '/portland' },
+                { label: 'Art Studios', href: '/portland/art-studio-rental' },
+                { label: 'Workshop Space', href: '/portland/workshop-space-rental' },
                 { label: 'Photo Studios', href: '/portland/photo-studios' },
-                { label: 'Content Studios', href: '/portland/content-studios' },
-                { label: 'Event Space', href: '/portland/event-space' },
-                { label: 'Makerspace', href: '/portland/makerspace' },
+                { label: 'Office Space', href: '/portland/office-space-rental' },
+                { label: 'Fitness & Dance', href: '/portland/fitness-studio-rental' },
                 { label: 'List Your Space', href: '/list-your-space' },
               ].map(({ label, href }) => (
                 <Link
