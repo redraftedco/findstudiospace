@@ -33,25 +33,25 @@ const CITY_CONFIG: Record<string, {
   },
 }
 
-// Primary Portland pill nav — matches actual listing types in the DB.
-const CATEGORY_PILLS: { slug: string; label: string }[] = [
-  { slug: 'art-studio-rental', label: 'ART STUDIOS' },
-  { slug: 'workshop-space-rental', label: 'WORKSHOP' },
-  { slug: 'photo-studios', label: 'PHOTO STUDIOS' },
-  { slug: 'office-space-rental', label: 'OFFICE SPACE' },
-  { slug: 'retail-space-for-rent', label: 'RETAIL SPACE' },
-  { slug: 'fitness-studio-rental', label: 'FITNESS & DANCE' },
+// Primary Portland browse paths — matches actual listing types in the DB.
+const CATEGORY_PILLS: { slug: string; label: string; note: string }[] = [
+  { slug: 'photo-studios', label: 'Photo studios', note: 'Cyc walls, daylight, sets' },
+  { slug: 'art-studio-rental', label: 'Art studios', note: 'Private rooms, shared shops' },
+  { slug: 'workshop-space-rental', label: 'Workshops', note: 'Tools, storage, production' },
+  { slug: 'office-space-rental', label: 'Creative offices', note: 'Quiet rooms, small teams' },
+  { slug: 'retail-space-for-rent', label: 'Retail space', note: 'Storefronts, pop-ups' },
+  { slug: 'fitness-studio-rental', label: 'Movement rooms', note: 'Yoga, dance, wellness' },
 ]
 
 // Neighborhood entry points — these pages already exist in category config;
 // surfacing them on the homepage gives Google a crawl path and users a fast
 // neighborhood-first filter.
 const NEIGHBORHOOD_PILLS: { slug: string; label: string }[] = [
-  { slug: 'central-eastside', label: 'CENTRAL EASTSIDE' },
-  { slug: 'pearl-district', label: 'PEARL DISTRICT' },
-  { slug: 'alberta-arts', label: 'ALBERTA ARTS' },
-  { slug: 'division', label: 'SE DIVISION' },
-  { slug: 'mississippi', label: 'N MISSISSIPPI' },
+  { slug: 'central-eastside', label: 'Central Eastside' },
+  { slug: 'pearl-district', label: 'Pearl District' },
+  { slug: 'alberta-arts', label: 'Alberta Arts' },
+  { slug: 'division', label: 'SE Division' },
+  { slug: 'mississippi', label: 'N Mississippi' },
 ]
 
 // Sanitize search query: alphanumerics + spaces + hyphens, max 64 chars
@@ -368,21 +368,21 @@ function CityPageUI({
           </div>
 
           {/* Bottom: browse pills + landlord CTA */}
-          <div className="mx-auto max-w-5xl w-full" style={{ marginTop: '3rem' }}>
-            <div className="flex flex-wrap items-center gap-2">
+          <div className="mx-auto max-w-5xl w-full hero-browse-panel">
+            <div className="hero-browse-kicker">Browse by space</div>
+            <div className="hero-category-grid">
               {CATEGORY_PILLS.map((cat) => (
-                <Link key={cat.slug} href={`/${citySlug}/${cat.slug}`} className="hero-chip">
-                  {cat.label}
+                <Link key={cat.slug} href={`/${citySlug}/${cat.slug}`} className="hero-category-card">
+                  <span className="hero-category-title">{cat.label}</span>
+                  <span className="hero-category-note">{cat.note}</span>
                 </Link>
               ))}
             </div>
 
             {/* Neighborhood entry points — only shown for Portland where pages exist */}
             {citySlug === 'portland' && (
-              <div
-                style={{ marginTop: '1.25rem' }}
-                className="flex flex-wrap items-center gap-2"
-              >
+              <div className="hero-neighborhood-row">
+                <span className="hero-browse-kicker">By area</span>
                 {NEIGHBORHOOD_PILLS.map((n) => (
                   <Link key={n.slug} href={`/${citySlug}/${n.slug}`} className="hero-chip">
                     {n.label}

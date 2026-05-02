@@ -25,12 +25,9 @@
 
 ---
 
-## TICKET 4 — Full dashboard analytics (views over time, inquiry trend, neighborhood rank)
-**Priority:** Phase 2. Build after Pro subscriptions exist.
+## TICKET 4 — ~~Full dashboard analytics~~ COMPLETED
 
-**Current state:** Dashboard shows 30-day view count and total inquiry count as raw numbers.
-
-**Fix:** Add daily views chart, inquiry trend line, and "rank in neighborhood" metric to `/dashboard/[listingId]`. Gate behind `tier = 'pro'`.
+Marked complete by owner.
 
 ---
 

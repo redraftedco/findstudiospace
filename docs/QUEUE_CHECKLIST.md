@@ -36,6 +36,8 @@
 - [x] Build `/portland/event-space` pillar page — config, FAQ schema, ItemList, BreadcrumbList all live.
 - [x] Build `/podcast-studios` national page — live at app/podcast-studios/page.tsx.
 - [x] Ahrefs niche restructure (Ticket 5) — 10 blog posts, 5 neighborhood pages, schema shipped.
+- [x] Dashboard analytics charts — marked complete by owner.
+- [x] Search Console submission / verification — marked complete by owner.
 
 ---
 
@@ -50,16 +52,12 @@
   24 targets ranked in `docs/batch-zero-send-list.md`.
   Run: `GET /api/cron/send-outreach?dry_run=1` first, then without dry_run.
 
-- [ ] **Google Business Profile** (20 min manual, 5–14 day postcard lag)
-  Maps pack for "near me" searches. Do this before any other outreach.
-
 ---
 
 ## DEFERRED / FUTURE SPRINTS
 
+- [ ] **Google Business Profile** — deferred by owner.
 - [ ] **Monetization pivot to take-rate** — booking flow, Stripe Connect, calendar/availability. Day-90 revenue target dependency.
-- [ ] **Dashboard analytics charts** — Phase 2, gate behind `tier = 'pro'`.
 - [ ] **IP-based rate limiting on `/api/claim/send-magic-link`** — defer until abuse observed.
-- [ ] **GSC submission verification** — blocked on Search Console access.
 - [ ] **Apollo email enrichment** — requires `APOLLO_API_KEY`. See `lib/enrichment/apolloFallback.ts`.
 - [ ] **Inventory rebalance ingest** — requires ingestion data source run.

@@ -427,21 +427,82 @@ button:focus-visible {
 }
 .hero-count { font-family: var(--font-body); font-size: 13px; color: var(--stone); }
 .hero-dot   { color: var(--rule); font-size: 12px; }
+.hero-browse-panel {
+  margin-top: 3rem;
+  max-width: 760px;
+}
+.hero-browse-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--stone);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.625rem;
+}
+.hero-category-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.625rem;
+}
+.hero-category-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-height: 68px;
+  padding: 0.75rem 0.875rem;
+  border: 1px solid var(--rule);
+  background: rgba(255,255,255,0.34);
+  color: var(--ink);
+  text-decoration: none;
+}
+.hero-category-card:hover {
+  border-color: var(--ink);
+  background: var(--surface);
+}
+.hero-category-title {
+  font-family: var(--font-heading);
+  font-size: 0.9375rem;
+  font-weight: 650;
+  line-height: 1.25;
+}
+.hero-category-note {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  line-height: 1.35;
+  color: var(--stone);
+}
+.hero-neighborhood-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+.hero-neighborhood-row .hero-browse-kicker {
+  margin: 0 0.25rem 0 0;
+}
 .hero-chip {
   font-family: var(--font-body);
-  font-size: 11.5px;
-  font-weight: 500;
+  font-size: 0.8125rem;
+  font-weight: 550;
   color: var(--ink);
   background: transparent;
   border: 1px solid rgba(0,0,0,0.18);
-  padding: 5px 13px;
+  padding: 0.425rem 0.75rem;
   border-radius: 3px;
   text-decoration: none;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   display: inline-block;
 }
 .hero-chip:hover { background: var(--surface); border-color: var(--ink); }
+@media (max-width: 720px) {
+  .hero-category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 460px) {
+  .hero-category-grid { grid-template-columns: 1fr; }
+  .hero-category-card { min-height: 58px; }
+}
 
 /* Featured listing — subtle gold tint on dark */
 .listing-card-featured {
