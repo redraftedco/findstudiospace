@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { Suspense } from 'react'
+import PlacementCheckout from './PlacementCheckout'
 
 export const metadata: Metadata = {
   title: 'Advertise Your Studio — FindStudioSpace Portland',
@@ -122,43 +124,20 @@ export default function AdvertisePage() {
           Sponsored listings are paid advertisements. Payment does not guarantee inquiries, bookings, renters, or revenue. FindStudioSpace does not process or facilitate rental transactions. Renters contact studios directly to confirm pricing, availability, terms, and suitability.
         </p>
 
-        {/* CTA */}
-        <div className="flex flex-col sm:flex-row gap-4">
-          <Link
-            href="/claim"
-            className="btn-action"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              minHeight: '48px',
-              padding: '12px 24px',
-              textDecoration: 'none',
-              fontFamily: 'var(--font-body)',
-              fontWeight: 500,
-              fontSize: '14px',
-            }}
-          >
-            Claim your listing to get started
+        {/* Checkout form */}
+        <Suspense fallback={null}>
+          <PlacementCheckout />
+        </Suspense>
+
+        <p
+          style={{ color: 'var(--stone)', fontFamily: 'var(--font-body)', fontSize: '13px', marginTop: '20px' }}
+        >
+          Need to claim your listing first?{' '}
+          <Link href="/claim" style={{ color: 'var(--ink)', textDecoration: 'underline' }}>
+            Claim it here
           </Link>
-          <Link
-            href="/pricing"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              minHeight: '48px',
-              padding: '12px 24px',
-              border: '1px solid var(--rule)',
-              color: 'var(--stone)',
-              fontFamily: 'var(--font-body)',
-              fontSize: '14px',
-              textDecoration: 'none',
-            }}
-          >
-            See pricing →
-          </Link>
-        </div>
+          .
+        </p>
 
       </div>
     </main>
