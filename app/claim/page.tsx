@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { Suspense } from 'react'
-import posthog from 'posthog-js'
 
 interface ClaimResult {
   listing_id: number
@@ -26,8 +25,6 @@ function ClaimPageInner() {
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState<ClaimResult | null>(null)
   const [error, setError] = useState<string | null>(null)
-  const [interval, setInterval] = useState<'monthly' | 'annual'>('monthly')
-  const [checkoutLoading, setCheckoutLoading] = useState(false)
   const [portalLoading, setPortalLoading] = useState(false)
 
   async function handleLookup() {
@@ -54,38 +51,6 @@ function ClaimPageInner() {
       setError('Something went wrong. Please try again.')
     } finally {
       setLoading(false)
-    }
-  }
-
-  async function handleCheckout() {
-    if (!result) return
-    setCheckoutLoading(true)
-    setError(null)
-
-    try {
-      const res = await fetch('/api/stripe/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          listing_id: result.listing_id,
-          email: '',
-          interval,
-        }),
-      })
-      const data = await res.json()
-      if (data.url) {
-        posthog.capture('upgrade_checkout_started', {
-          listing_id: result.listing_id,
-          interval,
-        })
-        window.location.href = data.url
-      } else {
-        setError(data.error || 'Could not start checkout. Try again.')
-      }
-    } catch {
-      setError('Something went wrong. Please try again.')
-    } finally {
-      setCheckoutLoading(false)
     }
   }
 
@@ -341,7 +306,7 @@ function ClaimPageInner() {
               </button>
             )}
 
-            {/* Free state: upgrade CTA */}
+            {/* Free state: sponsor CTA */}
             {result.tier !== 'pro' && (
               <>
                 <p style={{
@@ -351,15 +316,16 @@ function ClaimPageInner() {
                   margin: '0 0 16px',
                   lineHeight: 1.6,
                 }}>
-                  Upgrade to Pro to receive inquiries directly in your inbox, get a verified badge, and rank higher in search.
+                  Want more renters to see this listing? Sponsored placement puts your studio above organic results on a category or neighborhood page.
                 </p>
 
-                <button
-                  onClick={handleCheckout}
-                  disabled={checkoutLoading}
+                <Link
+                  href="/advertise"
                   className="btn-action"
                   style={{
-                    display: 'block',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                     width: '100%',
                     padding: '14px',
                     fontFamily: 'var(--font-heading)',
@@ -368,12 +334,11 @@ function ClaimPageInner() {
                     textTransform: 'uppercase',
                     letterSpacing: '0.05em',
                     border: 'none',
-                    cursor: checkoutLoading ? 'not-allowed' : 'pointer',
-                    opacity: checkoutLoading ? 0.7 : 1,
+                    textDecoration: 'none',
                   }}
                 >
-                  {checkoutLoading ? 'Starting checkout...' : 'Start 30-day free trial →'}
-                </button>
+                  See sponsored placement
+                </Link>
                 <p style={{
                   fontFamily: 'var(--font-body)',
                   fontSize: '13px',
@@ -381,7 +346,7 @@ function ClaimPageInner() {
                   textAlign: 'center',
                   margin: '8px 0 0',
                 }}>
-                  $49/month after. Cancel anytime.
+                  Starts at $49/month. Renters contact your studio directly.
                 </p>
               </>
             )}
@@ -410,3 +375,4 @@ export default function ClaimPage() {
     </Suspense>
   )
 }
+
