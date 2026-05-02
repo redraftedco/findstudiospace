@@ -125,7 +125,7 @@ After sending, log each in your tracking spreadsheet. Wait 5 business days for r
 
 When they reply with "yes that's the right email" or similar:
 - Wait 24 hours.
-- Send Template B from `cold-email-templates.md` with a soft Pro CTA.
+- Send Template B from `cold-email-templates.md` with a soft sponsored-placement CTA.
 
 When they reply with a different routing email:
 - Update the listing's `contact_email` in Supabase.

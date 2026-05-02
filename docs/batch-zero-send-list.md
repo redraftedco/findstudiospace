@@ -8,7 +8,7 @@
 
 ## Tier 1 — Multi-listing operators (HIGHEST VALUE — 5 contacts, 19 listings)
 
-These already trust you with multiple listings. Best Pro upgrade targets and exclusive-agreement candidates (P2-C).
+These already trust you with multiple listings. Best sponsored-placement and exclusive-agreement candidates (P2-C).
 **Send order: send these FIRST.** A reply here is worth 3-5 single-listing replies.
 
 | Email | Listings | Listing IDs | Type |
@@ -29,7 +29,7 @@ Real businesses with brand-domain emails. Higher reply-rate than personal emails
 
 | Email | Listing | ID | Notes |
 |---|---|---|---|
-| `leasing@beamdevelopment.com` | Suite 225 — Cyclorama Wall | 22 | **P0-C — also the only cyc wall.** High-priority Pro candidate. |
+| `leasing@beamdevelopment.com` | Suite 225 — Cyclorama Wall | 22 | **P0-C — also the only cyc wall.** High-priority sponsored-placement candidate. |
 | `hello@breathingroomcollective.com` | Wellness/Yoga Studio | 4 | SE Portland fitness |
 | `membership@pastlives.space` | Beautiful Private Creative Space | 8 | NW art |
 | `connect@thebymc.com` | Yoga/Dance/Movement Studio | 10 | N Portland fitness |
@@ -101,6 +101,6 @@ Personal Gmail or business-of-one. Still worth contacting; reply rate generally 
 - Tier 2 (17 sends): expect 4-5 replies (25% rate on professional addresses)
 - Tier 3 (2-3 sends): expect 0-1 reply (15-20% rate on personal addresses)
 
-**Total batch-zero projection:** 5-8 replies → 2-4 conversations → 1-2 Pro upgrades or exclusive agreements.
+**Total batch-zero projection:** 5-8 replies → 2-4 conversations → 1-2 sponsored placements or exclusive agreements.
 
 If you hit < 2 replies total, the issue is the email itself, not the list. Iterate Template A's first sentence before scaling to the next batch.

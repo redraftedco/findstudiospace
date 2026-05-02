@@ -342,7 +342,7 @@ Reply "unsubscribe" to stop these emails.
 
 ## Tracking sheet columns
 
-| Date sent | Email | Subject | Reply (Y/N) | Reply date | Outcome | Pro upgrade? |
+| Date sent | Email | Subject | Reply (Y/N) | Reply date | Outcome | Sponsored placement? |
 |---|---|---|---|---|---|---|
 
 ---

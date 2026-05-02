@@ -43,12 +43,12 @@ Reply "unsubscribe" to stop these emails.
 **Why this converts:**
 - 3 sentences. Under 35 words of body copy. Reads in 8 seconds.
 - Asks a yes/no question they can answer in one reply. Low friction.
-- No pitch. No pricing. No "here's what Pro can do." Relationship first.
+- No pitch. No pricing. No "here's what sponsored placement can do." Relationship first.
 - Founder voice ("I want") outperforms brand voice ("we") for cold outreach under 20 contacts.
 - Subject line uses their own space name → open rates ~40% above generic subjects.
 
 **Do not:**
-- Mention Pro, pricing, or upgrades in this email.
+- Mention sponsored placement, pricing, or paid placement in this email.
 - Include more than one question.
 - Add a P.S. or secondary CTA.
 
@@ -57,7 +57,7 @@ Reply "unsubscribe" to stop these emails.
 ## Template B — Follow-up to Template A reply
 
 **Trigger:** They replied to Template A with anything (even just "yes, it's current").
-**Goal:** Get them to claim listing or upgrade to Pro.
+**Goal:** Move a warm reply toward sponsored placement.
 
 **Subject:** `Re: [their reply subject]`
 
@@ -68,11 +68,11 @@ Great — I'll make sure it's right.
 
 Quick update: [Space Name] has been viewed [X] times in the last 30 days. [Omit this line entirely if views = 0.]
 
-Landlords on Pro show up at the top of search results, get a verified badge, and can add up to 15 photos. Most see significantly more inquiries within the first month.
+Sponsored placement puts [Space Name] above organic results on one relevant category or neighborhood page, clearly labeled as Sponsored.
 
-It's $49/month — first 30 days free, cancel any time.
+It starts at $49/month, cancel any time. No commission, no booking lock-in — renters still contact you directly.
 
-Claim your listing here: findstudiospace.com/claim
+Placement options are here: findstudiospace.com/advertise
 
 — T
 FindStudioSpace · findstudiospace.com
@@ -85,7 +85,7 @@ Reply "unsubscribe" to stop these emails.
 - Opens as a reply thread → read rate near 100% (they're already in conversation).
 - View count (if non-zero) = proof their listing is working = loss aversion ("I'm already getting views, don't want to miss inquiries").
 - Single CTA with direct URL. No friction.
-- Trial framing ("first 30 days free") removes the payment objection.
+- Direct visibility framing avoids selling a fake guarantee.
 - "$49/month" stated plainly — don't hide the price, it signals confidence.
 
 ---
@@ -156,7 +156,7 @@ Hi [First Name],
 
 I'm [Name], founder of FindStudioSpace — Portland's directory for monthly studio rentals.
 
-I'm offering a free 1-hour professional photo shoot to the first 10 landlords who list on the platform. Listings with professional photos get 3–5x more inquiries than phone snapshots. The photos are yours to keep — no strings, no requirement to upgrade.
+I'm offering a free 1-hour professional photo shoot to the first 10 landlords who list on the platform. Listings with professional photos get 3–5x more inquiries than phone snapshots. The photos are yours to keep — no strings, no requirement to buy sponsored placement.
 
 If you'd like to claim a slot, submit [Space Name] here and I'll reach out within 48 hours: findstudiospace.com/list-your-space
 
@@ -178,9 +178,9 @@ Reply "unsubscribe" to stop these emails.
 
 ---
 
-## Template E — Landlord referral (after first pro conversion)
+## Template E — Landlord referral (after first sponsored placement)
 
-**Trigger:** Pro subscriber has been on platform 30+ days with no complaints.
+**Trigger:** Sponsored placement customer has been on platform 30+ days with no complaints.
 **Goal:** One warm referral name.
 
 **Subject:** `Quick favor — know any other Portland studio landlords?`
