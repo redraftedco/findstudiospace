@@ -336,8 +336,8 @@ export default async function ListingPage({ params }: Props) {
                 </section>
               )}
 
-              {/* External links — website & Instagram */}
-              {(listing.website_url || listing.instagram_url) && (
+              {/* External links — website, Instagram, phone */}
+              {(listing.website_url || listing.instagram_url || listing.contact_phone) && (
                 <section style={{ maxWidth: '680px', marginTop: '2.5rem' }}>
                   <h2
                     style={{
@@ -372,6 +372,15 @@ export default async function ListingPage({ params }: Props) {
                         className="text-sm hover:underline"
                       >
                         Instagram ↗
+                      </a>
+                    )}
+                    {listing.contact_phone && (
+                      <a
+                        href={`tel:${String(listing.contact_phone).replace(/\s/g, '')}`}
+                        style={{ color: 'var(--action)', fontFamily: 'var(--font-body)' }}
+                        className="text-sm hover:underline"
+                      >
+                        {String(listing.contact_phone)}
                       </a>
                     )}
                   </div>
