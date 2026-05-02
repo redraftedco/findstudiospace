@@ -58,6 +58,7 @@
 
 - [ ] **Decide fastest high-monetization business model** — compare Pro subscriptions, paid lead routing, take-rate bookings, sponsored placement, and concierge listing services. Pick the model with the fastest path to first revenue and the highest upside after traffic grows.
 - [ ] **Audit and standardize site accent color for conversion** — research evidence-informed color choice for creative studio renters/landlords, then apply one accessible accent system across CTAs, links, badges, focus states, and pricing/claim flows.
+- [ ] **Make homepage “By area” links tiled cards** — replace the small neighborhood pill row with the same grid/card treatment used by “Browse by space” so the section is easier to scan and click.
 - [ ] **Google Business Profile** — deferred by owner.
 - [ ] **Monetization pivot to take-rate** — booking flow, Stripe Connect, calendar/availability. Day-90 revenue target dependency.
 - [ ] **IP-based rate limiting on `/api/claim/send-magic-link`** — defer until abuse observed.
