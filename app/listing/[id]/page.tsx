@@ -115,11 +115,44 @@ export default async function ListingPage({ params }: Props) {
   const lng = typeof listing.longitude === 'number' ? listing.longitude : null
 
   const attrs = listing.niche_attributes as Record<string, boolean | string | number | null> | null
-  const amenities = attrs
+
+  // Keys that are classifier internals, not user-facing features
+  const SKIP_ATTR_KEYS = new Set(['category', 'space_type'])
+  const ATTR_LABELS: Record<string, string> = {
+    natural_light:       'Natural light',
+    cyc_wall:            'Cyc wall',
+    green_screen:        'Green screen',
+    product_photography: 'Product photography',
+    private_event:       'Private events',
+    has_rental_lang:     'Rental terms',
+    has_pricing:         'Pricing listed',
+    loading_dock:        'Loading dock',
+    three_phase_power:   'Three-phase power',
+    freight_elevator:    'Freight elevator',
+    sound_treated:       'Sound treatment',
+    hvac:                'HVAC',
+    kitchen:             'Kitchen',
+    outdoor_space:       'Outdoor space',
+    parking:             'Parking',
+    wifi:                'Wi-Fi',
+    storage:             'Storage',
+    av_equipment:        'AV equipment',
+    spray_booth:         'Spray booth',
+    laser_cutter:        'Laser cutter',
+    cnc_router:          'CNC router',
+    three_d_printer:     '3D printer',
+    darkroom:            'Darkroom',
+    backdrop:            'Backdrop',
+  }
+  const features: string[] = attrs
     ? Object.entries(attrs)
-        .filter(([, v]) => v === true)
-        .map(([k]) => k.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()))
+        .filter(([k, v]) => !SKIP_ATTR_KEYS.has(k) && v === true)
+        .map(([k]) => ATTR_LABELS[k] ?? k.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()))
     : []
+
+  const sqft = typeof listing.square_footage === 'number' && listing.square_footage > 0
+    ? listing.square_footage
+    : null
 
   // Extract image URLs from the jsonb array, then clamp to tier's photo limit.
   // Free: 5, Pro: 15. Unknown/malformed tier defaults to free. DB keeps the
@@ -294,56 +327,95 @@ export default async function ListingPage({ params }: Props) {
                 }}
               />
 
-              {/* About */}
+              {/* Space details — specs + features + description */}
               <section style={{ maxWidth: '65ch' }}>
-                <h2
-                  style={{
-                    fontFamily: 'var(--font-heading)',
-                    color: 'var(--ink)',
-                    fontSize: '1.5rem',
-                    fontWeight: 600,
-                    letterSpacing: '-0.015em',
-                    margin: '0 0 1rem',
-                  }}
-                >
-                  About
-                </h2>
-                <p
-                  style={{
-                    fontFamily: 'var(--font-body)',
-                    color: 'var(--ink)',
-                    fontSize: '1rem',
-                    lineHeight: 1.6,
-                    whiteSpace: 'pre-line',
-                    margin: 0,
-                  }}
-                >
-                  {listing.description ?? 'No description available.'}
-                </p>
-              </section>
 
-              {/* Amenities */}
-              {amenities.length > 0 && (
-                <section style={{ maxWidth: '65ch', marginTop: '2.5rem' }}>
-                  <h2
-                    style={{
-                      fontFamily: 'var(--font-heading)',
-                      color: 'var(--ink)',
-                      fontSize: '1.5rem',
-                      fontWeight: 600,
-                      letterSpacing: '-0.015em',
-                      margin: '0 0 1rem',
-                    }}
-                  >
-                    Amenities
-                  </h2>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-                    {amenities.map((a) => (
-                      <span key={a} className="amenity-chip">{a}</span>
+                {/* Spec table */}
+                <dl style={{ margin: 0 }}>
+                  {[
+                    { label: 'Type',         value: TYPE_TO_LABEL[typeKey] ?? listing.type },
+                    { label: 'Neighborhood', value: listing.neighborhood },
+                    { label: 'Size',         value: sqft ? `${sqft.toLocaleString('en-US')} sq ft` : null },
+                    { label: 'Monthly',      value: listing.price_display ? formatPrice(listing.price_display) : null },
+                  ]
+                    .filter((r) => r.value)
+                    .map((row, i, arr) => (
+                      <div
+                        key={row.label}
+                        style={{
+                          display: 'grid',
+                          gridTemplateColumns: '120px 1fr',
+                          gap: '0 1.5rem',
+                          padding: '0.75rem 0',
+                          borderBottom: i < arr.length - 1 ? '1px solid var(--rule)' : 'none',
+                        }}
+                      >
+                        <dt
+                          style={{
+                            fontFamily: 'var(--font-mono)',
+                            fontSize: '0.6875rem',
+                            letterSpacing: '0.08em',
+                            textTransform: 'uppercase',
+                            color: 'var(--stone)',
+                            paddingTop: '2px',
+                          }}
+                        >
+                          {row.label}
+                        </dt>
+                        <dd
+                          style={{
+                            fontFamily: 'var(--font-body)',
+                            fontSize: '0.9375rem',
+                            color: 'var(--ink)',
+                            margin: 0,
+                            fontWeight: 500,
+                          }}
+                        >
+                          {row.value}
+                        </dd>
+                      </div>
+                    ))}
+                </dl>
+
+                {/* Feature tags */}
+                {features.length > 0 && (
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.375rem', marginTop: '1.5rem' }}>
+                    {features.map((f) => (
+                      <span
+                        key={f}
+                        style={{
+                          fontFamily: 'var(--font-mono)',
+                          fontSize: '0.6875rem',
+                          letterSpacing: '0.06em',
+                          textTransform: 'uppercase',
+                          color: 'var(--stone)',
+                          border: '1px solid var(--rule)',
+                          padding: '4px 10px',
+                          borderRadius: '2px',
+                        }}
+                      >
+                        {f}
+                      </span>
                     ))}
                   </div>
-                </section>
-              )}
+                )}
+
+                {/* Description */}
+                {listing.description && (
+                  <p
+                    style={{
+                      fontFamily: 'var(--font-body)',
+                      color: 'var(--sub)',
+                      fontSize: '0.9375rem',
+                      lineHeight: 1.7,
+                      whiteSpace: 'pre-line',
+                      margin: '2rem 0 0',
+                    }}
+                  >
+                    {listing.description}
+                  </p>
+                )}
+              </section>
 
               {/* External links — website & Instagram */}
               {(listing.website_url || listing.instagram_url) && (
