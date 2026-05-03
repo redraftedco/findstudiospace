@@ -1,6 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
 import { MetadataRoute } from 'next'
 import { categoryConfigs } from './portland/[category]/config'
+import { categoryConfigs as atlantaCategoryConfigs } from './atlanta/[category]/config'
 
 export const dynamic = 'force-dynamic'
 
@@ -84,6 +85,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }))
     : []
 
+  // Atlanta category / neighborhood pages
+  const atlantaIsIndexable = (cities ?? []).some(c => c.slug === 'atlanta')
+  const atlantaCategoryPages: MetadataRoute.Sitemap = atlantaIsIndexable
+    ? Object.keys(atlantaCategoryConfigs).map(slug => ({
+        url: `${BASE}/atlanta/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: 'daily' as const,
+        priority: 0.9,
+      }))
+    : []
+
   // Individual listing pages — only indexable listings
   const listingPages: MetadataRoute.Sitemap = (listings ?? []).map(listing => ({
     url: `${BASE}/listing/${listing.id}`,
@@ -92,5 +104,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }))
 
-  return [...staticPages, ...cityPages, ...portlandCategoryPages, ...listingPages]
+  return [...staticPages, ...cityPages, ...portlandCategoryPages, ...atlantaCategoryPages, ...listingPages]
 }

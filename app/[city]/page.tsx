@@ -31,6 +31,12 @@ const CITY_CONFIG: Record<string, {
     title: 'Find Studio Space in Seattle, WA | FindStudioSpace',
     description: 'Browse monthly studio rentals in Seattle — art studios, workshops, offices, photo studios, and creative spaces for makers and producers.',
   },
+  atlanta: {
+    displayName: 'Atlanta',
+    state: 'GA',
+    title: 'Studio Rental in Atlanta, GA — Creative Workspace | FindStudioSpace',
+    description: 'Browse Atlanta studio rentals — art studios, photo studios, workshops, event space, and creative workspace across Old Fourth Ward, West Midtown, Castleberry Hill, and beyond.',
+  },
 }
 
 // Primary Portland browse paths — matches actual listing types in the DB.
@@ -46,13 +52,21 @@ const CATEGORY_PILLS: { slug: string; label: string; note: string }[] = [
 // Neighborhood entry points — these pages already exist in category config;
 // surfacing them on the homepage gives Google a crawl path and users a fast
 // neighborhood-first filter.
-const NEIGHBORHOOD_PILLS: { slug: string; label: string; note: string }[] = [
-  { slug: 'central-eastside', label: 'Central Eastside', note: 'Industrial rooms, offices' },
-  { slug: 'pearl-district', label: 'Pearl District', note: 'Photo, art, creative suites' },
-  { slug: 'alberta-arts', label: 'Alberta Arts', note: 'Artist studios, small shops' },
-  { slug: 'division', label: 'SE Division', note: 'Retail, wellness, workshops' },
-  { slug: 'mississippi', label: 'N Mississippi', note: 'Maker space, offices' },
-]
+const NEIGHBORHOOD_PILLS: Record<string, { slug: string; label: string; note: string }[]> = {
+  portland: [
+    { slug: 'central-eastside', label: 'Central Eastside', note: 'Industrial rooms, offices' },
+    { slug: 'pearl-district', label: 'Pearl District', note: 'Photo, art, creative suites' },
+    { slug: 'alberta-arts', label: 'Alberta Arts', note: 'Artist studios, small shops' },
+    { slug: 'division', label: 'SE Division', note: 'Retail, wellness, workshops' },
+    { slug: 'mississippi', label: 'N Mississippi', note: 'Maker space, offices' },
+  ],
+  atlanta: [
+    { slug: 'old-fourth-ward', label: 'Old Fourth Ward', note: 'BeltLine, production, creative' },
+    { slug: 'west-midtown', label: 'West Midtown', note: 'Warehouses, studios, fabrication' },
+    { slug: 'castleberry-hill', label: 'Castleberry Hill', note: 'Arts district, galleries' },
+    { slug: 'inman-park', label: 'Inman Park', note: 'Historic, walkable, creative' },
+  ],
+}
 
 // Sanitize search query: alphanumerics + spaces + hyphens, max 64 chars
 function sanitizeQuery(raw: string | string[] | undefined): string {
@@ -379,17 +393,16 @@ function CityPageUI({
               ))}
             </div>
 
-            {/* Neighborhood entry points — only shown for Portland where pages exist */}
-            {citySlug === 'portland' && (
+            {NEIGHBORHOOD_PILLS[citySlug] && (
               <div className="hero-area-panel">
                 <div className="hero-browse-kicker">By area</div>
                 <div className="hero-area-grid">
-                {NEIGHBORHOOD_PILLS.map((n) => (
-                  <Link key={n.slug} href={`/${citySlug}/${n.slug}`} className="hero-category-card">
-                    <span className="hero-category-title">{n.label}</span>
-                    <span className="hero-category-note">{n.note}</span>
-                  </Link>
-                ))}
+                  {NEIGHBORHOOD_PILLS[citySlug].map((n) => (
+                    <Link key={n.slug} href={`/${citySlug}/${n.slug}`} className="hero-category-card">
+                      <span className="hero-category-title">{n.label}</span>
+                      <span className="hero-category-note">{n.note}</span>
+                    </Link>
+                  ))}
                 </div>
               </div>
             )}
@@ -479,8 +492,7 @@ function CityPageUI({
               </div>
             )}
 
-            {/* Neighborhood links — SEO crawl path, not primary nav */}
-            {citySlug === 'portland' && (
+            {NEIGHBORHOOD_PILLS[citySlug] && (
               <div
                 style={{
                   marginTop: '3rem',
@@ -495,7 +507,7 @@ function CityPageUI({
                 <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.75rem', color: 'var(--stone)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                   By neighborhood:
                 </span>
-                {NEIGHBORHOOD_PILLS.map((n) => (
+                {NEIGHBORHOOD_PILLS[citySlug].map((n) => (
                   <Link key={n.slug} href={`/${citySlug}/${n.slug}`} className="hero-chip">
                     {n.label}
                   </Link>
