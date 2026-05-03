@@ -48,6 +48,7 @@ type PlacesResult = {
 // uses location bias from the query text itself).
 
 const QUERIES: Array<{ query: string; category: AcqCategory }> = [
+  // Portland
   { query: 'photography studio rental Portland OR',        category: 'photo'   },
   { query: 'photo studio rental Portland OR',              category: 'photo'   },
   { query: 'podcast studio rental Portland OR',            category: 'podcast' },
@@ -57,6 +58,16 @@ const QUERIES: Array<{ query: string; category: AcqCategory }> = [
   { query: 'brewery private event space Portland OR',      category: 'brewery' },
   { query: 'makerspace Portland OR',                       category: 'maker'   },
   { query: 'rooftop event venue Portland OR',              category: 'rooftop' },
+  // Atlanta
+  { query: 'photography studio rental Atlanta GA',         category: 'photo'   },
+  { query: 'photo studio rental Atlanta GA',               category: 'photo'   },
+  { query: 'podcast studio rental Atlanta GA',             category: 'podcast' },
+  { query: 'recording studio rental Atlanta GA',           category: 'podcast' },
+  { query: 'private event venue Atlanta GA',               category: 'event'   },
+  { query: 'event space rental Atlanta GA',                category: 'event'   },
+  { query: 'art studio rental Atlanta GA',                 category: 'other'   },
+  { query: 'makerspace Atlanta GA',                        category: 'maker'   },
+  { query: 'dance studio rental Atlanta GA',               category: 'other'   },
 ]
 
 // ── Places textsearch helper ───────────────────────────────────────────────
