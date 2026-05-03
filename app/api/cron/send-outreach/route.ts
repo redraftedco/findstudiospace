@@ -65,11 +65,9 @@ type RunStats = {
 // ── Route handler ──────────────────────────────────────────────────────────
 
 export async function GET(req: NextRequest) {
-  // ── Auth — require Bearer token + x-vercel-cron header (defense-in-depth) ─
   const secret     = process.env.CRON_SECRET
   const auth       = req.headers.get('authorization') ?? ''
-  const isCronCall = req.headers.get('x-vercel-cron') === '1'
-  if (!secret || !safeEqual(auth, `Bearer ${secret}`) || !isCronCall) {
+  if (!secret || !safeEqual(auth, `Bearer ${secret}`)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
