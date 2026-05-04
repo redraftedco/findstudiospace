@@ -22,7 +22,7 @@ const CITY_CONFIG: Record<string, {
   portland: {
     displayName: 'Portland',
     state: 'OR',
-    title: 'Portland Studio Space for Rent, Art Studios, Workshops, Photo Studios | FindStudioSpace',
+    title: 'Portland Studio Space for Rent | Event Space, Photo Studios, Podcast Studios | FindStudioSpace',
     description: 'Browse Portland studio rentals, art studios, photo studios, workshop space, event venues, and creative workspace across every neighborhood. Free to search.',
   },
   seattle: {
