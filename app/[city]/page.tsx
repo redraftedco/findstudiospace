@@ -23,7 +23,7 @@ const CITY_CONFIG: Record<string, {
     displayName: 'Portland',
     state: 'OR',
     title: 'Studio Rental in Portland, Oregon — Creative Workspace',
-    description: 'Browse 126 Portland studio rentals — creative workspace for artists, makers, photographers, and producers across every Oregon neighborhood. Free.',
+    description: 'Browse Portland studio rentals — art studios, photo studios, workshop space, event venues, and creative workspace across every neighborhood. Free to search.',
   },
   seattle: {
     displayName: 'Seattle',
@@ -250,6 +250,23 @@ function CityPageUI({
     },
   }
 
+  const organizationSchema = citySlug === 'portland' ? {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'FindStudioSpace',
+    url: 'https://www.findstudiospace.com',
+    logo: 'https://www.findstudiospace.com/logo.png',
+    description: 'Portland\'s creative studio rental directory — connecting artists, makers, photographers, and producers with monthly workspace.',
+    areaServed: {
+      '@type': 'City',
+      name: 'Portland',
+      sameAs: 'https://en.wikipedia.org/wiki/Portland,_Oregon',
+    },
+    sameAs: [
+      'https://www.findstudiospace.com',
+    ],
+  } : null
+
   // BreadcrumbList — Home → {City}. Home MUST resolve to the site root, not
   // back to this page, or Google ignores the malformed breadcrumb.
   const breadcrumbSchema = {
@@ -301,6 +318,12 @@ function CityPageUI({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+        />
+      )}
+      {organizationSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
       )}
       <script

@@ -204,6 +204,23 @@ export default async function ListingPage({ params }: Props) {
     // generic price symbols on LocalBusiness as low-quality.
     ...(listing.price_display ? { priceRange: String(listing.price_display) } : {}),
     url: `https://www.findstudiospace.com/listing/${listing.id}`,
+    ...(listing.price_numeric
+      ? {
+          makesOffer: {
+            '@type': 'Offer',
+            price: String(listing.price_numeric),
+            priceCurrency: 'USD',
+            priceSpecification: {
+              '@type': 'UnitPriceSpecification',
+              price: String(listing.price_numeric),
+              priceCurrency: 'USD',
+              unitText: 'MON',
+            },
+            availability: 'https://schema.org/InStock',
+            url: `https://www.findstudiospace.com/listing/${listing.id}`,
+          },
+        }
+      : {}),
   }
   Object.keys(jsonLd).forEach((k) => (jsonLd[k] === undefined || jsonLd[k] === null) && delete jsonLd[k])
 
