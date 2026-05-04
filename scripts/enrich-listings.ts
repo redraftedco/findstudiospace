@@ -86,7 +86,7 @@ function extractImages(html: string): string[] {
     const imgMatch = slideMatch[1].match(/<img[^>]+src="([^"]+)"/i)
     if (imgMatch) {
       // Replace any thumbnail size indicator (e.g. 50x50c, 300x300c) with 600x450
-      const url = imgMatch[1].replace(/\d+x\d+[a-z]*/g, '600x450')
+      const url = imgMatch[1].replace(/\d+x\d+[a-z]*/g, '1200x900')
       if (url && !images.includes(url)) {
         images.push(url)
       }
@@ -113,14 +113,15 @@ function isExpired(html: string): boolean {
 async function main() {
   console.log('─────────────────────────────────────────')
   console.log('  Craigslist enrichment — findstudiospace')
+  console.log('  Image size: 1200x900 (high quality)')
   console.log('─────────────────────────────────────────\n')
-  console.log('Querying Supabase for listings missing descriptions...\n')
+  console.log('Querying Supabase for listings missing descriptions or images...\n')
 
   const { data: listings, error } = await db
     .from('listings')
-    .select('id, title, external_url')
+    .select('id, title, external_url, description')
     .eq('status', 'active')
-    .or('description.is.null,description.eq.')
+    .or('description.is.null,description.eq.,images.is.null,images.eq.[]')
     .not('external_url', 'is', null)
     .neq('external_url', '')
     .ilike('external_url', '%craigslist%')
@@ -175,21 +176,24 @@ async function main() {
       }
 
       const description = extractDescription(html)
+      const images = extractImages(html)
 
-      if (!description) {
+      // Skip only if we got nothing useful from the page
+      if (!description && images.length === 0) {
         console.log(
-          `✗ Skipped ${listing.id} — could not extract description from page`,
+          `✗ Skipped ${listing.id} — could not extract description or images`,
         )
         skipped++
         await sleep(DELAY_MS)
         continue
       }
 
-      const images = extractImages(html)
-
       const updatePayload: Record<string, unknown> = {
-        description,
         updated_at: new Date().toISOString(),
+      }
+      // Only overwrite description if the listing doesn't already have one
+      if (description && !listing.description) {
+        updatePayload.description = description
       }
       if (images.length > 0) {
         updatePayload.images = images
@@ -206,9 +210,9 @@ async function main() {
         )
         errors++
       } else {
-        const preview = description.slice(0, 60)
+        const preview = description ? description.slice(0, 60) : '(existing)'
         console.log(
-          `✓ Updated ${listing.id} — description: "${preview}..." images: ${images.length}`,
+          `✓ Updated ${listing.id} — desc: "${preview}..." images: ${images.length}`,
         )
         updated++
       }
