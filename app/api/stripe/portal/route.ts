@@ -22,10 +22,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Sign in to manage billing' }, { status: 401 })
     }
 
-    // Look up customer ID server-side — never accept it from the client
+    // Verify ownership — never accept customer ID from the client
     const { data: listing } = await supabaseServer
       .from('listings')
-      .select('stripe_customer_id, owner_user_id')
+      .select('owner_user_id')
       .eq('id', id)
       .eq('status', 'active')
       .single()
@@ -34,13 +34,23 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'You do not own this listing' }, { status: 403 })
     }
 
-    if (!listing?.stripe_customer_id) {
+    // Customer ID lives on visibility_placements (set by webhook after checkout)
+    const { data: placement } = await supabaseServer
+      .from('visibility_placements')
+      .select('stripe_customer_id')
+      .eq('listing_id', id)
+      .not('stripe_customer_id', 'is', null)
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .maybeSingle()
+
+    if (!placement?.stripe_customer_id) {
       return NextResponse.json({ error: 'No active subscription found' }, { status: 404 })
     }
 
     const session = await stripe.billingPortal.sessions.create({
-      customer: listing.stripe_customer_id,
-      return_url: `https://www.findstudiospace.com/claim?listing_id=${id}`,
+      customer: placement.stripe_customer_id,
+      return_url: `https://www.findstudiospace.com/dashboard/${id}`,
     })
 
     return NextResponse.json({ url: session.url })

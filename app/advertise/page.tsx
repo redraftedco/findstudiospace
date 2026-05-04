@@ -4,14 +4,14 @@ import { Suspense } from 'react'
 import PlacementCheckout from './PlacementCheckout'
 
 export const metadata: Metadata = {
-  title: 'Advertise Your Studio — FindStudioSpace Portland',
+  title: 'Advertise Your Studio — FindStudioSpace',
   description:
-    'Sponsored placement on Portland category and neighborhood pages. $49–$149/month. No commission, no booking lock-in. Renters contact your studio directly.',
+    'Sponsored placement on category and neighborhood pages. $49–$149/month. No commission, no booking lock-in. Renters contact your studio directly.',
   alternates: { canonical: '/advertise' },
   openGraph: {
-    title: 'Advertise Your Studio — FindStudioSpace Portland',
+    title: 'Advertise Your Studio — FindStudioSpace',
     description:
-      'Sponsored placement on Portland category and neighborhood pages. $49–$149/month. No commission, no booking lock-in. Renters contact your studio directly.',
+      'Sponsored placement on category and neighborhood pages. $49–$149/month. No commission, no booking lock-in. Renters contact your studio directly.',
   },
 }
 
@@ -24,7 +24,7 @@ export default function AdvertisePage() {
           style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }}
           className="text-4xl md:text-5xl font-semibold tracking-tight mb-4"
         >
-          Appear where renters compare Portland studio space.
+          Appear where renters compare studio space.
         </h1>
 
         <p

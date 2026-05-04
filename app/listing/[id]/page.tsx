@@ -331,7 +331,7 @@ export default async function ListingPage({ params }: Props) {
                 {/* Basic spec table */}
                 <dl style={{ margin: 0 }}>
                   {freeSpecs.map((row, i) => (
-                    <div key={row.label} style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: '0 1.5rem', padding: '0.75rem 0', borderBottom: i < freeSpecs.length - 1 ? '1px solid var(--rule)' : 'none' }}>
+                    <div key={row.label} className="spec-row" style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: '0 1.5rem', padding: '0.75rem 0', borderBottom: i < freeSpecs.length - 1 ? '1px solid var(--rule)' : 'none' }}>
                       <dt style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6875rem', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--stone)', paddingTop: '2px' }}>{row.label}</dt>
                       <dd style={{ fontFamily: 'var(--font-body)', fontSize: '0.9375rem', color: 'var(--ink)', margin: 0, fontWeight: 500 }}>{row.value}</dd>
                     </div>
@@ -492,6 +492,7 @@ export default async function ListingPage({ params }: Props) {
                     .map((row, i, arr) => (
                       <div
                         key={row.label}
+                        className="spec-row"
                         style={{
                           display: 'grid',
                           gridTemplateColumns: '120px 1fr',

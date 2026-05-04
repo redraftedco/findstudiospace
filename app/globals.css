@@ -355,6 +355,13 @@ button:focus-visible {
   .listing-form-col { width: 100% !important; position: static !important; }
 }
 
+/* Spec table — stack label above value on narrow screens */
+@media (max-width: 560px) {
+  .spec-row { grid-template-columns: 1fr !important; gap: 2px 0 !important; }
+  .spec-row dt { padding-top: 0 !important; }
+  .spec-row dd { padding-bottom: 0.5rem; }
+}
+
 /* Listing card base */
 .listing-card-base {
   border: 1px solid var(--rule);

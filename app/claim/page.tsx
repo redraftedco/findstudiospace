@@ -400,6 +400,7 @@ function ClaimPageInner() {
                       display: 'block',
                       width: '100%',
                       padding: '10px 12px',
+                      minHeight: '48px',
                       border: '1px solid var(--rule)',
                       fontFamily: 'var(--font-body)',
                       fontSize: '14px',

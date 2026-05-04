@@ -1,0 +1,985 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Cyc & Co. — Findstudiospace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #fafaf7;
+    --paper: #ffffff;
+    --ink: #1a1a1a;
+    --ink-2: #4a4a47;
+    --ink-3: #8a8884;
+    --line: #e6e3dc;
+    --line-2: #efece5;
+    --green: #2d5a3d;
+    --green-ink: #ffffff;
+    --maxw: 1180px;
+    --pad: 32px;
+  }
+  * { box-sizing: border-box; }
+  html, body { background: var(--bg); color: var(--ink); }
+  body {
+    margin: 0;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  ::selection { background: var(--green); color: #fff; }
+  img { display: block; }
+  .display { font-family: 'Bebas Neue', sans-serif; font-weight: 400; letter-spacing: 0.005em; }
+
+  /* ---------- Nav ---------- */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(250, 250, 247, 0.85);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line-2);
+  }
+  .nav-inner {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 18px var(--pad);
+    display: flex; align-items: center; gap: 32px;
+  }
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 0.05em;
+    line-height: 1;
+    display: inline-flex; align-items: center; gap: 9px;
+  }
+  .logo i {
+    width: 8px; height: 8px;
+    background: var(--green);
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .nav-search {
+    flex: 1; max-width: 380px;
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 14px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--ink-3);
+    font-size: 13.5px;
+  }
+  .nav-search .key {
+    margin-left: auto;
+    font-size: 11.5px;
+    color: var(--ink-3);
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 1px 6px;
+  }
+  .nav-links { display: flex; gap: 24px; font-size: 14px; color: var(--ink-2); }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta {
+    padding: 9px 16px;
+    border-radius: 999px;
+    font-size: 14px;
+    color: var(--ink);
+    border: 1px solid var(--ink);
+  }
+  .nav-cta:hover { background: var(--ink); color: #fff; }
+
+  /* ---------- Crumb ---------- */
+  .crumb {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 28px var(--pad) 0;
+    font-size: 13px;
+    color: var(--ink-3);
+  }
+  .crumb a:hover { color: var(--ink); }
+  .crumb .sep { margin: 0 8px; opacity: 0.6; }
+  .crumb .here { color: var(--ink-2); }
+
+  /* ---------- Hero / Title ---------- */
+  .title {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 24px var(--pad) 28px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 32px;
+  }
+  .title h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-weight: 400;
+    font-size: clamp(60px, 8.5vw, 116px);
+    line-height: 0.92;
+    letter-spacing: 0.005em;
+    margin: 0 0 14px;
+  }
+  .title .meta {
+    color: var(--ink-2);
+    font-size: 15px;
+  }
+  .title .meta b { color: var(--ink); font-weight: 500; }
+  .title .meta .dot { display: inline-block; margin: 0 10px; opacity: 0.5; }
+  .title-actions { display: flex; gap: 8px; align-items: center; padding-bottom: 6px; }
+  .icon-btn {
+    width: 40px; height: 40px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--ink-2);
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--paper);
+  }
+  .icon-btn:hover { color: var(--ink); border-color: var(--ink); }
+
+  /* ---------- Gallery ---------- */
+  .gallery {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 var(--pad);
+  }
+  .hero-photo {
+    aspect-ratio: 16 / 9;
+    background: #d8d4cb;
+    overflow: hidden;
+    border-radius: 4px;
+    position: relative;
+    cursor: zoom-in;
+  }
+  .hero-photo img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: opacity .25s ease;
+  }
+  .hero-photo .frame-num {
+    position: absolute;
+    bottom: 14px; right: 18px;
+    color: #fff;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 0.05em;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.45);
+  }
+  .hero-photo .expand {
+    position: absolute;
+    top: 16px; right: 16px;
+    background: rgba(255,255,255,0.94);
+    color: var(--ink);
+    font-size: 13px;
+    padding: 8px 13px;
+    border-radius: 999px;
+    display: inline-flex; align-items: center; gap: 7px;
+    cursor: pointer;
+  }
+  .thumbs {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .thumb {
+    aspect-ratio: 4 / 3;
+    background: #d8d4cb;
+    border-radius: 3px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    opacity: 0.55;
+    transition: opacity .2s;
+  }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .thumb:hover { opacity: 0.85; }
+  .thumb.active { opacity: 1; outline: 1.5px solid var(--ink); outline-offset: -1.5px; }
+  .thumb .more {
+    position: absolute; inset: 0;
+    background: rgba(26,26,26,0.55);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ---------- Body grid ---------- */
+  .body {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 56px var(--pad) 80px;
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 72px;
+  }
+  .col-main { display: flex; flex-direction: column; gap: 56px; min-width: 0; }
+
+  /* Specs */
+  .specs-line {
+    display: flex; flex-wrap: wrap;
+    align-items: baseline;
+    gap: 22px 36px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--line);
+  }
+  .spec-cell { display: flex; flex-direction: column; gap: 4px; }
+  .spec-cell .k {
+    font-size: 12.5px;
+    color: var(--ink-3);
+  }
+  .spec-cell .v {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 34px;
+    line-height: 1;
+    letter-spacing: 0.01em;
+  }
+  .spec-cell .v small {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--ink-3);
+    margin-left: 4px;
+    letter-spacing: 0;
+    font-weight: 400;
+  }
+
+  /* About */
+  .about h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-weight: 400;
+    font-size: 44px;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    margin: 0 0 18px;
+  }
+  .about p {
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--ink);
+    max-width: 60ch;
+    margin: 0 0 14px;
+    text-wrap: pretty;
+  }
+  .about p.muted { color: var(--ink-2); }
+
+  /* Inline map */
+  .about-with-map {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 220px;
+    gap: 36px;
+    align-items: start;
+  }
+  .map-card {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--paper);
+    overflow: hidden;
+    cursor: zoom-in;
+  }
+  .map-card .map-thumb {
+    aspect-ratio: 1 / 1;
+    background: #f1efe8;
+    position: relative;
+  }
+  .map-card .map-thumb svg { width: 100%; height: 100%; display: block; }
+  .map-card .pin {
+    position: absolute;
+    left: 50%; top: 50%;
+    width: 14px; height: 14px;
+    transform: translate(-50%, -100%);
+  }
+  .map-card .pin::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: var(--green);
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    border: 1.5px solid var(--paper);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+  }
+  .map-card .map-foot {
+    padding: 11px 14px 12px;
+    border-top: 1px solid var(--line);
+    font-size: 13px;
+    color: var(--ink-2);
+    line-height: 1.45;
+  }
+  .map-card .map-foot b { color: var(--ink); font-weight: 500; }
+  .map-card .map-foot small {
+    display: block;
+    color: var(--ink-3);
+    font-size: 12px;
+    margin-top: 2px;
+  }
+
+  /* Section title */
+  .sec-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 1;
+    letter-spacing: 0.015em;
+    margin: 0 0 20px;
+  }
+
+  /* Architectural features list */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0 40px;
+    max-width: 640px;
+  }
+  .feature {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line-2);
+    font-size: 14.5px;
+    color: var(--ink);
+    gap: 18px;
+  }
+  .feature .label { color: var(--ink-2); font-size: 13.5px; }
+  .feature .value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 19px;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+  }
+  .feature .value small {
+    font-family: 'Inter', sans-serif;
+    font-size: 12.5px;
+    color: var(--ink-3);
+    margin-left: 3px;
+    letter-spacing: 0;
+  }
+
+  /* Location detail */
+  .loc-detail {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--line);
+  }
+  .loc-detail .cell { padding: 22px 0 4px; padding-right: 24px; }
+  .loc-detail .cell + .cell { padding-left: 24px; border-left: 1px solid var(--line); }
+  .loc-detail .k { font-size: 12.5px; color: var(--ink-3); margin-bottom: 6px; }
+  .loc-detail .v { font-size: 15px; color: var(--ink); }
+  .loc-detail .v small { display: block; font-size: 13px; color: var(--ink-3); margin-top: 4px; }
+  .walk-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 30px;
+    line-height: 1;
+    color: var(--green);
+    letter-spacing: 0.02em;
+  }
+  .walk-of { font-size: 13px; color: var(--ink-3); margin-left: 4px; }
+
+  /* ---------- Sidebar ---------- */
+  .col-side { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 96px; height: fit-content; }
+  .card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 22px 22px 20px;
+  }
+  .price-row {
+    display: flex; align-items: baseline; justify-content: space-between;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 12px;
+  }
+  .price-row .from { font-size: 13px; color: var(--ink-3); margin-bottom: 2px; }
+  .price-row .price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px; line-height: 1;
+    letter-spacing: 0.015em;
+  }
+  .price-row .price small { font-size: 16px; color: var(--ink-3); margin-left: 4px; font-family: 'Inter'; font-weight: 400; }
+  .price-row .min { text-align: right; font-size: 13px; color: var(--ink-3); line-height: 1.4; }
+  .rate {
+    display: flex; justify-content: space-between;
+    padding: 9px 0;
+    font-size: 14px;
+    border-bottom: 1px dashed var(--line);
+  }
+  .rate:last-of-type { border-bottom: 0; }
+  .rate .k { color: var(--ink-2); }
+  .rate .v { color: var(--ink); font-variant-numeric: tabular-nums; }
+
+  .inquiry { margin-top: 16px; display: flex; flex-direction: column; gap: 9px; }
+  .inquiry h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 1;
+    margin: 6px 0 6px;
+    letter-spacing: 0.02em;
+  }
+  .inquiry input, .inquiry textarea {
+    background: var(--bg);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    padding: 11px 13px;
+    border-radius: 5px;
+    font: inherit;
+    font-size: 14px;
+    transition: border-color .15s, background .15s;
+  }
+  .inquiry input::placeholder, .inquiry textarea::placeholder { color: var(--ink-3); font-family: 'Inter', sans-serif; }
+  .inquiry input:focus, .inquiry textarea:focus { outline: none; border-color: var(--ink); background: var(--paper); }
+  .inquiry textarea { resize: vertical; line-height: 1.5; min-height: 80px; }
+
+  .btn {
+    padding: 13px 16px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background .15s, color .15s, border-color .15s;
+    display: inline-flex; align-items: center; justify-content: center;
+    border: 1px solid transparent;
+    line-height: 1;
+    width: 100%;
+    cursor: pointer;
+  }
+  .btn-green { background: var(--green); color: var(--green-ink); }
+  .btn-green:hover { background: #234b32; }
+  .btn-ghost { border-color: var(--line); color: var(--ink); background: transparent; }
+  .btn-ghost:hover { border-color: var(--ink); }
+
+  .host {
+    display: flex; align-items: center; gap: 12px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    margin-top: 16px;
+  }
+  .host .av {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: linear-gradient(135deg, #d6d2c7, #b8b3a6);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 0.02em;
+  }
+  .host .who { font-size: 13.5px; color: var(--ink-2); line-height: 1.35; }
+  .host .who b { display: block; color: var(--ink); font-weight: 500; font-size: 14.5px; }
+
+  .contact-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--line-2);
+    font-size: 14px;
+  }
+  .contact-row:last-child { border-bottom: 0; }
+  .contact-row .k { color: var(--ink-3); font-size: 13px; }
+  .contact-row a { color: var(--ink); }
+  .contact-row a:hover { color: var(--green); text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
+
+  /* Footer */
+  .foot {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 32px var(--pad) 56px;
+    border-top: 1px solid var(--line-2);
+    display: flex; justify-content: space-between; align-items: center;
+    color: var(--ink-3);
+    font-size: 13px;
+  }
+  .foot .logo { font-size: 18px; }
+
+  /* Lightbox */
+  .lb { position: fixed; inset: 0; background: rgba(20,20,18,0.96); z-index: 200; display: none; align-items: center; justify-content: center; padding: 40px; }
+  .lb.open { display: flex; }
+  .lb img { max-width: 100%; max-height: 100%; border-radius: 4px; }
+  .lb-close, .lb-nav { position: absolute; color: #fff; border: 1px solid rgba(255,255,255,0.25); background: transparent; border-radius: 999px; padding: 9px 14px; font-size: 13px; cursor: pointer; }
+  .lb-close { top: 22px; right: 24px; }
+  .lb-nav { top: 50%; transform: translateY(-50%); width: 44px; height: 44px; padding: 0; font-size: 20px; }
+  .lb-nav.prev { left: 24px; }
+  .lb-nav.next { right: 24px; }
+  .lb-count { position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.7); font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 0.06em; }
+
+  /* Map overlay */
+  .map-overlay { position: fixed; inset: 0; z-index: 180; background: rgba(20,20,18,0.88); display: none; align-items: center; justify-content: center; padding: 40px; }
+  .map-overlay.open { display: flex; }
+  .map-overlay-inner { background: var(--paper); border-radius: 6px; width: min(720px, 100%); max-height: 90vh; overflow: hidden; display: flex; flex-direction: column; }
+  .map-overlay-inner .head { padding: 18px 22px; border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; }
+  .map-overlay-inner .head h3 { font-family: 'Bebas Neue', sans-serif; font-weight: 400; font-size: 26px; margin: 0; letter-spacing: 0.015em; }
+  .map-overlay-inner .big-map { aspect-ratio: 4 / 3; position: relative; background: #f1efe8; }
+  .map-overlay-inner .big-map svg { width: 100%; height: 100%; display: block; }
+  .map-overlay-inner .big-map .pin { position: absolute; left: 50%; top: 50%; width: 18px; height: 18px; transform: translate(-50%, -100%); }
+  .map-overlay-inner .big-map .pin::before { content: ''; position: absolute; inset: 0; background: var(--green); border-radius: 50% 50% 50% 0; transform: rotate(-45deg); border: 2px solid #fff; box-shadow: 0 3px 10px rgba(0,0,0,0.25); }
+  .map-overlay-inner .map-foot-full { padding: 14px 22px 18px; color: var(--ink-2); font-size: 14px; }
+
+  @media (max-width: 940px) {
+    .body { grid-template-columns: 1fr; gap: 48px; }
+    .col-side { position: static; }
+    .about-with-map { grid-template-columns: 1fr; }
+    .map-card { max-width: 280px; }
+    .title { grid-template-columns: 1fr; }
+    .features { grid-template-columns: 1fr; }
+    .loc-detail { grid-template-columns: 1fr; }
+    .loc-detail .cell + .cell { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="#"><i></i>FINDSTUDIOSPACE</a>
+    <div class="nav-search">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg>
+      <span>Search studios, neighborhoods, gear</span>
+      <span class="key">⌘K</span>
+    </div>
+    <div class="nav-links">
+      <a href="#">Browse</a>
+      <a href="#">Map</a>
+      <a href="#">For owners</a>
+    </div>
+    <a class="nav-cta" href="#">Sign in</a>
+  </div>
+</nav>
+
+<div class="crumb">
+  <a href="#">Portland</a><span class="sep">/</span>
+  <a href="#">Central Eastside</a><span class="sep">/</span>
+  <a href="#">Photo Studios</a><span class="sep">/</span>
+  <span class="here">Cyc &amp; Co.</span>
+</div>
+
+<header class="title">
+  <div>
+    <h1>CYC &amp; CO.</h1>
+    <div class="meta">
+      <b>2,400 sqft daylight studio</b>
+      <span class="dot">·</span>
+      Hosford-Abernethy, Portland
+      <span class="dot">·</span>
+      Hosted by <b>Maren K.</b>
+    </div>
+  </div>
+  <div class="title-actions">
+    <button class="icon-btn" aria-label="Save">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+    </button>
+    <button class="icon-btn" aria-label="Share">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.59 13.51 6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>
+    </button>
+  </div>
+</header>
+
+<section class="gallery">
+  <div class="hero-photo" id="heroPhoto">
+    <img id="heroImg" src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1800&auto=format&fit=crop" alt="Studio interior" />
+    <button class="expand" id="expandBtn">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+      View all 9
+    </button>
+    <span class="frame-num" id="frameNum">01</span>
+  </div>
+  <div class="thumbs" id="thumbs">
+    <div class="thumb active" data-i="0"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&auto=format&fit=crop" alt="" /></div>
+    <div class="thumb" data-i="1"><img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=600&auto=format&fit=crop" alt="" /></div>
+    <div class="thumb" data-i="2"><img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=600&auto=format&fit=crop" alt="" /></div>
+    <div class="thumb" data-i="3"><img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=600&auto=format&fit=crop" alt="" /></div>
+    <div class="thumb" data-i="4"><img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600&auto=format&fit=crop" alt="" /></div>
+    <div class="thumb thumb-map" data-i="5" style="opacity:0.7;background:#f5f2e8;" id="mapThumb">
+      <svg viewBox="0 0 220 138" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block">
+        <rect width="220" height="138" fill="#f5f2e8"/>
+        <rect x="0" y="44" width="220" height="6" fill="#f5f2e8"/>
+        <rect x="0" y="88" width="220" height="6" fill="#f5f2e8"/>
+        <rect x="50" y="0" width="6" height="138" fill="#f5f2e8"/>
+        <rect x="107" y="0" width="6" height="138" fill="#f5f2e8"/>
+        <rect x="164" y="0" width="6" height="138" fill="#f5f2e8"/>
+        <g fill="#1c1a16">
+          <rect x="2" y="2" width="20" height="14"/><rect x="24" y="2" width="10" height="10"/><rect x="36" y="2" width="12" height="18"/>
+          <rect x="2" y="18" width="24" height="24"/><rect x="28" y="18" width="10" height="14"/><rect x="40" y="18" width="8" height="24"/>
+          <rect x="58" y="2" width="16" height="12"/><rect x="76" y="2" width="11" height="18"/><rect x="89" y="2" width="16" height="10"/>
+          <rect x="58" y="16" width="22" height="10"/><rect x="82" y="16" width="10" height="16"/><rect x="94" y="12" width="12" height="20"/>
+          <rect x="58" y="28" width="11" height="14"/><rect x="71" y="28" width="9" height="8"/><rect x="82" y="28" width="24" height="14"/>
+          <rect x="115" y="2" width="14" height="11"/><rect x="131" y="2" width="9" height="15"/><rect x="142" y="2" width="20" height="9"/>
+          <rect x="115" y="15" width="18" height="12"/><rect x="135" y="15" width="8" height="10"/><rect x="145" y="13" width="17" height="14"/>
+          <rect x="115" y="29" width="13" height="13"/><rect x="130" y="29" width="10" height="7"/><rect x="142" y="29" width="20" height="13"/>
+          <rect x="172" y="2" width="16" height="13"/><rect x="190" y="2" width="11" height="17"/><rect x="203" y="2" width="15" height="11"/>
+          <rect x="172" y="17" width="20" height="11"/><rect x="194" y="12" width="9" height="16"/><rect x="205" y="17" width="13" height="13"/>
+          <rect x="172" y="30" width="11" height="12"/><rect x="185" y="30" width="8" height="7"/><rect x="195" y="30" width="20" height="12"/>
+          <!-- subject building white -->
+          <rect x="82" y="16" width="22" height="26" fill="#ffffff" stroke="#1c1a16" stroke-width="1.5"/>
+          <!-- crosshair -->
+        </g>
+        <line x1="93" y1="6" x2="93" y2="44" stroke="#c0392b" stroke-width="0.8" stroke-dasharray="3,2" opacity="0.8"/>
+        <line x1="58" y1="29" x2="128" y2="29" stroke="#c0392b" stroke-width="0.8" stroke-dasharray="3,2" opacity="0.8"/>
+        <circle cx="93" cy="29" r="4" fill="none" stroke="#c0392b" stroke-width="1"/>
+        <g fill="#1c1a16">
+          <rect x="2" y="52" width="22" height="13"/><rect x="26" y="52" width="12" height="9"/><rect x="40" y="52" width="8" height="16"/>
+          <rect x="2" y="67" width="18" height="19"/><rect x="22" y="67" width="10" height="11"/><rect x="34" y="67" width="14" height="10"/>
+          <rect x="2" y="80" width="15" height="8"/><rect x="19" y="80" width="10" height="8"/><rect x="31" y="80" width="17" height="8"/>
+          <rect x="58" y="52" width="22" height="12"/><rect x="82" y="52" width="11" height="17"/><rect x="95" y="52" width="13" height="11"/>
+          <rect x="58" y="66" width="14" height="21"/><rect x="74" y="66" width="10" height="12"/><rect x="86" y="71" width="8" height="16"/>
+          <rect x="96" y="65" width="12" height="22"/><rect x="58" y="79" width="13" height="9"/><rect x="73" y="79" width="11" height="9"/>
+          <rect x="115" y="52" width="16" height="12"/><rect x="133" y="52" width="11" height="17"/><rect x="146" y="52" width="18" height="10"/>
+          <rect x="115" y="66" width="20" height="13"/><rect x="137" y="73" width="9" height="10"/><rect x="148" y="64" width="16" height="15"/>
+          <rect x="115" y="81" width="14" height="7"/><rect x="131" y="81" width="11" height="7"/><rect x="144" y="81" width="20" height="7"/>
+          <rect x="172" y="52" width="18" height="13"/><rect x="192" y="52" width="13" height="11"/><rect x="207" y="52" width="11" height="19"/>
+          <rect x="172" y="67" width="11" height="21"/><rect x="185" y="67" width="10" height="13"/><rect x="197" y="65" width="9" height="16"/>
+          <rect x="208" y="65" width="10" height="23"/><rect x="172" y="80" width="13" height="8"/><rect x="187" y="80" width="10" height="8"/>
+          <rect x="2" y="96" width="20" height="15"/><rect x="24" y="96" width="11" height="10"/><rect x="37" y="96" width="9" height="18"/>
+          <rect x="2" y="113" width="15" height="25"/><rect x="19" y="113" width="12" height="16"/><rect x="33" y="113" width="15" height="12"/>
+          <rect x="58" y="96" width="18" height="13"/><rect x="78" y="96" width="11" height="18"/><rect x="91" y="96" width="17" height="12"/>
+          <rect x="58" y="111" width="10" height="27"/><rect x="70" y="111" width="14" height="15"/><rect x="86" y="111" width="15" height="19"/>
+          <rect x="115" y="96" width="16" height="14"/><rect x="133" y="96" width="11" height="18"/><rect x="146" y="96" width="17" height="12"/>
+          <rect x="115" y="112" width="20" height="26"/><rect x="137" y="112" width="11" height="14"/><rect x="150" y="112" width="13" height="26"/>
+          <rect x="172" y="96" width="19" height="14"/><rect x="193" y="96" width="14" height="10"/><rect x="209" y="96" width="9" height="20"/>
+          <rect x="172" y="112" width="12" height="26"/><rect x="186" y="112" width="10" height="16"/><rect x="198" y="107" width="12" height="31"/>
+          <rect x="212" y="116" width="6" height="22"/>
+        </g>
+        <text x="4" y="135" font-family="monospace" font-size="5" fill="#595959" letter-spacing="1">SITE ANALYSIS</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<main class="body">
+  <div class="col-main">
+
+    <div class="specs-line">
+      <div class="spec-cell"><span class="k">Footprint</span><span class="v">2,400<small>sqft</small></span></div>
+      <div class="spec-cell"><span class="k">Ceiling</span><span class="v">14<small>ft</small></span></div>
+      <div class="spec-cell"><span class="k">Cyc wall</span><span class="v">18<small>ft</small></span></div>
+      <div class="spec-cell"><span class="k">Capacity</span><span class="v">12<small>ppl</small></span></div>
+      <div class="spec-cell"><span class="k">Min booking</span><span class="v">4<small>hr</small></span></div>
+    </div>
+
+    <section class="about">
+      <h2>A daylight room for quiet, considered work.</h2>
+      <div class="about-with-map">
+        <div>
+          <p>
+            Cyc &amp; Co. is a 2,400&nbsp;sqft daylight photo studio built around a seamless 18&nbsp;ft white cyc wall and a 14&nbsp;ft ceiling. North-facing clerestory windows pull soft, even light across the floor from morning to mid-afternoon; full blackout drops it to zero in seconds.
+          </p>
+          <p class="muted">
+            Tucked into a converted print shop on SE Division, it's a five-minute walk from Clinton/SE 12th and surrounded by the kind of bakeries and bars that make a long shoot day feel less like a chore. Designed for editorial, lookbook, e-commerce, and small-crew video.
+          </p>
+        </div>
+        <div></div>
+      </div>
+    </section>
+
+    <section>
+      <h3 class="sec-title" style="visibility:hidden"></h3>
+      <div class="features" style="visibility:hidden">
+        <div class="feature"><span class="label">Seamless white cyc wall</span><span class="value">18<small>ft</small></span></div>
+        <div class="feature"><span class="label">Clear ceiling height</span><span class="value">14<small>ft</small></span></div>
+        <div class="feature"><span class="label">Open floor area</span><span class="value">2,400<small>sqft</small></span></div>
+        <div class="feature"><span class="label">North-facing clerestory</span><span class="value">28<small>ft run</small></span></div>
+        <div class="feature"><span class="label">Roll-up drive-in door</span><span class="value">10×12<small>ft</small></span></div>
+        <div class="feature"><span class="label">Concrete slab floor</span><span class="value">Sealed</span></div>
+        <div class="feature"><span class="label">Exposed timber roof</span><span class="value">Original</span></div>
+        <div class="feature"><span class="label">Full blackout system</span><span class="value">Motorized</span></div>
+        <div class="feature"><span class="label">Service entrance</span><span class="value">Alley</span></div>
+        <div class="feature"><span class="label">Loading dock</span><span class="value">Grade-level</span></div>
+        <div class="feature"><span class="label">Power</span><span class="value">200<small>amp · 220V</small></span></div>
+        <div class="feature"><span class="label">Column-free span</span><span class="value">42<small>ft</small></span></div>
+      </div>
+    </section>
+
+    <section>
+      <h3 class="sec-title">Getting there</h3>
+      <div class="loc-detail">
+        <div class="cell">
+          <div class="k">Transit</div>
+          <div class="v">MAX Orange + Bus 4 · 10 · 14
+            <small>0.4 mi to Clinton/SE 12th — 8&nbsp;min walk</small>
+          </div>
+        </div>
+        <div class="cell">
+          <div class="k">Parking</div>
+          <div class="v">2 on-site spots
+            <small>Free street parking after 6&nbsp;pm</small>
+          </div>
+        </div>
+        <div class="cell">
+          <div class="k">Walk score</div>
+          <div class="v">
+            <span class="walk-num">94</span><span class="walk-of">/100</span>
+            <small>Walker's paradise</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <aside class="col-side">
+    <div class="card">
+      <div class="price-row">
+        <div>
+          <div class="from">From</div>
+          <div class="price">$95<small>/hr</small></div>
+        </div>
+        <div class="min">4 hr<br/>minimum</div>
+      </div>
+      <div class="rate"><span class="k">Half day · 4 hr</span><span class="v">$320</span></div>
+      <div class="rate"><span class="k">Full day · 8 hr</span><span class="v">$580</span></div>
+      <div class="rate"><span class="k">Weekly</span><span class="v">$2,400</span></div>
+      <div class="rate"><span class="k">Cleaning</span><span class="v">$45</span></div>
+
+      <form class="inquiry" id="inquiryForm">
+        <h4>SEND AN INQUIRY</h4>
+        <input type="text" name="name" placeholder="Your name" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="text" name="dates" placeholder="Preferred dates" />
+        <textarea name="msg" placeholder="Tell Maren about your shoot…" rows="3"></textarea>
+        <button type="submit" class="btn btn-green">Send inquiry</button>
+        <button type="button" class="btn btn-ghost">Request a tour</button>
+      </form>
+
+      <div class="host">
+        <div class="av">M</div>
+        <div class="who"><b>Maren K.</b>Owner · responds in ~2 hr</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="contact-row"><span class="k">Email</span><a href="mailto:hello@cycandco.com">hello@cycandco.com</a></div>
+      <div class="contact-row"><span class="k">Phone</span><a href="tel:5035550142">(503) 555-0142</a></div>
+      <div class="contact-row"><span class="k">Web</span><a href="#">cycandco.com</a></div>
+      <div class="contact-row"><span class="k">Instagram</span><a href="#">@cycandco_pdx</a></div>
+    </div>
+  </aside>
+</main>
+
+<footer class="foot">
+  <a class="logo" href="#"><i></i>FINDSTUDIOSPACE</a>
+  <span>© 2025 · Portland, OR</span>
+</footer>
+
+<div class="map-overlay" id="mapOverlay" role="dialog" aria-modal="true">
+  <div class="map-overlay-inner">
+    <div class="head">
+      <h3>SE DIVISION &amp; 22ND — HOSFORD-ABERNETHY</h3>
+      <button class="icon-btn" id="mapClose" aria-label="Close">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="big-map" id="bigMap"></div>
+    <div class="map-foot-full">2134 SE Division St, Portland OR 97202 · 8 min walk to MAX Orange / Clinton-SE 12th</div>
+  </div>
+</div>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true">
+  <button class="lb-close" id="lbClose">Close · Esc</button>
+  <button class="lb-nav prev" id="lbPrev" aria-label="Previous">&#x2039;</button>
+  <button class="lb-nav next" id="lbNext" aria-label="Next">&#x203a;</button>
+  <img id="lbImg" alt="" />
+  <div class="lb-count" id="lbCount"></div>
+</div>
+
+<script>
+  const mapSvg = `<svg viewBox="0 0 900 560" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;background:#f5f2e8">
+    <rect width="900" height="560" fill="#f5f2e8"/>
+    <!-- streets -->
+    <rect x="0" y="180" width="900" height="22" fill="#f5f2e8"/>
+    <rect x="0" y="355" width="900" height="22" fill="#f5f2e8"/>
+    <rect x="200" y="0" width="20" height="560" fill="#f5f2e8"/>
+    <rect x="430" y="0" width="20" height="560" fill="#f5f2e8"/>
+    <rect x="660" y="0" width="20" height="560" fill="#f5f2e8"/>
+    <!-- block 1 -->
+    <rect x="10" y="10" width="80" height="60" fill="#1c1a16"/>
+    <rect x="96" y="10" width="40" height="42" fill="#1c1a16"/>
+    <rect x="142" y="10" width="52" height="70" fill="#1c1a16"/>
+    <rect x="10" y="76" width="55" height="98" fill="#1c1a16"/>
+    <rect x="71" y="76" width="35" height="50" fill="#1c1a16"/>
+    <rect x="112" y="76" width="80" height="40" fill="#1c1a16"/>
+    <rect x="112" y="122" width="35" height="54" fill="#1c1a16"/>
+    <rect x="153" y="122" width="40" height="30" fill="#1c1a16"/>
+    <!-- block 2 -->
+    <rect x="226" y="10" width="65" height="50" fill="#1c1a16"/>
+    <rect x="297" y="10" width="45" height="70" fill="#1c1a16"/>
+    <rect x="348" y="10" width="76" height="35" fill="#1c1a16"/>
+    <rect x="226" y="66" width="90" height="40" fill="#1c1a16"/>
+    <rect x="322" y="66" width="50" height="60" fill="#1c1a16"/>
+    <rect x="378" y="51" width="46" height="55" fill="#1c1a16"/>
+    <rect x="226" y="112" width="45" height="62" fill="#1c1a16"/>
+    <rect x="277" y="112" width="35" height="30" fill="#1c1a16"/>
+    <!-- block 3 — subject site area (center) -->
+    <rect x="456" y="10" width="55" height="45" fill="#1c1a16"/>
+    <rect x="517" y="10" width="40" height="60" fill="#1c1a16"/>
+    <rect x="563" y="10" width="90" height="38" fill="#1c1a16"/>
+    <rect x="456" y="61" width="70" height="55" fill="#1c1a16"/>
+    <rect x="532" y="61" width="30" height="30" fill="#1c1a16"/>
+    <rect x="568" y="54" width="82" height="62" fill="#1c1a16"/>
+    <!-- subject building — white with border -->
+    <rect x="456" y="96" width="70" height="55" fill="#ffffff" stroke="#1c1a16" stroke-width="2.5"/>
+    <rect x="456" y="116" width="30" height="35" fill="#ffffff"/>
+    <rect x="456" y="96" width="70" height="20" fill="#ffffff"/>
+    <!-- crosshair -->
+    <line x1="491" y1="70" x2="491" y2="170" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3" opacity="0.7"/>
+    <line x1="420" y1="123" x2="560" y2="123" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3" opacity="0.7"/>
+    <circle cx="491" cy="123" r="5" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+    <!-- block 4 -->
+    <rect x="686" y="10" width="60" height="55" fill="#1c1a16"/>
+    <rect x="752" y="10" width="45" height="35" fill="#1c1a16"/>
+    <rect x="803" y="10" width="87" height="60" fill="#1c1a16"/>
+    <rect x="686" y="71" width="85" height="40" fill="#1c1a16"/>
+    <rect x="777" y="50" width="40" height="61" fill="#1c1a16"/>
+    <rect x="823" y="71" width="67" height="55" fill="#1c1a16"/>
+    <rect x="686" y="117" width="45" height="57" fill="#1c1a16"/>
+    <rect x="737" y="117" width="35" height="38" fill="#1c1a16"/>
+    <!-- row 2 block 1 -->
+    <rect x="10" y="208" width="75" height="55" fill="#1c1a16"/>
+    <rect x="91" y="208" width="50" height="35" fill="#1c1a16"/>
+    <rect x="147" y="208" width="47" height="65" fill="#1c1a16"/>
+    <rect x="10" y="269" width="95" height="40" fill="#1c1a16"/>
+    <rect x="111" y="269" width="35" height="50" fill="#1c1a16"/>
+    <rect x="152" y="279" width="42" height="40" fill="#1c1a16"/>
+    <rect x="10" y="315" width="60" height="34" fill="#1c1a16"/>
+    <rect x="76" y="315" width="40" height="34" fill="#1c1a16"/>
+    <rect x="122" y="315" width="72" height="34" fill="#1c1a16"/>
+    <!-- row 2 block 2 -->
+    <rect x="226" y="208" width="90" height="50" fill="#1c1a16"/>
+    <rect x="322" y="208" width="45" height="70" fill="#1c1a16"/>
+    <rect x="373" y="208" width="51" height="45" fill="#1c1a16"/>
+    <rect x="226" y="264" width="55" height="85" fill="#1c1a16"/>
+    <rect x="287" y="264" width="40" height="45" fill="#1c1a16"/>
+    <rect x="333" y="284" width="34" height="55" fill="#1c1a16"/>
+    <rect x="373" y="259" width="51" height="90" fill="#1c1a16"/>
+    <!-- row 2 block 3 -->
+    <rect x="456" y="208" width="60" height="45" fill="#1c1a16"/>
+    <rect x="522" y="208" width="35" height="60" fill="#1c1a16"/>
+    <rect x="563" y="208" width="85" height="40" fill="#1c1a16"/>
+    <rect x="456" y="259" width="80" height="55" fill="#1c1a16"/>
+    <rect x="542" y="274" width="35" height="40" fill="#1c1a16"/>
+    <rect x="583" y="254" width="65" height="60" fill="#1c1a16"/>
+    <rect x="456" y="320" width="55" height="29" fill="#1c1a16"/>
+    <rect x="517" y="320" width="45" height="29" fill="#1c1a16"/>
+    <rect x="568" y="320" width="80" height="29" fill="#1c1a16"/>
+    <!-- row 2 block 4 -->
+    <rect x="686" y="208" width="70" height="50" fill="#1c1a16"/>
+    <rect x="762" y="208" width="50" height="70" fill="#1c1a16"/>
+    <rect x="818" y="208" width="72" height="45" fill="#1c1a16"/>
+    <rect x="686" y="264" width="45" height="85" fill="#1c1a16"/>
+    <rect x="737" y="264" width="40" height="50" fill="#1c1a16"/>
+    <rect x="783" y="284" width="35" height="65" fill="#1c1a16"/>
+    <rect x="824" y="259" width="66" height="90" fill="#1c1a16"/>
+    <!-- row 3 -->
+    <rect x="10" y="383" width="85" height="60" fill="#1c1a16"/>
+    <rect x="101" y="383" width="45" height="40" fill="#1c1a16"/>
+    <rect x="152" y="383" width="42" height="75" fill="#1c1a16"/>
+    <rect x="10" y="449" width="60" height="101" fill="#1c1a16"/>
+    <rect x="76" y="449" width="50" height="65" fill="#1c1a16"/>
+    <rect x="132" y="449" width="62" height="50" fill="#1c1a16"/>
+    <rect x="226" y="383" width="75" height="55" fill="#1c1a16"/>
+    <rect x="307" y="383" width="50" height="75" fill="#1c1a16"/>
+    <rect x="363" y="383" width="61" height="45" fill="#1c1a16"/>
+    <rect x="226" y="444" width="40" height="106" fill="#1c1a16"/>
+    <rect x="272" y="444" width="55" height="60" fill="#1c1a16"/>
+    <rect x="363" y="434" width="61" height="76" fill="#1c1a16"/>
+    <rect x="456" y="383" width="65" height="55" fill="#1c1a16"/>
+    <rect x="527" y="383" width="45" height="70" fill="#1c1a16"/>
+    <rect x="578" y="383" width="70" height="50" fill="#1c1a16"/>
+    <rect x="456" y="444" width="80" height="106" fill="#1c1a16"/>
+    <rect x="542" y="459" width="45" height="55" fill="#1c1a16"/>
+    <rect x="593" y="439" width="55" height="111" fill="#1c1a16"/>
+    <rect x="686" y="383" width="80" height="60" fill="#1c1a16"/>
+    <rect x="772" y="383" width="55" height="45" fill="#1c1a16"/>
+    <rect x="833" y="383" width="57" height="80" fill="#1c1a16"/>
+    <rect x="686" y="449" width="50" height="101" fill="#1c1a16"/>
+    <rect x="742" y="449" width="40" height="65" fill="#1c1a16"/>
+    <rect x="788" y="434" width="50" height="116" fill="#1c1a16"/>
+    <rect x="844" y="469" width="46" height="81" fill="#1c1a16"/>
+    <!-- scale bar -->
+    <line x1="800" y1="540" x2="900" y2="540" stroke="#1c1a16" stroke-width="1"/>
+    <line x1="800" y1="535" x2="800" y2="545" stroke="#1c1a16" stroke-width="1"/>
+    <line x1="900" y1="535" x2="900" y2="545" stroke="#1c1a16" stroke-width="1"/>
+    <text x="845" y="533" font-family="monospace" font-size="9" fill="#595959" text-anchor="middle">50m</text>
+    <!-- label -->
+    <text x="18" y="530" font-family="monospace" font-size="9" fill="#595959" letter-spacing="2">SITE ANALYSIS · HOSFORD-ABERNETHY</text>
+  </svg>`;
+
+  const mapDataUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(mapSvg);
+
+  const sources = [
+    'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1800&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=1800&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1800&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1800&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1800&auto=format&fit=crop',
+    mapDataUrl
+  ];
+  const pad2 = (n) => String(n + 1).padStart(2, '0');
+
+  const heroImg = document.getElementById('heroImg');
+  const frameNum = document.getElementById('frameNum');
+  document.querySelectorAll('.thumb').forEach((t) => {
+    t.addEventListener('click', () => {
+      const i = +t.dataset.i;
+      document.querySelectorAll('.thumb').forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+      heroImg.style.opacity = 0;
+      setTimeout(() => {
+        heroImg.src = sources[i];
+        frameNum.textContent = pad2(i);
+        heroImg.style.opacity = 1;
+      }, 160);
+    });
+  });
+
+  function currentIndex() {
+    const a = document.querySelector('.thumb.active');
+    return a ? +a.dataset.i : 0;
+  }
+  document.getElementById('heroPhoto').addEventListener('click', () => openLb(currentIndex()));
+  document.getElementById('expandBtn').addEventListener('click', (e) => { e.stopPropagation(); openLb(currentIndex()); });
+
+  const lb = document.getElementById('lb');
+  const lbImg = document.getElementById('lbImg');
+  const lbCount = document.getElementById('lbCount');
+  let li = 0;
+  function openLb(n) {
+    li = (n + sources.length) % sources.length;
+    lbImg.src = sources[li];
+    lbCount.textContent = pad2(li) + ' / ' + String(sources.length).padStart(2,'0');
+    lb.classList.add('open');
+  }
+  function closeLb() { lb.classList.remove('open'); }
+  document.getElementById('lbClose').addEventListener('click', closeLb);
+  document.getElementById('lbPrev').addEventListener('click', () => openLb(li - 1));
+  document.getElementById('lbNext').addEventListener('click', () => openLb(li + 1));
+
+  const mapOverlay = document.getElementById('mapOverlay');
+  const bigMap = document.getElementById('bigMap');
+  const thumbSvg = document.querySelector('#mapThumb svg').outerHTML;
+  function openMap() {
+    bigMap.innerHTML = thumbSvg + '<span class="pin" aria-hidden="true"></span>';
+    mapOverlay.classList.add('open');
+  }
+  function closeMap() { mapOverlay.classList.remove('open'); }
+  document.getElementById('mapCard').addEventListener('click', openMap);
+  document.getElementById('mapCard').addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openMap(); } });
+  document.getElementById('mapClose').addEventListener('click', closeMap);
+  mapOverlay.addEventListener('click', (e) => { if (e.target === mapOverlay) closeMap(); });
+
+  document.addEventListener('keydown', (e) => {
+    if (lb.classList.contains('open')) {
+      if (e.key === 'Escape') closeLb();
+      if (e.key === 'ArrowLeft') openLb(li - 1);
+      if (e.key === 'ArrowRight') openLb(li + 1);
+    }
+    if (mapOverlay.classList.contains('open') && e.key === 'Escape') closeMap();
+  });
+
+  document.getElementById('inquiryForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const btn = e.target.querySelector('.btn-green');
+    btn.textContent = 'Sent — thanks!';
+    btn.disabled = true;
+    btn.style.background = '#1a1a1a';
+  });
+</script>
+</body>
+</html>

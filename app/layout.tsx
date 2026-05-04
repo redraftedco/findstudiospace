@@ -24,9 +24,9 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.findstudiospace.com'),
-  title: 'Find Studio Space in Portland, OR | FindStudioSpace',
+  title: 'Find Studio Space — Portland & Atlanta | FindStudioSpace',
   description:
-    'Browse photo studios, art studios, workshops, offices, retail, and fitness spaces for rent in Portland, OR.',
+    'Browse photo studios, art studios, workshops, offices, retail, and fitness spaces for rent. Portland, OR and Atlanta, GA.',
   alternates: {
     canonical: './',
   },
@@ -46,7 +46,7 @@ const organizationSchema = {
   '@type': 'Organization',
   name: 'FindStudioSpace',
   url: 'https://www.findstudiospace.com',
-  description: 'Portland\'s creative studio directory — find and book photo studios, art studios, podcast studios, event spaces, makerspaces, and creative workspace.',
+  description: 'Creative studio directory — photo studios, art studios, podcast studios, event spaces, makerspaces, and creative workspace in Portland and Atlanta.',
   sameAs: [],
 }
 
@@ -116,10 +116,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   FindStudioSpace
                 </p>
                 <p style={{ fontFamily: 'var(--font-mono)', lineHeight: 1.6 }} className="text-xs">
-                  Portland&apos;s creative studio directory.
+                  Creative studio directory.
                 </p>
                 <p style={{ fontFamily: 'var(--font-mono)' }} className="text-xs mt-3">
-                  findstudiospace.com — Portland, OR
+                  Portland, OR · Atlanta, GA
                 </p>
               </div>
 
