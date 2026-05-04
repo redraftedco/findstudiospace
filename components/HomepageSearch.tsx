@@ -28,7 +28,9 @@ export default function HomepageSearch() {
         background: 'var(--search-bg)',
         marginBottom: '12px',
       }}>
+        <label htmlFor="homepage-search-q" className="sr-only">Search studios</label>
         <input
+          id="homepage-search-q"
           type="text"
           value={q}
           onChange={e => setQ(e.target.value)}
@@ -49,7 +51,9 @@ export default function HomepageSearch() {
 
         <div style={{ width: '1px', background: 'var(--rule)', margin: '10px 0', flexShrink: 0 }} />
 
+        <label htmlFor="homepage-search-city" className="sr-only">Select city</label>
         <select
+          id="homepage-search-city"
           value={city}
           onChange={e => setCity(e.target.value)}
           style={{

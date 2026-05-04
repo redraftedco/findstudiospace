@@ -10,6 +10,7 @@ type Listing = {
   title: string | null
   price_display: string | null
   neighborhood: string | null
+  city?: string | null
   type: string | null
   images: unknown
   tier: string | null
@@ -80,7 +81,7 @@ export default function ListingCard({ listing, sponsored }: Props) {
           src={thumb ?? '/placeholder-studio.svg'}
           alt={
             thumb
-              ? `${listing.title ?? 'Studio'}${typeLabel ? ' — ' + typeLabel : ''} in ${listing.neighborhood ?? 'Portland'}`
+              ? `${listing.title ?? 'Studio'}${typeLabel ? ' — ' + typeLabel : ''} in ${listing.neighborhood ?? listing.city ?? 'Portland'}`
               : ''
           }
           width={600}
@@ -133,7 +134,7 @@ export default function ListingCard({ listing, sponsored }: Props) {
             marginBottom: 0,
           }}
         >
-          {listing.neighborhood || 'Portland'}
+          {listing.neighborhood || listing.city || 'Portland'}
           {typeLabel && (
             <>
               {' · '}

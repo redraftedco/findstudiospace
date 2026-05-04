@@ -24,16 +24,16 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.findstudiospace.com'),
-  title: 'Find Studio Space — Portland & Atlanta | FindStudioSpace',
+  title: 'Find Studio Space — Portland, Seattle & Atlanta | FindStudioSpace',
   description:
-    'Browse photo studios, art studios, workshops, offices, retail, and fitness spaces for rent. Portland, OR and Atlanta, GA.',
+    'Browse photo studios, art studios, workshops, offices, retail, and fitness spaces for rent. Portland, OR · Seattle, WA · Atlanta, GA.',
   alternates: {
     canonical: './',
   },
   openGraph: {
     type: 'website',
     siteName: 'FindStudioSpace',
-    images: [{ url: '/og-default.svg', width: 1200, height: 630, alt: 'FindStudioSpace — Portland creative studio directory' }],
+    images: [{ url: '/og-default.svg', width: 1200, height: 630, alt: 'FindStudioSpace — creative studio rental directory' }],
   },
   twitter: {
     card: 'summary_large_image',
@@ -119,7 +119,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   Creative studio directory.
                 </p>
                 <p style={{ fontFamily: 'var(--font-mono)' }} className="text-xs mt-3">
-                  Portland, OR · Atlanta, GA
+                  Portland · Seattle · Atlanta
                 </p>
               </div>
 
