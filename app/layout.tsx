@@ -19,9 +19,9 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.findstudiospace.com'),
-  title: 'Find Studio Space, Portland & Atlanta | FindStudioSpace',
+  title: 'Find Studio Space, Portland, Seattle & Atlanta | FindStudioSpace',
   description:
-    'Browse photo studios, art studios, workshops, offices, retail, and fitness spaces for rent. Portland, OR and Atlanta, GA.',
+    'Browse photo studios, art studios, workshops, offices, retail, and fitness spaces for rent. Portland, OR, Seattle, WA, and Atlanta, GA.',
   alternates: {
     canonical: './',
   },
@@ -41,7 +41,7 @@ const organizationSchema = {
   '@type': 'Organization',
   name: 'FindStudioSpace',
   url: 'https://www.findstudiospace.com',
-  description: 'Creative studio directory, photo studios, art studios, podcast studios, event spaces, makerspaces, and creative workspace in Portland and Atlanta.',
+  description: 'Creative studio directory, photo studios, art studios, podcast studios, event spaces, makerspaces, and creative workspace in Portland, Seattle, and Atlanta.',
   sameAs: [],
 }
 
@@ -114,7 +114,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   Creative studio directory.
                 </p>
                 <p style={{ fontFamily: 'var(--font-mono)' }} className="text-xs mt-3">
-                  Portland, OR · Atlanta, GA
+                  Portland, OR · Seattle, WA · Atlanta, GA
                 </p>
               </div>
 
