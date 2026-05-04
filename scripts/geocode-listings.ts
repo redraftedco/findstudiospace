@@ -1,20 +1,21 @@
 /**
  * geocode-listings.ts
  *
- * Geocodes Portland studio listings using Nominatim (OSM). Listings have no
- * street addresses — only titles and neighborhoods from Craigslist scrapes.
+ * Geocodes studio listings using Nominatim (OSM). Multi-city aware.
  *
  * Three-tier strategy:
- *   1. Extract street/intersection hint from title ("SE Belmont", "11th & Flanders")
+ *   1. Extract street/intersection hint from neighborhood field (actual address)
+ *      or title pattern
  *   2. Neighborhood centroid (~500m accuracy, no network call)
- *   3. Nominatim query on neighborhood name
+ *   3. Nominatim query on neighborhood name + city
  *
- * Nominatim policy: 1 req/sec max, real User-Agent, cache every result.
+ * Nominatim policy: 1 req/sec max, real User-Agent.
  *
  * Usage:
- *   npx tsx scripts/geocode-listings.ts
+ *   npx tsx scripts/geocode-listings.ts                  # all cities, missing only
+ *   npx tsx scripts/geocode-listings.ts --city=Atlanta   # specific city
  *   npx tsx scripts/geocode-listings.ts --dry-run
- *   npx tsx scripts/geocode-listings.ts --all   (re-geocode even if lat/lon set)
+ *   npx tsx scripts/geocode-listings.ts --all            # re-geocode even if set
  *
  * Env:
  *   NEXT_PUBLIC_SUPABASE_URL
@@ -33,6 +34,14 @@ const USER_AGENT = 'findstudiospace-geocoder/1.0 (Portland studio directory; con
 
 const isDryRun = process.argv.includes('--dry-run')
 const reGeoAll = process.argv.includes('--all')
+const cityArg  = (process.argv.find(a => a.startsWith('--city=')) ?? '').replace('--city=', '') || null
+
+// City config: display name, state abbr, Nominatim viewbox [minLon, minLat, maxLon, maxLat]
+const CITY_META: Record<string, { state: string; viewbox: string }> = {
+  portland: { state: 'OR', viewbox: '-122.8360,45.4200,-122.4700,45.6500' },
+  seattle:  { state: 'WA', viewbox: '-122.5500,47.4800,-122.2200,47.7400' },
+  atlanta:  { state: 'GA', viewbox: '-84.5500,33.6000,-84.2000,34.0000' },
+}
 
 const NEIGHBORHOOD_CENTROIDS: Record<string, [number, number]> = {
   'pearl district':        [45.5290, -122.6823],
@@ -76,17 +85,29 @@ const STREET_PATTERNS = [
   /(\d{3,5}\s+[A-Z][a-z]+\s+(?:Ave|St|Blvd|Dr|Rd|Way|Pl))/i,
 ]
 
-function buildNominatimQuery(title: string, neighborhood: string | null): string[] {
+function cityLabel(city: string): string {
+  const meta = CITY_META[city.toLowerCase()]
+  return meta ? `${city}, ${meta.state}` : city
+}
+
+function buildNominatimQuery(title: string, neighborhood: string | null, city: string): string[] {
+  const label = cityLabel(city)
+  // If neighborhood looks like a real address (has digits), use it directly
+  if (neighborhood && /\d/.test(neighborhood)) {
+    // Strip "near ..." suffix
+    const addr = neighborhood.replace(/\s+near\s+.*/i, '').trim()
+    return [`${addr}, ${label}, USA`]
+  }
   for (const pattern of STREET_PATTERNS) {
     const match = title.match(pattern)
-    if (match) return [`${match[1]}, Portland, OR`, `${match[1]}, Portland, Oregon, USA`]
+    if (match) return [`${match[1]}, ${label}`, `${match[1]}, ${label}, USA`]
   }
   if (neighborhood) {
     const norm = neighborhood.toLowerCase().trim()
     if (NEIGHBORHOOD_CENTROIDS[norm]) return []
-    return [`${neighborhood}, Portland, OR, USA`]
+    return [`${neighborhood}, ${label}, USA`]
   }
-  return ['Portland, OR, USA']
+  return [`${label}, USA`]
 }
 
 function getNeighborhoodCentroid(neighborhood: string | null): [number, number] | null {
@@ -96,13 +117,13 @@ function getNeighborhoodCentroid(neighborhood: string | null): [number, number] 
 
 type GeoResult = { lat: number; lon: number; tier: 'street' | 'neighborhood' | 'city' }
 
-async function geocodeNominatim(query: string): Promise<{ lat: number; lon: number } | null> {
+async function geocodeNominatim(query: string, viewbox?: string): Promise<{ lat: number; lon: number } | null> {
   const url = new URL(NOMINATIM)
   url.searchParams.set('q', query)
   url.searchParams.set('format', 'json')
   url.searchParams.set('limit', '1')
   url.searchParams.set('countrycodes', 'us')
-  url.searchParams.set('viewbox', '-122.8360,45.4200,-122.4700,45.6500')
+  if (viewbox) url.searchParams.set('viewbox', viewbox)
   url.searchParams.set('bounded', '0')
   try {
     const res = await fetch(url.toString(), {
@@ -115,11 +136,13 @@ async function geocodeNominatim(query: string): Promise<{ lat: number; lon: numb
   } catch { return null }
 }
 
-async function resolveGeoResult(title: string, neighborhood: string | null): Promise<GeoResult | null> {
-  const queries = buildNominatimQuery(title, neighborhood)
+async function resolveGeoResult(title: string, neighborhood: string | null, city: string): Promise<GeoResult | null> {
+  const meta = CITY_META[city.toLowerCase()]
+  const viewbox = meta?.viewbox
+  const queries = buildNominatimQuery(title, neighborhood, city)
 
   for (const q of queries) {
-    const result = await geocodeNominatim(q)
+    const result = await geocodeNominatim(q, viewbox)
     await sleep(1100)
     if (result) return { ...result, tier: 'street' }
   }
@@ -127,8 +150,8 @@ async function resolveGeoResult(title: string, neighborhood: string | null): Pro
   const centroid = getNeighborhoodCentroid(neighborhood)
   if (centroid) return { lat: centroid[0], lon: centroid[1], tier: 'neighborhood' }
 
-  if (neighborhood && queries.length > 0) {
-    const result = await geocodeNominatim(`${neighborhood}, Portland, OR, USA`)
+  if (neighborhood && !queries.some(q => q.includes(neighborhood))) {
+    const result = await geocodeNominatim(`${neighborhood}, ${cityLabel(city)}, USA`, viewbox)
     await sleep(1100)
     if (result) return { ...result, tier: 'neighborhood' }
   }
@@ -136,23 +159,26 @@ async function resolveGeoResult(title: string, neighborhood: string | null): Pro
   return null
 }
 
-type ListingRow = { id: number; title: string | null; neighborhood: string | null }
+type ListingRow = { id: number; title: string | null; neighborhood: string | null; city: string | null }
 
 async function main() {
-  let query = db.from('listings').select('id, title, neighborhood').eq('status', 'active')
+  let query = db.from('listings').select('id, title, neighborhood, city').eq('status', 'active')
   if (!reGeoAll) query = query.or('latitude.is.null,longitude.is.null')
+  if (cityArg) query = (query as ReturnType<typeof query.eq>).ilike('city', cityArg)
 
   const { data, error } = await query.returns<ListingRow[]>()
   if (error) { console.error('DB error:', error.message); process.exit(1) }
 
   const listings = data ?? []
-  console.log(`[geocode] ${listings.length} listings to geocode${isDryRun ? ' (dry-run)' : ''}`)
+  const cityLabel2 = cityArg ? ` for ${cityArg}` : ' (all cities)'
+  console.log(`[geocode] ${listings.length} listings to geocode${cityLabel2}${isDryRun ? ' (dry-run)' : ''}`)
   if (!listings.length) { console.log('[geocode] nothing to do'); return }
 
   const stats = { street: 0, neighborhood: 0, city: 0, failed: 0 }
 
   for (const listing of listings) {
-    const result = await resolveGeoResult(listing.title ?? '', listing.neighborhood)
+    const city = listing.city ?? 'Portland'
+    const result = await resolveGeoResult(listing.title ?? '', listing.neighborhood, city)
     if (!result) {
       console.log(`  ✗ #${listing.id}: ${(listing.title ?? '').slice(0, 50)} — no match`)
       stats.failed++
