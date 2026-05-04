@@ -20,5 +20,13 @@
       "path": "/api/cron/enrich-targets",
       "schedule": "0 5 * * *"
     },
+    {
+      "path": "/api/cron/geocode-listings",
+      "schedule": "0 6 * * *"
+    },
+    {
+      "path": "/api/cron/ingest-gis",
+      "schedule": "0 2 * * 1"
+    }
   ]
 }

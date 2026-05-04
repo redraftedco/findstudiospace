@@ -8,6 +8,9 @@ import InquiryForm from '@/components/InquiryForm'
 import ViewCounter from '@/components/ViewCounter'
 import ProUpsell from '@/components/ProUpsell'
 import ClaimBanner from '@/components/ClaimBanner'
+import ArchSpecs from '@/components/ArchSpecs'
+import SpaceBadges from '@/components/SpaceBadges'
+import PreLeaseChecklist from '@/components/PreLeaseChecklist'
 
 export const revalidate = 3600
 const BLOCKED_PUBLIC_LISTING_IDS = new Set(['1104'])
@@ -106,6 +109,14 @@ export default async function ListingPage({ params }: Props) {
     .select('*')
     .eq('id', id)
     .single()
+
+  const { data: enrichment } = listing
+    ? await supabase
+        .from('listing_enrichment')
+        .select('zoning_base,airport_noise_dnl_band,fema_flood_zone,wildfire_hazard,landslide_hazard,parking_permit_zone,business_district,hri_listed,opportunity_zone,nearest_max_stop_id,dist_to_max_meters,nearest_bus_stop_id,dist_to_bus_meters')
+        .eq('listing_id', id)
+        .single()
+    : { data: null }
 
   if (!listing) notFound()
 
@@ -440,6 +451,43 @@ export default async function ListingPage({ params }: Props) {
                 )}
               </section>
 
+              {/* ── Architectural specs ─────────────────────────────────── */}
+              {(listing.ceiling_height_ft || listing.power_amps || listing.voltage_phase ||
+                listing.stc_rating || listing.nc_rating || listing.floor_type ||
+                listing.loading_dock_type || listing.ventilation_cfm ||
+                listing.kiln_ready || listing.cyc_wall_struct) && (
+                <>
+                  <hr style={{ border: 'none', borderTop: '1px solid var(--rule)', margin: '3rem 0' }} />
+                  <ArchSpecs
+                    ceilingHeightFt={listing.ceiling_height_ft}
+                    powerAmps={listing.power_amps}
+                    voltagePhase={listing.voltage_phase}
+                    stcRating={listing.stc_rating}
+                    ncRating={listing.nc_rating}
+                    floorType={listing.floor_type}
+                    loadingDockType={listing.loading_dock_type}
+                    ventilationCfm={listing.ventilation_cfm}
+                    kilnReady={listing.kiln_ready}
+                    cycWall={listing.cyc_wall_struct}
+                  />
+                </>
+              )}
+
+              {/* ── GIS location data ──────────────────────────────────── */}
+              {enrichment && (
+                <>
+                  <hr style={{ border: 'none', borderTop: '1px solid var(--rule)', margin: '3rem 0' }} />
+                  <SpaceBadges enrichment={enrichment} />
+                </>
+              )}
+
+              {/* ── Pre-lease checklist ───────────────────────────────── */}
+              {listing.type && (
+                <>
+                  <hr style={{ border: 'none', borderTop: '1px solid var(--rule)', margin: '3rem 0' }} />
+                  <PreLeaseChecklist studioType={listing.type} />
+                </>
+              )}
 
               {/* Hairline */}
               <hr
