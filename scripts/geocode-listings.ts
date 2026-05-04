@@ -164,7 +164,8 @@ type ListingRow = { id: number; title: string | null; neighborhood: string | nul
 async function main() {
   let query = db.from('listings').select('id, title, neighborhood, city').eq('status', 'active')
   if (!reGeoAll) query = query.or('latitude.is.null,longitude.is.null')
-  if (cityArg) query = (query as ReturnType<typeof query.eq>).ilike('city', cityArg)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  if (cityArg) query = (query as any).ilike('city', cityArg)
 
   const { data, error } = await query.returns<ListingRow[]>()
   if (error) { console.error('DB error:', error.message); process.exit(1) }

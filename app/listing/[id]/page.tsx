@@ -15,6 +15,12 @@ import PreLeaseChecklist from '@/components/PreLeaseChecklist'
 export const revalidate = 3600
 const BLOCKED_PUBLIC_LISTING_IDS = new Set(['1104'])
 
+const CITY_STATE: Record<string, string> = {
+  portland: 'OR',
+  seattle:  'WA',
+  atlanta:  'GA',
+}
+
 const TEXT_CLASS: Record<string, string> = {
   art:      'cat-text-art',
   workshop: 'cat-text-workshop',
@@ -112,6 +118,9 @@ export default async function ListingPage({ params }: Props) {
 
   if (!listing) notFound()
 
+  const citySlug = (listing.city ?? 'Portland').toLowerCase()
+  const cityDisplayName = listing.city ?? 'Portland'
+
   const { data: enrichment } = await supabase
     .from('listing_enrichment')
     .select('zoning_base,airport_noise_dnl_band,fema_flood_zone,wildfire_hazard,landslide_hazard,parking_permit_zone,business_district,hri_listed,opportunity_zone,nearest_max_stop_id,dist_to_max_meters,nearest_bus_stop_id,dist_to_bus_meters,site_analysis_map_url,site_analysis_map_status')
@@ -122,7 +131,7 @@ export default async function ListingPage({ params }: Props) {
   if (listing.status !== 'active') {
     const typeKey = (listing.type ?? '').toLowerCase()
     const categorySlug = TYPE_TO_CATEGORY_SLUG[typeKey]
-    redirect(categorySlug ? `/portland/${categorySlug}` : '/portland')
+    redirect(categorySlug ? `/${citySlug}/${categorySlug}` : `/${citySlug}`)
   }
 
   const isPro = listing.tier === 'pro'
@@ -181,7 +190,7 @@ export default async function ListingPage({ params }: Props) {
     : []
 
   // Free listings with no photos redirect; Pro listings stay (can show map or placeholder)
-  if (allImages.length === 0 && !isPro) redirect('/portland')
+  if (allImages.length === 0 && !isPro) redirect(`/${citySlug}`)
 
   const images: string[] = clampImagesToTier(allImages, listing.tier)
 
@@ -200,7 +209,7 @@ export default async function ListingPage({ params }: Props) {
   const priceFormatted = formatPrice(listing.price_display)
   const textClass = TEXT_CLASS[typeKey] ?? ''
   const studioName = listing.title ?? 'this listing'
-  const neighborhood = listing.neighborhood ?? 'Portland'
+  const neighborhood = listing.neighborhood ?? cityDisplayName
 
   // JSON-LD — LocalBusiness. Conditional rendering of every nullable field;
   // empty/undefined keys removed at the end. Google flags incomplete schema
@@ -208,7 +217,7 @@ export default async function ListingPage({ params }: Props) {
   const address: Record<string, string> = {
     '@type': 'PostalAddress',
     addressLocality: listing.city ?? 'Portland',
-    addressRegion: listing.state ?? 'OR',
+    addressRegion: listing.state ?? CITY_STATE[citySlug] ?? 'OR',
     addressCountry: 'US',
   }
   if (listing.address)  address.streetAddress = String(listing.address)
@@ -256,13 +265,13 @@ export default async function ListingPage({ params }: Props) {
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.findstudiospace.com' },
-      { '@type': 'ListItem', position: 2, name: 'Portland', item: 'https://www.findstudiospace.com/portland' },
+      { '@type': 'ListItem', position: 2, name: cityDisplayName, item: `https://www.findstudiospace.com/${citySlug}` },
       ...(categorySlug
         ? [{
             '@type': 'ListItem',
             position: 3,
             name: categoryLabel,
-            item: `https://www.findstudiospace.com/portland/${categorySlug}`,
+            item: `https://www.findstudiospace.com/${citySlug}/${categorySlug}`,
           }]
         : []),
       {
@@ -291,9 +300,9 @@ export default async function ListingPage({ params }: Props) {
         <main style={{ background: 'var(--paper)', color: 'var(--ink)' }} className="min-h-screen">
           <div className="mx-auto" style={{ maxWidth: '1200px', padding: '2rem 1.5rem 4rem' }}>
             <nav style={{ color: 'var(--stone)', fontFamily: 'var(--font-body)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '1.5rem' }}>
-              <Link href="/portland" style={{ color: 'var(--ink)' }}>Directory</Link>
+              <Link href={`/${citySlug}`} style={{ color: 'var(--ink)' }}>Directory</Link>
               <span style={{ margin: '0 0.5rem', color: 'var(--rule)' }}>/</span>
-              <Link href="/portland" style={{ color: 'var(--ink)' }}>Portland</Link>
+              <Link href={`/${citySlug}`} style={{ color: 'var(--ink)' }}>{cityDisplayName}</Link>
               {listing.neighborhood && (<><span style={{ margin: '0 0.5rem', color: 'var(--rule)' }}>/</span><span>{listing.neighborhood}</span></>)}
               <span style={{ margin: '0 0.5rem', color: 'var(--rule)' }}>/</span>
               <span style={{ color: 'var(--stone)' }}>{studioName}</span>
@@ -317,7 +326,7 @@ export default async function ListingPage({ params }: Props) {
                 {allImages.length > 0 ? (
                   <img
                     src={allImages[0]}
-                    alt={`${studioName} ${categoryLabel.toLowerCase()} in ${neighborhood} Portland`}
+                    alt={`${studioName} ${categoryLabel.toLowerCase()} in ${neighborhood} ${cityDisplayName}`}
                     style={{ width: '100%', aspectRatio: '4/3', objectFit: 'cover', display: 'block', border: '1px solid var(--rule)' }}
                   />
                 ) : (
@@ -398,9 +407,9 @@ export default async function ListingPage({ params }: Props) {
               marginBottom: '1.5rem',
             }}
           >
-            <Link href="/portland" style={{ color: 'var(--ink)' }} className="hover:underline">Directory</Link>
+            <Link href={`/${citySlug}`} style={{ color: 'var(--ink)' }} className="hover:underline">Directory</Link>
             <span style={{ margin: '0 0.5rem', color: 'var(--rule)' }}>/</span>
-            <Link href="/portland" style={{ color: 'var(--ink)' }} className="hover:underline">Portland</Link>
+            <Link href={`/${citySlug}`} style={{ color: 'var(--ink)' }} className="hover:underline">{cityDisplayName}</Link>
             {listing.neighborhood && (
               <>
                 <span style={{ margin: '0 0.5rem', color: 'var(--rule)' }}>/</span>
@@ -465,7 +474,7 @@ export default async function ListingPage({ params }: Props) {
               <ListingGallery
                 images={images}
                 title={listing.title ?? 'Studio'}
-                neighborhood={listing.neighborhood ?? 'Portland'}
+                neighborhood={listing.neighborhood ?? cityDisplayName}
               />
 
               {/* Hairline */}
