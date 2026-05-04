@@ -2,16 +2,16 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'About FindStudioSpace | Portland Creative Studio Directory',
+  title: 'About FindStudioSpace | Independent Creative Studio Directory',
   description:
-    'FindStudioSpace is an independent directory of monthly creative studio rentals in Portland, OR. Learn how we vet listings, what we list, and our methodology.',
+    'FindStudioSpace is an independent directory of monthly creative studio rentals in Portland and Atlanta. Learn how we vet listings, what we list, and our methodology.',
   alternates: {
     canonical: 'https://www.findstudiospace.com/about',
   },
   openGraph: {
     title: 'About FindStudioSpace',
     description:
-      'An independent directory of monthly creative studio rentals in Portland, OR.',
+      'An independent directory of monthly creative studio rentals in Portland and Atlanta.',
     url: 'https://www.findstudiospace.com/about',
     type: 'website',
   },
@@ -29,22 +29,16 @@ export default function AboutPage() {
     url: SITE_URL,
     logo: `${SITE_URL}/og-default.svg`,
     description:
-      'An independent directory of monthly creative studio rentals in Portland, OR — art studios, workshop space, photo studios, office space, retail space, and fitness studios.',
+      'An independent directory of monthly creative studio rentals in Portland and Atlanta — art studios, workshop space, photo studios, office space, retail space, and fitness studios.',
     foundingDate: '2026',
     founder: {
       '@type': 'Person',
       name: 'T',
     },
-    areaServed: {
-      '@type': 'City',
-      name: 'Portland',
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Portland',
-        addressRegion: 'OR',
-        addressCountry: 'US',
-      },
-    },
+    areaServed: [
+      { '@type': 'City', name: 'Portland', address: { '@type': 'PostalAddress', addressLocality: 'Portland', addressRegion: 'OR', addressCountry: 'US' } },
+      { '@type': 'City', name: 'Atlanta', address: { '@type': 'PostalAddress', addressLocality: 'Atlanta', addressRegion: 'GA', addressCountry: 'US' } },
+    ],
     knowsAbout: [
       'Photography studios',
       'Art studios',
@@ -98,7 +92,7 @@ export default function AboutPage() {
           </h1>
 
           <p style={{ color: 'var(--stone)' }} className="mb-10 text-base leading-relaxed">
-            FindStudioSpace is an independent directory of monthly creative studio rentals in Portland, OR. We list photo studios, art studios, content studios, makerspaces, and event spaces — focused exclusively on month-to-month rental terms, not hourly or daily bookings.
+            FindStudioSpace is an independent directory of monthly creative studio rentals in Portland and Atlanta. We list photo studios, art studios, content studios, makerspaces, and event spaces — focused exclusively on month-to-month rental terms, not hourly or daily bookings.
           </p>
 
           <div style={{ borderTop: '1px solid var(--rule)' }} className="space-y-10 pt-10">
@@ -168,7 +162,7 @@ export default function AboutPage() {
               </p>
               <ul style={{ color: 'var(--stone)' }} className="space-y-3 text-sm">
                 <li>
-                  <strong style={{ color: 'var(--ink)' }}>Listing legitimacy.</strong> The space must be a real, currently available rental in Portland or its immediate metro area (Vancouver, WA listings are excluded). We verify the space exists, the host is reachable, and the listing is not duplicated from another platform without permission.
+                  <strong style={{ color: 'var(--ink)' }}>Listing legitimacy.</strong> The space must be a real, currently available rental in one of our covered cities (Portland, OR or Atlanta, GA). Vancouver, WA listings are excluded from the Portland metro. We verify the space exists, the host is reachable, and the listing is not duplicated from another platform without permission.
                 </li>
                 <li>
                   <strong style={{ color: 'var(--ink)' }}>Monthly term.</strong> Listings must accept month-to-month or longer terms. Hourly-only or day-rental-only spaces are excluded — those have other platforms.
@@ -206,15 +200,18 @@ export default function AboutPage() {
                 Service area
               </h2>
               <p style={{ color: 'var(--stone)' }} className="text-sm leading-relaxed">
-                Portland, Oregon — every neighborhood from the Central Eastside Industrial District to Alberta Arts, the Pearl District, SE Division, N Mississippi, and beyond. We cover the city limits and immediately adjacent unincorporated Multnomah County. Vancouver, WA and outlying suburbs are not currently in scope.
+                <strong style={{ color: 'var(--ink)' }}>Portland, OR</strong> — every neighborhood from the Central Eastside Industrial District to Alberta Arts, the Pearl District, SE Division, N Mississippi, and beyond. Vancouver, WA and outlying suburbs are not in scope.
               </p>
               <p style={{ color: 'var(--stone)' }} className="mt-3 text-sm leading-relaxed">
-                Browse listings by{' '}
+                <strong style={{ color: 'var(--ink)' }}>Atlanta, GA</strong> — Old Fourth Ward, West Midtown, Ponce City Market area, and surrounding creative districts. Expanding inventory.
+              </p>
+              <p style={{ color: 'var(--stone)' }} className="mt-3 text-sm leading-relaxed">
+                Browse Portland by{' '}
                 <Link href="/portland/central-eastside" style={{ color: 'var(--lime)' }} className="hover:underline">Central Eastside</Link>,{' '}
                 <Link href="/portland/pearl-district" style={{ color: 'var(--lime)' }} className="hover:underline">Pearl District</Link>,{' '}
-                <Link href="/portland/alberta-arts" style={{ color: 'var(--lime)' }} className="hover:underline">Alberta Arts</Link>,{' '}
-                <Link href="/portland/division" style={{ color: 'var(--lime)' }} className="hover:underline">SE Division</Link>, or{' '}
-                <Link href="/portland/mississippi" style={{ color: 'var(--lime)' }} className="hover:underline">N Mississippi</Link>.
+                <Link href="/portland/alberta-arts" style={{ color: 'var(--lime)' }} className="hover:underline">Alberta Arts</Link>, or{' '}
+                <Link href="/portland/mississippi" style={{ color: 'var(--lime)' }} className="hover:underline">N Mississippi</Link>.{' '}
+                <Link href="/atlanta" style={{ color: 'var(--lime)' }} className="hover:underline">Browse Atlanta →</Link>
               </p>
             </section>
 
@@ -243,12 +240,12 @@ export default function AboutPage() {
             <p style={{ color: 'var(--stone)', fontFamily: 'var(--font-mono)' }} className="mb-4 text-xs uppercase tracking-wider">Browse the directory</p>
             <div className="flex flex-wrap gap-3">
               {[
-                { label: 'All Studios', href: '/portland' },
-                { label: 'Art Studios', href: '/portland/art-studio-rental' },
-                { label: 'Workshop Space', href: '/portland/workshop-space-rental' },
-                { label: 'Photo Studios', href: '/portland/photo-studios' },
-                { label: 'Office Space', href: '/portland/office-space-rental' },
-                { label: 'Fitness & Dance', href: '/portland/fitness-studio-rental' },
+                { label: 'Portland Studios', href: '/portland' },
+                { label: 'Atlanta Studios', href: '/atlanta' },
+                { label: 'Photo Studios', href: '/photography-studios-portland' },
+                { label: 'Podcast Studios', href: '/podcast-studios' },
+                { label: 'Event Spaces', href: '/event-spaces-portland' },
+                { label: 'Makerspaces', href: '/makerspace-portland' },
                 { label: 'List Your Space', href: '/list-your-space' },
               ].map(({ label, href }) => (
                 <Link
