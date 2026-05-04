@@ -19,6 +19,6 @@
     {
       "path": "/api/cron/enrich-targets",
       "schedule": "0 5 * * *"
-    },
+    }
   ]
 }
