@@ -55,14 +55,13 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    if (normalizedEmail !== ownerEmail && normalizedEmail !== contactEmail) {
-      return NextResponse.json(
-        { error: 'Email does not match listing ownership records.' },
-        { status: 403 }
-      )
-    }
-
     const siteUrl = 'https://www.findstudiospace.com'
+
+    // Don't reveal whether the email matched — prevents enumeration of emails on file.
+    // If no match, silently succeed so both branches look identical to the caller.
+    if (normalizedEmail !== ownerEmail && normalizedEmail !== contactEmail) {
+      return NextResponse.json({ sent: true })
+    }
 
     // Send magic link via Supabase Auth (uses built-in 60s rate limit per email)
     const { error } = await supabaseAnon.auth.signInWithOtp({

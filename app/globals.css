@@ -55,10 +55,10 @@
   --action-hover:  #111111;
   --action-focus:  #111111;
   --action-light:  rgba(0,0,0,0.06);
-  --lime:          #c0392b;       /* red — text/link color */
-  --lime-bg:       #c0392b;       /* red — CTA button bg */
-  --lime-bg-hover: #922b21;       /* darker red hover */
-  --lime-soft:     #FDECEA;       /* soft red wash */
+  --lime:          #14532D;       /* forest green — text/link color */
+  --lime-bg:       #14532D;       /* forest green — CTA button bg */
+  --lime-bg-hover: #0B3D22;       /* darker green hover */
+  --lime-soft:     #E7F0EA;       /* soft green wash */
 
   /* Hero search input — slight lift over body */
   --search-bg: #EBEBEB;

@@ -1,13 +1,13 @@
-import type { SiteAnalysisMapData, SiteAnalysisCallout } from './types'
+import type { SiteAnalysisMapData, BuildingFootprint } from './types'
 import { C, MAP_W, MAP_H } from './constants'
 import { metersToMiles, confidenceLabel } from './mapRules'
+import { planBbox } from './fetchBuildingFootprints'
 
 // ─── Layout constants ──────────────────────────────────────────────────────────
-const LP_W = 296          // left panel width
-const TOP_H = 576         // top section height (panel + plan)
-const BADGE_H = 104       // data badge strip height
-const SECT_Y = TOP_H + BADGE_H  // section A-A start y
-const PLAN_X = LP_W       // plan view starts here
+const LP_W   = 296   // left panel width
+const TOP_H  = 576   // plan area height
+const BADGE_H = 104  // data badge strip height
+const PLAN_X = LP_W
 const PLAN_W = MAP_W - LP_W
 
 // ─── SVG helpers ──────────────────────────────────────────────────────────────
@@ -68,9 +68,7 @@ function circleIcon(x: number, y: number, stroke: string, dash = ''): string {
 function renderLeftPanel(d: SiteAnalysisMapData): string {
   const x = 36
   const parts: string[] = [
-    // Slightly off-white panel to separate from plan area
-    rect(0, 0, LP_W, TOP_H, '#f7f5f1'),
-    // vertical right border — thicker for clear separation
+    rect(0, 0, LP_W, TOP_H, C.badgeBg),
     line(LP_W, 0, LP_W, TOP_H, C.divider, 1),
   ]
 
@@ -146,119 +144,97 @@ function buildLegendItems(d: SiteAnalysisMapData): LegendEntry[] {
   return items.slice(0, 4)
 }
 
+// ─── Plan projection ──────────────────────────────────────────────────────────
+function makeProjFn(lat: number, lon: number) {
+  const { minLat, maxLat, minLon, maxLon } = planBbox(lat, lon)
+  return (pLon: number, pLat: number): [number, number] => {
+    const x = PLAN_X + (pLon - minLon) / (maxLon - minLon) * PLAN_W
+    const y = (maxLat - pLat) / (maxLat - minLat) * TOP_H
+    return [x, y]
+  }
+}
+
+function footprintPath(fp: BuildingFootprint, proj: (lon: number, lat: number) => [number, number]): string {
+  if (fp.outerRing.length < 3) return ''
+  const pts = fp.outerRing.map(([lon, lat]) => {
+    const [x, y] = proj(lon, lat)
+    return `${x.toFixed(1)},${y.toFixed(1)}`
+  })
+  const fill   = fp.isSubject ? '#ffffff' : C.block
+  const stroke = fp.isSubject ? C.line    : 'none'
+  const sw     = fp.isSubject ? 2.5       : 0
+  return `<path d="M${pts.join(' L')} Z" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" stroke-linejoin="miter"/>`
+}
+
 // ─── Plan view ────────────────────────────────────────────────────────────────
 function renderPlanView(d: SiteAnalysisMapData): string {
-  const parts: string[] = [rect(PLAN_X, 0, PLAN_W, TOP_H, C.bg)]
+  const proj = makeProjFn(d.lat, d.lon)
+  const [scx, scy] = proj(d.lon, d.lat)  // subject center in SVG coords
 
-  // Portland city blocks — subject site is on the central intersection
-  // Two streets horizontal, two vertical creating a 2x2 block grid
-  // Plan viewport center
-  const cx = PLAN_X + PLAN_W * 0.42
-  const cy = TOP_H * 0.46
-
-  // Block size in px: Portland block ≈ 200x200ft → we use 200x180
-  const BW = 220  // block width
-  const BH = 180  // block height
-  const SW = 36   // street width
-
-  // Block fill rects (4 surrounding context blocks)
-  const blocks = [
-    // top-left block
-    [cx - BW - SW, cy - BH - SW, BW, BH],
-    // top-right block
-    [cx + SW, cy - BH - SW, BW, BH],
-    // bottom-left block
-    [cx - BW - SW, cy + SW, BW, BH],
-    // bottom-right block (non-subject)
-    [cx + SW, cy + SW, BW, BH],
+  const parts: string[] = [
+    // Cream paper background
+    rect(PLAN_X, 0, PLAN_W, TOP_H, C.bg),
+    // Clip group so footprints don't bleed outside plan area
+    `<clipPath id="planClip"><rect x="${PLAN_X}" y="0" width="${PLAN_W}" height="${TOP_H}"/></clipPath>`,
+    `<g clip-path="url(#planClip)">`,
   ]
 
-  // Context block fill — visibly darker than white so city structure reads clearly
-  const BLOCK_FILL = '#d8d4cc'
-  const BLOCK_LINE = '#b8b2a8'
+  const footprints = d.footprints ?? []
 
-  for (const [bx, by, bw, bh] of blocks) {
-    parts.push(rect(bx, by, bw, bh, BLOCK_FILL))
-    // building mass divisions within each context block
-    parts.push(`<rect x="${bx}" y="${by}" width="${bw}" height="${bh}" fill="none" stroke="${BLOCK_LINE}" stroke-width="0.5"/>`)
-    parts.push(line(bx + bw * 0.35, by, bx + bw * 0.35, by + bh, BLOCK_LINE, 0.5))
-    parts.push(line(bx, by + bh * 0.45, bx + bw, by + bh * 0.45, BLOCK_LINE, 0.5))
+  if (footprints.length > 0) {
+    // Nolli figure-ground: render all non-subject buildings first (solid black)
+    for (const fp of footprints) {
+      if (!fp.isSubject) parts.push(footprintPath(fp, proj))
+    }
+    // Subject building on top (white void)
+    for (const fp of footprints) {
+      if (fp.isSubject) parts.push(footprintPath(fp, proj))
+    }
   }
 
-  // Subject block — slightly lighter than context to read as open lot
-  const subjBlockX = cx - BW * 0.5
-  const subjBlockY = cy - BH * 0.5
-  parts.push(rect(subjBlockX, subjBlockY, BW, BH, '#e8e4dc'))
-  parts.push(`<rect x="${subjBlockX}" y="${subjBlockY}" width="${BW}" height="${BH}" fill="none" stroke="${BLOCK_LINE}" stroke-width="0.5"/>`)
+  parts.push(`</g>`)
 
-  // Subject building footprint — white fill, strong dark border
-  const bfx = subjBlockX + 20
-  const bfy = subjBlockY + 18
-  const bfw = BW - 40
-  const bfh = BH - 36
-  parts.push(rect(bfx, bfy, bfw, bfh, C.bg))
-  parts.push(`<rect x="${bfx}" y="${bfy}" width="${bfw}" height="${bfh}" fill="none" stroke="${C.line}" stroke-width="1.5"/>`)
+  // Subject site crosshair (always at listing lat/lon center)
+  const crSize = 18
+  parts.push(line(scx - crSize, scy, scx + crSize, scy, C.accent, 1.6))
+  parts.push(line(scx, scy - crSize, scx, scy + crSize, C.accent, 1.6))
+  parts.push(`<circle cx="${scx.toFixed(1)}" cy="${scy.toFixed(1)}" r="4" fill="${C.accent}"/>`)
+  parts.push(txt(scx + 10, scy - 10, 'SUBJECT SITE', { size: 7.5, fill: C.accent, spacing: '0.15em', weight: '400' }))
 
-  // Interior room lines
-  parts.push(line(bfx + bfw * 0.33, bfy, bfx + bfw * 0.33, bfy + bfh, C.lineFaint, 0.8))
-  parts.push(line(bfx + bfw * 0.66, bfy, bfx + bfw * 0.66, bfy + bfh, C.lineFaint, 0.8))
-  parts.push(line(bfx, bfy + bfh * 0.5, bfx + bfw, bfy + bfh * 0.5, C.lineFaint, 0.8))
+  // If no subject building found, draw a dashed lot indicator
+  if (footprints.length > 0 && !footprints.some(f => f.isSubject)) {
+    const r = 28
+    parts.push(`<circle cx="${scx.toFixed(1)}" cy="${scy.toFixed(1)}" r="${r}" fill="none" stroke="${C.accent}" stroke-width="0.8" stroke-dasharray="4 3"/>`)
+  }
 
-  // Subject site crosshair (accent color)
-  const scx = bfx + bfw * 0.5
-  const scy = bfy + bfh * 0.5
-  const crSize = 14
-  parts.push(line(scx - crSize, scy, scx + crSize, scy, C.accent, 1.2))
-  parts.push(line(scx, scy - crSize, scx, scy + crSize, C.accent, 1.2))
-  parts.push(`<circle cx="${scx}" cy="${scy}" r="3.5" fill="${C.accent}"/>`)
-
-  // "SUBJECT SITE" label
-  parts.push(txt(scx + 8, scy - 6, 'SUBJECT SITE', { size: 7, fill: C.accent, spacing: '0.15em', weight: '400' }))
-
-  // Streets — white (pavement) reads against grey blocks
-  parts.push(rect(PLAN_X + 20, cy - SW * 0.5, PLAN_W - 40, SW, C.bg))
-  parts.push(rect(cx - SW * 0.5, 10, SW, TOP_H - 20, C.bg))
-
-  // Street labels
-  const streetH = d.neighborhood.includes('NE') || d.neighborhood.includes('Alberta') ? 'NE' :
-                  d.neighborhood.includes('SE') || d.neighborhood.includes('Division') ? 'SE' :
-                  d.neighborhood.includes('NW') ? 'NW' : 'SW'
-  parts.push(txt(PLAN_X + 30, cy - SW * 0.5 - 8, `${streetH} [STREET]`, { size: 7, fill: C.textMuted, spacing: '0.15em' }))
-  parts.push(`<text x="${cx + SW * 0.5 + 6}" y="${cy - 20}" font-size="7" fill="${C.textMuted}" letter-spacing="0.15em" text-anchor="start" font-family="'Arial Narrow', Arial, sans-serif" transform="rotate(90, ${cx + SW * 0.5 + 6}, ${cy - 20})">${e(`${streetH} [AVE]`)}</text>`)
-
-  // Section cut markers
-  const sectX = subjBlockX - 30
+  // Section cut markers (left of center)
+  const sectX = Math.max(PLAN_X + 16, scx - 160)
   parts.push(txt(sectX - 14, scy + 4, 'A', { size: 8, fill: C.textMuted, spacing: '0' }))
-  parts.push(line(sectX, scy - 2, bfx, scy - 2, C.textMuted, 0.7, '3 2'))
+  parts.push(line(sectX, scy, scx - crSize, scy, C.textMuted, 0.6, '3 2'))
   parts.push(txt(sectX - 14, TOP_H - 30, 'A', { size: 8, fill: C.textMuted, spacing: '0' }))
 
-  // Annotations — MAX stop (right side, dashed line)
+  // Annotation — MAX stop
   if (d.distToMaxMeters != null) {
-    const maxX = PLAN_X + PLAN_W * 0.82
-    const maxY = cy - 60
-    parts.push(line(scx, scy, maxX - 10, maxY + 10, C.textMuted, 0.5, '4 3'))
-    parts.push(`<circle cx="${maxX}" cy="${maxY}" r="8" fill="none" stroke="${C.line}" stroke-width="1"/>`)
-    // bus icon in circle
-    parts.push(`<line x1="${maxX}" y1="${maxY - 5}" x2="${maxX}" y2="${maxY + 5}" stroke="${C.line}" stroke-width="0.7"/>`)
-    parts.push(`<line x1="${maxX - 5}" y1="${maxY}" x2="${maxX + 5}" y2="${maxY}" stroke="${C.line}" stroke-width="0.7"/>`)
-    const distLabel = metersToMiles(d.distToMaxMeters)
-    parts.push(txt(maxX + 14, maxY - 4, 'MAX STOP', { size: 7.5, spacing: '0.15em' }))
-    parts.push(txt(maxX + 14, maxY + 8, distLabel, { size: 7, fill: C.textMuted, spacing: '0.1em' }))
+    const maxX = PLAN_X + PLAN_W * 0.84
+    const maxY = 60
+    parts.push(line(scx, scy, maxX, maxY + 16, C.lineFaint, 0.5, '4 3'))
+    parts.push(`<circle cx="${maxX}" cy="${maxY}" r="10" fill="${C.bg}" stroke="${C.line}" stroke-width="1.2"/>`)
+    parts.push(`<line x1="${maxX}" y1="${maxY - 6}" x2="${maxX}" y2="${maxY + 6}" stroke="${C.line}" stroke-width="0.8"/>`)
+    parts.push(`<line x1="${maxX - 6}" y1="${maxY}" x2="${maxX + 6}" y2="${maxY}" stroke="${C.line}" stroke-width="0.8"/>`)
+    parts.push(txt(maxX + 16, maxY - 5, 'MAX', { size: 7.5, spacing: '0.15em' }))
+    parts.push(txt(maxX + 16, maxY + 8, metersToMiles(d.distToMaxMeters), { size: 7, fill: C.textMuted, spacing: '0.1em' }))
   }
 
-  // Annotation — Zoning (right margin)
+  // Annotation — Zoning
   if (d.zoningCode) {
     const zx = PLAN_X + PLAN_W * 0.84
-    const zy = cy + 80
-    parts.push(line(zx - 10, zy - 20, zx - 40, zy - 60, C.lineFaint, 0.5))
-    parts.push(txt(zx, zy - 24, 'ZONING', { size: 7, fill: C.textMuted, spacing: '0.2em' }))
-    parts.push(txt(zx, zy - 10, d.zoningCode, { size: 13, weight: '300', spacing: '0.1em' }))
+    const zy = TOP_H - 130
+    parts.push(txt(zx, zy, 'ZONING', { size: 7, fill: C.textMuted, spacing: '0.2em' }))
+    parts.push(txt(zx, zy + 16, d.zoningCode, { size: 14, weight: '300', spacing: '0.1em' }))
     if (d.zoningDesc) {
-      const descWords = d.zoningDesc.toUpperCase().split(' ')
-      parts.push(txt(zx, zy + 4, descWords.slice(0, 2).join(' '), { size: 7, fill: C.textMuted, spacing: '0.1em' }))
-      if (descWords.length > 2) {
-        parts.push(txt(zx, zy + 15, descWords.slice(2).join(' '), { size: 7, fill: C.textMuted, spacing: '0.1em' }))
-      }
+      const words = d.zoningDesc.toUpperCase().split(' ')
+      parts.push(txt(zx, zy + 30, words.slice(0, 2).join(' '), { size: 7, fill: C.textMuted, spacing: '0.1em' }))
+      if (words.length > 2) parts.push(txt(zx, zy + 41, words.slice(2).join(' '), { size: 7, fill: C.textMuted, spacing: '0.1em' }))
     }
   }
 
@@ -269,25 +245,23 @@ function renderPlanView(d: SiteAnalysisMapData): string {
     }))
   }
 
-  // Scale bar (bottom right of plan area)
+  // Scale bar — 100m at METERS_PER_PX=1.0 = 100px
   const scaleX = PLAN_X + PLAN_W - 180
   const scaleY = TOP_H - 36
-  // 100ft scale = roughly 30px at typical map scale
-  const scaleLen = 90
-  parts.push(line(scaleX, scaleY, scaleX + scaleLen, scaleY, C.textMuted, 0.7))
-  parts.push(line(scaleX, scaleY - 4, scaleX, scaleY + 4, C.textMuted, 0.7))
+  const scaleLen = 100  // 100px = 100m at 1.0 m/px
+  parts.push(line(scaleX, scaleY, scaleX + scaleLen, scaleY, C.text, 0.8))
+  parts.push(line(scaleX, scaleY - 5, scaleX, scaleY + 5, C.text, 0.8))
   parts.push(line(scaleX + scaleLen * 0.5, scaleY - 3, scaleX + scaleLen * 0.5, scaleY + 3, C.textMuted, 0.5))
-  parts.push(line(scaleX + scaleLen, scaleY - 4, scaleX + scaleLen, scaleY + 4, C.textMuted, 0.7))
-  parts.push(txt(scaleX, scaleY + 12, "0'", { size: 6.5, fill: C.textMuted, anchor: 'middle', spacing: '0' }))
-  parts.push(txt(scaleX + scaleLen * 0.5, scaleY + 12, "50'", { size: 6.5, fill: C.textMuted, anchor: 'middle', spacing: '0' }))
-  parts.push(txt(scaleX + scaleLen, scaleY + 12, "100'", { size: 6.5, fill: C.textMuted, anchor: 'middle', spacing: '0' }))
+  parts.push(line(scaleX + scaleLen, scaleY - 5, scaleX + scaleLen, scaleY + 5, C.text, 0.8))
+  parts.push(txt(scaleX, scaleY + 13, '0m', { size: 6.5, fill: C.textMuted, anchor: 'middle', spacing: '0' }))
+  parts.push(txt(scaleX + scaleLen * 0.5, scaleY + 13, '50m', { size: 6.5, fill: C.textMuted, anchor: 'middle', spacing: '0' }))
+  parts.push(txt(scaleX + scaleLen, scaleY + 13, '100m', { size: 6.5, fill: C.textMuted, anchor: 'middle', spacing: '0' }))
 
   // North arrow
   const nx = PLAN_X + PLAN_W - 36
   const ny = TOP_H - 90
-  parts.push(path(`M${nx},${ny} L${nx - 6},${ny + 18} L${nx},${ny + 12} L${nx + 6},${ny + 18} Z`,
-    C.textMuted, 0.5, C.textMuted))
-  parts.push(txt(nx, ny - 6, 'N', { size: 8, fill: C.textMuted, anchor: 'middle', spacing: '0', weight: '300' }))
+  parts.push(path(`M${nx},${ny} L${nx - 7},${ny + 20} L${nx},${ny + 14} L${nx + 7},${ny + 20} Z`, C.line, 0, C.line))
+  parts.push(txt(nx, ny - 8, 'N', { size: 9, fill: C.text, anchor: 'middle', spacing: '0', weight: '400' }))
 
   return parts.join('\n')
 }
@@ -296,7 +270,7 @@ function renderPlanView(d: SiteAnalysisMapData): string {
 function renderDataBadges(d: SiteAnalysisMapData): string {
   const y = TOP_H
   const parts: string[] = [
-    rect(0, y, MAP_W, BADGE_H, '#f7f5f1'),
+    rect(0, y, MAP_W, BADGE_H, C.badgeBg),
     line(0, y, MAP_W, y, C.divider, 1),
     line(0, y + BADGE_H - 1, MAP_W, y + BADGE_H - 1, C.divider, 1),
   ]
@@ -348,131 +322,6 @@ function renderDataBadges(d: SiteAnalysisMapData): string {
   return parts.join('\n')
 }
 
-// ─── Section A–A ─────────────────────────────────────────────────────────────
-function renderSectionView(d: SiteAnalysisMapData): string {
-  const sy = SECT_Y
-  const sh = MAP_H - sy   // 1000 - 680 = 320
-  const parts: string[] = [
-    rect(0, sy, MAP_W, sh, C.bg),
-    line(0, sy, MAP_W, sy, C.divider, 0.5),
-  ]
-
-  // Section header
-  parts.push(txt(36, sy + 34, 'SECTION A–A', { size: 11, weight: '300', spacing: '0.22em' }))
-  parts.push(line(36, sy + 44, 200, sy + 44, C.divider, 0.5))
-
-  // Ground line
-  const groundY = sy + sh - 54
-  parts.push(line(120, groundY, MAP_W - 120, groundY, C.line, 0.8))
-
-  // Building section
-  const bldLeft = 260
-  const bldRight = MAP_W - 320
-  const bldW = bldRight - bldLeft
-  const roofY = groundY - 160
-  const ceilingY = groundY - (d.ceilingHeightFt ? Math.min(d.ceilingHeightFt * 8, 160) : 130)
-
-  // Building outline
-  parts.push(path(
-    `M${bldLeft},${groundY} L${bldLeft},${roofY} L${bldRight},${roofY} L${bldRight},${groundY}`,
-    C.line, 1, 'none',
-  ))
-
-  // Interior ceiling line (dashed)
-  parts.push(line(bldLeft, ceilingY, bldRight, ceilingY, C.textMuted, 0.5, '4 3'))
-
-  // Ceiling height annotation
-  const ceilMidX = bldLeft + bldW * 0.45
-  parts.push(line(ceilMidX, ceilingY, ceilMidX, groundY, C.textMuted, 0.4, '2 3'))
-  const ceilLabel = d.ceilingHeightFt ? `${d.ceilingHeightFt}'-0"` : 'CLR HT'
-  parts.push(txt(ceilMidX + 6, ceilingY + (groundY - ceilingY) * 0.5, ceilLabel, {
-    size: 8, fill: C.textMuted, spacing: '0.1em',
-  }))
-  parts.push(txt(ceilMidX + 6, ceilingY + (groundY - ceilingY) * 0.5 + 12, 'CLEAR', {
-    size: 7, fill: C.textMuted, spacing: '0.1em',
-  }))
-
-  // Interior columns (subtle)
-  const colPositions = [0.25, 0.5, 0.75]
-  for (const p of colPositions) {
-    const colX = bldLeft + bldW * p
-    parts.push(rect(colX - 3, ceilingY, 6, groundY - ceilingY, C.blockAlt))
-    parts.push(line(colX, ceilingY, colX, groundY, C.lineFaint, 0.8))
-  }
-
-  // Tree silhouette (left of building)
-  const treeX = bldLeft - 70
-  const trunkY = groundY
-  parts.push(line(treeX, trunkY, treeX, trunkY - 55, C.textMuted, 0.8))
-  parts.push(`<ellipse cx="${treeX}" cy="${trunkY - 75}" rx="22" ry="30" fill="none" stroke="${C.textMuted}" stroke-width="0.7" opacity="0.6"/>`)
-
-  // Car silhouette (left)
-  const carX = bldLeft - 160
-  const carY = groundY
-  parts.push(rect(carX, carY - 18, 50, 18, 'none'))
-  parts.push(path(`M${carX},${carY} L${carX},${carY - 12} L${carX + 12},${carY - 18} L${carX + 38},${carY - 18} L${carX + 50},${carY - 12} L${carX + 50},${carY} Z`,
-    C.textMuted, 0.6, 'none'))
-
-  // Street label
-  parts.push(txt(36, groundY + 16, d.neighborhood.toUpperCase() + ' ST', {
-    size: 7, fill: C.textMuted, spacing: '0.15em',
-  }))
-
-  // Sun path arc
-  const arcCx = bldLeft + bldW * 0.5
-  const arcPeakY = sy + 76
-  const arcLeft = 180
-  const arcRight = MAP_W - 200
-
-  parts.push(path(
-    `M${arcLeft},${roofY + 20} Q${arcCx},${arcPeakY} ${arcRight},${roofY + 20}`,
-    C.accent, 0.6, 'none', '5 4',
-  ))
-
-  // Sun icons
-  function sunIcon(sx: number, sunY: number, label: string, labelBelow: boolean): string {
-    const r = 7
-    const labelY = labelBelow ? sunY + r + 12 : sunY - r - 6
-    const rays = [0, 45, 90, 135, 180, 225, 270, 315].map(angle => {
-      const rad = angle * Math.PI / 180
-      const x1 = sx + (r + 2) * Math.cos(rad)
-      const y1 = sunY + (r + 2) * Math.sin(rad)
-      const x2 = sx + (r + 5) * Math.cos(rad)
-      const y2 = sunY + (r + 5) * Math.sin(rad)
-      return `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${C.accent}" stroke-width="0.7" opacity="0.6"/>`
-    }).join('')
-    return `${rays}<circle cx="${sx}" cy="${sunY}" r="${r}" fill="none" stroke="${C.accent}" stroke-width="0.8" opacity="0.8"/>
-<text x="${sx}" y="${labelY}" font-size="7" fill="${C.textMuted}" text-anchor="middle" letter-spacing="0.12em" font-family="'Arial Narrow', Arial, sans-serif">${e(label)}</text>`
-  }
-
-  parts.push(sunIcon(arcLeft + 10, roofY + 20, 'AM', false))
-  parts.push(sunIcon(arcCx, arcPeakY, 'NOON', false))
-  parts.push(sunIcon(arcRight - 10, roofY + 20, 'PM', false))
-
-  // Daylight note (right side)
-  const dnx = MAP_W - 200
-  const dny = sy + 70
-  const daylightNote = d.hasDaylightData ? 'NATURAL LIGHT' : 'DAYLIGHT'
-  const daylightSub = d.hasDaylightData ? 'NOTED BY OWNER' : 'OWNER VERIFY'
-  parts.push(`<circle cx="${dnx + 10}" cy="${dny + 8}" r="8" fill="none" stroke="${C.accent}" stroke-width="0.8" opacity="0.7"/>`)
-  for (let angle = 0; angle < 360; angle += 45) {
-    const rad = angle * Math.PI / 180
-    const x1 = dnx + 10 + 10 * Math.cos(rad)
-    const y1 = dny + 8 + 10 * Math.sin(rad)
-    const x2 = dnx + 10 + 14 * Math.cos(rad)
-    const y2 = dny + 8 + 14 * Math.sin(rad)
-    parts.push(`<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${C.accent}" stroke-width="0.6" opacity="0.5"/>`)
-  }
-  parts.push(txt(dnx + 26, dny + 4, daylightNote, { size: 8, spacing: '0.2em', fill: C.textMuted }))
-  parts.push(txt(dnx + 26, dny + 17, daylightSub, { size: 7, spacing: '0.15em', fill: C.textMuted, opacity: 0.7 }))
-  if (!d.hasDaylightData) {
-    parts.push(txt(dnx + 26, dny + 30, 'LADYBUG FILE', { size: 6.5, spacing: '0.1em', fill: C.textMuted, opacity: 0.5 }))
-    parts.push(txt(dnx + 26, dny + 41, 'NOT UPLOADED', { size: 6.5, spacing: '0.1em', fill: C.textMuted, opacity: 0.5 }))
-  }
-
-  return parts.join('\n')
-}
-
 // ─── Main export ──────────────────────────────────────────────────────────────
 export function renderSiteAnalysisMapSvg(data: SiteAnalysisMapData): Buffer {
   const svg = `<?xml version="1.0" encoding="UTF-8"?>
@@ -481,7 +330,6 @@ export function renderSiteAnalysisMapSvg(data: SiteAnalysisMapData): Buffer {
 ${renderLeftPanel(data)}
 ${renderPlanView(data)}
 ${renderDataBadges(data)}
-${renderSectionView(data)}
 </svg>`
 
   return Buffer.from(svg, 'utf-8')

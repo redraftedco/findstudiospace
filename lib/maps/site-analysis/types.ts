@@ -9,6 +9,14 @@ export interface SiteAnalysisCallout {
   sub?: string
 }
 
+// [lon, lat] coordinate pair (GIS convention)
+export type Coord = [number, number]
+
+export interface BuildingFootprint {
+  outerRing: Coord[]
+  isSubject: boolean
+}
+
 export interface SiteAnalysisMapData {
   listingId: number
   title: string
@@ -32,6 +40,9 @@ export interface SiteAnalysisMapData {
   // Listing specs (optional, for section view)
   ceilingHeightFt?: number
   hasDaylightData: boolean
+
+  // Real building footprints from Portland open data
+  footprints?: BuildingFootprint[]
 
   callouts: SiteAnalysisCallout[]
   generatedAt: string

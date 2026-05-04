@@ -17,6 +17,7 @@
 
 import { createClient } from '@supabase/supabase-js'
 import { buildSiteAnalysisData } from '../lib/maps/site-analysis/buildSiteAnalysisData'
+import { fetchBuildingFootprints } from '../lib/maps/site-analysis/fetchBuildingFootprints'
 import { renderSiteAnalysisMapSvg } from '../lib/maps/site-analysis/renderSiteAnalysisMap'
 import { uploadSiteAnalysisMap } from '../lib/maps/site-analysis/uploadSiteAnalysisMap'
 import type { SiteAnalysisMapData } from '../lib/maps/site-analysis/types'
@@ -117,7 +118,16 @@ async function processOne(listing: Record<string, unknown>, enrichment: Record<s
     return 'skipped'
   }
 
-  const data = result as SiteAnalysisMapData
+  let data = result as SiteAnalysisMapData
+
+  // Fetch real building footprints for Nolli figure-ground plan
+  try {
+    const footprints = await fetchBuildingFootprints(data.lat, data.lon)
+    data = { ...data, footprints }
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err)
+    console.warn(`  ⚠ footprints skipped #${id}: ${msg}`)
+  }
 
   try {
     const buffer = renderSiteAnalysisMapSvg(data)

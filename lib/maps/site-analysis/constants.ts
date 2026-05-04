@@ -3,22 +3,22 @@ export const STORAGE_BUCKET = 'generated-assets'
 export const STORAGE_PATH_PREFIX = 'site-analysis-maps'
 export const MAP_FILE_EXT = 'svg'
 export const MAP_W = 1600
-export const MAP_H = 1000
+export const MAP_H = 680   // TOP_H(576) + BADGE_H(104) — section removed
 export const MAX_CALLOUTS = 5
 
-// Light architectural plate palette (white paper, black ink)
+// Nolli figure-ground palette — cream paper, black built mass, white subject void
 export const C = {
-  bg:        '#ffffff',
-  block:     '#f0eeea',
-  blockAlt:  '#e8e5df',
-  street:    '#d8d4cc',
-  line:      '#1a1814',
-  lineFaint: '#c8c4bc',
+  bg:        '#f5f2e8',  // warm cream — paper/street voids
+  block:     '#1c1a16',  // near-black — solid built mass
+  blockAlt:  '#2a2720',  // slightly lighter for interior sub-divisions
+  street:    '#f5f2e8',  // same as bg — streets are voids
+  line:      '#1a1814',  // near-black ink
+  lineFaint: '#8a8278',  // muted for secondary lines
   text:      '#1a1814',
-  textMuted: '#7a7268',
+  textMuted: '#6a6258',
   accent:    '#7a3b1e',  // muted rust — subject site only
-  badgeBg:   '#f5f3ef',
-  divider:   '#d0cbc2',
+  badgeBg:   '#eeebe0',  // slightly darker cream for badge strip
+  divider:   '#c8c2b4',
 } as const
 
 // Category to display label
