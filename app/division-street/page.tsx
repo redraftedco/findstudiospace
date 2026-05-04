@@ -8,7 +8,7 @@ export const revalidate = 3600
 export const metadata: Metadata = {
   title: 'Studio Space for Rent on Division Street, Portland | FindStudioSpace',
   description:
-    'Find monthly studio and creative workspace for rent on SE Division Street in Portland. Art studios, creative offices, and workshop space in SE Portland\'s most active corridor.',
+    'Monthly studio and creative workspace for rent on SE Division Street in Portland. Art studios, offices, and workshop space in SE Portland.',
   alternates: { canonical: 'https://www.findstudiospace.com/division-street' },
   openGraph: {
     title: 'Studio Space for Rent on Division Street, Portland | FindStudioSpace',

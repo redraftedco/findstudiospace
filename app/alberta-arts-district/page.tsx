@@ -8,7 +8,7 @@ export const revalidate = 3600
 export const metadata: Metadata = {
   title: 'Studio Space for Rent in Alberta Arts District, Portland | FindStudioSpace',
   description:
-    'Find monthly studio space for rent in Portland\'s Alberta Arts District. Art studios, shared co-ops, and creative workspace on NE Alberta Street. Contact hosts directly.',
+    'Monthly studio space for rent in Portland\'s Alberta Arts District. Art studios, shared co-ops, and creative workspace on NE Alberta Street.',
   alternates: { canonical: 'https://www.findstudiospace.com/alberta-arts-district' },
   openGraph: {
     title: 'Studio Space for Rent in Alberta Arts District, Portland | FindStudioSpace',

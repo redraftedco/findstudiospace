@@ -430,7 +430,7 @@ export const categoryConfigs: Record<string, CategoryConfig> = {
   'art-studio-rental': {
     title: 'Art Studio for Rent in Portland, OR | FindStudioSpace',
     metaDescription:
-      'Find art studio space for rent in Portland, OR. Private studios and shared co-ops for painters, sculptors, ceramicists, and mixed media artists. Monthly rentals.',
+      'Art studio space for rent in Portland, OR. Private studios and shared co-ops for painters, ceramicists, and mixed media artists. Monthly rentals.',
     h1: 'Art Studio for Rent in Portland, OR',
     intro:
       'Browse private and shared art studios available for monthly rent in Portland, OR. From north-light painter studios to open maker co-ops, Portland has workspace for every practice and budget. Submit an inquiry from any listing to connect directly with the host.',

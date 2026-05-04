@@ -8,7 +8,7 @@ export const revalidate = 3600
 export const metadata: Metadata = {
   title: 'Studio Space for Rent on Mississippi Ave, Portland | FindStudioSpace',
   description:
-    'Find monthly studio and creative workspace for rent on N Mississippi Avenue in Portland. Artist studios, creative offices, and maker spaces in North Portland\'s arts corridor.',
+    'Monthly studio and creative workspace for rent on N Mississippi Avenue in Portland. Artist studios, offices, and maker spaces in North Portland.',
   alternates: { canonical: 'https://www.findstudiospace.com/mississippi-ave' },
   openGraph: {
     title: 'Studio Space for Rent on Mississippi Ave, Portland | FindStudioSpace',

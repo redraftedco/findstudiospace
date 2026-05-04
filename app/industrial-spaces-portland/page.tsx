@@ -62,7 +62,7 @@ const breadcrumbSchema = {
 export default async function IndustrialSpacesPortlandPage() {
   const { data: industrialListings } = await supabase
     .from('listings')
-    .select('*')
+    .select('id, title, price_display, neighborhood, type, images, description, created_at, tier, is_featured')
     .eq('status', 'active')
     .not('title', 'is', null)
     .not('neighborhood', 'ilike', '%Vancouver%')
@@ -113,7 +113,7 @@ export default async function IndustrialSpacesPortlandPage() {
             <span style={{ color: 'var(--ink)' }}>Industrial Space</span>
           </nav>
 
-          <h1 style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }} className="mb-4 text-3xl font-semibold">
+          <h1 style={{ fontFamily: 'var(--font-display)', color: 'var(--ink)', fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontWeight: 400, lineHeight: 0.94, textTransform: 'uppercase', marginBottom: '1rem' }}>
             Industrial Space for Rent in Portland, OR
           </h1>
           <p style={{ color: 'var(--stone)' }} className="mb-10 max-w-2xl text-sm leading-relaxed">
@@ -127,7 +127,7 @@ export default async function IndustrialSpacesPortlandPage() {
           )}
 
           <section style={{ borderTop: '1px solid var(--rule)' }} className="pt-10">
-            <h2 style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }} className="mb-6 text-xl font-semibold">
+            <h2 style={{ fontFamily: 'var(--font-display)', color: 'var(--ink)', fontSize: '1.75rem', fontWeight: 400, textTransform: 'uppercase', marginBottom: '1.5rem' }}>
               Frequently Asked Questions
             </h2>
             <dl className="space-y-6">

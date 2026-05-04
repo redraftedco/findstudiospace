@@ -8,12 +8,12 @@ export const revalidate = 3600
 export const metadata: Metadata = {
   title: 'Studio Space for Rent in Portland\'s Central Eastside | FindStudioSpace',
   description:
-    'Find monthly studio, workshop, and maker space for rent in Portland\'s Central Eastside Industrial District. High ceilings, loading access, and flex creative space.',
+    'Monthly studio, workshop, and maker space for rent in Portland\'s Central Eastside. High ceilings, loading access, and flex creative workspace.',
   alternates: { canonical: 'https://www.findstudiospace.com/central-eastside' },
   openGraph: {
     title: 'Studio Space for Rent in Portland\'s Central Eastside | FindStudioSpace',
     description:
-      'Find monthly studio, workshop, and maker space for rent in Portland\'s Central Eastside Industrial District. High ceilings, loading access, and flex creative space.',
+      'Monthly studio, workshop, and maker space for rent in Portland\'s Central Eastside. High ceilings, loading access, and flex creative workspace.',
   },
 }
 

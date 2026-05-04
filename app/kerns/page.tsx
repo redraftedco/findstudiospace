@@ -8,7 +8,7 @@ export const revalidate = 3600
 export const metadata: Metadata = {
   title: 'Studio Space for Rent in Kerns, Portland | FindStudioSpace',
   description:
-    'Find monthly studio and creative workspace for rent in the Kerns neighborhood of NE Portland. Artist studios, creative offices, and workshop space between the Pearl District and Alberta Arts.',
+    'Monthly studio and creative workspace for rent in Kerns, NE Portland. Artist studios, offices, and workshop space near the Pearl District and Alberta Arts.',
   alternates: { canonical: 'https://www.findstudiospace.com/kerns' },
   openGraph: {
     title: 'Studio Space for Rent in Kerns, Portland | FindStudioSpace',

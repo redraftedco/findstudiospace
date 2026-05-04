@@ -62,7 +62,7 @@ const breadcrumbSchema = {
 export default async function PodcastStudiosPage() {
   const { data: podcastListings } = await supabase
     .from('listings')
-    .select('*')
+    .select('id, title, price_display, neighborhood, type, images, description, created_at, tier, is_featured')
     .eq('status', 'active')
     .not('title', 'is', null)
     .or(
@@ -76,7 +76,7 @@ export default async function PodcastStudiosPage() {
   const { data: fallbackListings } = (!podcastListings || podcastListings.length < 4)
     ? await supabase
         .from('listings')
-        .select('*')
+        .select('id, title, price_display, neighborhood, type, images, description, created_at, tier, is_featured')
         .eq('status', 'active')
         .not('title', 'is', null)
         .eq('type', 'music')
@@ -128,8 +128,7 @@ export default async function PodcastStudiosPage() {
           </nav>
 
           <h1
-            style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }}
-            className="mb-4 text-3xl font-semibold"
+            style={{ fontFamily: 'var(--font-display)', color: 'var(--ink)', fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontWeight: 400, lineHeight: 0.94, textTransform: 'uppercase', marginBottom: '1rem' }}
           >
             Podcast Studios for Rent
           </h1>
@@ -151,8 +150,7 @@ export default async function PodcastStudiosPage() {
           {/* FAQ */}
           <section style={{ borderTop: '1px solid var(--rule)' }} className="pt-10">
             <h2
-              style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }}
-              className="mb-6 text-xl font-semibold"
+              style={{ fontFamily: 'var(--font-display)', color: 'var(--ink)', fontSize: '1.75rem', fontWeight: 400, textTransform: 'uppercase', marginBottom: '1.5rem' }}
             >
               Frequently Asked Questions
             </h2>
