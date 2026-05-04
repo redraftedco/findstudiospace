@@ -126,6 +126,11 @@ export default async function CityPage({ params, searchParams }: PageProps) {
   const q = sanitizeQuery(sp.q)
 
   // ── Static-config cities (Portland, Seattle) ──────────────────────────────
+  // Atlanta pages need the red accent; Portland inherits global forest green.
+  const accentOverride: React.CSSProperties | undefined = citySlug === 'atlanta'
+    ? { '--lime': '#c0392b', '--lime-bg': '#c0392b', '--lime-bg-hover': '#922b21', '--lime-soft': '#FDECEA' } as React.CSSProperties
+    : undefined
+
   if (staticConfig) {
     let query = supabase
       .from('listings')
@@ -147,7 +152,11 @@ export default async function CityPage({ params, searchParams }: PageProps) {
     const total = rows.length
     const config = staticConfig
 
-    return <CityPageUI citySlug={citySlug} config={config} rows={rows} total={total} q={q} isIndexable />
+    return (
+      <div style={accentOverride}>
+        <CityPageUI citySlug={citySlug} config={config} rows={rows} total={total} q={q} isIndexable />
+      </div>
+    )
   }
 
   // ── DB-backed cities ──────────────────────────────────────────────────────
@@ -195,7 +204,11 @@ export default async function CityPage({ params, searchParams }: PageProps) {
     description: `Browse monthly studio rentals in ${dbCityTyped.name} — art studios, workshops, offices, photo studios, and creative spaces for makers and producers.`,
   }
 
-  return <CityPageUI citySlug={citySlug} config={config} rows={rows} total={total} q={q} isIndexable={gate.indexable} />
+  return (
+    <div style={accentOverride}>
+      <CityPageUI citySlug={citySlug} config={config} rows={rows} total={total} q={q} isIndexable={gate.indexable} />
+    </div>
+  )
 }
 
 // ── Shared page UI ─────────────────────────────────────────────────────────────
@@ -358,7 +371,7 @@ function CityPageUI({
               style={{ color: 'var(--ink)' }}
               className="hero-title"
             >
-              <span style={{ color: '#cc0000' }}>{config.displayName}</span> studio rentals & creative workspace.
+              <span style={{ color: 'var(--lime)' }}>{config.displayName}</span> studio rentals & creative workspace.
             </h1>
             <p
               style={{

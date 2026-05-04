@@ -14,6 +14,8 @@ interface ClaimResult {
   tier: string
 }
 
+type ClaimStep = 'idle' | 'sent'
+
 function ClaimPageInner() {
   const params = useSearchParams()
   const prefillId = params.get('listing_id') || ''
@@ -25,6 +27,13 @@ function ClaimPageInner() {
   const [result, setResult] = useState<ClaimResult | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [portalLoading, setPortalLoading] = useState(false)
+
+  const [claimEmail, setClaimEmail] = useState('')
+  const [claimLoading, setClaimLoading] = useState(false)
+  const [claimStep, setClaimStep] = useState<ClaimStep>('idle')
+  const [claimError, setClaimError] = useState<string | null>(null)
+
+  const ownershipError = params.get('error') === 'ownership_mismatch'
 
   async function handleLookup() {
     if (!listingId.trim()) {
@@ -50,6 +59,36 @@ function ClaimPageInner() {
       setError('Something went wrong. Please try again.')
     } finally {
       setLoading(false)
+    }
+  }
+
+  async function handleClaim() {
+    if (!result || !claimEmail.trim()) {
+      setClaimError('Enter the email address associated with this listing.')
+      return
+    }
+    setClaimLoading(true)
+    setClaimError(null)
+    try {
+      const res = await fetch('/api/claim/send-magic-link', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: claimEmail.trim(), listing_id: result.listing_id }),
+      })
+      const data = await res.json()
+      if (res.status === 429) {
+        setClaimError(data.error ?? 'Please wait a minute before trying again.')
+        return
+      }
+      if (!res.ok) {
+        setClaimError(data.error ?? 'Something went wrong. Try again.')
+        return
+      }
+      setClaimStep('sent')
+    } catch {
+      setClaimError('Something went wrong. Try again.')
+    } finally {
+      setClaimLoading(false)
     }
   }
 
@@ -99,6 +138,20 @@ function ClaimPageInner() {
           ← FindStudioSpace
         </Link>
 
+        {ownershipError && (
+          <div style={{
+            background: 'rgba(229,161,0,0.08)',
+            color: 'var(--featured-color)',
+            padding: '16px',
+            fontFamily: 'var(--font-mono)',
+            fontSize: '13px',
+            marginBottom: '24px',
+            border: '1px solid rgba(229,161,0,0.2)',
+          }}>
+            That link didn&apos;t match this listing&apos;s ownership records. Enter your email below to try again.
+          </div>
+        )}
+
         {success && (
           <div style={{
             background: 'rgba(212,245,66,0.08)',
@@ -135,7 +188,7 @@ function ClaimPageInner() {
           margin: '0 0 8px',
           lineHeight: 1.2,
         }}>
-          See your inquiry activity
+          Claim your listing
         </h1>
 
         <p style={{
@@ -145,7 +198,7 @@ function ClaimPageInner() {
           margin: '0 0 40px',
           lineHeight: 1.6,
         }}>
-          Enter your listing ID to see how many tenants have inquired about your space.
+          Enter your listing ID to see how many renters have inquired about your studio, and to manage your listing.
         </p>
 
         <div style={{ marginBottom: '12px' }}>
@@ -302,49 +355,92 @@ function ClaimPageInner() {
               </button>
             )}
 
-            {/* Free state: sponsor CTA */}
+            {/* Free state: claim flow */}
             {result.tier !== 'pro' && (
-              <>
-                <p style={{
-                  fontFamily: 'var(--font-body)',
+              claimStep === 'sent' ? (
+                <div style={{
+                  background: 'rgba(212,245,66,0.08)',
+                  border: '1px solid rgba(212,245,66,0.2)',
+                  padding: '20px',
+                  fontFamily: 'var(--font-mono)',
                   fontSize: '13px',
-                  color: 'var(--stone)',
-                  margin: '0 0 16px',
+                  color: 'var(--lime)',
                   lineHeight: 1.6,
                 }}>
-                  Want more renters to see this listing? Sponsored placement puts your studio above organic results on a category or neighborhood page.
-                </p>
-
-                <Link
-                  href="/advertise"
-                  className="btn-action"
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: '100%',
-                    padding: '14px',
+                  If that email matches our records, you&apos;ll get a link in the next minute. Check your inbox and click it to access your dashboard.
+                </div>
+              ) : (
+                <>
+                  <p style={{
                     fontFamily: 'var(--font-heading)',
-                    fontSize: '0.875rem',
-                    fontWeight: 500,
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.05em',
-                    border: 'none',
-                    textDecoration: 'none',
-                  }}
-                >
-                  See sponsored placement
-                </Link>
-                <p style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: '13px',
-                  color: 'var(--stone)',
-                  textAlign: 'center',
-                  margin: '8px 0 0',
-                }}>
-                  Starts at $49/month. Renters contact your studio directly.
-                </p>
-              </>
+                    fontSize: '14px',
+                    fontWeight: 600,
+                    color: 'var(--ink)',
+                    margin: '0 0 6px',
+                  }}>
+                    Claim this listing
+                  </p>
+                  <p style={{
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '13px',
+                    color: 'var(--stone)',
+                    margin: '0 0 14px',
+                    lineHeight: 1.6,
+                  }}>
+                    Enter the email address associated with this studio. We&apos;ll send a sign-in link — no password needed.
+                  </p>
+
+                  <input
+                    type="email"
+                    placeholder="studio@example.com"
+                    value={claimEmail}
+                    onChange={e => setClaimEmail(e.target.value)}
+                    onKeyDown={e => e.key === 'Enter' && handleClaim()}
+                    style={{
+                      display: 'block',
+                      width: '100%',
+                      padding: '10px 12px',
+                      border: '1px solid var(--rule)',
+                      fontFamily: 'var(--font-body)',
+                      fontSize: '14px',
+                      background: 'var(--search-bg)',
+                      color: 'var(--ink)',
+                      marginBottom: '10px',
+                      boxSizing: 'border-box',
+                      outline: 'none',
+                    }}
+                  />
+
+                  {claimError && (
+                    <p style={{
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '12px',
+                      color: 'var(--action)',
+                      margin: '0 0 10px',
+                    }}>
+                      {claimError}
+                    </p>
+                  )}
+
+                  <button
+                    onClick={handleClaim}
+                    disabled={claimLoading}
+                    className="btn-action"
+                    style={{
+                      width: '100%',
+                      padding: '12px',
+                      fontFamily: 'var(--font-body)',
+                      fontSize: '14px',
+                      fontWeight: 500,
+                      border: 'none',
+                      cursor: claimLoading ? 'not-allowed' : 'pointer',
+                      opacity: claimLoading ? 0.7 : 1,
+                    }}
+                  >
+                    {claimLoading ? 'Sending…' : 'Send claim link →'}
+                  </button>
+                </>
+              )
             )}
           </div>
         )}
@@ -362,7 +458,7 @@ export default function ClaimPage() {
             Claim your listing
           </h1>
           <p style={{ color: 'var(--stone)', fontFamily: 'var(--font-body)' }} className="text-sm leading-relaxed">
-            Enter your listing ID to find and claim your studio. Loading...
+            Loading…
           </p>
         </div>
       </main>

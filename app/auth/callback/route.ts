@@ -64,7 +64,7 @@ export async function GET(req: NextRequest) {
 
   if (listing?.owner_user_id) {
     if (listing.owner_user_id === user.id) return res
-    return NextResponse.redirect(`${siteUrl}/claim/${id}?error=ownership_mismatch`)
+    return NextResponse.redirect(`${siteUrl}/claim?listing_id=${id}&error=ownership_mismatch`)
   }
 
   if (listing && emailMatches) {

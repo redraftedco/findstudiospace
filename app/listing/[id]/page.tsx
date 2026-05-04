@@ -8,6 +8,9 @@ import InquiryForm from '@/components/InquiryForm'
 import ViewCounter from '@/components/ViewCounter'
 import ProUpsell from '@/components/ProUpsell'
 import ClaimBanner from '@/components/ClaimBanner'
+import ArchSpecs from '@/components/ArchSpecs'
+import SpaceBadges from '@/components/SpaceBadges'
+import PreLeaseChecklist from '@/components/PreLeaseChecklist'
 
 export const revalidate = 3600
 const BLOCKED_PUBLIC_LISTING_IDS = new Set(['1104'])
@@ -109,12 +112,20 @@ export default async function ListingPage({ params }: Props) {
 
   if (!listing) notFound()
 
+  const { data: enrichment } = await supabase
+    .from('listing_enrichment')
+    .select('zoning_base,airport_noise_dnl_band,fema_flood_zone,wildfire_hazard,landslide_hazard,parking_permit_zone,business_district,hri_listed,opportunity_zone,nearest_max_stop_id,dist_to_max_meters,nearest_bus_stop_id,dist_to_bus_meters,site_analysis_map_url,site_analysis_map_status')
+    .eq('listing_id', id)
+    .maybeSingle()
+
   // Inactive or removed listings 301 to their parent category page
   if (listing.status !== 'active') {
     const typeKey = (listing.type ?? '').toLowerCase()
     const categorySlug = TYPE_TO_CATEGORY_SLUG[typeKey]
     redirect(categorySlug ? `/portland/${categorySlug}` : '/portland')
   }
+
+  const isPro = listing.tier === 'pro'
 
   // Coerce numeric columns once for schema reuse below
   const lat = typeof listing.latitude  === 'number' ? listing.latitude  : null
@@ -169,9 +180,19 @@ export default async function ListingPage({ params }: Props) {
         .filter(Boolean)
     : []
 
-  if (allImages.length === 0) redirect('/portland')
+  // Free listings with no photos redirect; Pro listings stay (can show map or placeholder)
+  if (allImages.length === 0 && !isPro) redirect('/portland')
 
   const images: string[] = clampImagesToTier(allImages, listing.tier)
+
+  // Site analysis map is a Pro-only feature — inject as second image (or first if no photos)
+  const mapUrl = isPro && enrichment?.site_analysis_map_status === 'generated'
+    ? (enrichment?.site_analysis_map_url ?? null)
+    : null
+  if (mapUrl) {
+    if (images.length >= 1) images.splice(1, 0, mapUrl)
+    else images.push(mapUrl)
+  }
 
   const typeKey = (listing.type ?? '').toLowerCase()
   const categorySlug = TYPE_TO_CATEGORY_SLUG[typeKey] ?? null
@@ -252,6 +273,109 @@ export default async function ListingPage({ params }: Props) {
     ],
   }
 
+  // ── FREE TIER ──────────────────────────────────────────────────────────────
+  if (!isPro) {
+    const freeSpecs = [
+      { label: 'Type',         value: categoryLabel },
+      { label: 'Neighborhood', value: neighborhood },
+      { label: 'Address',      value: listing.address ? String(listing.address) : null },
+      { label: 'Size',         value: sqft ? `${sqft.toLocaleString('en-US')} sq ft` : null },
+      { label: 'Monthly',      value: listing.price_display ? priceFormatted : null },
+    ].filter((r): r is { label: string; value: string } => !!r.value)
+
+    return (
+      <>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
+        <ClaimBanner listingId={String(listing.id)} studioName={studioName} />
+        <main style={{ background: 'var(--paper)', color: 'var(--ink)' }} className="min-h-screen">
+          <div className="mx-auto" style={{ maxWidth: '1200px', padding: '2rem 1.5rem 4rem' }}>
+            <nav style={{ color: 'var(--stone)', fontFamily: 'var(--font-body)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '1.5rem' }}>
+              <Link href="/portland" style={{ color: 'var(--ink)' }}>Directory</Link>
+              <span style={{ margin: '0 0.5rem', color: 'var(--rule)' }}>/</span>
+              <Link href="/portland" style={{ color: 'var(--ink)' }}>Portland</Link>
+              {listing.neighborhood && (<><span style={{ margin: '0 0.5rem', color: 'var(--rule)' }}>/</span><span>{listing.neighborhood}</span></>)}
+              <span style={{ margin: '0 0.5rem', color: 'var(--rule)' }}>/</span>
+              <span style={{ color: 'var(--stone)' }}>{studioName}</span>
+            </nav>
+
+            <h1 style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)', fontSize: '2.5rem', fontWeight: 600, letterSpacing: '-0.02em', lineHeight: 1.1, margin: '0 0 0.75rem' }} className="listing-title">
+              {studioName}
+            </h1>
+            <p style={{ fontFamily: 'var(--font-body)', color: 'var(--stone)', fontSize: '1rem', margin: '0 0 2rem' }}>
+              {neighborhood}
+              <span style={{ margin: '0 0.4rem', color: 'var(--rule)' }}>·</span>
+              <span className={textClass}>{categoryLabel}</span>
+            </p>
+
+            <ViewCounter listingId={String(listing.id)} tier="free" />
+
+            <div className="listing-detail-layout">
+              <div className="listing-detail-main">
+
+                {/* Hero — one photo only on free tier */}
+                {allImages.length > 0 ? (
+                  <img
+                    src={allImages[0]}
+                    alt={`${studioName} ${categoryLabel.toLowerCase()} in ${neighborhood} Portland`}
+                    style={{ width: '100%', aspectRatio: '4/3', objectFit: 'cover', display: 'block', border: '1px solid var(--rule)' }}
+                  />
+                ) : (
+                  <div style={{ width: '100%', aspectRatio: '4/3', background: 'var(--surface)', border: '1px solid var(--rule)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--stone)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Photo pending</span>
+                  </div>
+                )}
+
+                <hr style={{ border: 'none', borderTop: '1px solid var(--rule)', margin: '2rem 0' }} />
+
+                {/* Basic spec table */}
+                <dl style={{ margin: 0 }}>
+                  {freeSpecs.map((row, i) => (
+                    <div key={row.label} style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: '0 1.5rem', padding: '0.75rem 0', borderBottom: i < freeSpecs.length - 1 ? '1px solid var(--rule)' : 'none' }}>
+                      <dt style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6875rem', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--stone)', paddingTop: '2px' }}>{row.label}</dt>
+                      <dd style={{ fontFamily: 'var(--font-body)', fontSize: '0.9375rem', color: 'var(--ink)', margin: 0, fontWeight: 500 }}>{row.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+
+                {/* Site analysis map — Studio Pro only */}
+                <hr style={{ border: 'none', borderTop: '1px solid var(--rule)', margin: '2rem 0' }} />
+                <div style={{ background: '#f5f2e8', border: '1px solid var(--rule)', padding: '48px 36px', textAlign: 'center' }}>
+                  <p style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', color: 'var(--stone)', textTransform: 'uppercase', letterSpacing: '0.16em', margin: '0 0 10px' }}>Site Analysis Map · Studio Pro</p>
+                  <p style={{ fontFamily: 'var(--font-heading)', fontSize: '16px', fontWeight: 600, color: 'var(--ink)', margin: '0 0 8px' }}>Zoning, transit &amp; neighborhood context</p>
+                  <p style={{ fontFamily: 'var(--font-body)', fontSize: '13px', color: 'var(--stone)', margin: '0 0 20px', lineHeight: 1.6, maxWidth: '380px', marginLeft: 'auto', marginRight: 'auto' }}>
+                    Figure-ground map of the surrounding block, transit access, flood zone, and zoning classification. Available when the studio owner claims this listing.
+                  </p>
+                  <Link href="/advertise" style={{ fontFamily: 'var(--font-body)', fontSize: '13px', fontWeight: 500, color: 'var(--action)', textDecoration: 'none' }}>
+                    Claim and upgrade this listing →
+                  </Link>
+                </div>
+
+                <hr style={{ border: 'none', borderTop: '1px solid var(--rule)', margin: '2rem 0 1.5rem' }} />
+                <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--stone)', margin: 0 }}>
+                  LISTING ID · {listing.id}
+                </p>
+              </div>
+
+              <aside className="listing-detail-aside">
+                <div className="listing-sidebar-card">
+                  <p style={{ fontFamily: 'var(--font-heading)', color: 'var(--lime)', fontSize: '2rem', fontWeight: 700, margin: '0 0 2px', letterSpacing: '-0.02em', lineHeight: 1 }}>
+                    {priceFormatted}
+                  </p>
+                  <p style={{ fontFamily: 'var(--font-body)', color: 'var(--stone)', fontSize: '0.8125rem', margin: '0 0 1.5rem' }}>per month</p>
+                  <InquiryForm listingId={String(listing.id)} listingTitle={studioName} />
+                </div>
+                <ProUpsell listingId={String(listing.id)} />
+              </aside>
+            </div>
+          </div>
+          <a href="#inquiry" className="mobile-inquiry-bar">Inquire about this studio</a>
+        </main>
+      </>
+    )
+  }
+
+  // ── PRO TIER ───────────────────────────────────────────────────────────────
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -288,20 +412,23 @@ export default async function ListingPage({ params }: Props) {
           </nav>
 
           {/* Title row */}
-          <h1
-            style={{
-              fontFamily: 'var(--font-heading)',
-              color: 'var(--ink)',
-              fontSize: '2.5rem',
-              fontWeight: 600,
-              letterSpacing: '-0.02em',
-              lineHeight: 1.1,
-              margin: '0 0 0.75rem',
-            }}
-            className="listing-title"
-          >
-            {studioName}
-          </h1>
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', margin: '0 0 0.75rem', flexWrap: 'wrap' }}>
+            <h1
+              style={{
+                fontFamily: 'var(--font-heading)',
+                color: 'var(--ink)',
+                fontSize: '2.5rem',
+                fontWeight: 600,
+                letterSpacing: '-0.02em',
+                lineHeight: 1.1,
+                margin: 0,
+              }}
+              className="listing-title"
+            >
+              {studioName}
+            </h1>
+            <span className="pro-badge" style={{ marginTop: '10px', flexShrink: 0 }}>Studio Pro</span>
+          </div>
 
           {/* Metadata line: Neighborhood · Type · Sqft */}
           <p
@@ -440,6 +567,44 @@ export default async function ListingPage({ params }: Props) {
                 )}
               </section>
 
+
+              {/* Technical specs */}
+              {(listing.ceiling_height_ft || listing.power_amps || listing.voltage_phase ||
+                listing.stc_rating || listing.nc_rating || listing.floor_type ||
+                listing.loading_dock_type || listing.ventilation_cfm ||
+                listing.kiln_ready || listing.cyc_wall_struct) && (
+                <>
+                  <hr style={{ border: 'none', borderTop: '1px solid var(--rule)', margin: '3rem 0' }} />
+                  <ArchSpecs
+                    ceilingHeightFt={listing.ceiling_height_ft}
+                    powerAmps={listing.power_amps}
+                    voltagePhase={listing.voltage_phase}
+                    stcRating={listing.stc_rating}
+                    ncRating={listing.nc_rating}
+                    floorType={listing.floor_type}
+                    loadingDockType={listing.loading_dock_type}
+                    ventilationCfm={listing.ventilation_cfm}
+                    kilnReady={listing.kiln_ready}
+                    cycWall={listing.cyc_wall_struct}
+                  />
+                </>
+              )}
+
+              {/* GIS location data */}
+              {enrichment && (
+                <>
+                  <hr style={{ border: 'none', borderTop: '1px solid var(--rule)', margin: '3rem 0' }} />
+                  <SpaceBadges enrichment={enrichment} />
+                </>
+              )}
+
+              {/* Pre-lease checklist */}
+              {listing.type && (
+                <>
+                  <hr style={{ border: 'none', borderTop: '1px solid var(--rule)', margin: '3rem 0' }} />
+                  <PreLeaseChecklist studioType={listing.type} />
+                </>
+              )}
 
               {/* Hairline */}
               <hr
