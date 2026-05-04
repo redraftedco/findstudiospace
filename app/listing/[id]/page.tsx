@@ -105,10 +105,16 @@ export default async function ListingPage({ params }: Props) {
     .from('listings')
     .select('*')
     .eq('id', id)
-    .eq('status', 'active')
     .single()
 
   if (!listing) notFound()
+
+  // Inactive or removed listings 301 to their parent category page
+  if (listing.status !== 'active') {
+    const typeKey = (listing.type ?? '').toLowerCase()
+    const categorySlug = TYPE_TO_CATEGORY_SLUG[typeKey]
+    redirect(categorySlug ? `/portland/${categorySlug}` : '/portland')
+  }
 
   // Coerce numeric columns once for schema reuse below
   const lat = typeof listing.latitude  === 'number' ? listing.latitude  : null

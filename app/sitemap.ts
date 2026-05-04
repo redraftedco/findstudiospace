@@ -63,6 +63,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/blog/what-to-look-for-viewing-studio-space`,     lastModified: new Date(), changeFrequency: 'monthly', priority: 0.70 },
     { url: `${BASE}/blog/photography-studio-setup-budget-portland`,  lastModified: new Date(), changeFrequency: 'monthly', priority: 0.70 },
     { url: `${BASE}/blog/how-to-sublease-studio-space-portland`,     lastModified: new Date(), changeFrequency: 'monthly', priority: 0.70 },
+    { url: `${BASE}/blog/portland-art-studio-rental`,                lastModified: new Date(), changeFrequency: 'monthly', priority: 0.70 },
+    { url: `${BASE}/blog/studio-workspace-portland`,                 lastModified: new Date(), changeFrequency: 'monthly', priority: 0.70 },
+    { url: `${BASE}/portland-studio-neighborhoods`,                  lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 },
   ]
 
   // City hub pages — one per indexable city

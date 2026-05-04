@@ -84,6 +84,18 @@ const POSTS = [
     description: 'A practical guide to subleasing a studio space in Portland — landlord approval, pricing, finding a subtenant, and documenting the arrangement.',
   },
   {
+    slug: 'studio-workspace-portland',
+    title: "Studio Workspace for Rent in Portland: A Renter's Guide",
+    date: '2026-04-28',
+    description: "A renter's guide to monthly studio workspace in Portland — art studios, photo studios, workshops, offices, and fitness spaces. Prices by category and how to find the right fit.",
+  },
+  {
+    slug: 'portland-art-studio-rental',
+    title: 'Art Studio Rental in Portland: Prices, Neighborhoods & What to Expect',
+    date: '2026-04-22',
+    description: 'Current prices for art studio rentals in Portland — from shared co-ops at $200/mo to private studios at $800+. Neighborhood guide, studio types, and what to look for before signing.',
+  },
+  {
     slug: 'photo-studio-rental-portland',
     title: 'How to Rent a Photography Studio in Portland, OR',
     date: '2026-04-26',
