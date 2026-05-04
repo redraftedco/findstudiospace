@@ -1,10 +1,10 @@
 import 'server-only'
 import { NextRequest, NextResponse } from 'next/server'
-import { z } from 'zod'
 import { stripe } from '@/lib/stripe'
+import { createAuthClient } from '@/lib/supabase-auth'
 import { supabaseServer } from '@/lib/supabase-server'
 import { checkOrigin } from '@/lib/security'
-import { PLACEMENT_TYPES, TARGET_TYPES } from '@/lib/placements'
+import { PLACEMENT_TYPES, TARGET_TYPES, type PlacementType, type TargetType } from '@/lib/placements'
 
 const PRICE_IDS: Record<string, string | undefined> = {
   featured_category:     process.env.STRIPE_PRICE_FEATURED_CATEGORY_ID,
@@ -12,14 +12,36 @@ const PRICE_IDS: Record<string, string | undefined> = {
   featured_studio:       process.env.STRIPE_PRICE_FEATURED_STUDIO_ID,
 }
 
-const BodySchema = z.object({
-  listing_id:     z.number().int().positive(),
-  placement_type: z.enum(PLACEMENT_TYPES),
-  target_type:    z.enum(TARGET_TYPES),
-  target_slug:    z.string().min(1).max(100),
-})
-
 const SITE_URL = 'https://www.findstudiospace.com'
+
+type CheckoutBody = {
+  listing_id: number
+  placement_type: PlacementType
+  target_type: TargetType
+  target_slug: string
+}
+
+function parseCheckoutBody(body: unknown): CheckoutBody | null {
+  if (!body || typeof body !== 'object') return null
+
+  const raw = body as Record<string, unknown>
+  const listingId = raw.listing_id
+  const placementType = raw.placement_type
+  const targetType = raw.target_type
+  const targetSlug = raw.target_slug
+
+  if (typeof listingId !== 'number' || !Number.isInteger(listingId) || listingId <= 0) return null
+  if (typeof placementType !== 'string' || !PLACEMENT_TYPES.includes(placementType as PlacementType)) return null
+  if (typeof targetType !== 'string' || !TARGET_TYPES.includes(targetType as TargetType)) return null
+  if (typeof targetSlug !== 'string' || targetSlug.length < 1 || targetSlug.length > 100) return null
+
+  return {
+    listing_id: listingId,
+    placement_type: placementType as PlacementType,
+    target_type: targetType as TargetType,
+    target_slug: targetSlug,
+  }
+}
 
 export async function POST(req: NextRequest) {
   const originError = checkOrigin(req)
@@ -32,23 +54,32 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
   }
 
-  const parsed = BodySchema.safeParse(body)
-  if (!parsed.success) {
-    return NextResponse.json({ error: parsed.error.issues[0].message }, { status: 400 })
+  const parsed = parseCheckoutBody(body)
+  if (!parsed) {
+    return NextResponse.json({ error: 'Invalid checkout request' }, { status: 400 })
   }
 
-  const { listing_id, placement_type, target_type, target_slug } = parsed.data
+  const { listing_id, placement_type, target_type, target_slug } = parsed
 
-  // Confirm listing exists and is active before creating anything in Stripe
+  const auth = await createAuthClient()
+  const { data: { user } } = await auth.auth.getUser()
+  if (!user) {
+    return NextResponse.json({ error: 'Sign in to manage this listing' }, { status: 401 })
+  }
+
   const { data: listing } = await supabaseServer
     .from('listings')
-    .select('id')
+    .select('id, owner_user_id')
     .eq('id', listing_id)
     .eq('status', 'active')
     .single()
 
   if (!listing) {
     return NextResponse.json({ error: 'Listing not found' }, { status: 404 })
+  }
+
+  if (listing.owner_user_id !== user.id) {
+    return NextResponse.json({ error: 'You do not own this listing' }, { status: 403 })
   }
 
   const priceId = PRICE_IDS[placement_type]
