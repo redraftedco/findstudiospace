@@ -3,8 +3,8 @@ import Link from 'next/link'
 import HomepageSearch from '@/components/HomepageSearch'
 
 export const metadata: Metadata = {
-  title: 'Studio Space for Rent — Portland & Atlanta | FindStudioSpace',
-  description: 'Browse 120+ photo studios, art rooms, podcast studios, event spaces, and creative workspace for rent in Portland, OR and Atlanta, GA. No booking fees.',
+  title: 'Studio Space for Rent — Portland, Seattle & Atlanta | FindStudioSpace',
+  description: 'Browse 120+ photo studios, art rooms, podcast studios, event spaces, and creative workspace for rent in Portland, Seattle, and Atlanta. No booking fees.',
   alternates: { canonical: 'https://www.findstudiospace.com' },
   openGraph: {
     title: 'Studio Space for Rent — Portland & Atlanta | FindStudioSpace',
@@ -133,13 +133,14 @@ export default function HomePage() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
               {[
                 { city: 'Portland, OR', slug: 'portland', count: '119', desc: 'Central Eastside, Pearl District, Alberta Arts, Kerns' },
+                { city: 'Seattle, WA', slug: 'seattle', count: 'New', desc: 'Capitol Hill, Georgetown, Fremont, Ballard, SoDo', color: '#2563a8' },
                 { city: 'Atlanta, GA', slug: 'atlanta', count: 'New', desc: 'Old Fourth Ward, West Midtown, Ponce City Market area' },
               ].map(c => (
                 <Link key={c.slug} href={`/${c.slug}`} style={{ textDecoration: 'none', display: 'block', border: '1px solid var(--rule)', padding: '24px' }}>
                   <p style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--stone)', textTransform: 'uppercase', letterSpacing: '0.08em', margin: '0 0 6px' }}>
                     {c.count} listings
                   </p>
-                  <p style={{ fontFamily: 'var(--font-heading)', fontSize: '20px', fontWeight: 600, color: 'var(--ink)', margin: '0 0 6px' }}>
+                  <p style={{ fontFamily: 'var(--font-heading)', fontSize: '20px', fontWeight: 600, color: c.color ?? 'var(--ink)', margin: '0 0 6px' }}>
                     {c.city}
                   </p>
                   <p style={{ fontFamily: 'var(--font-body)', fontSize: '13px', color: 'var(--stone)', margin: 0 }}>
