@@ -383,7 +383,7 @@ function CityPageUI({
                 maxWidth: '620px',
               }}
             >
-              <span style={{ fontWeight: 700 }}>{total}</span>
+              <span style={{ fontWeight: 700, color: 'var(--lime)' }}>{total}</span>
               {' '}studios. Every neighborhood. Free to search.
             </p>
 
