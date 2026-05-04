@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 const FAQS = [
   {
     q: 'What is Slabtown in Portland?',
-    a: 'Slabtown is a neighborhood in NW Portland, roughly bounded by NW 18th and 25th Avenues and NW Lovejoy and Vaughn Streets. Once an industrial district, it\'s become a mixed-use corridor of creative offices, studios, fitness spaces, and restaurants — adjacent to the Pearl District and Nob Hill.',
+    a: 'Slabtown is a neighborhood in NW Portland, roughly bounded by NW 18th and 25th Avenues and NW Lovejoy and Vaughn Streets. Once an industrial district, it\'s become a mixed-use corridor of creative offices, studios, fitness spaces, and restaurants, adjacent to the Pearl District and Nob Hill.',
   },
   {
     q: 'How much does studio space cost in Slabtown?',
@@ -28,7 +28,7 @@ const FAQS = [
   },
   {
     q: 'What types of studios are available in Slabtown?',
-    a: 'Slabtown has a mix of creative offices, design studios, fitness spaces, and smaller maker spaces — many in converted industrial buildings with polished interiors. It\'s well suited for creative professionals, small agencies, and practitioners who want Pearl District proximity at slightly lower rents.',
+    a: 'Slabtown has a mix of creative offices, design studios, fitness spaces, and smaller maker spaces, many in converted industrial buildings with polished interiors. It\'s well suited for creative professionals, small agencies, and practitioners who want Pearl District proximity at slightly lower rents.',
   },
   {
     q: 'Is Slabtown walkable and transit-accessible?',
@@ -36,7 +36,7 @@ const FAQS = [
   },
   {
     q: 'How is Slabtown different from the Pearl District for studio space?',
-    a: 'The Pearl District commands Portland\'s highest creative office rents and has a more polished, client-facing environment. Slabtown offers more affordable options with a slightly more industrial character — good for creative businesses that want Pearl District access without Pearl District pricing.',
+    a: 'The Pearl District commands Portland\'s highest creative office rents and has a more polished, client-facing environment. Slabtown offers more affordable options with a slightly more industrial character, good for creative businesses that want Pearl District access without Pearl District pricing.',
   },
 ]
 
@@ -109,13 +109,13 @@ export default async function SlabtownPage() {
             Studio Space for Rent in Slabtown, Portland
           </h1>
           <p style={{ color: 'var(--stone)' }} className="mb-10 max-w-2xl text-sm leading-relaxed">
-            Slabtown is NW Portland&apos;s emerging creative corridor — a mix of converted industrial buildings, design studios, and creative offices adjacent to the Pearl District. Browse monthly studio and workspace rentals in Slabtown and NW Portland. Submit an inquiry from any listing to connect directly with the host.
+            Slabtown is NW Portland&apos;s emerging creative corridor, a mix of converted industrial buildings, design studios, and creative offices adjacent to the Pearl District. Browse monthly studio and workspace rentals in Slabtown and NW Portland. Submit an inquiry from any listing to connect directly with the host.
           </p>
 
           {rows.length > 0 ? (
             <CategoryFilter listings={rows} />
           ) : (
-            <p style={{ color: 'var(--stone)' }} className="mb-14">No studios listed in Slabtown yet — check back soon or browse <Link href="/portland/pearl-district" className="underline">Pearl District studios</Link>.</p>
+            <p style={{ color: 'var(--stone)' }} className="mb-14">No studios listed in Slabtown yet, check back soon or browse <Link href="/portland/pearl-district" className="underline">Pearl District studios</Link>.</p>
           )}
 
           <section style={{ borderTop: '1px solid var(--rule)' }} className="pt-10">

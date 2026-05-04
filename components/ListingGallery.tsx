@@ -33,7 +33,7 @@ export default function ListingGallery({ images, title, neighborhood }: Props) {
 
   return (
     <>
-      {/* Hero — updates on thumbnail hover */}
+      {/* Hero, updates on thumbnail hover */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={images[activeIndex]}
@@ -51,7 +51,7 @@ export default function ListingGallery({ images, title, neighborhood }: Props) {
         }}
       />
 
-      {/* Thumbnails — all images including first so user can hover back */}
+      {/* Thumbnails, all images including first so user can hover back */}
       {images.length > 1 && (
         <div
           style={{

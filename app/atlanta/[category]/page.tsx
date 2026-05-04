@@ -34,7 +34,7 @@ const AMENITY_FILTERS: Record<string, AmenityMeta[]> = {
       h1: 'Cyclorama Wall Photography Studios in Atlanta',
       title: 'Cyc Wall Photography Studios in Atlanta, GA | FindStudioSpace',
       description:
-        'Find Atlanta photography studios with cyclorama walls — seamless white backgrounds for product, fashion, and editorial shoots. Browse cyc wall studio rentals.',
+        'Find Atlanta photography studios with cyclorama walls, seamless white backgrounds for product, fashion, and editorial shoots. Browse cyc wall studio rentals.',
     },
     {
       key: 'natural_light',
@@ -58,7 +58,7 @@ const AMENITY_FILTERS: Record<string, AmenityMeta[]> = {
       h1: 'Product Photography Studios in Atlanta',
       title: 'Product Photography Studio Rental in Atlanta, GA | FindStudioSpace',
       description:
-        'Tabletop and product photography studios in Atlanta — sweep tables, controlled lighting, and tethering setups for e-commerce and editorial product work.',
+        'Tabletop and product photography studios in Atlanta, sweep tables, controlled lighting, and tethering setups for e-commerce and editorial product work.',
     },
   ],
 }
@@ -347,7 +347,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
               <Link href={`/atlanta/${category}`} className="underline">Browse all {pageH1.toLowerCase().includes('photo') ? 'photo studios' : 'listings'} →</Link>
             </p>
           ) : !q ? (
-            <p style={{ color: 'var(--stone)' }} className="mb-14">No spaces listed yet — check back soon.</p>
+            <p style={{ color: 'var(--stone)' }} className="mb-14">No spaces listed yet, check back soon.</p>
           ) : null}
 
           <section style={{ borderTop: '1px solid var(--rule)' }} className="pt-10">

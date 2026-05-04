@@ -4,12 +4,12 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'Private Art Studio vs. Shared Co-op in Portland: Pros and Cons | FindStudioSpace',
   description:
-    'Deciding between a private studio and a shared co-op in Portland? Here are the real trade-offs — cost, community, equipment access, and flexibility.',
+    'Deciding between a private studio and a shared co-op in Portland? Here are the real trade-offs, cost, community, equipment access, and flexibility.',
   alternates: { canonical: 'https://www.findstudiospace.com/blog/private-studio-vs-shared-coop-portland' },
   openGraph: {
     title: 'Private Art Studio vs. Shared Co-op in Portland: Pros and Cons',
     description:
-      'The real trade-offs between a private studio and a shared artist co-op in Portland — cost, community, equipment, and flexibility.',
+      'The real trade-offs between a private studio and a shared artist co-op in Portland, cost, community, equipment, and flexibility.',
     url: 'https://www.findstudiospace.com/blog/private-studio-vs-shared-coop-portland',
     type: 'article',
   },
@@ -66,13 +66,13 @@ export default function Post() {
           <div style={{ color: 'var(--ink)' }} className="space-y-6 text-sm leading-relaxed">
 
             <p>
-              Portland has both: private studios you rent and have entirely to yourself, and artist co-ops where you share space and equipment with a community of working artists. Both models work — but they serve different practices and different stages of a creative career. Here&apos;s an honest breakdown.
+              Portland has both: private studios you rent and have entirely to yourself, and artist co-ops where you share space and equipment with a community of working artists. Both models work, but they serve different practices and different stages of a creative career. Here&apos;s an honest breakdown.
             </p>
 
             <h2 style={{ fontFamily: 'var(--font-heading)' }} className="mt-10 text-xl font-semibold">The cost difference</h2>
 
             <p>
-              Shared co-op memberships in Portland typically range from $150–$400/month. Private studios in the same buildings start at $350–$500/month for smaller spaces and go up from there. The gap is real but not enormous — you&apos;re paying roughly $100–$200/month more for privacy.
+              Shared co-op memberships in Portland typically range from $150–$400/month. Private studios in the same buildings start at $350–$500/month for smaller spaces and go up from there. The gap is real but not enormous, you&apos;re paying roughly $100–$200/month more for privacy.
             </p>
             <p>
               Where the co-op wins on economics is equipment access. A ceramics co-op that gives you access to kilns, wheel wheels, pugmill, and a fully equipped clay room for $250/month is a very different value than a private ceramics studio for $500/month with none of that infrastructure. Equipment access can easily be worth $300–$500/month in equivalent rental value if you price it out separately.
@@ -88,7 +88,7 @@ export default function Post() {
                 <strong>Noise and distraction control.</strong> You can&apos;t control when other members arrive, how loud they work, or what they&apos;re playing on their speakers. Some people find this energizing; others find it impossible to do focused work.
               </li>
               <li>
-                <strong>Equipment availability.</strong> Equipment in co-ops is shared — and popular equipment (kilns, large-format printers, cnc machines) has to be scheduled. In a popular co-op, your preferred firing day may not always be available.
+                <strong>Equipment availability.</strong> Equipment in co-ops is shared, and popular equipment (kilns, large-format printers, cnc machines) has to be scheduled. In a popular co-op, your preferred firing day may not always be available.
               </li>
               <li>
                 <strong>Visual privacy.</strong> Your work is visible to other members and sometimes to visitors or prospective members. If you work on commercially sensitive projects, client work, or pieces you&apos;re not ready to show, co-op openness can feel exposing.
@@ -108,7 +108,7 @@ export default function Post() {
                 <strong>Equipment access without capital.</strong> Access to a kiln, a letterpress, a laser cutter, or a large-format plotter at co-op rates can enable work that would otherwise require a significant equipment investment. For early-career artists, this is often the most important variable.
               </li>
               <li>
-                <strong>Open studio opportunities.</strong> Co-ops in Portland — particularly on NE Alberta — participate in Last Thursday open studio events. Being in a co-op gives you an automatic audience and a built-in sales channel for your work.
+                <strong>Open studio opportunities.</strong> Co-ops in Portland, particularly on NE Alberta, participate in Last Thursday open studio events. Being in a co-op gives you an automatic audience and a built-in sales channel for your work.
               </li>
             </ul>
 
@@ -128,7 +128,7 @@ export default function Post() {
               <li>Early-career artists who need equipment access they can&apos;t afford to own outright</li>
               <li>Artists new to Portland who want to build a local creative network quickly</li>
               <li>Part-time practitioners who don&apos;t need the space every day and don&apos;t want to pay for dedicated square footage they&apos;ll leave empty</li>
-              <li>Artists in disciplines where community feedback is a core part of the practice — ceramics, printmaking, painting</li>
+              <li>Artists in disciplines where community feedback is a core part of the practice, ceramics, printmaking, painting</li>
               <li>Anyone who struggles with isolation and needs accountability to work consistently</li>
             </ul>
 

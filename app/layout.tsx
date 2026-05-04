@@ -1,30 +1,25 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Suspense } from 'react'
-import { Bebas_Neue, Inter, JetBrains_Mono } from 'next/font/google'
+import { Anton, Inter } from 'next/font/google'
 import PostHogProvider from '@/components/PostHogProvider'
 import UTMCapture from '@/components/UTMCapture'
 import './globals.css'
 
-const bebasNeue = Bebas_Neue({
+const anton = Anton({
   subsets: ['latin'],
   weight: '400',
-  variable: '--font-bebas-neue',
+  variable: '--font-anton',
 })
 const inter = Inter({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['300', '400', '500', '600', '700'],
   variable: '--font-inter',
-})
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
-  weight: ['400', '500', '600'],
-  variable: '--font-jetbrains-mono',
 })
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.findstudiospace.com'),
-  title: 'Find Studio Space — Portland & Atlanta | FindStudioSpace',
+  title: 'Find Studio Space, Portland & Atlanta | FindStudioSpace',
   description:
     'Browse photo studios, art studios, workshops, offices, retail, and fitness spaces for rent. Portland, OR and Atlanta, GA.',
   alternates: {
@@ -33,7 +28,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     siteName: 'FindStudioSpace',
-    images: [{ url: '/og-default.svg', width: 1200, height: 630, alt: 'FindStudioSpace — Portland creative studio directory' }],
+    images: [{ url: '/og-default.svg', width: 1200, height: 630, alt: 'FindStudioSpace, Portland creative studio directory' }],
   },
   twitter: {
     card: 'summary_large_image',
@@ -46,7 +41,7 @@ const organizationSchema = {
   '@type': 'Organization',
   name: 'FindStudioSpace',
   url: 'https://www.findstudiospace.com',
-  description: 'Creative studio directory — photo studios, art studios, podcast studios, event spaces, makerspaces, and creative workspace in Portland and Atlanta.',
+  description: 'Creative studio directory, photo studios, art studios, podcast studios, event spaces, makerspaces, and creative workspace in Portland and Atlanta.',
   sameAs: [],
 }
 
@@ -54,7 +49,7 @@ const GOOGLE_TAG_ID = 'G-ERG1H9HNS7'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${bebasNeue.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" className={`${anton.variable} ${inter.variable}`}>
       <head>
         <script async src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_TAG_ID}`} />
         <script
@@ -110,7 +105,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="mx-auto max-w-5xl">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 text-sm">
 
-              {/* Column 1 — Brand */}
+              {/* Column 1, Brand */}
               <div>
                 <p style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }} className="font-semibold mb-2">
                   FindStudioSpace
@@ -123,7 +118,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </p>
               </div>
 
-              {/* Column 2 — Browse by Category */}
+              {/* Column 2, Browse by Category */}
               <div>
                 <p style={{ fontFamily: 'var(--font-mono)', color: 'var(--ink)' }} className="text-xs uppercase tracking-wider font-medium mb-3">
                   Browse by Category
@@ -137,7 +132,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </div>
               </div>
 
-              {/* Column 3 — Browse by Neighborhood */}
+              {/* Column 3, Browse by Neighborhood */}
               <div>
                 <p style={{ fontFamily: 'var(--font-mono)', color: 'var(--ink)' }} className="text-xs uppercase tracking-wider font-medium mb-3">
                   By Neighborhood
@@ -151,7 +146,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </div>
               </div>
 
-              {/* Column 4 — Company */}
+              {/* Column 4, Company */}
               <div>
                 <p style={{ fontFamily: 'var(--font-mono)', color: 'var(--ink)' }} className="text-xs uppercase tracking-wider font-medium mb-3">
                   Company

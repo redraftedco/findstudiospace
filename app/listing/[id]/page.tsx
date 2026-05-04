@@ -73,7 +73,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const city = data.city ?? 'Portland'
 
   const locationPart = hood ? `in ${hood}, ${city}` : `in ${city}`
-  const title = `${data.title} — ${typeLabel} for Rent ${locationPart} | FindStudioSpace`
+  const title = `${data.title}, ${typeLabel} for Rent ${locationPart} | FindStudioSpace`
 
   const pricePart = data.price_numeric
     ? ` Starting at $${data.price_numeric.toLocaleString('en-US')}/mo.`
@@ -96,6 +96,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title,
       description: desc,
       ...(ogImage ? { images: [{ url: ogImage }] } : {}),
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description: desc,
+      ...(ogImage ? { images: [ogImage] } : {}),
     },
   }
 }
@@ -185,7 +191,7 @@ export default async function ListingPage({ params }: Props) {
 
   const images: string[] = clampImagesToTier(allImages, listing.tier)
 
-  // Site analysis map is a Pro-only feature — inject as second image (or first if no photos)
+  // Site analysis map is a Pro-only feature, inject as second image (or first if no photos)
   const mapUrl = isPro && enrichment?.site_analysis_map_status === 'generated'
     ? (enrichment?.site_analysis_map_url ?? null)
     : null
@@ -202,7 +208,7 @@ export default async function ListingPage({ params }: Props) {
   const studioName = listing.title ?? 'this listing'
   const neighborhood = listing.neighborhood ?? 'Portland'
 
-  // JSON-LD — LocalBusiness. Conditional rendering of every nullable field;
+  // JSON-LD, LocalBusiness. Conditional rendering of every nullable field;
   // empty/undefined keys removed at the end. Google flags incomplete schema
   // when empty-string fields are emitted, so we omit rather than blank-string.
   const address: Record<string, string> = {
@@ -227,7 +233,7 @@ export default async function ListingPage({ params }: Props) {
     ...(listing.contact_phone ? { telephone: String(listing.contact_phone) } : {}),
     ...(images.length > 0 ? { image: images[0] } : {}),
     // priceRange is for ranges (e.g. "$$" or "$50-$100"); only emit when we
-    // have a real display value. Drop the '$$' fallback — Google flags
+    // have a real display value. Drop the '$$' fallback, Google flags
     // generic price symbols on LocalBusiness as low-quality.
     ...(listing.price_display ? { priceRange: String(listing.price_display) } : {}),
     url: `https://www.findstudiospace.com/listing/${listing.id}`,
@@ -251,18 +257,19 @@ export default async function ListingPage({ params }: Props) {
   }
   Object.keys(jsonLd).forEach((k) => (jsonLd[k] === undefined || jsonLd[k] === null) && delete jsonLd[k])
 
+  const citySlug = (listing.city ?? 'Portland').toLowerCase()
   const breadcrumbLd = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.findstudiospace.com' },
-      { '@type': 'ListItem', position: 2, name: 'Portland', item: 'https://www.findstudiospace.com/portland' },
+      { '@type': 'ListItem', position: 2, name: listing.city ?? 'Portland', item: `https://www.findstudiospace.com/${citySlug}` },
       ...(categorySlug
         ? [{
             '@type': 'ListItem',
             position: 3,
             name: categoryLabel,
-            item: `https://www.findstudiospace.com/portland/${categorySlug}`,
+            item: `https://www.findstudiospace.com/${citySlug}/${categorySlug}`,
           }]
         : []),
       {
@@ -299,7 +306,7 @@ export default async function ListingPage({ params }: Props) {
               <span style={{ color: 'var(--stone)' }}>{studioName}</span>
             </nav>
 
-            <h1 style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)', fontSize: '2.5rem', fontWeight: 600, letterSpacing: '-0.02em', lineHeight: 1.1, margin: '0 0 0.75rem' }} className="listing-title">
+            <h1 style={{ fontFamily: 'var(--font-display)', color: 'var(--ink)', fontSize: 'clamp(2.25rem, 5vw, 4.5rem)', fontWeight: 400, lineHeight: 0.94, textTransform: 'uppercase', margin: '0 0 0.75rem' }} className="listing-title">
               {studioName}
             </h1>
             <p style={{ fontFamily: 'var(--font-body)', color: 'var(--stone)', fontSize: '1rem', margin: '0 0 2rem' }}>
@@ -313,7 +320,7 @@ export default async function ListingPage({ params }: Props) {
             <div className="listing-detail-layout">
               <div className="listing-detail-main">
 
-                {/* Hero — one photo only on free tier */}
+                {/* Hero, one photo only on free tier */}
                 {allImages.length > 0 ? (
                   <img
                     src={allImages[0]}
@@ -328,17 +335,17 @@ export default async function ListingPage({ params }: Props) {
 
                 <hr style={{ border: 'none', borderTop: '1px solid var(--rule)', margin: '2rem 0' }} />
 
-                {/* Basic spec table */}
-                <dl style={{ margin: 0 }}>
-                  {freeSpecs.map((row, i) => (
-                    <div key={row.label} className="spec-row" style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: '0 1.5rem', padding: '0.75rem 0', borderBottom: i < freeSpecs.length - 1 ? '1px solid var(--rule)' : 'none' }}>
-                      <dt style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6875rem', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--stone)', paddingTop: '2px' }}>{row.label}</dt>
-                      <dd style={{ fontFamily: 'var(--font-body)', fontSize: '0.9375rem', color: 'var(--ink)', margin: 0, fontWeight: 500 }}>{row.value}</dd>
+                {/* Spec display */}
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '32px 48px', paddingBottom: '28px', borderBottom: '1px solid var(--rule)' }}>
+                  {freeSpecs.map((row) => (
+                    <div key={row.label} style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                      <span style={{ fontFamily: 'var(--font-body)', fontSize: '12px', color: 'var(--stone)' }}>{row.label}</span>
+                      <span style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', lineHeight: 1, color: 'var(--ink)' }}>{row.value}</span>
                     </div>
                   ))}
-                </dl>
+                </div>
 
-                {/* Site analysis map — Studio Pro only */}
+                {/* Site analysis map, Studio Pro only */}
                 <hr style={{ border: 'none', borderTop: '1px solid var(--rule)', margin: '2rem 0' }} />
                 <div style={{ background: '#f5f2e8', border: '1px solid var(--rule)', padding: '48px 36px', textAlign: 'center' }}>
                   <p style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', color: 'var(--stone)', textTransform: 'uppercase', letterSpacing: '0.16em', margin: '0 0 10px' }}>Site Analysis Map · Studio Pro</p>
@@ -381,7 +388,7 @@ export default async function ListingPage({ params }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
 
-      {/* Claim banner — above breadcrumb, full-width, dismissible */}
+      {/* Claim banner, above breadcrumb, full-width, dismissible */}
       <ClaimBanner listingId={String(listing.id)} studioName={studioName} />
 
       <main style={{ background: 'var(--paper)', color: 'var(--ink)' }} className="min-h-screen">
@@ -415,12 +422,12 @@ export default async function ListingPage({ params }: Props) {
           <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', margin: '0 0 0.75rem', flexWrap: 'wrap' }}>
             <h1
               style={{
-                fontFamily: 'var(--font-heading)',
+                fontFamily: 'var(--font-display)',
                 color: 'var(--ink)',
-                fontSize: '2.5rem',
-                fontWeight: 600,
-                letterSpacing: '-0.02em',
-                lineHeight: 1.1,
+                fontSize: 'clamp(2.25rem, 5vw, 4.5rem)',
+                fontWeight: 400,
+                lineHeight: 0.94,
+                textTransform: 'uppercase',
                 margin: 0,
               }}
               className="listing-title"
@@ -461,7 +468,7 @@ export default async function ListingPage({ params }: Props) {
 
             {/* Left column */}
             <div className="listing-detail-main">
-              {/* Gallery — hover any thumbnail to preview in the hero slot */}
+              {/* Gallery, hover any thumbnail to preview in the hero slot */}
               <ListingGallery
                 images={images}
                 title={listing.title ?? 'Studio'}
@@ -477,56 +484,25 @@ export default async function ListingPage({ params }: Props) {
                 }}
               />
 
-              {/* Space details — specs + features + description */}
+              {/* Space details, specs + features + description */}
               <section style={{ maxWidth: '65ch' }}>
 
-                {/* Spec table */}
-                <dl style={{ margin: 0 }}>
+                {/* Spec display */}
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '32px 48px', paddingBottom: '28px', borderBottom: '1px solid var(--rule)' }}>
                   {[
                     { label: 'Type',         value: TYPE_TO_LABEL[typeKey] ?? listing.type },
                     { label: 'Neighborhood', value: listing.neighborhood },
                     { label: 'Size',         value: sqft ? `${sqft.toLocaleString('en-US')} sq ft` : null },
                     { label: 'Monthly',      value: listing.price_display ? formatPrice(listing.price_display) : null },
                   ]
-                    .filter((r) => r.value)
-                    .map((row, i, arr) => (
-                      <div
-                        key={row.label}
-                        className="spec-row"
-                        style={{
-                          display: 'grid',
-                          gridTemplateColumns: '120px 1fr',
-                          gap: '0 1.5rem',
-                          padding: '0.75rem 0',
-                          borderBottom: i < arr.length - 1 ? '1px solid var(--rule)' : 'none',
-                        }}
-                      >
-                        <dt
-                          style={{
-                            fontFamily: 'var(--font-mono)',
-                            fontSize: '0.6875rem',
-                            letterSpacing: '0.08em',
-                            textTransform: 'uppercase',
-                            color: 'var(--stone)',
-                            paddingTop: '2px',
-                          }}
-                        >
-                          {row.label}
-                        </dt>
-                        <dd
-                          style={{
-                            fontFamily: 'var(--font-body)',
-                            fontSize: '0.9375rem',
-                            color: 'var(--ink)',
-                            margin: 0,
-                            fontWeight: 500,
-                          }}
-                        >
-                          {row.value}
-                        </dd>
+                    .filter((r): r is { label: string; value: string } => !!r.value)
+                    .map((row) => (
+                      <div key={row.label} style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                        <span style={{ fontFamily: 'var(--font-body)', fontSize: '12px', color: 'var(--stone)' }}>{row.label}</span>
+                        <span style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', lineHeight: 1, color: 'var(--ink)' }}>{row.value}</span>
                       </div>
                     ))}
-                </dl>
+                </div>
 
                 {/* Feature tags */}
                 {features.length > 0 && (
@@ -553,18 +529,23 @@ export default async function ListingPage({ params }: Props) {
 
                 {/* Description */}
                 {listing.description && (
-                  <p
-                    style={{
-                      fontFamily: 'var(--font-body)',
-                      color: 'var(--sub)',
-                      fontSize: '0.9375rem',
-                      lineHeight: 1.7,
-                      whiteSpace: 'pre-line',
-                      margin: '2rem 0 0',
-                    }}
-                  >
-                    {listing.description}
-                  </p>
+                  <>
+                    <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', fontWeight: 400, lineHeight: 1, textTransform: 'uppercase', color: 'var(--ink)', margin: '2rem 0 1rem' }}>
+                      About
+                    </h2>
+                    <p
+                      style={{
+                        fontFamily: 'var(--font-body)',
+                        color: 'var(--sub)',
+                        fontSize: '0.9375rem',
+                        lineHeight: 1.7,
+                        whiteSpace: 'pre-line',
+                        margin: 0,
+                      }}
+                    >
+                      {listing.description}
+                    </p>
+                  </>
                 )}
               </section>
 
@@ -631,7 +612,7 @@ export default async function ListingPage({ params }: Props) {
               </p>
             </div>
 
-            {/* Right column — sticky inquiry form */}
+            {/* Right column, sticky inquiry form */}
             <aside className="listing-detail-aside">
               <div className="listing-sidebar-card">
                 <p
@@ -665,7 +646,7 @@ export default async function ListingPage({ params }: Props) {
           </div>
         </div>
 
-        {/* Mobile sticky inquiry bar — CSS-only; hidden on desktop */}
+        {/* Mobile sticky inquiry bar, CSS-only; hidden on desktop */}
         <a href="#inquiry" className="mobile-inquiry-bar">
           Inquire about this studio
         </a>

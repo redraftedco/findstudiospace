@@ -4,12 +4,12 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'How to Rent Event Space in Portland for Pop-Ups and Private Events | FindStudioSpace',
   description:
-    'A guide to renting event space and private venues in Portland for pop-ups, brand activations, community events, and private gatherings — what to look for and what to ask.',
+    'A guide to renting event space and private venues in Portland for pop-ups, brand activations, community events, and private gatherings, what to look for and what to ask.',
   alternates: { canonical: 'https://www.findstudiospace.com/blog/how-to-rent-event-space-portland' },
   openGraph: {
     title: 'How to Rent Event Space in Portland for Pop-Ups and Private Events',
     description:
-      'What to look for when renting event space and private venues in Portland — types, pricing, insurance, and what to confirm before booking.',
+      'What to look for when renting event space and private venues in Portland, types, pricing, insurance, and what to confirm before booking.',
     url: 'https://www.findstudiospace.com/blog/how-to-rent-event-space-portland',
     type: 'article',
   },
@@ -66,7 +66,7 @@ export default function Post() {
           <div style={{ color: 'var(--ink)' }} className="space-y-6 text-sm leading-relaxed">
 
             <p>
-              Portland&apos;s event space market includes a wide range of venues — converted warehouses in the Central Eastside, gallery spaces on NE Alberta, boutique studios in the Pearl District, and industrial lofts across NE and SE Portland. Whether you&apos;re planning a pop-up retail activation, an artist open studio, a brand event, or a private dinner, the process of finding and booking the right space involves a few key decisions.
+              Portland&apos;s event space market includes a wide range of venues, converted warehouses in the Central Eastside, gallery spaces on NE Alberta, boutique studios in the Pearl District, and industrial lofts across NE and SE Portland. Whether you&apos;re planning a pop-up retail activation, an artist open studio, a brand event, or a private dinner, the process of finding and booking the right space involves a few key decisions.
             </p>
 
             <h2 style={{ fontFamily: 'var(--font-heading)' }} className="mt-10 text-xl font-semibold">Types of event space in Portland</h2>
@@ -94,10 +94,10 @@ export default function Post() {
             <ul className="space-y-2 pl-4">
               <li><strong>Hourly rate:</strong> $75–$300/hour for smaller spaces (under 1,000 sq ft). Add setup and breakdown time to your rental window.</li>
               <li><strong>Half-day / full-day rate:</strong> $400–$1,500 for most spaces. Better value for events requiring extensive setup or teardown.</li>
-              <li><strong>Monthly rate:</strong> $600–$3,500/month for spaces used on an ongoing basis — recurring pop-ups, weekly events, monthly retail activations. Monthly terms give you significantly more per-event value than individual bookings.</li>
+              <li><strong>Monthly rate:</strong> $600–$3,500/month for spaces used on an ongoing basis, recurring pop-ups, weekly events, monthly retail activations. Monthly terms give you significantly more per-event value than individual bookings.</li>
             </ul>
             <p>
-              Monthly event space on <Link href="/event-spaces-portland" style={{ color: 'var(--ink)' }} className="underline">FindStudioSpace</Link> is typically 30–50% cheaper per use than booking event venues through hourly platforms — and you get the space to yourself with no competing bookings.
+              Monthly event space on <Link href="/event-spaces-portland" style={{ color: 'var(--ink)' }} className="underline">FindStudioSpace</Link> is typically 30–50% cheaper per use than booking event venues through hourly platforms, and you get the space to yourself with no competing bookings.
             </p>
 
             <h2 style={{ fontFamily: 'var(--font-heading)' }} className="mt-10 text-xl font-semibold">What to confirm before booking</h2>
@@ -116,7 +116,7 @@ export default function Post() {
                 <strong>Setup and teardown windows:</strong> Your actual event time is rarely your total rental time. Confirm what window you have for setup before the event and teardown after, and whether that time is included in the quoted rate or billed separately.
               </li>
               <li>
-                <strong>AV and tech:</strong> What&apos;s in the space? What do you need to bring? Most studio and industrial spaces have no built-in AV — you&apos;ll need to rent or bring speakers, projectors, and screens.
+                <strong>AV and tech:</strong> What&apos;s in the space? What do you need to bring? Most studio and industrial spaces have no built-in AV, you&apos;ll need to rent or bring speakers, projectors, and screens.
               </li>
               <li>
                 <strong>Parking and load-in:</strong> For events with retail goods, art, or equipment, confirm whether there&apos;s loading dock access, freight elevator capability, or vehicle access for unloading.
@@ -132,15 +132,15 @@ export default function Post() {
               Pop-up retail has different requirements than private events. Key considerations:
             </p>
             <ul className="space-y-2 pl-4">
-              <li>Street visibility and foot traffic — not all event spaces are on pedestrian corridors. For a retail pop-up to drive walk-in traffic, neighborhood and frontage matter.</li>
-              <li>Merchandising flexibility — can you hang things, move furniture, create displays? Some gallery spaces have strict rules about wall modifications.</li>
-              <li>Point-of-sale logistics — confirm wifi reliability, power access near your checkout area, and whether there&apos;s a back-of-house space for inventory storage.</li>
-              <li>Signage — can you post exterior signage? Many Portland buildings in mixed-use zones have restrictions.</li>
+              <li>Street visibility and foot traffic, not all event spaces are on pedestrian corridors. For a retail pop-up to drive walk-in traffic, neighborhood and frontage matter.</li>
+              <li>Merchandising flexibility, can you hang things, move furniture, create displays? Some gallery spaces have strict rules about wall modifications.</li>
+              <li>Point-of-sale logistics, confirm wifi reliability, power access near your checkout area, and whether there&apos;s a back-of-house space for inventory storage.</li>
+              <li>Signage, can you post exterior signage? Many Portland buildings in mixed-use zones have restrictions.</li>
             </ul>
 
             <div style={{ borderTop: '1px solid var(--rule)' }} className="mt-12 pt-8">
               <p style={{ color: 'var(--stone)' }} className="text-sm">
-                Browse <Link href="/event-spaces-portland" style={{ color: 'var(--ink)' }} className="underline">event spaces for rent in Portland</Link> — private venues, pop-up spaces, and gallery spaces with monthly terms.
+                Browse <Link href="/event-spaces-portland" style={{ color: 'var(--ink)' }} className="underline">event spaces for rent in Portland</Link>, private venues, pop-up spaces, and gallery spaces with monthly terms.
               </p>
             </div>
 

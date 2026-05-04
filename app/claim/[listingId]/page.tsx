@@ -106,7 +106,7 @@ export default function ClaimListingPage({
               margin: '0 0 32px',
               lineHeight: 1.6,
             }}>
-              Enter your email to verify ownership. We&apos;ll send a one-time sign-in link — no password needed.
+              Enter your email to verify ownership. We&apos;ll send a one-time sign-in link, no password needed.
             </p>
 
             <form onSubmit={handleSubmit}>

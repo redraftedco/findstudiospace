@@ -2,11 +2,11 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Pricing — Free Listings & Sponsored Placement | FindStudioSpace',
+  title: 'Pricing, Free Listings & Sponsored Placement | FindStudioSpace',
   description:
     'List your Portland studio for free. Add sponsored placement from $49/month to appear where renters compare category and neighborhood pages.',
   openGraph: {
-    title: 'Pricing — Free Listings & Sponsored Placement | FindStudioSpace',
+    title: 'Pricing, Free Listings & Sponsored Placement | FindStudioSpace',
     description:
       'List your Portland studio for free. Add sponsored placement from $49/month to appear where renters compare category and neighborhood pages.',
   },
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 const faqs = [
   {
     q: 'Is the free listing actually free?',
-    a: 'Yes. Your studio appears in the directory, is searchable by Portland renters, and includes a direct inquiry form. No credit card, no trial — free forever.',
+    a: 'Yes. Your studio appears in the directory, is searchable by Portland renters, and includes a direct inquiry form. No credit card, no trial, free forever.',
   },
   {
     q: 'What does sponsored placement add?',

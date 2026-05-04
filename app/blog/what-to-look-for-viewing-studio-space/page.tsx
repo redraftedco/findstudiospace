@@ -4,12 +4,12 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'What to Look for When Viewing a Studio Space in Portland | FindStudioSpace',
   description:
-    'A practical checklist for viewing studio space in Portland — light, power, noise, access, and structural red flags to check before committing.',
+    'A practical checklist for viewing studio space in Portland, light, power, noise, access, and structural red flags to check before committing.',
   alternates: { canonical: 'https://www.findstudiospace.com/blog/what-to-look-for-viewing-studio-space' },
   openGraph: {
     title: 'What to Look for When Viewing a Studio Space in Portland',
     description:
-      'A practical checklist for studio viewings in Portland — light, power, noise, access, and structural red flags to check before committing.',
+      'A practical checklist for studio viewings in Portland, light, power, noise, access, and structural red flags to check before committing.',
     url: 'https://www.findstudiospace.com/blog/what-to-look-for-viewing-studio-space',
     type: 'article',
   },
@@ -81,7 +81,7 @@ export default function Post() {
           <div style={{ color: 'var(--ink)' }} className="space-y-6 text-sm leading-relaxed">
 
             <p>
-              Studio viewings in Portland are usually short — 15 to 20 minutes with the landlord present, often at a time of day that doesn&apos;t reflect how you&apos;ll actually use the space. The photos in the listing showed you the best angle on the best day. The viewing is your one chance to find out what the photos didn&apos;t show.
+              Studio viewings in Portland are usually short, 15 to 20 minutes with the landlord present, often at a time of day that doesn&apos;t reflect how you&apos;ll actually use the space. The photos in the listing showed you the best angle on the best day. The viewing is your one chance to find out what the photos didn&apos;t show.
             </p>
 
             <h2 style={{ fontFamily: 'var(--font-heading)' }} className="mt-10 text-xl font-semibold">Light: the most underestimated variable</h2>
@@ -90,7 +90,7 @@ export default function Post() {
               Natural light changes dramatically by time of day, season, and window orientation. A studio that looks bright at noon in a listing photo may be dim and unusable by 3pm in November. Here&apos;s what to assess:
             </p>
             <ul className="space-y-2 pl-4">
-              <li><strong>Window direction:</strong> North light is consistent and shadowless — ideal for painters, photographers, and anyone who needs color-accurate light without harsh direct sun. South and west windows get direct sun that changes rapidly and creates strong shadows.</li>
+              <li><strong>Window direction:</strong> North light is consistent and shadowless, ideal for painters, photographers, and anyone who needs color-accurate light without harsh direct sun. South and west windows get direct sun that changes rapidly and creates strong shadows.</li>
               <li><strong>Time of day:</strong> Ask to view the space at the time of day you&apos;ll typically use it, not at the landlord&apos;s preferred showing window. A morning-person painter has very different light needs than someone who works evenings.</li>
               <li><strong>Supplemental lighting:</strong> What fixtures are installed? Where are they aimed? Overhead fluorescents are harsh and color-inaccurate. Look for daylight-balanced fixtures or plan to bring your own.</li>
               <li><strong>Obstruction:</strong> Buildings adjacent to the windows can shift light significantly over the course of a year as the sun angle changes. Note what&apos;s outside the windows and how close it is.</li>
@@ -102,10 +102,10 @@ export default function Post() {
               Outlet count is only part of the story. More important is how many circuits are available and what they&apos;re rated for.
             </p>
             <ul className="space-y-2 pl-4">
-              <li>A single 15-amp circuit at 120v delivers about 1,800 watts of continuous power — enough for a laptop, a light, and not much else. Running a kiln, compressor, or table saw will require dedicated 220v circuits.</li>
+              <li>A single 15-amp circuit at 120v delivers about 1,800 watts of continuous power, enough for a laptop, a light, and not much else. Running a kiln, compressor, or table saw will require dedicated 220v circuits.</li>
               <li>Ask to see the breaker panel. Count the circuits. Note whether any are labeled for the studio specifically or shared with other tenants.</li>
               <li>For workshops: confirm whether 220v single-phase power is available, and whether the landlord will allow installation of additional outlets or panel upgrades.</li>
-              <li>Test at least two outlets with a phone charger — dead outlets are common in older Portland industrial buildings and may indicate wiring issues.</li>
+              <li>Test at least two outlets with a phone charger, dead outlets are common in older Portland industrial buildings and may indicate wiring issues.</li>
             </ul>
 
             <h2 style={{ fontFamily: 'var(--font-heading)' }} className="mt-10 text-xl font-semibold">Noise: sit and listen</h2>
@@ -129,10 +129,10 @@ export default function Post() {
               Portland&apos;s wet climate makes moisture the most common hidden problem in older studio buildings. Look for:
             </p>
             <ul className="space-y-2 pl-4">
-              <li>Water stains on floors, walls, and ceilings — especially at baseboards and in corners</li>
+              <li>Water stains on floors, walls, and ceilings, especially at baseboards and in corners</li>
               <li>Efflorescence (white mineral deposits) on concrete or masonry walls, which indicates water wicking through</li>
               <li>Soft spots in wood flooring or baseboards</li>
-              <li>Smell — mustiness or earthy smell in a closed space usually means moisture history</li>
+              <li>Smell, mustiness or earthy smell in a closed space usually means moisture history</li>
               <li>The condition of any windows: fogged double-pane glass indicates failed seals and possible moisture infiltration</li>
             </ul>
             <p>
@@ -142,7 +142,7 @@ export default function Post() {
             <h2 style={{ fontFamily: 'var(--font-heading)' }} className="mt-10 text-xl font-semibold">Access: test it on your schedule</h2>
 
             <p>
-              Landlords typically show studios during business hours. But if you work late evenings or early mornings — which many working artists do — the access hours are a real operational constraint.
+              Landlords typically show studios during business hours. But if you work late evenings or early mornings, which many working artists do, the access hours are a real operational constraint.
             </p>
             <ul className="space-y-2 pl-4">
               <li>Ask about the actual hours the building is accessible, not just that it has &quot;24-hour access.&quot; Confirm that your specific studio door is accessible at all hours, not just the building lobby.</li>

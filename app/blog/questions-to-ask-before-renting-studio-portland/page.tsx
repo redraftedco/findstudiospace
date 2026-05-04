@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: '12 Questions to Ask Before Renting a Studio Space in Portland',
     description:
-      'Before you sign a studio lease in Portland, ask these 12 questions — access hours, utilities, permitted uses, storage, and what must be in writing.',
+      'Before you sign a studio lease in Portland, ask these 12 questions, access hours, utilities, permitted uses, storage, and what must be in writing.',
     url: 'https://www.findstudiospace.com/blog/questions-to-ask-before-renting-studio-portland',
     type: 'article',
   },
@@ -66,17 +66,17 @@ export default function Post() {
           <div style={{ color: 'var(--ink)' }} className="space-y-6 text-sm leading-relaxed">
 
             <p>
-              Most studio listings are thin on detail. Landlords post photos, a price, and a square footage — and leave the rest to be figured out during the viewing or, worse, after you&apos;ve signed. These 12 questions will surface the information that actually determines whether a space works for your practice before you commit.
+              Most studio listings are thin on detail. Landlords post photos, a price, and a square footage, and leave the rest to be figured out during the viewing or, worse, after you&apos;ve signed. These 12 questions will surface the information that actually determines whether a space works for your practice before you commit.
             </p>
 
             <h2 style={{ fontFamily: 'var(--font-heading)' }} className="mt-10 text-xl font-semibold">1. What are the access hours?</h2>
             <p>
-              Many shared buildings default to 7am–10pm access even when they don&apos;t advertise it. If you work early mornings, late nights, or weekends on irregular schedules, confirm access hours explicitly. 24-hour keycard access is available in most industrial and commercial buildings in Portland — but you have to ask for it, and sometimes pay a small additional fee.
+              Many shared buildings default to 7am–10pm access even when they don&apos;t advertise it. If you work early mornings, late nights, or weekends on irregular schedules, confirm access hours explicitly. 24-hour keycard access is available in most industrial and commercial buildings in Portland, but you have to ask for it, and sometimes pay a small additional fee.
             </p>
 
             <h2 style={{ fontFamily: 'var(--font-heading)' }} className="mt-10 text-xl font-semibold">2. What&apos;s included in the monthly rent?</h2>
             <p>
-              Utilities — electricity, water, heat, internet — vary widely. Some Portland studios include everything; others meter electricity separately, which matters enormously if you run power-hungry equipment (kilns, compressors, grow lights, welders). Get an itemized list of what&apos;s included and what&apos;s billed separately before comparing prices across listings.
+              Utilities, electricity, water, heat, internet, vary widely. Some Portland studios include everything; others meter electricity separately, which matters enormously if you run power-hungry equipment (kilns, compressors, grow lights, welders). Get an itemized list of what&apos;s included and what&apos;s billed separately before comparing prices across listings.
             </p>
 
             <h2 style={{ fontFamily: 'var(--font-heading)' }} className="mt-10 text-xl font-semibold">3. What are the permitted uses?</h2>
@@ -84,14 +84,14 @@ export default function Post() {
               This is the most commonly glossed-over question and the most important one for working artists and makers. Some buildings prohibit noise above a threshold, restrict commercial client visits, bar certain materials (aerosols, resins, flammable solvents), or limit operating hours for loud tools. If you plan to use the space in a non-standard way, get written confirmation that it&apos;s permitted before you sign.
             </p>
 
-            <h2 style={{ fontFamily: 'var(--font-heading)' }} className="mt-10 text-xl font-semibold">4. Who handles maintenance — and how quickly?</h2>
+            <h2 style={{ fontFamily: 'var(--font-heading)' }} className="mt-10 text-xl font-semibold">4. Who handles maintenance, and how quickly?</h2>
             <p>
               In shared buildings, responsibility for maintenance is frequently ambiguous. Ask who to contact for HVAC issues, plumbing problems, broken locks, and pest problems. Ask how quickly they typically respond. A building where the landlord lives out of state and relies on a property manager who relies on a contractor is a building where small problems linger for weeks.
             </p>
 
             <h2 style={{ fontFamily: 'var(--font-heading)' }} className="mt-10 text-xl font-semibold">5. Is there storage, and is it secure?</h2>
             <p>
-              For artists and makers, secure storage is often as important as working space. Ask whether you get dedicated storage (locked room or cage), access to shared building storage, or neither. Also ask whether your working space itself locks securely — building common areas accessible to all tenants are not appropriate for storing materials or finished work overnight.
+              For artists and makers, secure storage is often as important as working space. Ask whether you get dedicated storage (locked room or cage), access to shared building storage, or neither. Also ask whether your working space itself locks securely, building common areas accessible to all tenants are not appropriate for storing materials or finished work overnight.
             </p>
 
             <h2 style={{ fontFamily: 'var(--font-heading)' }} className="mt-10 text-xl font-semibold">6. Who are the other tenants?</h2>
@@ -101,12 +101,12 @@ export default function Post() {
 
             <h2 style={{ fontFamily: 'var(--font-heading)' }} className="mt-10 text-xl font-semibold">7. What are the lease terms and notice requirements?</h2>
             <p>
-              Month-to-month vs. annual makes a significant difference in flexibility and price. Oregon commercial tenants on month-to-month arrangements are entitled to 90 days&apos; notice before a rent increase. Get the lease term, required notice to vacate, and the landlord&apos;s notice requirements to you — all in writing.
+              Month-to-month vs. annual makes a significant difference in flexibility and price. Oregon commercial tenants on month-to-month arrangements are entitled to 90 days&apos; notice before a rent increase. Get the lease term, required notice to vacate, and the landlord&apos;s notice requirements to you, all in writing.
             </p>
 
             <h2 style={{ fontFamily: 'var(--font-heading)' }} className="mt-10 text-xl font-semibold">8. Is the building code-compliant for your intended use?</h2>
             <p>
-              Some Portland buildings have open code violations or occupancy issues that the landlord hasn&apos;t disclosed. For spaces where fire safety matters — anything involving flammable materials, kiln use, or densely occupied buildings — ask directly whether the building has any open violations. You can also look up Portland&apos;s development permit database online before signing.
+              Some Portland buildings have open code violations or occupancy issues that the landlord hasn&apos;t disclosed. For spaces where fire safety matters, anything involving flammable materials, kiln use, or densely occupied buildings, ask directly whether the building has any open violations. You can also look up Portland&apos;s development permit database online before signing.
             </p>
 
             <h2 style={{ fontFamily: 'var(--font-heading)' }} className="mt-10 text-xl font-semibold">9. Can I have guests and clients on-site?</h2>
@@ -116,12 +116,12 @@ export default function Post() {
 
             <h2 style={{ fontFamily: 'var(--font-heading)' }} className="mt-10 text-xl font-semibold">10. Has the building had flooding, pest, or structural issues?</h2>
             <p>
-              Portland&apos;s older commercial and industrial buildings have histories. Basement studios flood. Older buildings have rodent pressure. Some industrial spaces have soil contamination from prior tenants. These problems tend to recur — ask directly, and listen for hesitation in the answer. The landlord&apos;s reaction to the question tells you as much as the answer.
+              Portland&apos;s older commercial and industrial buildings have histories. Basement studios flood. Older buildings have rodent pressure. Some industrial spaces have soil contamination from prior tenants. These problems tend to recur, ask directly, and listen for hesitation in the answer. The landlord&apos;s reaction to the question tells you as much as the answer.
             </p>
 
             <h2 style={{ fontFamily: 'var(--font-heading)' }} className="mt-10 text-xl font-semibold">11. What happens if I need to exit early?</h2>
             <p>
-              On a month-to-month lease, early exit is generally just a matter of giving the agreed notice (typically 30 days). On an annual lease, the terms vary — some landlords allow subletting, others require you to find a replacement tenant, others hold you to the full term. Know what your exit looks like before you sign, especially on any agreement longer than month-to-month.
+              On a month-to-month lease, early exit is generally just a matter of giving the agreed notice (typically 30 days). On an annual lease, the terms vary, some landlords allow subletting, others require you to find a replacement tenant, others hold you to the full term. Know what your exit looks like before you sign, especially on any agreement longer than month-to-month.
             </p>
 
             <h2 style={{ fontFamily: 'var(--font-heading)' }} className="mt-10 text-xl font-semibold">12. Is there parking, and who has access to it?</h2>

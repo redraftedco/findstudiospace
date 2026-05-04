@@ -62,7 +62,7 @@ export default function PlacementCheckout() {
       if (!res.ok) { setError(data.error ?? 'Something went wrong.'); return }
       window.location.href = data.url
     } catch {
-      setError('Network error — try again.')
+      setError('Network error, try again.')
     } finally {
       setLoading(false)
     }

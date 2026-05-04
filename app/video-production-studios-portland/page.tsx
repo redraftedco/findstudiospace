@@ -8,23 +8,23 @@ export const revalidate = 3600
 export const metadata: Metadata = {
   title: 'Video Production Studios for Rent in Portland, OR | Film & Content Studios',
   description:
-    'Find video production studios for rent in Portland, OR. Green screens, film sets, content creation rooms, and monthly production studio rentals — contact hosts directly.',
+    'Find video production studios for rent in Portland, OR. Green screens, film sets, content creation rooms, and monthly production studio rentals, contact hosts directly.',
   alternates: { canonical: 'https://www.findstudiospace.com/video-production-studios-portland' },
   openGraph: {
     title: 'Video Production Studios for Rent in Portland, OR | Film & Content Studios',
     description:
-      'Find video production studios for rent in Portland, OR. Green screens, film sets, content creation rooms, and monthly production studio rentals — contact hosts directly.',
+      'Find video production studios for rent in Portland, OR. Green screens, film sets, content creation rooms, and monthly production studio rentals, contact hosts directly.',
   },
 }
 
 const FAQS = [
   {
     q: 'How much does a video production studio cost to rent in Portland per month?',
-    a: 'Monthly video production studio rentals in Portland range from $700–$3,000/month. Smaller content creation rooms with basic lighting and a green screen start around $700–$1,200; full production studios with film sets, grip equipment, and control room access run $1,500–$3,000+/month. Day-rate options are also common — ask the host.',
+    a: 'Monthly video production studio rentals in Portland range from $700–$3,000/month. Smaller content creation rooms with basic lighting and a green screen start around $700–$1,200; full production studios with film sets, grip equipment, and control room access run $1,500–$3,000+/month. Day-rate options are also common, ask the host.',
   },
   {
     q: 'Do Portland video studios include lighting and camera equipment?',
-    a: 'Lighting rigs are commonly included — most studios have LED panels, softboxes, and grip equipment (stands, flags, diffusion). Camera and lens packages vary: some studios include camera bodies, others are bring-your-own. Confirm what\'s included in the listing description and verify with the host before booking.',
+    a: 'Lighting rigs are commonly included, most studios have LED panels, softboxes, and grip equipment (stands, flags, diffusion). Camera and lens packages vary: some studios include camera bodies, others are bring-your-own. Confirm what\'s included in the listing description and verify with the host before booking.',
   },
   {
     q: 'Are there green screen studios for rent in Portland?',
@@ -32,7 +32,7 @@ const FAQS = [
   },
   {
     q: 'Can I rent a Portland video studio for commercial or branded content shoots?',
-    a: 'Yes. Most studios available for monthly or day-rate rent allow commercial, branded, and editorial production. Larger crew sizes or extended shoots may require additional insurance documentation — mention your production scope and crew size in your inquiry so the host can confirm suitability.',
+    a: 'Yes. Most studios available for monthly or day-rate rent allow commercial, branded, and editorial production. Larger crew sizes or extended shoots may require additional insurance documentation, mention your production scope and crew size in your inquiry so the host can confirm suitability.',
   },
   {
     q: 'What neighborhoods in Portland have video production studios?',
@@ -124,7 +124,7 @@ export default async function VideoProductionStudiosPortlandPage() {
           {listings.length > 0 ? (
             <CategoryFilter listings={listings} />
           ) : (
-            <p style={{ color: 'var(--stone)' }} className="mb-14">No video production studios listed yet — check back soon or browse <Link href="/photography-studios-portland" className="underline">photography studios</Link>.</p>
+            <p style={{ color: 'var(--stone)' }} className="mb-14">No video production studios listed yet, check back soon or browse <Link href="/photography-studios-portland" className="underline">photography studios</Link>.</p>
           )}
 
           <section style={{ borderTop: '1px solid var(--rule)' }} className="pt-10">

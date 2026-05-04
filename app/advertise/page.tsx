@@ -4,12 +4,12 @@ import { Suspense } from 'react'
 import PlacementCheckout from './PlacementCheckout'
 
 export const metadata: Metadata = {
-  title: 'Advertise Your Studio — FindStudioSpace',
+  title: 'Advertise Your Studio, FindStudioSpace',
   description:
     'Sponsored placement on category and neighborhood pages. $49–$149/month. No commission, no booking lock-in. Renters contact your studio directly.',
   alternates: { canonical: '/advertise' },
   openGraph: {
-    title: 'Advertise Your Studio — FindStudioSpace',
+    title: 'Advertise Your Studio, FindStudioSpace',
     description:
       'Sponsored placement on category and neighborhood pages. $49–$149/month. No commission, no booking lock-in. Renters contact your studio directly.',
   },
@@ -31,7 +31,7 @@ export default function AdvertisePage() {
           style={{ color: 'var(--stone)', fontFamily: 'var(--font-body)' }}
           className="text-base md:text-lg mb-12 max-w-2xl"
         >
-          Your listing is already in the directory for free. Sponsored placement puts it at the top of a specific category or neighborhood page — where renters are actively comparing spaces.
+          Your listing is already in the directory for free. Sponsored placement puts it at the top of a specific category or neighborhood page, where renters are actively comparing spaces.
         </p>
 
         {/* Key facts */}
@@ -66,15 +66,15 @@ export default function AdvertisePage() {
         <div className="space-y-4 mb-12">
           {[
             {
-              name: 'Featured Category — $49/month',
-              body: 'Your listing appears in the "Sponsored" section of one Portland category page — Event Space, Photo Studio, Makerspace, or other relevant categories. Up to 3 sponsored slots per page.',
+              name: 'Featured Category, $49/month',
+              body: 'Your listing appears in the "Sponsored" section of one Portland category page, Event Space, Photo Studio, Makerspace, or other relevant categories. Up to 3 sponsored slots per page.',
             },
             {
-              name: 'Featured Neighborhood — $49/month',
-              body: 'Your listing appears in the "Sponsored" section of one Portland neighborhood page — Pearl District, SE Portland, Central Eastside, or wherever your studio is. Up to 3 sponsored slots per page.',
+              name: 'Featured Neighborhood, $49/month',
+              body: 'Your listing appears in the "Sponsored" section of one Portland neighborhood page, Pearl District, SE Portland, Central Eastside, or wherever your studio is. Up to 3 sponsored slots per page.',
             },
             {
-              name: 'Featured Studio — $149/month',
+              name: 'Featured Studio, $149/month',
               body: 'Sponsored placement across one category page and one relevant browsing path. For studios in high-demand categories that want broader reach.',
             },
           ].map((item) => (
@@ -104,7 +104,7 @@ export default function AdvertisePage() {
           className="text-sm leading-relaxed space-y-2 mb-12 list-decimal list-inside"
         >
           <li>Claim your listing to verify ownership.</li>
-          <li>Choose a placement — which page and which product.</li>
+          <li>Choose a placement, which page and which product.</li>
           <li>We review your placement to confirm relevance before it goes live.</li>
           <li>Your listing appears in the Sponsored section, labeled &quot;Sponsored.&quot;</li>
           <li>Renters see your studio and contact you directly.</li>

@@ -36,7 +36,7 @@ const FAQS = [
   },
   {
     q: 'How does Sellwood compare to other SE Portland neighborhoods for studios?',
-    a: 'Sellwood is quieter and more residential than the Division Street or Hawthorne corridors. It has less studio inventory but also less competition — spaces tend to stay available longer and landlords are often more flexible on terms. It\'s a good option for artists who prioritize quiet, outdoor access (the Sellwood riverfront park is nearby), and lower rent over urban density.',
+    a: 'Sellwood is quieter and more residential than the Division Street or Hawthorne corridors. It has less studio inventory but also less competition, spaces tend to stay available longer and landlords are often more flexible on terms. It\'s a good option for artists who prioritize quiet, outdoor access (the Sellwood riverfront park is nearby), and lower rent over urban density.',
   },
 ]
 
@@ -119,13 +119,13 @@ export default async function SellwoodPage() {
             Studio Space for Rent in Sellwood, Portland
           </h1>
           <p style={{ color: 'var(--stone)' }} className="mb-10 max-w-2xl text-sm leading-relaxed">
-            Sellwood is one of Portland&apos;s quietest and most village-like neighborhoods — a riverside SE district with independent studios and creative workspace at some of the city&apos;s most accessible monthly rents. Browse studio rentals in Sellwood and submit an inquiry from any listing to connect directly with the host.
+            Sellwood is one of Portland&apos;s quietest and most village-like neighborhoods, a riverside SE district with independent studios and creative workspace at some of the city&apos;s most accessible monthly rents. Browse studio rentals in Sellwood and submit an inquiry from any listing to connect directly with the host.
           </p>
 
           {rows.length > 0 ? (
             <CategoryFilter listings={rows} />
           ) : (
-            <p style={{ color: 'var(--stone)' }} className="mb-14">No studios listed in Sellwood yet — check back soon or browse <Link href="/division-street" className="underline">Division Street studios</Link> or <Link href="/central-eastside" className="underline">Central Eastside studios</Link>.</p>
+            <p style={{ color: 'var(--stone)' }} className="mb-14">No studios listed in Sellwood yet, check back soon or browse <Link href="/division-street" className="underline">Division Street studios</Link> or <Link href="/central-eastside" className="underline">Central Eastside studios</Link>.</p>
           )}
 
           <section style={{ borderTop: '1px solid var(--rule)' }} className="pt-10">

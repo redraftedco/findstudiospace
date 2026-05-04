@@ -140,7 +140,7 @@ export default function ListYourSpacePage() {
               minLength={50}
               rows={5}
               className="input resize-none"
-              placeholder="Describe the space — natural light, ceiling height, access hours, what kind of work it's suited for..."
+              placeholder="Describe the space, natural light, ceiling height, access hours, what kind of work it's suited for..."
             />
           </div>
 

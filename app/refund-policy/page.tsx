@@ -4,7 +4,7 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'Refund Policy | FindStudioSpace',
   description:
-    'How refunds work on sponsored placements — monthly billing, no partial-month refunds, and how to request a billing correction.',
+    'How refunds work on sponsored placements, monthly billing, no partial-month refunds, and how to request a billing correction.',
   alternates: { canonical: '/refund-policy' },
 }
 
@@ -75,7 +75,7 @@ export default function RefundPolicyPage() {
             <Link href="/terms" style={{ color: 'var(--action)' }} className="hover:underline">
               Terms of Service
             </Link>{' '}
-            — if anything here conflicts with the Terms, the Terms control.
+           , if anything here conflicts with the Terms, the Terms control.
           </p>
         </section>
 
@@ -91,13 +91,13 @@ export default function RefundPolicyPage() {
           </p>
           <ul className="list-disc pl-6 space-y-2 text-base leading-relaxed">
             <li>
-              <strong>Billing error or double-charge.</strong> If you were charged by mistake —
-              duplicate transaction, wrong amount, charge after a confirmed cancellation — email us
+              <strong>Billing error or double-charge.</strong> If you were charged by mistake,
+              duplicate transaction, wrong amount, charge after a confirmed cancellation, email us
               and we&apos;ll correct it. This is a billing correction, not a discretionary refund.
             </li>
           </ul>
           <p className="text-base leading-relaxed mt-3">
-            Other situations are handled case by case — email us and describe what happened. We
+            Other situations are handled case by case, email us and describe what happened. We
             don&apos;t pre-commit to categories beyond billing corrections.
           </p>
         </section>
@@ -123,7 +123,7 @@ export default function RefundPolicyPage() {
           </ul>
           <p className="text-base leading-relaxed mt-3">
             We aim to respond promptly. If a refund is approved, it&apos;s issued to the original
-            payment method through Stripe — your bank typically posts the refund within 5 to 10
+            payment method through Stripe, your bank typically posts the refund within 5 to 10
             business days.
           </p>
         </section>
@@ -141,7 +141,7 @@ export default function RefundPolicyPage() {
           </p>
           <p className="text-base leading-relaxed mb-3">
             Chargebacks cost us a flat fee through Stripe regardless of who wins, and a bank
-            dispute typically takes 30–90 days — we can usually resolve the same issue in hours by
+            dispute typically takes 30–90 days, we can usually resolve the same issue in hours by
             email.
           </p>
           <p className="text-base leading-relaxed">

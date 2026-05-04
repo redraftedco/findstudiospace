@@ -28,15 +28,15 @@ const FAQS = [
   },
   {
     q: 'Do I need experience to join a Portland makerspace?',
-    a: 'No prior experience is required for most makerspaces. Most offer tool orientations and safety certifications as part of membership — either included or at a small additional cost. Some high-risk equipment (welders, plasma cutters, large CNCs) requires a brief certification before unsupervised use, which is standard practice across the industry.',
+    a: 'No prior experience is required for most makerspaces. Most offer tool orientations and safety certifications as part of membership, either included or at a small additional cost. Some high-risk equipment (welders, plasma cutters, large CNCs) requires a brief certification before unsupervised use, which is standard practice across the industry.',
   },
   {
     q: 'Are there makerspaces in Portland with dedicated private studio space?',
-    a: 'Yes. Some Portland makerspaces offer a hybrid model — shared tool access plus a dedicated private studio or bench that is yours to use without reservations. These are typically more expensive than shared-only memberships but give you a permanent workspace to leave projects in progress.',
+    a: 'Yes. Some Portland makerspaces offer a hybrid model, shared tool access plus a dedicated private studio or bench that is yours to use without reservations. These are typically more expensive than shared-only memberships but give you a permanent workspace to leave projects in progress.',
   },
   {
     q: 'What neighborhoods in Portland have makerspaces?',
-    a: 'Portland makerspaces are concentrated in the Central Eastside Industrial District, NE Portland, and SE Portland — areas with industrial zoning that accommodates power tools, dust, and noise. The Central Eastside has several established shared fab spaces in warehouse buildings with high ceilings and loading access.',
+    a: 'Portland makerspaces are concentrated in the Central Eastside Industrial District, NE Portland, and SE Portland, areas with industrial zoning that accommodates power tools, dust, and noise. The Central Eastside has several established shared fab spaces in warehouse buildings with high ceilings and loading access.',
   },
 ]
 
@@ -119,13 +119,13 @@ export default async function MakerspacePortlandPage() {
             Makerspace for Rent in Portland, OR
           </h1>
           <p style={{ color: 'var(--stone)' }} className="mb-10 max-w-2xl text-sm leading-relaxed">
-            Browse makerspaces and shared fabrication studios available for monthly membership in Portland, OR. Laser cutters, 3D printers, CNC routers, wood shops, and metal fabrication equipment — from casual access memberships to dedicated private bench space. Submit an inquiry from any listing to connect directly with the host.
+            Browse makerspaces and shared fabrication studios available for monthly membership in Portland, OR. Laser cutters, 3D printers, CNC routers, wood shops, and metal fabrication equipment, from casual access memberships to dedicated private bench space. Submit an inquiry from any listing to connect directly with the host.
           </p>
 
           {listings.length > 0 ? (
             <CategoryFilter listings={listings} />
           ) : (
-            <p style={{ color: 'var(--stone)' }} className="mb-14">No makerspaces listed yet — check back soon or browse <Link href="/central-eastside" className="underline">Central Eastside studios</Link>.</p>
+            <p style={{ color: 'var(--stone)' }} className="mb-14">No makerspaces listed yet, check back soon or browse <Link href="/central-eastside" className="underline">Central Eastside studios</Link>.</p>
           )}
 
           <section style={{ borderTop: '1px solid var(--rule)' }} className="pt-10">

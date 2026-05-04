@@ -1,4 +1,4 @@
-// SpaceBadges — shows GIS-derived location facts sourced from listing_enrichment.
+// SpaceBadges, shows GIS-derived location facts sourced from listing_enrichment.
 // Rendered on listing detail pages when enrichment data exists. Each badge is
 // a single structural fact a renter can't get from photos or a price tag.
 
@@ -39,7 +39,7 @@ function buildBadges(e: Enrichment): Badge[] {
     const allowsKilns = /^(IG|IH|EG|EX|CE)/.test(zone)
     badges.push({
       label: 'Zoning',
-      detail: zone + (allowsKilns ? ' — kilns & industrial equipment permitted' : ''),
+      detail: zone + (allowsKilns ? ', kilns & industrial equipment permitted' : ''),
       tone: 'neutral',
     })
   }
@@ -49,11 +49,11 @@ function buildBadges(e: Enrichment): Badge[] {
     if (band === 'gte68' || band === '65-68') {
       badges.push({
         label: 'Airport noise',
-        detail: band === 'gte68' ? '≥68 DNL — in PDX noise overlay; glazing restrictions apply' : '65–68 DNL — moderate airport noise zone',
+        detail: band === 'gte68' ? '≥68 DNL, in PDX noise overlay; glazing restrictions apply' : '65–68 DNL, moderate airport noise zone',
         tone: 'warn',
       })
     } else if (band === '55-65') {
-      badges.push({ label: 'Airport noise', detail: '55–65 DNL — low-level noise overlay', tone: 'neutral' })
+      badges.push({ label: 'Airport noise', detail: '55–65 DNL, low-level noise overlay', tone: 'neutral' })
     }
   }
 
@@ -62,7 +62,7 @@ function buildBadges(e: Enrichment): Badge[] {
     if (zone.startsWith('A') || zone.startsWith('V')) {
       badges.push({
         label: 'Flood zone',
-        detail: `FEMA ${zone} — 100-year Special Flood Hazard Area; flood insurance likely required`,
+        detail: `FEMA ${zone}, 100-year Special Flood Hazard Area; flood insurance likely required`,
         tone: 'warn',
       })
     } else if (zone === 'X' || zone === 'X500') {
@@ -73,7 +73,7 @@ function buildBadges(e: Enrichment): Badge[] {
   if (e.wildfire_hazard && e.wildfire_hazard.toLowerCase() !== 'none') {
     badges.push({
       label: 'Wildfire hazard',
-      detail: `${e.wildfire_hazard} — verify insurance coverage with landlord`,
+      detail: `${e.wildfire_hazard}, verify insurance coverage with landlord`,
       tone: 'warn',
     })
   }
@@ -81,7 +81,7 @@ function buildBadges(e: Enrichment): Badge[] {
   if (e.landslide_hazard && e.landslide_hazard.toLowerCase() !== 'none') {
     badges.push({
       label: 'Landslide hazard',
-      detail: `DOGAMI ${e.landslide_hazard} — potential hillside stability concern`,
+      detail: `DOGAMI ${e.landslide_hazard}, potential hillside stability concern`,
       tone: 'warn',
     })
   }
@@ -89,7 +89,7 @@ function buildBadges(e: Enrichment): Badge[] {
   if (e.parking_permit_zone) {
     badges.push({
       label: 'Parking',
-      detail: `Zone ${e.parking_permit_zone} permit area — street parking restricted for non-permit holders`,
+      detail: `Zone ${e.parking_permit_zone} permit area, street parking restricted for non-permit holders`,
       tone: 'neutral',
     })
   }
@@ -101,7 +101,7 @@ function buildBadges(e: Enrichment): Badge[] {
   if (e.hri_listed) {
     badges.push({
       label: 'Historic resource',
-      detail: 'Portland Historic Resource Inventory — improvements may require BDS review',
+      detail: 'Portland Historic Resource Inventory, improvements may require BDS review',
       tone: 'warn',
     })
   }
@@ -109,7 +109,7 @@ function buildBadges(e: Enrichment): Badge[] {
   if (e.opportunity_zone) {
     badges.push({
       label: 'Opportunity zone',
-      detail: 'Federal OZ census tract — potential tax incentives for qualifying investments',
+      detail: 'Federal OZ census tract, potential tax incentives for qualifying investments',
       tone: 'good',
     })
   }

@@ -225,7 +225,7 @@ export default async function IntersectionPage({ params }: PageProps) {
           {/* Dev quality gate notice */}
           {!gate.indexable && process.env.NODE_ENV !== 'production' && (
             <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--action)', marginBottom: '1rem', border: '1px solid var(--action)', padding: '6px 10px', display: 'inline-block' }}>
-              NOINDEX — {gate.reason}
+              NOINDEX, {gate.reason}
             </p>
           )}
 

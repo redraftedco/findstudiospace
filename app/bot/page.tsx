@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'FindStudioSpaceBot — Web Crawler Disclosure | FindStudioSpace',
+  title: 'FindStudioSpaceBot, Web Crawler Disclosure | FindStudioSpace',
   description:
     'Information about the FindStudioSpaceBot web crawler: what it collects, why it runs, and how to opt your site out.',
   alternates: { canonical: '/bot' },
@@ -35,8 +35,8 @@ export default function BotPage() {
         <section className="mb-8">
           <p className="text-base leading-relaxed mb-4">
             FindStudioSpaceBot is a web crawler operated by FindStudioSpace. It runs nightly to
-            discover and update listings for creative studio spaces — photography studios,
-            makerspaces, event venues, podcast studios, and similar spaces — in Portland and
+            discover and update listings for creative studio spaces, photography studios,
+            makerspaces, event venues, podcast studios, and similar spaces, in Portland and
             nearby cities.
           </p>
           <p className="text-base leading-relaxed">
@@ -119,7 +119,7 @@ export default function BotPage() {
             How to opt out
           </h2>
           <p className="text-base leading-relaxed mb-4">
-            <strong>Block the bot via robots.txt</strong> — add the following to your{' '}
+            <strong>Block the bot via robots.txt</strong>, add the following to your{' '}
             <code style={{ fontSize: '13px' }}>robots.txt</code> and the crawler will not visit
             your site again:
           </p>
@@ -136,7 +136,7 @@ export default function BotPage() {
             {`User-agent: FindStudioSpaceBot\nDisallow: /`}
           </code>
           <p className="text-base leading-relaxed mb-4">
-            <strong>Request listing removal</strong> — email{' '}
+            <strong>Request listing removal</strong>, email{' '}
             <a href={`mailto:${CONTACT_EMAIL}`} style={{ color: 'var(--action)' }}>
               {CONTACT_EMAIL}
             </a>{' '}
@@ -144,7 +144,7 @@ export default function BotPage() {
             from the directory within 48 hours.
           </p>
           <p className="text-base leading-relaxed">
-            <strong>Unsubscribe from email</strong> — reply &ldquo;unsubscribe&rdquo; to any email
+            <strong>Unsubscribe from email</strong>, reply &ldquo;unsubscribe&rdquo; to any email
             we&apos;ve sent and we&apos;ll stop all outreach within 48 hours.
           </p>
         </section>

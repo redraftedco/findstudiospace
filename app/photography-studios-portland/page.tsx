@@ -8,35 +8,35 @@ export const revalidate = 3600
 export const metadata: Metadata = {
   title: 'Photography Studios for Rent in Portland, OR | Photo Shoot Locations',
   description:
-    'Find photography studios for rent in Portland, OR. Cyclorama walls, natural light spaces, product photography setups, and monthly photo studio rentals — contact hosts directly.',
+    'Find photography studios for rent in Portland, OR. Cyclorama walls, natural light spaces, product photography setups, and monthly photo studio rentals, contact hosts directly.',
   alternates: { canonical: 'https://www.findstudiospace.com/photography-studios-portland' },
   openGraph: {
     title: 'Photography Studios for Rent in Portland, OR | Photo Shoot Locations',
     description:
-      'Find photography studios for rent in Portland, OR. Cyclorama walls, natural light spaces, product photography setups, and monthly photo studio rentals — contact hosts directly.',
+      'Find photography studios for rent in Portland, OR. Cyclorama walls, natural light spaces, product photography setups, and monthly photo studio rentals, contact hosts directly.',
   },
 }
 
 const FAQS = [
   {
     q: 'How much does it cost to rent a photography studio in Portland per month?',
-    a: 'Monthly photography studio rentals in Portland range from $600–$2,500/month. Smaller spaces for portrait or editorial work start lower; large production studios with cyclorama walls, dedicated product sets, and full lighting packages run higher. Many studios also offer day-rate options — ask the host.',
+    a: 'Monthly photography studio rentals in Portland range from $600–$2,500/month. Smaller spaces for portrait or editorial work start lower; large production studios with cyclorama walls, dedicated product sets, and full lighting packages run higher. Many studios also offer day-rate options, ask the host.',
   },
   {
     q: 'Do Portland photography studios include lighting and backdrops?',
-    a: 'Most do. Common setups include strobe kits, seamless paper backgrounds in multiple colors, V-flats, and tethering stations. Check the listing description for the specific gear list and confirm with the host before committing — included equipment varies significantly between studios.',
+    a: 'Most do. Common setups include strobe kits, seamless paper backgrounds in multiple colors, V-flats, and tethering stations. Check the listing description for the specific gear list and confirm with the host before committing, included equipment varies significantly between studios.',
   },
   {
     q: 'Are there cyclorama wall (cyc wall) studios for rent in Portland?',
-    a: 'Yes. Several Portland studios have full cyclorama walls — seamless curved backgrounds ideal for fashion, product, and editorial shoots requiring a clean infinite backdrop. Look for listings that specifically mention cyc wall or cyclorama in the description.',
+    a: 'Yes. Several Portland studios have full cyclorama walls, seamless curved backgrounds ideal for fashion, product, and editorial shoots requiring a clean infinite backdrop. Look for listings that specifically mention cyc wall or cyclorama in the description.',
   },
   {
     q: 'Can I rent a Portland photography studio for commercial shoots?',
-    a: 'Yes. Most studios available for monthly rent allow commercial, editorial, and brand work. Some hosts require a certificate of insurance for large production crews — ask about requirements in your inquiry. If you are bringing a full production team, mention your crew size upfront.',
+    a: 'Yes. Most studios available for monthly rent allow commercial, editorial, and brand work. Some hosts require a certificate of insurance for large production crews, ask about requirements in your inquiry. If you are bringing a full production team, mention your crew size upfront.',
   },
   {
     q: 'What neighborhoods in Portland have photography studios for rent?',
-    a: 'Photo studios in Portland are concentrated in the Pearl District, Central Eastside Industrial District, and NE Portland — all with easy access from downtown. Central Eastside warehouse buildings offer high ceilings and loading access suited for large-production setups; Pearl District studios tend toward polished finishes for client-facing work.',
+    a: 'Photo studios in Portland are concentrated in the Pearl District, Central Eastside Industrial District, and NE Portland, all with easy access from downtown. Central Eastside warehouse buildings offer high ceilings and loading access suited for large-production setups; Pearl District studios tend toward polished finishes for client-facing work.',
   },
 ]
 
@@ -122,7 +122,7 @@ export default async function PhotographyStudiosPortlandPage() {
           {listings.length > 0 ? (
             <CategoryFilter listings={listings} />
           ) : (
-            <p style={{ color: 'var(--stone)' }} className="mb-14">No photography studios listed yet — check back soon.</p>
+            <p style={{ color: 'var(--stone)' }} className="mb-14">No photography studios listed yet, check back soon.</p>
           )}
 
           <section style={{ borderTop: '1px solid var(--rule)' }} className="pt-10">

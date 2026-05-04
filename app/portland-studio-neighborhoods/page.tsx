@@ -4,12 +4,12 @@ import Link from 'next/link'
 export const revalidate = 2592000 // 30 days
 
 export const metadata: Metadata = {
-  title: 'Portland Studio Space by Neighborhood — Creative Workspace Guide | FindStudioSpace',
+  title: 'Portland Studio Space by Neighborhood, Creative Workspace Guide | FindStudioSpace',
   description:
     'A neighborhood-by-neighborhood guide to renting studio space in Portland, OR. Compare average rents, creative character, and best uses across the Central Eastside, Pearl District, Alberta Arts District, SE Division, Mississippi Ave, and Slabtown.',
   alternates: { canonical: 'https://www.findstudiospace.com/portland-studio-neighborhoods' },
   openGraph: {
-    title: 'Portland Studio Space by Neighborhood — Creative Workspace Guide | FindStudioSpace',
+    title: 'Portland Studio Space by Neighborhood, Creative Workspace Guide | FindStudioSpace',
     description:
       'A neighborhood-by-neighborhood guide to renting studio space in Portland, OR. Compare average rents, creative character, and best uses across the Central Eastside, Pearl District, Alberta Arts District, SE Division, Mississippi Ave, and Slabtown.',
   },
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 const FAQS = [
   {
     q: 'Which Portland neighborhood is best for art studios?',
-    a: 'The Alberta Arts District and Central Eastside are Portland\'s strongest neighborhoods for working art studios. Alberta is a tight-knit NE Portland community with lower rents and strong foot traffic on First Thursday gallery nights. The Central Eastside offers industrial zoning, high ceilings, and loading access — well suited for large-format work, ceramics, and fabrication. Which is better depends on your practice: Alberta fits painters and printmakers; the Central Eastside fits makers and production-heavy studios.',
+    a: 'The Alberta Arts District and Central Eastside are Portland\'s strongest neighborhoods for working art studios. Alberta is a tight-knit NE Portland community with lower rents and strong foot traffic on First Thursday gallery nights. The Central Eastside offers industrial zoning, high ceilings, and loading access, well suited for large-format work, ceramics, and fabrication. Which is better depends on your practice: Alberta fits painters and printmakers; the Central Eastside fits makers and production-heavy studios.',
   },
   {
     q: 'Where is the cheapest studio space in Portland?',
@@ -26,11 +26,11 @@ const FAQS = [
   },
   {
     q: 'What neighborhoods have 24-hour studio access?',
-    a: 'The Central Eastside is the most reliable neighborhood for 24-hour access — industrial and commercial buildings there routinely offer keycard or fob entry at all hours. The Pearl District\'s commercial buildings also commonly support around-the-clock access. Alberta Arts District and SE Division are more mixed: some buildings offer 24-hour access; others have landlord-set hours. Always confirm access hours directly with the host before signing.',
+    a: 'The Central Eastside is the most reliable neighborhood for 24-hour access, industrial and commercial buildings there routinely offer keycard or fob entry at all hours. The Pearl District\'s commercial buildings also commonly support around-the-clock access. Alberta Arts District and SE Division are more mixed: some buildings offer 24-hour access; others have landlord-set hours. Always confirm access hours directly with the host before signing.',
   },
   {
     q: 'Where do photographers rent studio space in Portland?',
-    a: 'The Pearl District is Portland\'s primary market for dedicated photography studios — clean commercial buildings, good light, and proximity to design agencies and brand clients. The Central Eastside is a secondary option, especially for photographers who need loading access for equipment or high-ceiling shooting bays. Some photo studios also operate in Slabtown as NW Portland\'s commercial corridor continues to develop.',
+    a: 'The Pearl District is Portland\'s primary market for dedicated photography studios, clean commercial buildings, good light, and proximity to design agencies and brand clients. The Central Eastside is a secondary option, especially for photographers who need loading access for equipment or high-ceiling shooting bays. Some photo studios also operate in Slabtown as NW Portland\'s commercial corridor continues to develop.',
   },
   {
     q: 'What is the best neighborhood for a workshop or fabrication studio?',
@@ -63,7 +63,7 @@ const NEIGHBORHOODS = [
     name: 'Central Eastside',
     href: '/central-eastside',
     description:
-      'Portland\'s industrial creative core, directly east of the Willamette. The Central Eastside has been the city\'s working maker district for decades — buildings with high ceilings, loading access, and industrial zoning that tolerates noise, dust, and heavy equipment. Expect a mix of private studios, shared fabrication bays, and production offices.',
+      'Portland\'s industrial creative core, directly east of the Willamette. The Central Eastside has been the city\'s working maker district for decades, buildings with high ceilings, loading access, and industrial zoning that tolerates noise, dust, and heavy equipment. Expect a mix of private studios, shared fabrication bays, and production offices.',
     rent: '$500–$3,000/mo',
     bestFor: 'Woodworkers, fabricators, ceramicists, production studios',
   },
@@ -87,7 +87,7 @@ const NEIGHBORHOODS = [
     name: 'SE Division',
     href: '/portland/division',
     description:
-      'A walkable, neighborhood-scale corridor in SE Portland that has grown into a reliable option for small studios and maker-retail hybrids. Buildings are modest — converted storefronts and older commercial stock — which keeps rents affordable. Good for instructors and retail-facing makers who want a residential customer base and street-level visibility.',
+      'A walkable, neighborhood-scale corridor in SE Portland that has grown into a reliable option for small studios and maker-retail hybrids. Buildings are modest, converted storefronts and older commercial stock, which keeps rents affordable. Good for instructors and retail-facing makers who want a residential customer base and street-level visibility.',
     rent: '$400–$2,000/mo',
     bestFor: 'Retail makers, instructors, small private studios',
   },
@@ -95,7 +95,7 @@ const NEIGHBORHOODS = [
     name: 'N Mississippi Ave',
     href: '/portland/mississippi',
     description:
-      'A boutique creative corridor in North Portland with a curated mix of shops, galleries, and maker businesses. Mississippi has a visible storefront culture — fewer raw warehouse spaces, more finished retail-adjacent studios. Suited to creative businesses that want a neighborhood identity and foot traffic without the Pearl District\'s price point.',
+      'A boutique creative corridor in North Portland with a curated mix of shops, galleries, and maker businesses. Mississippi has a visible storefront culture, fewer raw warehouse spaces, more finished retail-adjacent studios. Suited to creative businesses that want a neighborhood identity and foot traffic without the Pearl District\'s price point.',
     rent: '$500–$2,500/mo',
     bestFor: 'Jewelers, designers, visible storefronts',
   },
@@ -103,7 +103,7 @@ const NEIGHBORHOODS = [
     name: 'Slabtown / NW Portland',
     href: '/slabtown',
     description:
-      'An emerging corridor in NW Portland between the Pearl and the old industrial waterfront. Slabtown is less established than the other neighborhoods on this list — inventory is limited and rents vary widely — but creative offices and small studios are appearing as the area develops. Worth monitoring if you want to be early in a neighborhood on the rise.',
+      'An emerging corridor in NW Portland between the Pearl and the old industrial waterfront. Slabtown is less established than the other neighborhoods on this list, inventory is limited and rents vary widely, but creative offices and small studios are appearing as the area develops. Worth monitoring if you want to be early in a neighborhood on the rise.',
     rent: 'Varies',
     bestFor: 'Creative offices, small studios',
   },
@@ -131,7 +131,7 @@ export default function PortlandStudioNeighborhoodsPage() {
             Portland Studio Space by Neighborhood
           </h1>
           <p style={{ color: 'var(--stone)' }} className="mb-10 max-w-2xl text-sm leading-relaxed">
-            Portland&apos;s creative studio market is spread across a half-dozen distinct neighborhoods, each with its own character, price range, and creative community. This guide covers where to rent studio space in Portland — what you&apos;ll find, what it costs, and who each neighborhood suits best.
+            Portland&apos;s creative studio market is spread across a half-dozen distinct neighborhoods, each with its own character, price range, and creative community. This guide covers where to rent studio space in Portland, what you&apos;ll find, what it costs, and who each neighborhood suits best.
           </p>
 
           {/* Neighborhood cards */}

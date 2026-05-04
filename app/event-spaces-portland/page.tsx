@@ -8,19 +8,19 @@ export const revalidate = 3600
 export const metadata: Metadata = {
   title: 'Event Spaces for Rent in Portland, OR | Private Venues & Pop-Up Spaces',
   description:
-    'Find private event spaces for rent in Portland, OR. Browse venues for parties, pop-ups, brand activations, and community events. Monthly terms — contact hosts directly.',
+    'Find private event spaces for rent in Portland, OR. Browse venues for parties, pop-ups, brand activations, and community events. Monthly terms, contact hosts directly.',
   alternates: { canonical: 'https://www.findstudiospace.com/event-spaces-portland' },
   openGraph: {
     title: 'Event Spaces for Rent in Portland, OR | Private Venues & Pop-Up Spaces',
     description:
-      'Find private event spaces for rent in Portland, OR. Browse venues for parties, pop-ups, brand activations, and community events. Monthly terms — contact hosts directly.',
+      'Find private event spaces for rent in Portland, OR. Browse venues for parties, pop-ups, brand activations, and community events. Monthly terms, contact hosts directly.',
   },
 }
 
 const FAQS = [
   {
     q: 'What types of event spaces are available for rent in Portland?',
-    a: 'Portland has private event venues, loft-style spaces, gallery rooms, warehouse flex spaces with open floor plans, and rooftop venues. Most are available for recurring monthly use — well suited for brands, collectives, and organizers who host events on a regular schedule.',
+    a: 'Portland has private event venues, loft-style spaces, gallery rooms, warehouse flex spaces with open floor plans, and rooftop venues. Most are available for recurring monthly use, well suited for brands, collectives, and organizers who host events on a regular schedule.',
   },
   {
     q: 'How much does event space rental cost in Portland per month?',
@@ -28,7 +28,7 @@ const FAQS = [
   },
   {
     q: 'Can I use a rented Portland event space for a pop-up shop or brand activation?',
-    a: 'Yes. Many monthly rental spaces in Portland permit commercial events, pop-ups, and brand activations under standard terms. Confirm with the host that public foot traffic and commercial use are allowed — some buildings have restrictions on signage, hours, or occupancy. Ask in your inquiry before committing.',
+    a: 'Yes. Many monthly rental spaces in Portland permit commercial events, pop-ups, and brand activations under standard terms. Confirm with the host that public foot traffic and commercial use are allowed, some buildings have restrictions on signage, hours, or occupancy. Ask in your inquiry before committing.',
   },
   {
     q: 'What neighborhoods in Portland have private event spaces for rent?',
@@ -36,7 +36,7 @@ const FAQS = [
   },
   {
     q: 'What is the difference between hourly venue rental and a monthly event space rental in Portland?',
-    a: 'Hourly venues charge per session — useful for one-off events but expensive for recurring use. A monthly rental gives you flexible access throughout the month, including setup and breakdown time, without competing for booking slots. If you host monthly pop-ups, recurring community events, or need on-site storage between uses, a monthly term is almost always more cost-effective.',
+    a: 'Hourly venues charge per session, useful for one-off events but expensive for recurring use. A monthly rental gives you flexible access throughout the month, including setup and breakdown time, without competing for booking slots. If you host monthly pop-ups, recurring community events, or need on-site storage between uses, a monthly term is almost always more cost-effective.',
   },
 ]
 
@@ -128,13 +128,13 @@ export default async function EventSpacesPortlandPage() {
             Event Spaces for Rent in Portland, OR
           </h1>
           <p style={{ color: 'var(--stone)' }} className="mb-10 max-w-2xl text-sm leading-relaxed">
-            Browse private event spaces and venues available for monthly rent in Portland, OR. From raw warehouse lofts in the Central Eastside to gallery-style spaces in the Pearl District — find a venue for recurring pop-ups, private parties, brand activations, and community events. Submit an inquiry from any listing to contact the host directly.
+            Browse private event spaces and venues available for monthly rent in Portland, OR. From raw warehouse lofts in the Central Eastside to gallery-style spaces in the Pearl District, find a venue for recurring pop-ups, private parties, brand activations, and community events. Submit an inquiry from any listing to contact the host directly.
           </p>
 
           {listings.length > 0 ? (
             <CategoryFilter listings={listings} />
           ) : (
-            <p style={{ color: 'var(--stone)' }} className="mb-14">No event spaces listed yet — check back soon.</p>
+            <p style={{ color: 'var(--stone)' }} className="mb-14">No event spaces listed yet, check back soon.</p>
           )}
 
           <section style={{ borderTop: '1px solid var(--rule)' }} className="pt-10">

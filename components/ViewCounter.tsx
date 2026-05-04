@@ -10,7 +10,7 @@ export default function ViewCounter({
   listingId,
 }: {
   listingId: string
-  tier?: string // kept for backwards compat — no longer changes display
+  tier?: string // kept for backwards compat, no longer changes display
 }) {
   const [count, setCount] = useState<number | null>(null)
 
@@ -29,7 +29,7 @@ export default function ViewCounter({
       })
   }, [listingId])
 
-  // Don't render anything below threshold — low counts signal thinness, not demand.
+  // Don't render anything below threshold, low counts signal thinness, not demand.
   if (count === null || count < MIN_DISPLAY_THRESHOLD) return null
 
   return (

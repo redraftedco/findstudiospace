@@ -4,7 +4,7 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'Portland Studio Space Market Report 2026 | Rents by Type & Neighborhood',
   description:
-    'Average monthly rents for art studios, photo studios, workshops, and creative offices in Portland, OR — broken down by neighborhood and space type. Updated 2026.',
+    'Average monthly rents for art studios, photo studios, workshops, and creative offices in Portland, OR, broken down by neighborhood and space type. Updated 2026.',
   alternates: { canonical: 'https://www.findstudiospace.com/blog/portland-studio-market-2026' },
   openGraph: {
     title: 'Portland Studio Space Market Report 2026',
@@ -66,7 +66,7 @@ export default function Post() {
           <div style={{ color: 'var(--ink)' }} className="space-y-6 text-sm leading-relaxed">
 
             <p>
-              This report aggregates pricing data from active listings on FindStudioSpace and publicly available rental data across Portland&apos;s creative districts. All figures represent monthly rents for creative studio, workshop, and production space — not hourly or daily rates. Data reflects the market as of Q2 2026.
+              This report aggregates pricing data from active listings on FindStudioSpace and publicly available rental data across Portland&apos;s creative districts. All figures represent monthly rents for creative studio, workshop, and production space, not hourly or daily rates. Data reflects the market as of Q2 2026.
             </p>
 
             <h2 style={{ fontFamily: 'var(--font-heading)' }} className="mt-10 text-xl font-semibold">Prices by space type</h2>
@@ -78,7 +78,7 @@ export default function Post() {
               </li>
               <li>
                 <strong>Shared art studio / co-op desk:</strong> $150–$400/month<br />
-                <span style={{ color: 'var(--stone)' }}>Shared space with communal equipment — common on NE Alberta and in Central Eastside co-op buildings. Lower cost, built-in community, less storage.</span>
+                <span style={{ color: 'var(--stone)' }}>Shared space with communal equipment, common on NE Alberta and in Central Eastside co-op buildings. Lower cost, built-in community, less storage.</span>
               </li>
               <li>
                 <strong>Workshop / fabrication bay (400–800 sq ft):</strong> $700–$2,000/month<br />
@@ -135,7 +135,7 @@ export default function Post() {
 
             <ul className="space-y-2 pl-4">
               <li><strong>Demand is outpacing supply for sub-$600 studios.</strong> Spaces in this range fill within days of listing and rarely make it to public directories. Word-of-mouth and existing tenant networks are the primary channel.</li>
-              <li><strong>Photo studio monthly rents have risen 15–25% since 2023</strong> — driven by creator economy demand and short supply of purpose-built shooting spaces in Portland.</li>
+              <li><strong>Photo studio monthly rents have risen 15–25% since 2023</strong>, driven by creator economy demand and short supply of purpose-built shooting spaces in Portland.</li>
               <li><strong>Central Eastside vacancy is low.</strong> Industrial redevelopment pressure has converted some traditional creative space to higher-value uses, reducing supply without a corresponding reduction in demand.</li>
               <li><strong>Month-to-month premiums are holding at 10–20%</strong> over annual lease rates, consistent with prior years. Landlords are not compressing this spread despite economic softness elsewhere.</li>
               <li><strong>Podcast and recording studios are undersupplied.</strong> Demand from creator-economy workers and hybrid remote professionals has outpaced new purpose-built studio development.</li>

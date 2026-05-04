@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 const SITE_URL = 'https://www.findstudiospace.com'
 
 export default function AboutPage() {
-  // Organization schema — entity-level data for Knowledge Panel eligibility
+  // Organization schema, entity-level data for Knowledge Panel eligibility
   // and trust signal. No Person schema (founder identity not exposed by design).
   const organizationSchema = {
     '@context': 'https://schema.org',
@@ -29,7 +29,7 @@ export default function AboutPage() {
     url: SITE_URL,
     logo: `${SITE_URL}/og-default.svg`,
     description:
-      'An independent directory of monthly creative studio rentals in Portland and Atlanta — art studios, workshop space, photo studios, office space, retail space, and fitness studios.',
+      'An independent directory of monthly creative studio rentals in Portland and Atlanta, art studios, workshop space, photo studios, office space, retail space, and fitness studios.',
     foundingDate: '2026',
     founder: {
       '@type': 'Person',
@@ -92,7 +92,7 @@ export default function AboutPage() {
           </h1>
 
           <p style={{ color: 'var(--stone)' }} className="mb-10 text-base leading-relaxed">
-            FindStudioSpace is an independent directory of monthly creative studio rentals in Portland and Atlanta. We list photo studios, art studios, content studios, makerspaces, and event spaces — focused exclusively on month-to-month rental terms, not hourly or daily bookings.
+            FindStudioSpace is an independent directory of monthly creative studio rentals in Portland and Atlanta. We list photo studios, art studios, content studios, makerspaces, and event spaces, focused exclusively on month-to-month rental terms, not hourly or daily bookings.
           </p>
 
           <div style={{ borderTop: '1px solid var(--rule)' }} className="space-y-10 pt-10">
@@ -102,7 +102,7 @@ export default function AboutPage() {
                 Why this directory exists
               </h2>
               <p style={{ color: 'var(--stone)' }} className="text-sm leading-relaxed">
-                Portland has one of the highest concentrations of working artists, photographers, makers, and creative producers per capita in the Pacific Northwest. Studio inventory exists — converted warehouses in the Central Eastside, north-light artist studios in the Pearl, photo studios in NE Portland, fabrication bays in industrial buildings.
+                Portland has one of the highest concentrations of working artists, photographers, makers, and creative producers per capita in the Pacific Northwest. Studio inventory exists, converted warehouses in the Central Eastside, north-light artist studios in the Pearl, photo studios in NE Portland, fabrication bays in industrial buildings.
               </p>
               <p style={{ color: 'var(--stone)' }} className="mt-3 text-sm leading-relaxed">
                 The problem isn&apos;t supply. It&apos;s discoverability. Listings are scattered across Craigslist, Facebook groups, property-management websites, and word-of-mouth networks that require knowing the right people. National platforms like Peerspace and Giggster optimize for hourly bookings and take 15–30% of every transaction. Neither solves the problem creatives actually have: finding monthly workspace, in Portland, without paying a commission.
@@ -123,32 +123,32 @@ export default function AboutPage() {
                 <li>
                   <Link href="/portland/art-studio-rental" style={{ color: 'var(--lime)' }} className="hover:underline">
                     <strong>Art Studios</strong>
-                  </Link>{' '}— private studios, shared co-ops, and ceramics spaces for painters, sculptors, printmakers, and mixed media artists.
+                  </Link>: private studios, shared co-ops, and ceramics spaces for painters, sculptors, printmakers, and mixed media artists.
                 </li>
                 <li>
                   <Link href="/portland/workshop-space-rental" style={{ color: 'var(--lime)' }} className="hover:underline">
                     <strong>Workshop Space</strong>
-                  </Link>{' '}— fabrication bays, woodshops, and maker spaces for builders, craftspeople, and small-batch producers.
+                  </Link>: fabrication bays, woodshops, and maker spaces for builders, craftspeople, and small-batch producers.
                 </li>
                 <li>
                   <Link href="/portland/photo-studios" style={{ color: 'var(--lime)' }} className="hover:underline">
                     <strong>Photo Studios</strong>
-                  </Link>{' '}— cyc walls, natural light, product setups, and green screen rooms for photographers and production work.
+                  </Link>: cyc walls, natural light, product setups, and green screen rooms for photographers and production work.
                 </li>
                 <li>
                   <Link href="/portland/office-space-rental" style={{ color: 'var(--lime)' }} className="hover:underline">
                     <strong>Office Space</strong>
-                  </Link>{' '}— private offices and creative suites for freelancers, designers, and small teams.
+                  </Link>: private offices and creative suites for freelancers, designers, and small teams.
                 </li>
                 <li>
                   <Link href="/portland/retail-space-for-rent" style={{ color: 'var(--lime)' }} className="hover:underline">
                     <strong>Retail Space</strong>
-                  </Link>{' '}— storefronts and pop-up spaces for makers, designers, and commercial tenants.
+                  </Link>: storefronts and pop-up spaces for makers, designers, and commercial tenants.
                 </li>
                 <li>
                   <Link href="/portland/fitness-studio-rental" style={{ color: 'var(--lime)' }} className="hover:underline">
                     <strong>Fitness &amp; Dance</strong>
-                  </Link>{' '}— yoga studios, dance floors, and movement spaces for instructors and practitioners.
+                  </Link>: yoga studios, dance floors, and movement spaces for instructors and practitioners.
                 </li>
               </ul>
             </section>
@@ -165,7 +165,7 @@ export default function AboutPage() {
                   <strong style={{ color: 'var(--ink)' }}>Listing legitimacy.</strong> The space must be a real, currently available rental in one of our covered cities (Portland, OR or Atlanta, GA). Vancouver, WA listings are excluded from the Portland metro. We verify the space exists, the host is reachable, and the listing is not duplicated from another platform without permission.
                 </li>
                 <li>
-                  <strong style={{ color: 'var(--ink)' }}>Monthly term.</strong> Listings must accept month-to-month or longer terms. Hourly-only or day-rental-only spaces are excluded — those have other platforms.
+                  <strong style={{ color: 'var(--ink)' }}>Monthly term.</strong> Listings must accept month-to-month or longer terms. Hourly-only or day-rental-only spaces are excluded, those have other platforms.
                 </li>
                 <li>
                   <strong style={{ color: 'var(--ink)' }}>Category fit.</strong> Each listing is classified into exactly one of the four pillar categories using a rules-based classifier. Office and coworking listings are filtered out of creative pillars to keep results focused.
@@ -188,7 +188,7 @@ export default function AboutPage() {
               </p>
               <ul style={{ color: 'var(--stone)' }} className="space-y-2 text-sm">
                 <li><strong style={{ color: 'var(--ink)' }}>Hourly and day-rental spaces.</strong> Different product. Use Peerspace or Giggster for those.</li>
-                <li><strong style={{ color: 'var(--ink)' }}>Coworking memberships.</strong> WeWork, Industrious, and similar are easy to find elsewhere — they don&apos;t need a directory.</li>
+                <li><strong style={{ color: 'var(--ink)' }}>Coworking memberships.</strong> WeWork, Industrious, and similar are easy to find elsewhere, they don&apos;t need a directory.</li>
                 <li><strong style={{ color: 'var(--ink)' }}>Residential-only spaces.</strong> If it&apos;s primarily a home, it doesn&apos;t belong here.</li>
                 <li><strong style={{ color: 'var(--ink)' }}>Vancouver, WA listings.</strong> Different city, different creative scene. Outside our service area.</li>
                 <li><strong style={{ color: 'var(--ink)' }}>Listings without working contact info.</strong> A directory entry that can&apos;t be reached is worse than no entry.</li>
@@ -200,10 +200,10 @@ export default function AboutPage() {
                 Service area
               </h2>
               <p style={{ color: 'var(--stone)' }} className="text-sm leading-relaxed">
-                <strong style={{ color: 'var(--ink)' }}>Portland, OR</strong> — every neighborhood from the Central Eastside Industrial District to Alberta Arts, the Pearl District, SE Division, N Mississippi, and beyond. Vancouver, WA and outlying suburbs are not in scope.
+                <strong style={{ color: 'var(--ink)' }}>Portland, OR</strong>, every neighborhood from the Central Eastside Industrial District to Alberta Arts, the Pearl District, SE Division, N Mississippi, and beyond. Vancouver, WA and outlying suburbs are not in scope.
               </p>
               <p style={{ color: 'var(--stone)' }} className="mt-3 text-sm leading-relaxed">
-                <strong style={{ color: 'var(--ink)' }}>Atlanta, GA</strong> — Old Fourth Ward, West Midtown, Ponce City Market area, and surrounding creative districts. Expanding inventory.
+                <strong style={{ color: 'var(--ink)' }}>Atlanta, GA</strong>, Old Fourth Ward, West Midtown, Ponce City Market area, and surrounding creative districts. Expanding inventory.
               </p>
               <p style={{ color: 'var(--stone)' }} className="mt-3 text-sm leading-relaxed">
                 Browse Portland by{' '}
@@ -220,7 +220,7 @@ export default function AboutPage() {
                 Independent and bootstrapped
               </h2>
               <p style={{ color: 'var(--stone)' }} className="text-sm leading-relaxed">
-                FindStudioSpace was founded and is independently operated by T, a Portland-based founder. No outside investors, no parent company, no affiliate relationships with the platforms we&apos;re alternatives to. Listings are not paid placements unless explicitly marked as &quot;Featured.&quot; Hosts can purchase sponsored category and neighborhood placement starting at $49/month — always clearly distinguished from organic results.
+                FindStudioSpace was founded and is independently operated by T, a Portland-based founder. No outside investors, no parent company, no affiliate relationships with the platforms we&apos;re alternatives to. Listings are not paid placements unless explicitly marked as &quot;Featured.&quot; Hosts can purchase sponsored category and neighborhood placement starting at $49/month, always clearly distinguished from organic results.
               </p>
             </section>
 
@@ -229,7 +229,7 @@ export default function AboutPage() {
                 Contact
               </h2>
               <p style={{ color: 'var(--stone)' }} className="text-sm leading-relaxed">
-                Questions, takedown requests, or corrections to a listing — submit through any listing&apos;s inquiry form, or list your own space at{' '}
+                Questions, takedown requests, or corrections to a listing, submit through any listing&apos;s inquiry form, or list your own space at{' '}
                 <Link href="/list-your-space" style={{ color: 'var(--lime)' }} className="hover:underline">findstudiospace.com/list-your-space</Link>. We respond to all messages within 48 hours.
               </p>
             </section>

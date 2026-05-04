@@ -1,4 +1,4 @@
-// ArchSpecs — displays structured architectural attributes as a spec table.
+// ArchSpecs, displays structured architectural attributes as a spec table.
 // Shown on listing detail pages only when at least one field is populated.
 // These are the deal-breaker fields from the build-out research: the binary
 // pass/fail criteria renters don't discover until after signing.
@@ -45,7 +45,7 @@ export default function ArchSpecs(props: Props) {
     rows.push({
       label: 'Ceiling height',
       value: `${props.ceilingHeightFt} ft`,
-      note: props.ceilingHeightFt < 12 ? 'Below 12 ft — full lighting rigs and overhead lifts may be limited' : undefined,
+      note: props.ceilingHeightFt < 12 ? 'Below 12 ft, full lighting rigs and overhead lifts may be limited' : undefined,
     })
   }
   if (props.powerAmps) {
@@ -59,7 +59,7 @@ export default function ArchSpecs(props: Props) {
   }
   if (props.stcRating) {
     const stcNote = props.stcRating < 50
-      ? 'Below STC 50 — neighbor noise may be audible'
+      ? 'Below STC 50, neighbor noise may be audible'
       : props.stcRating >= 60
         ? 'Professional recording isolation'
         : 'Good isolation for rehearsal'
@@ -83,7 +83,7 @@ export default function ArchSpecs(props: Props) {
     rows.push({ label: 'Ventilation', value: `${props.ventilationCfm.toLocaleString()} CFM` })
   }
   if (props.kilnReady === true) {
-    rows.push({ label: 'Kiln-ready', value: 'Yes — 240V/single-phase or 3-phase service confirmed' })
+    rows.push({ label: 'Kiln-ready', value: 'Yes, 240V/single-phase or 3-phase service confirmed' })
   }
   if (props.cycWall === true) {
     rows.push({ label: 'Cyclorama wall', value: 'Yes' })

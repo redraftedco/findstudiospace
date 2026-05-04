@@ -24,15 +24,15 @@ const FAQS = [
   },
   {
     q: 'What is the difference between industrial space and a workshop rental in Portland?',
-    a: 'Workshop rentals are typically smaller private rooms within a shared building — suited for a single maker or small crew. Industrial or warehouse space refers to larger standalone or semi-private bays, often with drive-in access, higher ceilings, and infrastructure for heavier production. The lines blur in Portland, where many Central Eastside buildings offer both.',
+    a: 'Workshop rentals are typically smaller private rooms within a shared building, suited for a single maker or small crew. Industrial or warehouse space refers to larger standalone or semi-private bays, often with drive-in access, higher ceilings, and infrastructure for heavier production. The lines blur in Portland, where many Central Eastside buildings offer both.',
   },
   {
     q: 'Are there industrial spaces in Portland with loading dock or drive-in access?',
-    a: 'Yes. Several warehouse and flex buildings in the Central Eastside Industrial District offer ground-floor drive-in access or grade-level loading — important if you regularly move large materials, equipment, or finished goods. Confirm loading access with the host before viewing if this is a requirement.',
+    a: 'Yes. Several warehouse and flex buildings in the Central Eastside Industrial District offer ground-floor drive-in access or grade-level loading, important if you regularly move large materials, equipment, or finished goods. Confirm loading access with the host before viewing if this is a requirement.',
   },
   {
     q: 'Can I run a manufacturing or production business from rented industrial space in Portland?',
-    a: 'Most industrial and warehouse space in Portland\'s Central Eastside is zoned for light industrial and commercial production use. Confirm permitted uses with the host — some buildings allow light manufacturing, others restrict certain equipment, noise levels, or chemical storage. Get zoning confirmation in writing before signing.',
+    a: 'Most industrial and warehouse space in Portland\'s Central Eastside is zoned for light industrial and commercial production use. Confirm permitted uses with the host, some buildings allow light manufacturing, others restrict certain equipment, noise levels, or chemical storage. Get zoning confirmation in writing before signing.',
   },
   {
     q: 'What neighborhoods in Portland have industrial space for rent?',
@@ -117,13 +117,13 @@ export default async function IndustrialSpacesPortlandPage() {
             Industrial Space for Rent in Portland, OR
           </h1>
           <p style={{ color: 'var(--stone)' }} className="mb-10 max-w-2xl text-sm leading-relaxed">
-            Browse industrial, warehouse, and flex production space available for monthly rent in Portland, OR. High ceilings, drive-in loading access, 220v power, and Central Eastside locations — find the right space for fabrication, production, storage, or light manufacturing. Submit an inquiry from any listing to connect directly with the host.
+            Browse industrial, warehouse, and flex production space available for monthly rent in Portland, OR. High ceilings, drive-in loading access, 220v power, and Central Eastside locations, find the right space for fabrication, production, storage, or light manufacturing. Submit an inquiry from any listing to connect directly with the host.
           </p>
 
           {listings.length > 0 ? (
             <CategoryFilter listings={listings} />
           ) : (
-            <p style={{ color: 'var(--stone)' }} className="mb-14">No industrial spaces listed yet — check back soon.</p>
+            <p style={{ color: 'var(--stone)' }} className="mb-14">No industrial spaces listed yet, check back soon.</p>
           )}
 
           <section style={{ borderTop: '1px solid var(--rule)' }} className="pt-10">

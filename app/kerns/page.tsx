@@ -36,7 +36,7 @@ const FAQS = [
   },
   {
     q: 'How is Kerns different from the Central Eastside for studio space?',
-    a: 'The Central Eastside is Portland\'s primary industrial creative district with warehouse bays, loading access, and heavy infrastructure. Kerns is more mixed-use — lighter commercial, better natural light, and a more residential neighborhood character. It\'s a better fit for studios that don\'t need industrial infrastructure but want proximity to both the CEID and Alberta Arts.',
+    a: 'The Central Eastside is Portland\'s primary industrial creative district with warehouse bays, loading access, and heavy infrastructure. Kerns is more mixed-use, lighter commercial, better natural light, and a more residential neighborhood character. It\'s a better fit for studios that don\'t need industrial infrastructure but want proximity to both the CEID and Alberta Arts.',
   },
 ]
 
@@ -119,13 +119,13 @@ export default async function KernsPage() {
             Studio Space for Rent in Kerns, Portland
           </h1>
           <p style={{ color: 'var(--stone)' }} className="mb-10 max-w-2xl text-sm leading-relaxed">
-            The Kerns neighborhood occupies the creative middle ground between Portland&apos;s Central Eastside and the Alberta Arts District — accessible to both, with a mixed-use character and a range of art studios, small creative offices, and workshop space in converted commercial buildings along the NE Broadway and NE Sandy corridors. Browse monthly studio rentals in Kerns and NE Portland and submit an inquiry to connect directly with the host.
+            The Kerns neighborhood occupies the creative middle ground between Portland&apos;s Central Eastside and the Alberta Arts District, accessible to both, with a mixed-use character and a range of art studios, small creative offices, and workshop space in converted commercial buildings along the NE Broadway and NE Sandy corridors. Browse monthly studio rentals in Kerns and NE Portland and submit an inquiry to connect directly with the host.
           </p>
 
           {rows.length > 0 ? (
             <CategoryFilter listings={rows} />
           ) : (
-            <p style={{ color: 'var(--stone)' }} className="mb-14">No studios listed in Kerns yet — check back soon or browse <Link href="/alberta-arts-district" className="underline">Alberta Arts District studios</Link> or <Link href="/central-eastside" className="underline">Central Eastside studios</Link>.</p>
+            <p style={{ color: 'var(--stone)' }} className="mb-14">No studios listed in Kerns yet, check back soon or browse <Link href="/alberta-arts-district" className="underline">Alberta Arts District studios</Link> or <Link href="/central-eastside" className="underline">Central Eastside studios</Link>.</p>
           )}
 
           <section style={{ borderTop: '1px solid var(--rule)' }} className="pt-10">

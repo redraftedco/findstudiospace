@@ -22,24 +22,24 @@ const CITY_CONFIG: Record<string, {
   portland: {
     displayName: 'Portland',
     state: 'OR',
-    title: 'Portland Studio Space for Rent — Art Studios, Workshops, Photo Studios | FindStudioSpace',
-    description: 'Browse Portland studio rentals — art studios, photo studios, workshop space, event venues, and creative workspace across every neighborhood. Free to search.',
+    title: 'Portland Studio Space for Rent, Art Studios, Workshops, Photo Studios | FindStudioSpace',
+    description: 'Browse Portland studio rentals, art studios, photo studios, workshop space, event venues, and creative workspace across every neighborhood. Free to search.',
   },
   seattle: {
     displayName: 'Seattle',
     state: 'WA',
     title: 'Find Studio Space in Seattle, WA | FindStudioSpace',
-    description: 'Browse monthly studio rentals in Seattle — art studios, workshops, offices, photo studios, and creative spaces for makers and producers.',
+    description: 'Browse monthly studio rentals in Seattle, art studios, workshops, offices, photo studios, and creative spaces for makers and producers.',
   },
   atlanta: {
     displayName: 'Atlanta',
     state: 'GA',
-    title: 'Studio Rental in Atlanta, GA — Creative Workspace | FindStudioSpace',
-    description: 'Browse Atlanta studio rentals — art studios, photo studios, workshops, event space, and creative workspace across Old Fourth Ward, West Midtown, Castleberry Hill, and beyond.',
+    title: 'Studio Rental in Atlanta, GA, Creative Workspace | FindStudioSpace',
+    description: 'Browse Atlanta studio rentals, art studios, photo studios, workshops, event space, and creative workspace across Old Fourth Ward, West Midtown, Castleberry Hill, and beyond.',
   },
 }
 
-// Primary Portland browse paths — matches actual listing types in the DB.
+// Primary Portland browse paths, matches actual listing types in the DB.
 const CATEGORY_PILLS: { slug: string; label: string; note: string }[] = [
   { slug: 'photo-studios', label: 'Photo studios', note: 'Cyc walls, daylight, sets' },
   { slug: 'art-studio-rental', label: 'Art studios', note: 'Private rooms, shared shops' },
@@ -49,7 +49,7 @@ const CATEGORY_PILLS: { slug: string; label: string; note: string }[] = [
   { slug: 'fitness-studio-rental', label: 'Movement rooms', note: 'Yoga, dance, wellness' },
 ]
 
-// Neighborhood entry points — these pages already exist in category config;
+// Neighborhood entry points, these pages already exist in category config;
 // surfacing them on the homepage gives Google a crawl path and users a fast
 // neighborhood-first filter.
 const NEIGHBORHOOD_PILLS: Record<string, { slug: string; label: string; note: string }[]> = {
@@ -89,9 +89,19 @@ type DbCity = {
   is_indexable: boolean
 }
 
+const TYPE_FILTER_LABELS: Record<string, string> = {
+  photo:    'Photo',
+  art:      'Art',
+  workshop: 'Workshop',
+  office:   'Office',
+  retail:   'Retail',
+  fitness:  'Fitness',
+  music:    'Music',
+}
+
 type PageProps = {
   params: Promise<{ city: string }>
-  searchParams: Promise<{ q?: string | string[] }>
+  searchParams: Promise<{ q?: string | string[]; type?: string | string[] }>
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -118,10 +128,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: `Find Studio Space in ${dbCity.name}, ${dbCity.state} | FindStudioSpace`,
-    description: `Browse monthly studio rentals in ${dbCity.name} — art studios, workshops, offices, photo studios, and creative spaces for makers and producers.`,
+    description: `Browse monthly studio rentals in ${dbCity.name}, art studios, workshops, offices, photo studios, and creative spaces for makers and producers.`,
     alternates: { canonical: `https://www.findstudiospace.com/${citySlug}` },
     robots: robotsContent(dbCity.is_indexable),
   }
+}
+
+function sanitizeType(raw: string | string[] | undefined): string {
+  if (typeof raw !== 'string') return ''
+  const v = raw.toLowerCase().trim()
+  return v in TYPE_FILTER_LABELS ? v : ''
 }
 
 export default async function CityPage({ params, searchParams }: PageProps) {
@@ -131,6 +147,7 @@ export default async function CityPage({ params, searchParams }: PageProps) {
   const staticConfig = CITY_CONFIG[citySlug]
 
   const q = sanitizeQuery(sp.q)
+  const typeFilter = sanitizeType(sp.type)
 
   // ── Static-config cities (Portland, Seattle) ──────────────────────────────
   // Atlanta pages need the red accent; Portland inherits global forest green.
@@ -151,6 +168,7 @@ export default async function CityPage({ params, searchParams }: PageProps) {
       const pattern = `%${q}%`
       query = query.or(`title.ilike.${pattern},neighborhood.ilike.${pattern},type.ilike.${pattern}`)
     }
+    if (typeFilter) query = query.eq('type', typeFilter)
 
     const { data: listings } = await query
     const rows = (listings ?? []).filter(
@@ -161,7 +179,7 @@ export default async function CityPage({ params, searchParams }: PageProps) {
 
     return (
       <div style={accentOverride}>
-        <CityPageUI citySlug={citySlug} config={config} rows={rows} total={total} q={q} isIndexable />
+        <CityPageUI citySlug={citySlug} config={config} rows={rows} total={total} q={q} typeFilter={typeFilter} isIndexable />
       </div>
     )
   }
@@ -189,6 +207,7 @@ export default async function CityPage({ params, searchParams }: PageProps) {
     const pattern = `%${q}%`
     dbQuery = dbQuery.or(`title.ilike.${pattern},neighborhood.ilike.${pattern},type.ilike.${pattern}`)
   }
+  if (typeFilter) dbQuery = dbQuery.eq('type', typeFilter)
 
   const { data: listings } = await dbQuery
   const rows = (listings ?? []).filter(
@@ -208,12 +227,12 @@ export default async function CityPage({ params, searchParams }: PageProps) {
     displayName: dbCityTyped.name,
     state: dbCityTyped.state,
     title: `Find Studio Space in ${dbCityTyped.name}, ${dbCityTyped.state} | FindStudioSpace`,
-    description: `Browse monthly studio rentals in ${dbCityTyped.name} — art studios, workshops, offices, photo studios, and creative spaces for makers and producers.`,
+    description: `Browse monthly studio rentals in ${dbCityTyped.name}, art studios, workshops, offices, photo studios, and creative spaces for makers and producers.`,
   }
 
   return (
     <div style={accentOverride}>
-      <CityPageUI citySlug={citySlug} config={config} rows={rows} total={total} q={q} isIndexable={gate.indexable} />
+      <CityPageUI citySlug={citySlug} config={config} rows={rows} total={total} q={q} typeFilter={typeFilter} isIndexable={gate.indexable} />
     </div>
   )
 }
@@ -226,6 +245,7 @@ function CityPageUI({
   rows,
   total,
   q,
+  typeFilter,
   isIndexable,
 }: {
   citySlug: string
@@ -233,17 +253,18 @@ function CityPageUI({
   rows: { id: number; title: string; price_display: string | null; neighborhood: string | null; type: string | null; images: unknown[]; tier: string; is_featured: boolean }[]
   total: number
   q: string
+  typeFilter: string
   isIndexable: boolean
 }) {
 
-  // LocalBusiness — Portland only. Signals to Google Maps / Knowledge Panel that
+  // LocalBusiness, Portland only. Signals to Google Maps / Knowledge Panel that
   // findstudiospace.com is a Portland-area business. Omit street address
   // intentionally (privacy); city+state satisfies schema.org requirements.
   const localBusinessSchema = citySlug === 'portland' ? {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     name: 'FindStudioSpace',
-    description: 'Portland\'s creative studio rental directory — photo studios, event space, podcast studios, makerspace, and creative workspace.',
+    description: 'Portland\'s creative studio rental directory, photo studios, event space, podcast studios, makerspace, and creative workspace.',
     url: 'https://www.findstudiospace.com/portland',
     areaServed: {
       '@type': 'City',
@@ -276,7 +297,7 @@ function CityPageUI({
     name: 'FindStudioSpace',
     url: 'https://www.findstudiospace.com',
     logo: 'https://www.findstudiospace.com/logo.png',
-    description: 'Portland\'s creative studio rental directory — connecting artists, makers, photographers, and producers with monthly workspace.',
+    description: 'Portland\'s creative studio rental directory, connecting artists, makers, photographers, and producers with monthly workspace.',
     areaServed: {
       '@type': 'City',
       name: 'Portland',
@@ -287,7 +308,7 @@ function CityPageUI({
     ],
   } : null
 
-  // BreadcrumbList — Home → {City}. Home MUST resolve to the site root, not
+  // BreadcrumbList, Home → {City}. Home MUST resolve to the site root, not
   // back to this page, or Google ignores the malformed breadcrumb.
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
@@ -307,7 +328,7 @@ function CityPageUI({
     ],
   }
 
-  // ItemList — refs-only ListItems pointing at each listing detail page.
+  // ItemList, refs-only ListItems pointing at each listing detail page.
   // Capped at 100 per Google's crawl-budget guidance; sort order (featured
   // first, newest second) means the first 100 are the highest-value subset.
   // When a filter (?q=) is active, the list reflects the filtered set so the
@@ -359,7 +380,7 @@ function CityPageUI({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
       />
       <main style={{ background: 'var(--paper)', color: 'var(--ink)' }} className="min-h-screen">
-        {/* HERO — fills viewport; headline+search top, pills+CTA bottom */}
+        {/* HERO, fills viewport; headline+search top, pills+CTA bottom */}
         <section
           style={{
             background: 'var(--paper)',
@@ -468,7 +489,54 @@ function CityPageUI({
         <section style={{ paddingTop: '3rem', paddingBottom: '4rem' }} className="px-6">
           <div className="mx-auto max-w-5xl">
 
-            {q && (
+            {/* Type filter chips */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '1.5rem' }}>
+              <Link
+                href={q ? `/${citySlug}?q=${encodeURIComponent(q)}` : `/${citySlug}`}
+                style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '13px',
+                  fontWeight: typeFilter === '' ? 600 : 400,
+                  color: typeFilter === '' ? 'var(--paper)' : 'var(--ink)',
+                  background: typeFilter === '' ? 'var(--ink)' : 'transparent',
+                  border: '1px solid var(--rule)',
+                  padding: '5px 13px',
+                  borderRadius: '999px',
+                  textDecoration: 'none',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                All
+              </Link>
+              {Object.entries(TYPE_FILTER_LABELS).map(([type, label]) => {
+                const isActive = typeFilter === type
+                const href = q
+                  ? `/${citySlug}?q=${encodeURIComponent(q)}&type=${type}`
+                  : `/${citySlug}?type=${type}`
+                return (
+                  <Link
+                    key={type}
+                    href={isActive ? (q ? `/${citySlug}?q=${encodeURIComponent(q)}` : `/${citySlug}`) : href}
+                    style={{
+                      fontFamily: 'var(--font-body)',
+                      fontSize: '13px',
+                      fontWeight: isActive ? 600 : 400,
+                      color: isActive ? 'var(--paper)' : 'var(--ink)',
+                      background: isActive ? 'var(--ink)' : 'transparent',
+                      border: '1px solid var(--rule)',
+                      padding: '5px 13px',
+                      borderRadius: '999px',
+                      textDecoration: 'none',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    {label}
+                  </Link>
+                )
+              })}
+            </div>
+
+            {(q || typeFilter) && (
               <p
                 style={{
                   fontFamily: 'var(--font-body)',
@@ -477,7 +545,9 @@ function CityPageUI({
                   marginBottom: '1.5rem',
                 }}
               >
-                {total} {total === 1 ? 'result' : 'results'} for &ldquo;{q}&rdquo;
+                {total} {total === 1 ? 'result' : 'results'}
+                {q ? ` for "${q}"` : ''}
+                {typeFilter ? ` · ${TYPE_FILTER_LABELS[typeFilter]}` : ''}
               </p>
             )}
 
@@ -493,7 +563,7 @@ function CityPageUI({
               </div>
             )}
 
-            {/* Submit CTA — studio owner prompt */}
+            {/* Submit CTA, studio owner prompt */}
             {!q && (
               <div
                 style={{

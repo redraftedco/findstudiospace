@@ -8,19 +8,19 @@ export const revalidate = 3600
 export const metadata: Metadata = {
   title: 'Podcast Studios for Rent | Monthly Recording Space | FindStudioSpace',
   description:
-    'Find podcast studios available for monthly rent. Soundproofed recording booths, acoustic rooms, and production-ready spaces — browse and contact hosts directly.',
+    'Find podcast studios available for monthly rent. Soundproofed recording booths, acoustic rooms, and production-ready spaces, browse and contact hosts directly.',
   alternates: { canonical: 'https://www.findstudiospace.com/podcast-studios' },
   openGraph: {
     title: 'Podcast Studios for Rent | Monthly Recording Space | FindStudioSpace',
     description:
-      'Browse podcast studios available for monthly rent. Soundproofed recording booths, acoustic rooms, and production-ready spaces — contact hosts directly.',
+      'Browse podcast studios available for monthly rent. Soundproofed recording booths, acoustic rooms, and production-ready spaces, contact hosts directly.',
   },
 }
 
 const FAQS = [
   {
     q: 'How do I find a podcast studio to rent?',
-    a: 'Browse the listings on this page — each shows location, photos, monthly pricing, and what equipment is included. Submit an inquiry directly from any listing and the host will follow up. No platform booking fee, no middleman.',
+    a: 'Browse the listings on this page, each shows location, photos, monthly pricing, and what equipment is included. Submit an inquiry directly from any listing and the host will follow up. No platform booking fee, no middleman.',
   },
   {
     q: 'How much does it cost to rent a podcast studio per month?',
@@ -28,15 +28,15 @@ const FAQS = [
   },
   {
     q: 'What equipment is typically included in a podcast studio rental?',
-    a: 'Most podcast studio rentals include microphones, an audio interface, headphones, and studio monitors. Some add acoustic treatment panels, a mixing board, and camera rigs for hybrid podcast-video production. Check the listing description for the specific gear list — and confirm with the host before committing.',
+    a: 'Most podcast studio rentals include microphones, an audio interface, headphones, and studio monitors. Some add acoustic treatment panels, a mixing board, and camera rigs for hybrid podcast-video production. Check the listing description for the specific gear list, and confirm with the host before committing.',
   },
   {
     q: 'What is the difference between hourly podcast studio rental and a monthly arrangement?',
-    a: 'Hourly rentals charge per session — convenient for a one-off episode or pilot but expensive for consistent production. A monthly rental gives you regular, flexible access without competing for booking slots each week. If you record multiple episodes per month or run an ongoing show, a monthly term is almost always more cost-effective.',
+    a: 'Hourly rentals charge per session, convenient for a one-off episode or pilot but expensive for consistent production. A monthly rental gives you regular, flexible access without competing for booking slots each week. If you record multiple episodes per month or run an ongoing show, a monthly term is almost always more cost-effective.',
   },
   {
     q: 'Do I need to bring my own equipment to a rented podcast studio?',
-    a: "Usually not for a full studio rental — the setup is included. For bare recording rooms or shared production spaces, you may need to bring your own mic or interface. Check the listing before inquiring. If you have specific gear requirements — a particular microphone, an XLR interface, a video camera — mention it in your inquiry so the host can confirm compatibility.",
+    a: "Usually not for a full studio rental, the setup is included. For bare recording rooms or shared production spaces, you may need to bring your own mic or interface. Check the listing before inquiring. If you have specific gear requirements, a particular microphone, an XLR interface, a video camera, mention it in your inquiry so the host can confirm compatibility.",
   },
 ]
 
@@ -137,14 +137,14 @@ export default async function PodcastStudiosPage() {
             Browse podcast studios and recording spaces available for monthly rent. Soundproofed booths,
             acoustic rooms, and production-ready setups for solo podcasters, co-hosted shows, and
             hybrid podcast-video production. Submit an inquiry from any listing to contact the host
-            directly — no booking platform fee.
+            directly, no booking platform fee.
           </p>
 
           {listings.length > 0 ? (
             <CategoryFilter listings={listings} />
           ) : (
             <p style={{ color: 'var(--stone)' }} className="mb-14">
-              No podcast studios listed yet — check back soon.
+              No podcast studios listed yet, check back soon.
             </p>
           )}
 

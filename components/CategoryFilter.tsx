@@ -100,7 +100,7 @@ export default function CategoryFilter({ listings }: Props) {
                 width: '90px',
               }}
             />
-            <span style={{ color: 'var(--stone)' }} className="text-xs">—</span>
+            <span style={{ color: 'var(--stone)' }} className="text-xs">·</span>
             <input
               type="number"
               placeholder="Max $"

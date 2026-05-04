@@ -1,67 +1,55 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* Primary — kept for legacy references, not used in new dark theme */
-  --color-primary-600: #1B4332;
-  --color-primary-500: #2D5A3F;
-  --color-primary-400: #40714F;
-  --color-primary-100: #1F1F1F;
-  --color-primary-50:  #141414;
-
-  /* Secondary — kept for legacy references, redirected to forest accent */
-  --color-secondary-600: #0B3D22;
-  --color-secondary-500: #14532D;
-  --color-secondary-400: #1A6B3A;
-  --color-secondary-100: #E7F0EA;
-
-  /* Neutrals — LIGHT theme (cool neutral) */
-  --color-ink:     #111111;       /* near-black text */
-  --color-paper:   #FAFAFA;       /* cool neutral bg */
-  --color-card:    #F0F0F0;       /* card surface */
-  --color-stone:   #595959;       /* muted text ~7:1 on paper */
-  --color-sub:     #383838;       /* secondary text ~10:1 on paper */
-  --color-rule:    rgba(0,0,0,0.10);
-  --color-rule-strong: rgba(0,0,0,0.20);
-  --color-surface: #F0F0F0;       /* alias of --card */
-  --color-featured: #7A4800;      /* amber, readable on light */
-  --color-action:  #111111;       /* links — near-black on light */
-  --color-action-hover: #111111;
+  /* Neutrals */
+  --color-ink:     #1a1a1a;
+  --color-paper:   #fafaf7;
+  --color-card:    #ffffff;
+  --color-stone:   #8a8884;
+  --color-sub:     #4a4a47;
+  --color-rule:    #e6e3dc;
+  --color-rule-strong: #d4d0c8;
+  --color-surface: #ffffff;
+  --color-featured: #7A4800;
+  --color-action:  #1a1a1a;
+  --color-action-hover: #1a1a1a;
   --color-error:   #B91C1C;
-  --color-lime:    #14532D;       /* forest green — text/link color */
-  --color-lime-bg: #14532D;       /* forest green — CTA button bg */
+  --color-lime:    #2d5a3d;
+  --color-lime-bg: #2d5a3d;
 
   /* Semantic */
-  --color-success: #14532D;       /* green success text */
+  --color-success: #2d5a3d;
   --color-warning: #E5A100;
 
   --font-heading: var(--font-inter), sans-serif;
-  --font-display: var(--font-bebas-neue), sans-serif;
+  --font-display: var(--font-anton), sans-serif;
   --font-body:    var(--font-inter), sans-serif;
-  --font-mono:    var(--font-jetbrains-mono), monospace;
+  --font-mono:    var(--font-inter), sans-serif;
 }
 
 /* CSS custom properties for use in JS inline styles and CSS rules */
 :root {
-  --ink:     #111111;
-  --paper:   #FAFAFA;
-  --card:    #F0F0F0;
-  --stone:   #595959;
-  --sub:     #383838;
-  --rule:    rgba(0,0,0,0.10);
-  --rule-strong: rgba(0,0,0,0.20);
-  --surface: #F0F0F0;
+  --ink:     #1a1a1a;
+  --paper:   #fafaf7;
+  --card:    #ffffff;
+  --stone:   #8a8884;
+  --sub:     #4a4a47;
+  --rule:    #e6e3dc;
+  --rule-strong: #d4d0c8;
+  --surface: #ffffff;
+  --line-2:  #efece5;
 
-  --action:        #111111;
-  --action-hover:  #111111;
-  --action-focus:  #111111;
-  --action-light:  rgba(0,0,0,0.06);
-  --lime:          #14532D;       /* forest green — text/link color */
-  --lime-bg:       #14532D;       /* forest green — CTA button bg */
-  --lime-bg-hover: #0B3D22;       /* darker green hover */
-  --lime-soft:     #E7F0EA;       /* soft green wash */
+  --action:        #1a1a1a;
+  --action-hover:  #1a1a1a;
+  --action-focus:  #1a1a1a;
+  --action-light:  rgba(26,26,26,0.06);
+  --lime:          #2d5a3d;
+  --lime-bg:       #2d5a3d;
+  --lime-bg-hover: #234b32;
+  --lime-soft:     #e8f0eb;
 
-  /* Hero search input — slight lift over body */
-  --search-bg: #EBEBEB;
+  /* Hero search input */
+  --search-bg: #f0ede6;
 
   /* Category accent colors — kept as-is for category badges */
   --cat-art:        #5239C4;
@@ -90,16 +78,23 @@ body {
 ::selection { background: var(--lime-bg); color: var(--paper); }
 input::placeholder, textarea::placeholder { color: var(--stone); }
 
-/* Typography base — tokens applied. */
-h1, h2, h3, h4, h5, h6 {
+/* Typography base */
+h1, h2, h3 {
+  font-family: var(--font-display);
+  color: var(--ink);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+h4, h5, h6 {
   font-family: var(--font-heading);
   color: var(--ink);
   font-weight: 600;
   letter-spacing: -0.01em;
 }
-h1 { font-size: 1.875rem; line-height: 1.1; letter-spacing: -0.02em; }
-h2 { font-size: 1.5rem;   line-height: 1.2; letter-spacing: -0.015em; }
-h3 { font-size: 1.125rem; line-height: 1.3; }
+h1 { font-size: 1.875rem; line-height: 1.0; }
+h2 { font-size: 1.5rem;   line-height: 1.05; }
+h3 { font-size: 1.125rem; line-height: 1.1; }
 @media (min-width: 768px) {
   h1 { font-size: 2.5rem; }
   h2 { font-size: 1.875rem; }
@@ -117,7 +112,7 @@ a:hover { color: var(--lime); }
   line-height: 1.5;
 }
 .text-mono-accent {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.75rem;
   color: var(--stone);
   text-transform: uppercase;
@@ -240,7 +235,7 @@ html { scroll-behavior: smooth; }
   font-size: 2.5rem;
   font-weight: 400;
   line-height: 0.92;
-  letter-spacing: 0.01em;
+  letter-spacing: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

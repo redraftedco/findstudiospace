@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 const FAQS = [
   {
     q: 'What is the SE Division Street corridor in Portland?',
-    a: 'SE Division Street is one of Portland\'s most active commercial corridors, running from the Buckman neighborhood near the Central Eastside through Richmond and into the Foster-Powell area. The Division corridor is known for its density of independent restaurants, small retail, and creative businesses — giving studios on or near Division easy access to amenities and pedestrian foot traffic.',
+    a: 'SE Division Street is one of Portland\'s most active commercial corridors, running from the Buckman neighborhood near the Central Eastside through Richmond and into the Foster-Powell area. The Division corridor is known for its density of independent restaurants, small retail, and creative businesses, giving studios on or near Division easy access to amenities and pedestrian foot traffic.',
   },
   {
     q: 'How much does studio space cost on SE Division?',
@@ -36,7 +36,7 @@ const FAQS = [
   },
   {
     q: 'How does SE Division compare to the Central Eastside for studio space?',
-    a: 'The Central Eastside is Portland\'s primary industrial creative district, with warehouse infrastructure, loading access, and higher ceilings. SE Division is more residential in character — better natural light, walkable neighborhood feel, more foot traffic from non-artists. It\'s a better fit for studios that don\'t need industrial infrastructure and want a neighborhood identity over a production-district one.',
+    a: 'The Central Eastside is Portland\'s primary industrial creative district, with warehouse infrastructure, loading access, and higher ceilings. SE Division is more residential in character, better natural light, walkable neighborhood feel, more foot traffic from non-artists. It\'s a better fit for studios that don\'t need industrial infrastructure and want a neighborhood identity over a production-district one.',
   },
 ]
 
@@ -119,13 +119,13 @@ export default async function DivisionStreetPage() {
             Studio Space for Rent on Division Street, Portland
           </h1>
           <p style={{ color: 'var(--stone)' }} className="mb-10 max-w-2xl text-sm leading-relaxed">
-            SE Division Street is one of Portland&apos;s most walkable and active commercial corridors — home to art studios, teaching studios, and creative offices in SE Portland&apos;s Richmond and Buckman neighborhoods. Browse monthly studio rentals on and near SE Division Street and submit an inquiry from any listing to connect directly with the host.
+            SE Division Street is one of Portland&apos;s most walkable and active commercial corridors, home to art studios, teaching studios, and creative offices in SE Portland&apos;s Richmond and Buckman neighborhoods. Browse monthly studio rentals on and near SE Division Street and submit an inquiry from any listing to connect directly with the host.
           </p>
 
           {rows.length > 0 ? (
             <CategoryFilter listings={rows} />
           ) : (
-            <p style={{ color: 'var(--stone)' }} className="mb-14">No studios listed on Division Street yet — check back soon or browse <Link href="/central-eastside" className="underline">Central Eastside studios</Link>.</p>
+            <p style={{ color: 'var(--stone)' }} className="mb-14">No studios listed on Division Street yet, check back soon or browse <Link href="/central-eastside" className="underline">Central Eastside studios</Link>.</p>
           )}
 
           <section style={{ borderTop: '1px solid var(--rule)' }} className="pt-10">

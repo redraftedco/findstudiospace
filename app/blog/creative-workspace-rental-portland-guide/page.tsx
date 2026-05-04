@@ -4,7 +4,7 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'Creative Workspace for Rent in Portland: A Complete Guide | FindStudioSpace',
   description:
-    'The complete guide to renting creative workspace in Portland — studio types, neighborhoods, price ranges, and how to choose the right space for your practice.',
+    'The complete guide to renting creative workspace in Portland, studio types, neighborhoods, price ranges, and how to choose the right space for your practice.',
   alternates: { canonical: 'https://www.findstudiospace.com/blog/creative-workspace-rental-portland-guide' },
   openGraph: {
     title: 'Creative Workspace for Rent in Portland: A Complete Guide',
@@ -66,7 +66,7 @@ export default function Post() {
           <div style={{ color: 'var(--ink)' }} className="space-y-6 text-sm leading-relaxed">
 
             <p>
-              Portland has more creative workspace per capita than almost any city in the Pacific Northwest — converted warehouses, north-light artist studios, industrial fabrication bays, photography suites, podcast rooms, and gallery-adjacent studios. The challenge isn&apos;t supply. It&apos;s knowing what type of space your practice needs and where to find it. This guide maps the full landscape.
+              Portland has more creative workspace per capita than almost any city in the Pacific Northwest, converted warehouses, north-light artist studios, industrial fabrication bays, photography suites, podcast rooms, and gallery-adjacent studios. The challenge isn&apos;t supply. It&apos;s knowing what type of space your practice needs and where to find it. This guide maps the full landscape.
             </p>
 
             <h2 style={{ fontFamily: 'var(--font-heading)' }} className="mt-10 text-xl font-semibold">The four categories of creative workspace in Portland</h2>
@@ -77,16 +77,16 @@ export default function Post() {
 
             <ul className="space-y-4 pl-4">
               <li>
-                <strong><Link href="/portland/photo-studios" style={{ color: 'var(--ink)' }} className="underline">Photo and video studios</Link></strong> — Controlled lighting environments with background infrastructure. Ranges from natural-light portrait studios to full production stages with cyclorama walls and grip packages. Monthly rents: $800–$2,500. Day rates available for occasional use.
+                <strong><Link href="/portland/photo-studios" style={{ color: 'var(--ink)' }} className="underline">Photo and video studios</Link></strong>, Controlled lighting environments with background infrastructure. Ranges from natural-light portrait studios to full production stages with cyclorama walls and grip packages. Monthly rents: $800–$2,500. Day rates available for occasional use.
               </li>
               <li>
-                <strong><Link href="/portland/content-studios" style={{ color: 'var(--ink)' }} className="underline">Content and podcast studios</Link></strong> — Acoustic rooms, podcast booths, video recording spaces, and creator-focused production environments. Increasingly in demand as audio and video content production has moved from agency-exclusive to individual creator territory. Monthly rents: $400–$1,200.
+                <strong><Link href="/portland/content-studios" style={{ color: 'var(--ink)' }} className="underline">Content and podcast studios</Link></strong>, Acoustic rooms, podcast booths, video recording spaces, and creator-focused production environments. Increasingly in demand as audio and video content production has moved from agency-exclusive to individual creator territory. Monthly rents: $400–$1,200.
               </li>
               <li>
-                <strong><Link href="/portland/makerspace" style={{ color: 'var(--ink)' }} className="underline">Makerspace and workshop</Link></strong> — Shared tool access and private fabrication bays. Ceramics studios, woodshops, metalshops, laser cutting, CNC routing, and 3D printing. Shared memberships run $100–$400/month; private workshop bays run $600–$2,000/month.
+                <strong><Link href="/portland/makerspace" style={{ color: 'var(--ink)' }} className="underline">Makerspace and workshop</Link></strong>, Shared tool access and private fabrication bays. Ceramics studios, woodshops, metalshops, laser cutting, CNC routing, and 3D printing. Shared memberships run $100–$400/month; private workshop bays run $600–$2,000/month.
               </li>
               <li>
-                <strong><Link href="/portland/event-space" style={{ color: 'var(--ink)' }} className="underline">Event and studio rental</Link></strong> — Spaces used for pop-ups, community events, brand activations, and private gatherings. Available for hourly, daily, or monthly terms. Monthly event space arrangements are significantly cheaper per use than one-off hourly bookings.
+                <strong><Link href="/portland/event-space" style={{ color: 'var(--ink)' }} className="underline">Event and studio rental</Link></strong>, Spaces used for pop-ups, community events, brand activations, and private gatherings. Available for hourly, daily, or monthly terms. Monthly event space arrangements are significantly cheaper per use than one-off hourly bookings.
               </li>
             </ul>
 
@@ -98,22 +98,22 @@ export default function Post() {
 
             <ul className="space-y-3 pl-4">
               <li>
-                <strong><Link href="/portland/pearl-district" style={{ color: 'var(--ink)' }} className="underline">Pearl District</Link></strong> — Polished, client-appropriate, Portland&apos;s highest creative rents. Design studios, commercial photo studios, agencies. Good for: client-facing practices, galleries, editorial photo work.
+                <strong><Link href="/portland/pearl-district" style={{ color: 'var(--ink)' }} className="underline">Pearl District</Link></strong>, Polished, client-appropriate, Portland&apos;s highest creative rents. Design studios, commercial photo studios, agencies. Good for: client-facing practices, galleries, editorial photo work.
               </li>
               <li>
-                <strong><Link href="/central-eastside" style={{ color: 'var(--ink)' }} className="underline">Central Eastside Industrial District</Link></strong> — Working district, industrial infrastructure, widest range of space types. Best overall value for production and fabrication. Good for: makers, photographers who need volume, video production, fabricators.
+                <strong><Link href="/central-eastside" style={{ color: 'var(--ink)' }} className="underline">Central Eastside Industrial District</Link></strong>, Working district, industrial infrastructure, widest range of space types. Best overall value for production and fabrication. Good for: makers, photographers who need volume, video production, fabricators.
               </li>
               <li>
-                <strong><Link href="/alberta-arts-district" style={{ color: 'var(--ink)' }} className="underline">Alberta Arts District</Link></strong> — Portland&apos;s original arts corridor. Most affordable private studios. Strong community, Last Thursday open studios. Good for: painters, printmakers, ceramicists, artists who value neighborhood engagement.
+                <strong><Link href="/alberta-arts-district" style={{ color: 'var(--ink)' }} className="underline">Alberta Arts District</Link></strong>, Portland&apos;s original arts corridor. Most affordable private studios. Strong community, Last Thursday open studios. Good for: painters, printmakers, ceramicists, artists who value neighborhood engagement.
               </li>
               <li>
-                <strong><Link href="/slabtown" style={{ color: 'var(--ink)' }} className="underline">Slabtown (NW Portland)</Link></strong> — Pearl-adjacent, converted industrial. Good for: design studios, creative offices, smaller production spaces.
+                <strong><Link href="/slabtown" style={{ color: 'var(--ink)' }} className="underline">Slabtown (NW Portland)</Link></strong>, Pearl-adjacent, converted industrial. Good for: design studios, creative offices, smaller production spaces.
               </li>
               <li>
-                <strong>SE Portland (Division, Woodstock, Hawthorne)</strong> — Scattered studio inventory in mixed residential/commercial buildings. Good for: practices that benefit from residential-neighborhood foot traffic, teaching studios.
+                <strong>SE Portland (Division, Woodstock, Hawthorne)</strong>, Scattered studio inventory in mixed residential/commercial buildings. Good for: practices that benefit from residential-neighborhood foot traffic, teaching studios.
               </li>
               <li>
-                <strong>N Portland (Mississippi Ave, St. Johns)</strong> — Affordable inventory, distinctive neighborhood character. Good for: artists wanting a neighborhood identity without Pearl District pricing.
+                <strong>N Portland (Mississippi Ave, St. Johns)</strong>, Affordable inventory, distinctive neighborhood character. Good for: artists wanting a neighborhood identity without Pearl District pricing.
               </li>
             </ul>
 
@@ -130,16 +130,16 @@ export default function Post() {
               <li><strong>Do clients visit?</strong> This is a proxy for how much the neighborhood and exterior presentation matter relative to internal function.</li>
             </ul>
             <p>
-              Filtering on requirements before price usually reveals that what you thought you wanted and what you actually need are different — and that the space meeting your actual needs is often cheaper than the idealized version.
+              Filtering on requirements before price usually reveals that what you thought you wanted and what you actually need are different, and that the space meeting your actual needs is often cheaper than the idealized version.
             </p>
 
             <h2 style={{ fontFamily: 'var(--font-heading)' }} className="mt-10 text-xl font-semibold">Month-to-month vs. annual: the practical question</h2>
 
             <p>
-              If you&apos;re new to Portland, new to renting studio space, or unsure whether a specific neighborhood or space type will work for your practice — start month-to-month. The 10–20% premium over an annual lease is worth the flexibility to move if the space doesn&apos;t work. Once you know the space fits, convert to an annual agreement and capture the savings.
+              If you&apos;re new to Portland, new to renting studio space, or unsure whether a specific neighborhood or space type will work for your practice, start month-to-month. The 10–20% premium over an annual lease is worth the flexibility to move if the space doesn&apos;t work. Once you know the space fits, convert to an annual agreement and capture the savings.
             </p>
             <p>
-              If you&apos;ve had the same studio for two or more years and you&apos;re confident in the space, an annual lease saves you money and gives the landlord the stability they prefer — which can also give you leverage to negotiate a rate reduction at renewal.
+              If you&apos;ve had the same studio for two or more years and you&apos;re confident in the space, an annual lease saves you money and gives the landlord the stability they prefer, which can also give you leverage to negotiate a rate reduction at renewal.
             </p>
 
             <div style={{ borderTop: '1px solid var(--rule)' }} className="mt-12 pt-8">

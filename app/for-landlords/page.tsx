@@ -4,11 +4,11 @@ import { Suspense } from 'react'
 import { CheckoutResult } from '@/components/CheckoutResult'
 
 export const metadata: Metadata = {
-  title: 'List Your Studio Space Free — Portland & Atlanta | FindStudioSpace',
+  title: 'List Your Studio Space Free, Portland & Atlanta | FindStudioSpace',
   description:
     'Reach creatives looking for monthly studio, workshop, art, and office space rentals. Free to list. Get real inquiries from artists, makers, and producers in Portland and Atlanta.',
   openGraph: {
-    title: 'List Your Studio Space Free — Portland & Atlanta | FindStudioSpace',
+    title: 'List Your Studio Space Free, Portland & Atlanta | FindStudioSpace',
     description:
       'Reach creatives looking for monthly studio, workshop, art, and office space rentals. Free to list in Portland and Atlanta.',
   },
@@ -78,7 +78,7 @@ export default function ForLandlordsPage() {
         </div>
       </section>
 
-      {/* Section 1.5: Free Photography Offer (P2-A — caps at n=10) */}
+      {/* Section 1.5: Free Photography Offer (P2-A, caps at n=10) */}
       <section
         style={{
           borderBottom: '1px solid var(--rule)',
@@ -100,7 +100,7 @@ export default function ForLandlordsPage() {
             Free professional photos for your space
           </h2>
           <p style={{ color: 'var(--stone)' }} className="mt-4 max-w-2xl text-base leading-relaxed">
-            Listings with professional photography get 3–5x more inquiries than phone snapshots. We&apos;re offering a free 1-hour photo shoot to the first 10 landlords who list — no strings, photos are yours to keep, and there is no requirement to buy sponsored placement.
+            Listings with professional photography get 3–5x more inquiries than phone snapshots. We&apos;re offering a free 1-hour photo shoot to the first 10 landlords who list, no strings, photos are yours to keep, and there is no requirement to buy sponsored placement.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
             <Link
@@ -122,7 +122,7 @@ export default function ForLandlordsPage() {
             </Link>
           </div>
           <p style={{ color: 'var(--stone)', fontFamily: 'var(--font-mono)' }} className="mt-5 text-xs">
-            Submit your listing first — we&apos;ll reach out within 48 hours to schedule.
+            Submit your listing first, we&apos;ll reach out within 48 hours to schedule.
           </p>
         </div>
       </section>
@@ -140,7 +140,7 @@ export default function ForLandlordsPage() {
                 Free
               </p>
               <p style={{ color: 'var(--stone)', fontFamily: 'var(--font-mono)' }} className="mt-2 text-sm">
-                to list your space — no credit card required
+                to list your space, no credit card required
               </p>
             </div>
             <div style={{ background: 'var(--surface)' }} className="p-8">
@@ -156,12 +156,12 @@ export default function ForLandlordsPage() {
                 Monthly
               </p>
               <p style={{ color: 'var(--stone)', fontFamily: 'var(--font-mono)' }} className="mt-2 text-sm">
-                rental terms — not hourly, not daily
+                rental terms, not hourly, not daily
               </p>
             </div>
           </div>
           <p style={{ color: 'var(--stone)' }} className="max-w-2xl text-sm leading-relaxed">
-            FindStudioSpace is a directory focused on monthly creative workspace rentals in Portland and Atlanta. Every person who visits is looking for a space like yours — not a one-off event booking.
+            FindStudioSpace is a directory focused on monthly creative workspace rentals in Portland and Atlanta. Every person who visits is looking for a space like yours, not a one-off event booking.
           </p>
         </section>
 

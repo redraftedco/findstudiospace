@@ -33,7 +33,7 @@ const AMENITY_FILTERS: Record<string, AmenityMeta[]> = {
       label: 'Cyc Wall',
       h1: 'Cyclorama Wall Photography Studios in Seattle',
       title: 'Cyc Wall Photography Studios in Seattle, WA | FindStudioSpace',
-      description: 'Find Seattle photography studios with cyclorama walls — seamless white backgrounds for product, fashion, and editorial shoots.',
+      description: 'Find Seattle photography studios with cyclorama walls, seamless white backgrounds for product, fashion, and editorial shoots.',
     },
     {
       key: 'natural_light',
@@ -54,7 +54,7 @@ const AMENITY_FILTERS: Record<string, AmenityMeta[]> = {
       label: 'Product Photography',
       h1: 'Product Photography Studios in Seattle',
       title: 'Product Photography Studio Rental in Seattle, WA | FindStudioSpace',
-      description: 'Tabletop and product photography studios in Seattle — sweep tables, controlled lighting, and tethering setups for e-commerce and editorial product work.',
+      description: 'Tabletop and product photography studios in Seattle, sweep tables, controlled lighting, and tethering setups for e-commerce and editorial product work.',
     },
   ],
 }
@@ -329,7 +329,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
               <Link href={`/seattle/${category}`} className="underline">Browse all {pageH1.toLowerCase().includes('photo') ? 'photo studios' : 'listings'} →</Link>
             </p>
           ) : !q ? (
-            <p style={{ color: 'var(--stone)' }} className="mb-14">No spaces listed yet — check back soon.</p>
+            <p style={{ color: 'var(--stone)' }} className="mb-14">No spaces listed yet, check back soon.</p>
           ) : null}
 
           <section style={{ borderTop: '1px solid var(--rule)' }} className="pt-10">

@@ -4,7 +4,7 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'Terms of Service | FindStudioSpace',
   description:
-    'The terms for using FindStudioSpace — acceptable use, listing ownership, sponsored placement terms, and contact information.',
+    'The terms for using FindStudioSpace, acceptable use, listing ownership, sponsored placement terms, and contact information.',
   alternates: { canonical: '/terms' },
 }
 

@@ -24,7 +24,7 @@ const FAQS = [
   },
   {
     q: 'What kind of studios are available in the Alberta Arts District?',
-    a: 'The Alberta Arts District has a strong concentration of visual art studios — painters, printmakers, ceramicists, and mixed media artists. Several buildings offer shared facilities including kilns, printing presses, and communal equipment. Gallery-adjacent studios that allow open studio events are also common on this corridor.',
+    a: 'The Alberta Arts District has a strong concentration of visual art studios, painters, printmakers, ceramicists, and mixed media artists. Several buildings offer shared facilities including kilns, printing presses, and communal equipment. Gallery-adjacent studios that allow open studio events are also common on this corridor.',
   },
   {
     q: 'Is the Alberta Arts District good for a working studio practice?',
@@ -36,7 +36,7 @@ const FAQS = [
   },
   {
     q: 'How do I find a studio for rent in the Alberta Arts District?',
-    a: 'Browse listings filtered to NE Portland and the Alberta corridor above — each shows monthly pricing, photos, and contact information. Submit an inquiry directly from any listing and the host will respond. No platform booking fee.',
+    a: 'Browse listings filtered to NE Portland and the Alberta corridor above, each shows monthly pricing, photos, and contact information. Submit an inquiry directly from any listing and the host will respond. No platform booking fee.',
   },
 ]
 
@@ -109,13 +109,13 @@ export default async function AlbertaArtsDistrictPage() {
             Studio Space for Rent in the Alberta Arts District, Portland
           </h1>
           <p style={{ color: 'var(--stone)' }} className="mb-10 max-w-2xl text-sm leading-relaxed">
-            The Alberta Arts District on NE Alberta Street is Portland&apos;s most established arts community — home to galleries, independent studios, and maker spaces. Browse monthly studio rentals from shared co-op spaces to private artist studios, with a strong community of painters, printmakers, and craft artists. Submit an inquiry from any listing to connect directly with the host.
+            The Alberta Arts District on NE Alberta Street is Portland&apos;s most established arts community, home to galleries, independent studios, and maker spaces. Browse monthly studio rentals from shared co-op spaces to private artist studios, with a strong community of painters, printmakers, and craft artists. Submit an inquiry from any listing to connect directly with the host.
           </p>
 
           {rows.length > 0 ? (
             <CategoryFilter listings={rows} />
           ) : (
-            <p style={{ color: 'var(--stone)' }} className="mb-14">No studios listed in this neighborhood yet — check back soon.</p>
+            <p style={{ color: 'var(--stone)' }} className="mb-14">No studios listed in this neighborhood yet, check back soon.</p>
           )}
 
           <section style={{ borderTop: '1px solid var(--rule)' }} className="pt-10">

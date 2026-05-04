@@ -20,11 +20,11 @@ export const metadata: Metadata = {
 const FAQS = [
   {
     q: 'What is the Mississippi Ave arts scene in Portland?',
-    a: 'N Mississippi Avenue is one of Portland\'s most distinctive neighborhood commercial corridors — a mix of independent restaurants, vintage shops, galleries, and creative studios in North Portland. The area between N Fremont and N Skidmore has historically attracted artists and small creative businesses, with a neighborhood character distinct from both the Pearl District and the Central Eastside.',
+    a: 'N Mississippi Avenue is one of Portland\'s most distinctive neighborhood commercial corridors, a mix of independent restaurants, vintage shops, galleries, and creative studios in North Portland. The area between N Fremont and N Skidmore has historically attracted artists and small creative businesses, with a neighborhood character distinct from both the Pearl District and the Central Eastside.',
   },
   {
     q: 'How much does studio space cost on Mississippi Ave?',
-    a: 'Monthly studio rentals in the N Mississippi corridor typically range from $350–$1,200/month — among the more affordable options for studio space in Portland. The neighborhood has lower commercial rents than the Pearl District or NE Alberta, making it accessible for early-career artists and small creative businesses.',
+    a: 'Monthly studio rentals in the N Mississippi corridor typically range from $350–$1,200/month, among the more affordable options for studio space in Portland. The neighborhood has lower commercial rents than the Pearl District or NE Alberta, making it accessible for early-career artists and small creative businesses.',
   },
   {
     q: 'What types of studios are available on N Mississippi?',
@@ -119,13 +119,13 @@ export default async function MississippiAvePage() {
             Studio Space for Rent on Mississippi Ave, Portland
           </h1>
           <p style={{ color: 'var(--stone)' }} className="mb-10 max-w-2xl text-sm leading-relaxed">
-            N Mississippi Avenue is one of Portland&apos;s most distinctive creative corridors — a mix of independent studios, galleries, and maker spaces in North Portland. Browse monthly studio rentals on and around Mississippi Ave, with some of the most affordable creative workspace in the city. Submit an inquiry from any listing to connect directly with the host.
+            N Mississippi Avenue is one of Portland&apos;s most distinctive creative corridors, a mix of independent studios, galleries, and maker spaces in North Portland. Browse monthly studio rentals on and around Mississippi Ave, with some of the most affordable creative workspace in the city. Submit an inquiry from any listing to connect directly with the host.
           </p>
 
           {rows.length > 0 ? (
             <CategoryFilter listings={rows} />
           ) : (
-            <p style={{ color: 'var(--stone)' }} className="mb-14">No studios listed on Mississippi Ave yet — check back soon or browse <Link href="/alberta-arts-district" className="underline">Alberta Arts District studios</Link>.</p>
+            <p style={{ color: 'var(--stone)' }} className="mb-14">No studios listed on Mississippi Ave yet, check back soon or browse <Link href="/alberta-arts-district" className="underline">Alberta Arts District studios</Link>.</p>
           )}
 
           <section style={{ borderTop: '1px solid var(--rule)' }} className="pt-10">

@@ -5,11 +5,11 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://www.findstudiospace.com/blog/studio-workspace-portland' },
   title: 'Studio Workspace for Rent in Portland: A Renter\'s Guide to Monthly Creative Space | FindStudioSpace',
   description:
-    'A renter\'s guide to studio workspace in Portland — art studios, photo studios, workshops, offices, and fitness spaces. Monthly rates by category and how to find the right fit.',
+    'A renter\'s guide to studio workspace in Portland, art studios, photo studios, workshops, offices, and fitness spaces. Monthly rates by category and how to find the right fit.',
   openGraph: {
     title: 'Studio Workspace for Rent in Portland: A Renter\'s Guide',
     description:
-      'Monthly studio workspace in Portland — types, prices, and how to find the right space for your practice.',
+      'Monthly studio workspace in Portland, types, prices, and how to find the right space for your practice.',
     url: 'https://www.findstudiospace.com/blog/studio-workspace-portland',
     type: 'article',
   },
@@ -61,7 +61,7 @@ const faqSchema = {
       name: 'How do I find studio workspace to rent in Portland?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Start by identifying your space category — art studio, photo studio, workshop, office, or fitness. Browse directory listings filtered by type and neighborhood, visit in person before committing, and ask the host directly about lease terms, access hours, and what is included in the monthly rate.',
+        text: 'Start by identifying your space category, art studio, photo studio, workshop, office, or fitness. Browse directory listings filtered by type and neighborhood, visit in person before committing, and ask the host directly about lease terms, access hours, and what is included in the monthly rate.',
       },
     },
   ],
@@ -90,7 +90,7 @@ export default function Post() {
           </h1>
 
           <p style={{ color: 'var(--stone)' }} className="mb-8 text-sm leading-relaxed">
-            Portland&apos;s creative scene runs on monthly studio tenants — working artists, photographers, fabricators, and fitness instructors who need reliable, dedicated space they can count on. Monthly rental beats hourly booking for anyone using a space more than a few times a month: your setup stays in place, you get a lower effective rate, and you never compete for availability on a busy weekend.
+            Portland&apos;s creative scene runs on monthly studio tenants, working artists, photographers, fabricators, and fitness instructors who need reliable, dedicated space they can count on. Monthly rental beats hourly booking for anyone using a space more than a few times a month: your setup stays in place, you get a lower effective rate, and you never compete for availability on a busy weekend.
           </p>
 
           <div style={{ borderTop: '1px solid var(--rule)' }} className="space-y-10 pt-10">
@@ -116,7 +116,7 @@ export default function Post() {
                   <Link href="/portland" className="hover:underline" style={{ color: 'var(--action)' }}>Browse workshop listings</Link>.
                 </li>
                 <li>
-                  <strong style={{ color: 'var(--ink)' }}>Creative office workspace.</strong> Shared or private desk and office space in creative buildings — distinct from conventional coworking in that the tenant mix tends to be studios, agencies, and independent practitioners rather than corporate remote workers.
+                  <strong style={{ color: 'var(--ink)' }}>Creative office workspace.</strong> Shared or private desk and office space in creative buildings, distinct from conventional coworking in that the tenant mix tends to be studios, agencies, and independent practitioners rather than corporate remote workers.
                 </li>
                 <li>
                   <strong style={{ color: 'var(--ink)' }}>Fitness and movement studios.</strong> Sprung or padded floor spaces used by personal trainers, yoga instructors, martial arts coaches, and dance teachers who need a recurring time block or monthly tenancy in a suitable room.
@@ -133,13 +133,13 @@ export default function Post() {
               </p>
               <ul style={{ color: 'var(--stone)' }} className="space-y-3 text-sm">
                 <li>
-                  <strong style={{ color: 'var(--ink)' }}>No booking competition.</strong> Popular hourly studios fill up weeks out on weekends. A monthly tenancy means the space is yours when you need it — no calendar gymnastics, no competing with other renters for prime slots.
+                  <strong style={{ color: 'var(--ink)' }}>No booking competition.</strong> Popular hourly studios fill up weeks out on weekends. A monthly tenancy means the space is yours when you need it, no calendar gymnastics, no competing with other renters for prime slots.
                 </li>
                 <li>
                   <strong style={{ color: 'var(--ink)' }}>Your setup stays in place.</strong> Hourly renters reset the room after every session. Monthly tenants leave equipment, materials, and works in progress exactly as they left them. This alone saves hours per month for photographers, potters, and woodworkers.
                 </li>
                 <li>
-                  <strong style={{ color: 'var(--ink)' }}>Better effective rate.</strong> A studio at $600/mo used 15 days a month costs $40/day. The same space booked hourly at $25/hr for a 4-hour session costs $100 per visit — 2.5x more. Monthly tenancy is the efficient choice for regular use.
+                  <strong style={{ color: 'var(--ink)' }}>Better effective rate.</strong> A studio at $600/mo used 15 days a month costs $40/day. The same space booked hourly at $25/hr for a 4-hour session costs $100 per visit, 2.5x more. Monthly tenancy is the efficient choice for regular use.
                 </li>
                 <li>
                   <strong style={{ color: 'var(--ink)' }}>Reliable access.</strong> Monthly tenants typically have 24-hour keyed access. Hourly renters are bound to their booking window. For anyone with unpredictable creative hours, a key that works at midnight matters.
@@ -192,7 +192,7 @@ export default function Post() {
               </p>
               <ol style={{ color: 'var(--stone)' }} className="list-decimal space-y-3 pl-5 text-sm">
                 <li>
-                  <strong style={{ color: 'var(--ink)' }}>Know your use case first.</strong> A ceramicist and a fitness instructor both need a studio — but one needs a utility sink, a kiln, and concrete floors; the other needs sprung flooring and ceiling height. Narrowing by category before browsing by price will eliminate most dead ends quickly.
+                  <strong style={{ color: 'var(--ink)' }}>Know your use case first.</strong> A ceramicist and a fitness instructor both need a studio, but one needs a utility sink, a kiln, and concrete floors; the other needs sprung flooring and ceiling height. Narrowing by category before browsing by price will eliminate most dead ends quickly.
                 </li>
                 <li>
                   <strong style={{ color: 'var(--ink)' }}>Visit in person before committing.</strong> Listing photos reliably flatter the space. Light direction, ventilation quality, sound bleed from neighboring units, and actual storage availability are only apparent on site. Always ask to see the space before signing anything.
@@ -208,7 +208,7 @@ export default function Post() {
           <div style={{ borderTop: '1px solid var(--rule)' }} className="mt-12 pt-10">
             <p style={{ color: 'var(--stone)', fontFamily: 'var(--font-mono)' }} className="mb-4 text-xs uppercase tracking-wider">Browse studio workspace in Portland</p>
             <p style={{ color: 'var(--stone)' }} className="mb-5 text-sm leading-relaxed">
-              Search available monthly studio workspace across Portland — filtered by type, neighborhood, and price.
+              Search available monthly studio workspace across Portland, filtered by type, neighborhood, and price.
             </p>
             <Link
               href="/portland"

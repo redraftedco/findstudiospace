@@ -4,7 +4,7 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'How to Set Up a Photography Studio on a Budget in Portland | FindStudioSpace',
   description:
-    'A practical guide to setting up a photography studio on a budget in Portland — what you actually need, what to rent vs. buy, and how to get started without overspending.',
+    'A practical guide to setting up a photography studio on a budget in Portland, what you actually need, what to rent vs. buy, and how to get started without overspending.',
   alternates: { canonical: 'https://www.findstudiospace.com/blog/photography-studio-setup-budget-portland' },
   openGraph: {
     title: 'How to Set Up a Photography Studio on a Budget in Portland',
@@ -66,13 +66,13 @@ export default function Post() {
           <div style={{ color: 'var(--ink)' }} className="space-y-6 text-sm leading-relaxed">
 
             <p>
-              A photography studio in Portland doesn&apos;t have to cost a fortune to be functional. The difference between a $500/month setup that produces professional results and a $3,000/month one is mostly branding and polish — not image quality. Here&apos;s how to get started without overspending, and how to know when renting an equipped studio makes more sense than building your own.
+              A photography studio in Portland doesn&apos;t have to cost a fortune to be functional. The difference between a $500/month setup that produces professional results and a $3,000/month one is mostly branding and polish, not image quality. Here&apos;s how to get started without overspending, and how to know when renting an equipped studio makes more sense than building your own.
             </p>
 
             <h2 style={{ fontFamily: 'var(--font-heading)' }} className="mt-10 text-xl font-semibold">Rent vs. build: the honest comparison</h2>
 
             <p>
-              Before you invest in studio gear, run the math on renting versus building. <Link href="/photography-studios-portland" style={{ color: 'var(--ink)' }} className="underline">Photography studios in Portland</Link> rent for $800–$2,500/month equipped, or $35–$150/hour for occasional use. If you&apos;re shooting fewer than 20 hours per month, renting by the hour is almost always cheaper than maintaining your own space — and you get access to cyclorama walls, strobe kits, and backdrops you couldn&apos;t justify buying outright.
+              Before you invest in studio gear, run the math on renting versus building. <Link href="/photography-studios-portland" style={{ color: 'var(--ink)' }} className="underline">Photography studios in Portland</Link> rent for $800–$2,500/month equipped, or $35–$150/hour for occasional use. If you&apos;re shooting fewer than 20 hours per month, renting by the hour is almost always cheaper than maintaining your own space, and you get access to cyclorama walls, strobe kits, and backdrops you couldn&apos;t justify buying outright.
             </p>
             <p>
               Build your own studio when: you&apos;re shooting more than 40 hours per month, you need a controlled environment you can leave set up between sessions, or your work requires specialized infrastructure (a permanent product photography setup, a specific background wall color, a shooting table you&apos;ve built yourself).
@@ -85,7 +85,7 @@ export default function Post() {
               <li>A room with controllable light (blackout curtains or a windowless space)</li>
               <li>At least one strobe or LED monolight with a light stand and modifier (umbrella, softbox, or beauty dish)</li>
               <li>A white or gray seamless paper background (9-foot wide roll on a background stand system)</li>
-              <li>V-flats — two large white/black foam core boards for fill and negative fill. You can make these for $30 total from Dollar Tree foam core.</li>
+              <li>V-flats, two large white/black foam core boards for fill and negative fill. You can make these for $30 total from Dollar Tree foam core.</li>
               <li>A reflector (5-in-1 collapsible reflector, ~$25)</li>
               <li>An extension cord and power strip</li>
             </ul>
@@ -97,7 +97,7 @@ export default function Post() {
               <li>Colored seamless paper backgrounds beyond white/gray</li>
               <li>A shooting table (for product work)</li>
               <li>A tethering station (laptop on a stand for live review with clients)</li>
-              <li>An air conditioner — strobes and subjects generate heat</li>
+              <li>An air conditioner, strobes and subjects generate heat</li>
             </ul>
 
             <p><strong>Do not spend money on early:</strong></p>
@@ -116,8 +116,8 @@ export default function Post() {
               <li><strong>Strobe:</strong> Godox AD200 or AD300 Pro (~$300–$400). Battery-powered, portable, HSS-capable, TTL or manual. Exceptional for the price. Triggers work with most camera systems.</li>
               <li><strong>Monolight:</strong> Godox SK400II (~$150) for a studio-only setup. Slower recycle time than the AD series but very reliable for portraits and product work.</li>
               <li><strong>Modifiers:</strong> Godox and Glow brand softboxes are adequate starting gear. A 24&quot;×36&quot; softbox is versatile. An octabox (90cm or 120cm) is better for portraits.</li>
-              <li><strong>Seamless paper:</strong> Savage Widetone or BD Backlite paper — purchase in-store at Blick Art Materials on NW Couch or online. White and gray first, colors later.</li>
-              <li><strong>Background stand:</strong> Neewer or Impact brand — both adequate. Do not buy the cheapest available; flimsy stands fall over and damage gear.</li>
+              <li><strong>Seamless paper:</strong> Savage Widetone or BD Backlite paper, purchase in-store at Blick Art Materials on NW Couch or online. White and gray first, colors later.</li>
+              <li><strong>Background stand:</strong> Neewer or Impact brand, both adequate. Do not buy the cheapest available; flimsy stands fall over and damage gear.</li>
             </ul>
 
             <h2 style={{ fontFamily: 'var(--font-heading)' }} className="mt-10 text-xl font-semibold">Space requirements by use case</h2>
@@ -133,19 +133,19 @@ export default function Post() {
                 <strong>Product photography:</strong> 150–250 sq ft. Smaller footprint, but you may need specialized shooting surfaces and consistent lighting setups you can leave in place. A dedicated product room that stays set up between shoots is extremely useful.
               </li>
               <li>
-                <strong>E-commerce product:</strong> Sometimes as small as 100 sq ft — a shooting table, a lightbox or scrim tent, and consistent light. Highly repeatable, space-efficient work.
+                <strong>E-commerce product:</strong> Sometimes as small as 100 sq ft, a shooting table, a lightbox or scrim tent, and consistent light. Highly repeatable, space-efficient work.
               </li>
             </ul>
 
             <h2 style={{ fontFamily: 'var(--font-heading)' }} className="mt-10 text-xl font-semibold">When to rent a studio instead</h2>
 
             <p>
-              Rent a studio when you need equipment you don&apos;t own and can&apos;t justify buying: a cyclorama wall for a fashion campaign, a 1,000 sq ft production space for a large crew shoot, or a fully equipped commercial kitchen for food photography. Portland has <Link href="/photography-studios-portland" style={{ color: 'var(--ink)' }} className="underline">photography studios available for day and month rental</Link> — it often makes more financial sense to rent the specific infrastructure for the shoot than to build and maintain it yourself.
+              Rent a studio when you need equipment you don&apos;t own and can&apos;t justify buying: a cyclorama wall for a fashion campaign, a 1,000 sq ft production space for a large crew shoot, or a fully equipped commercial kitchen for food photography. Portland has <Link href="/photography-studios-portland" style={{ color: 'var(--ink)' }} className="underline">photography studios available for day and month rental</Link>, it often makes more financial sense to rent the specific infrastructure for the shoot than to build and maintain it yourself.
             </p>
 
             <div style={{ borderTop: '1px solid var(--rule)' }} className="mt-12 pt-8">
               <p style={{ color: 'var(--stone)' }} className="text-sm">
-                Browse <Link href="/photography-studios-portland" style={{ color: 'var(--ink)' }} className="underline">photography studios for rent in Portland</Link> — monthly and day-rate options.
+                Browse <Link href="/photography-studios-portland" style={{ color: 'var(--ink)' }} className="underline">photography studios for rent in Portland</Link>, monthly and day-rate options.
               </p>
             </div>
 

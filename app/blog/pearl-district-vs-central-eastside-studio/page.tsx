@@ -4,12 +4,12 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'Pearl District vs. Central Eastside: Which Is Right for Your Studio? | FindStudioSpace',
   description:
-    "Comparing Portland's two top studio neighborhoods — Pearl District and the Central Eastside Industrial District. Prices, character, and who belongs where.",
+    "Comparing Portland's two top studio neighborhoods, Pearl District and the Central Eastside Industrial District. Prices, character, and who belongs where.",
   alternates: { canonical: 'https://www.findstudiospace.com/blog/pearl-district-vs-central-eastside-studio' },
   openGraph: {
     title: 'Pearl District vs. Central Eastside: Which Is Right for Your Studio?',
     description:
-      "Comparing Portland's two top studio neighborhoods — price, character, and who belongs where.",
+      "Comparing Portland's two top studio neighborhoods, price, character, and who belongs where.",
     url: 'https://www.findstudiospace.com/blog/pearl-district-vs-central-eastside-studio',
     type: 'article',
   },
@@ -66,7 +66,7 @@ export default function Post() {
           <div style={{ color: 'var(--ink)' }} className="space-y-6 text-sm leading-relaxed">
 
             <p>
-              Portland&apos;s two most active creative districts are separated by the Willamette River and about $600/month. The <Link href="/portland/pearl-district" style={{ color: 'var(--ink)' }} className="underline">Pearl District</Link> is polished, client-facing, and priced accordingly. The <Link href="/central-eastside" style={{ color: 'var(--ink)' }} className="underline">Central Eastside Industrial District</Link> is working, raw, and one of the better values in Portland for studio space. Neither is universally better — the right answer depends on what you do and who you need to impress.
+              Portland&apos;s two most active creative districts are separated by the Willamette River and about $600/month. The <Link href="/portland/pearl-district" style={{ color: 'var(--ink)' }} className="underline">Pearl District</Link> is polished, client-facing, and priced accordingly. The <Link href="/central-eastside" style={{ color: 'var(--ink)' }} className="underline">Central Eastside Industrial District</Link> is working, raw, and one of the better values in Portland for studio space. Neither is universally better, the right answer depends on what you do and who you need to impress.
             </p>
 
             <h2 style={{ fontFamily: 'var(--font-heading)' }} className="mt-10 text-xl font-semibold">Price comparison</h2>
@@ -83,7 +83,7 @@ export default function Post() {
             <h2 style={{ fontFamily: 'var(--font-heading)' }} className="mt-10 text-xl font-semibold">Character and environment</h2>
 
             <p>
-              The Pearl District feels like a designed neighborhood — galleries, restaurants, boutiques, new residential towers, and well-maintained streetscapes. The buildings are cleaner and quieter. Client visits feel professional. It&apos;s a good address if your clients care about addresses.
+              The Pearl District feels like a designed neighborhood, galleries, restaurants, boutiques, new residential towers, and well-maintained streetscapes. The buildings are cleaner and quieter. Client visits feel professional. It&apos;s a good address if your clients care about addresses.
             </p>
             <p>
               The Central Eastside is a working district. Loading docks, delivery trucks, salvage yards, breweries, and fabrication shops share blocks with photo studios and creative agencies. It&apos;s louder. Parking is easier. The buildings are older and often more interesting. If you do physical work, the industrial infrastructure (drive-in access, high ceilings, concrete floors) actually serves your practice rather than fighting it.
@@ -101,7 +101,7 @@ export default function Post() {
 
             <p><strong>Central Eastside is the better fit if you:</strong></p>
             <ul className="space-y-2 pl-4">
-              <li>Make physical things — furniture, ceramics, sculpture, fabricated goods — and need space and infrastructure over polish</li>
+              <li>Make physical things, furniture, ceramics, sculpture, fabricated goods, and need space and infrastructure over polish</li>
               <li>Do production work (photography, video, podcasting) where you control the environment regardless of the building exterior</li>
               <li>Want 24-hour access, loading dock capability, or drive-in bays</li>
               <li>Are working on a tight budget and need more square footage per dollar</li>
@@ -111,7 +111,7 @@ export default function Post() {
             <h2 style={{ fontFamily: 'var(--font-heading)' }} className="mt-10 text-xl font-semibold">Transit and parking</h2>
 
             <p>
-              The Pearl District has excellent transit (streetcar, multiple bus lines) but street parking is limited and garages are expensive — a real concern if you move materials regularly. The Central Eastside has easier and often free street parking, especially on side streets east of Grand Avenue. Both are bikeable from most Portland neighborhoods. The Morrison, Burnside, and Hawthorne bridges connect the Central Eastside directly to downtown in under 10 minutes by bike.
+              The Pearl District has excellent transit (streetcar, multiple bus lines) but street parking is limited and garages are expensive, a real concern if you move materials regularly. The Central Eastside has easier and often free street parking, especially on side streets east of Grand Avenue. Both are bikeable from most Portland neighborhoods. The Morrison, Burnside, and Hawthorne bridges connect the Central Eastside directly to downtown in under 10 minutes by bike.
             </p>
 
             <h2 style={{ fontFamily: 'var(--font-heading)' }} className="mt-10 text-xl font-semibold">The verdict by use case</h2>
@@ -120,7 +120,7 @@ export default function Post() {
               <li><strong>Photographer, editorial/commercial:</strong> Pearl for client-facing work; CEID if you prioritize ceiling height, loading access, or a larger shooting area.</li>
               <li><strong>Ceramicist / sculptor / fabricator:</strong> Central Eastside, unambiguously. Industrial zoning, loading access, fewer noise complaints.</li>
               <li><strong>Creative agency or design studio:</strong> Pearl if clients visit frequently; CEID if most work is remote and you want more space for the money.</li>
-              <li><strong>Painter / visual artist:</strong> Either works. Alberta Arts District is worth considering as a third option — community, natural light, more affordable.</li>
+              <li><strong>Painter / visual artist:</strong> Either works. Alberta Arts District is worth considering as a third option, community, natural light, more affordable.</li>
               <li><strong>Podcast / video production:</strong> Central Eastside. Acoustic treatment and production quality matter more than neighborhood polish.</li>
             </ul>
 

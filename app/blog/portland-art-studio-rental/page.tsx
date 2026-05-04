@@ -5,11 +5,11 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://www.findstudiospace.com/blog/portland-art-studio-rental' },
   title: 'Art Studio Rental in Portland: Prices, Neighborhoods & What to Expect | FindStudioSpace',
   description:
-    'Current prices for art studio rentals in Portland — from shared co-ops at $200/mo to private studios at $800+. Neighborhood guide, studio types, and what to look for before signing.',
+    'Current prices for art studio rentals in Portland, from shared co-ops at $200/mo to private studios at $800+. Neighborhood guide, studio types, and what to look for before signing.',
   openGraph: {
     title: 'Art Studio Rental in Portland: Prices, Neighborhoods & What to Expect',
     description:
-      'Current prices for art studio rentals in Portland — shared co-ops, private studios, and what to look for before you sign.',
+      'Current prices for art studio rentals in Portland, shared co-ops, private studios, and what to look for before you sign.',
     url: 'https://www.findstudiospace.com/blog/portland-art-studio-rental',
     type: 'article',
   },
@@ -90,7 +90,7 @@ export default function Post() {
           </h1>
 
           <p style={{ color: 'var(--stone)' }} className="mb-8 text-sm leading-relaxed">
-            Portland has one of the most active working artist communities in the Pacific Northwest — a legacy of relatively affordable rents, a strong craft culture, and decades of creative infrastructure built in its industrial neighborhoods. Studios turn over infrequently, demand is consistent, and the range of spaces available — from bare-bones co-ops to polished private units — is wider than most comparable cities. Here is what you need to know before you start looking.
+            Portland has one of the most active working artist communities in the Pacific Northwest, a legacy of relatively affordable rents, a strong craft culture, and decades of creative infrastructure built in its industrial neighborhoods. Studios turn over infrequently, demand is consistent, and the range of spaces available, from bare-bones co-ops to polished private units, is wider than most comparable cities. Here is what you need to know before you start looking.
           </p>
 
           <div style={{ borderTop: '1px solid var(--rule)' }} className="space-y-10 pt-10">
@@ -140,13 +140,13 @@ export default function Post() {
               </p>
               <ul style={{ color: 'var(--stone)' }} className="space-y-4 text-sm">
                 <li>
-                  <strong style={{ color: 'var(--ink)' }}>Private studio.</strong> A self-contained space that is yours alone — one key, your setup, your rules within building policy. Best for artists who work daily, produce large or messy work, need client access, or use equipment that cannot be shared or packed away. Rents run $400–$700/mo for typical sizes.
+                  <strong style={{ color: 'var(--ink)' }}>Private studio.</strong> A self-contained space that is yours alone, one key, your setup, your rules within building policy. Best for artists who work daily, produce large or messy work, need client access, or use equipment that cannot be shared or packed away. Rents run $400–$700/mo for typical sizes.
                 </li>
                 <li>
-                  <strong style={{ color: 'var(--ink)' }}>Artist co-op.</strong> A designated area within a larger studio shared by multiple artists. You often share infrastructure — sinks, kilns, printing presses, storage rooms — and common spaces. Co-ops cost significantly less and embed you in a working artist community. The trade-off is less privacy, shared equipment availability, and less ability to customize your area.
+                  <strong style={{ color: 'var(--ink)' }}>Artist co-op.</strong> A designated area within a larger studio shared by multiple artists. You often share infrastructure, sinks, kilns, printing presses, storage rooms, and common spaces. Co-ops cost significantly less and embed you in a working artist community. The trade-off is less privacy, shared equipment availability, and less ability to customize your area.
                 </li>
                 <li>
-                  <strong style={{ color: 'var(--ink)' }}>Shared studio with rotating access.</strong> Some studios offer shift-based or part-time desk arrangements — useful for artists who work two or three days a week and do not need permanent setup. These are the lowest-cost entry point at $200–$350/mo, and common in co-op buildings in NE Portland.
+                  <strong style={{ color: 'var(--ink)' }}>Shared studio with rotating access.</strong> Some studios offer shift-based or part-time desk arrangements, useful for artists who work two or three days a week and do not need permanent setup. These are the lowest-cost entry point at $200–$350/mo, and common in co-op buildings in NE Portland.
                 </li>
               </ul>
             </section>
@@ -163,13 +163,13 @@ export default function Post() {
                   <strong style={{ color: 'var(--ink)' }}>
                     <Link href="/alberta-arts-district" className="hover:underline" style={{ color: 'var(--action)' }}>Alberta Arts District.</Link>
                   </strong>{' '}
-                  The most community-oriented option in Portland. Studios here tend to be in converted residential and small commercial buildings — smaller spaces, lower rents, and a strong peer network. Well-suited for painters, ceramicists, and 2D artists. Monthly rates are among the lowest in the city.
+                  The most community-oriented option in Portland. Studios here tend to be in converted residential and small commercial buildings, smaller spaces, lower rents, and a strong peer network. Well-suited for painters, ceramicists, and 2D artists. Monthly rates are among the lowest in the city.
                 </li>
                 <li>
                   <strong style={{ color: 'var(--ink)' }}>
                     <Link href="/central-eastside" className="hover:underline" style={{ color: 'var(--action)' }}>Central Eastside Industrial District.</Link>
                   </strong>{' '}
-                  The highest density of creative and maker space in Portland. Converted warehouses with high ceilings, concrete floors, and good freight access. Better suited for sculptors, fabricators, and printmakers than for quiet 2D studio practice — though smaller art studios exist here too.{' '}
+                  The highest density of creative and maker space in Portland. Converted warehouses with high ceilings, concrete floors, and good freight access. Better suited for sculptors, fabricators, and printmakers than for quiet 2D studio practice, though smaller art studios exist here too.{' '}
                   <Link href="/portland/alberta-arts" className="hover:underline" style={{ color: 'var(--action)' }}>See Alberta Arts listings</Link>.
                 </li>
                 <li>
@@ -187,16 +187,16 @@ export default function Post() {
               </p>
               <ol style={{ color: 'var(--stone)' }} className="list-decimal space-y-3 pl-5 text-sm">
                 <li>
-                  <strong style={{ color: 'var(--ink)' }}>Ventilation.</strong> If your practice involves solvents, spray paint, aerosols, or materials that produce dust or fumes, ventilation is a hard requirement — not a nice-to-have. Ask specifically whether there are operable windows, an exhaust fan, or HVAC that pulls fresh air. &quot;It should be fine&quot; from a landlord is not sufficient.
+                  <strong style={{ color: 'var(--ink)' }}>Ventilation.</strong> If your practice involves solvents, spray paint, aerosols, or materials that produce dust or fumes, ventilation is a hard requirement, not a nice-to-have. Ask specifically whether there are operable windows, an exhaust fan, or HVAC that pulls fresh air. &quot;It should be fine&quot; from a landlord is not sufficient.
                 </li>
                 <li>
                   <strong style={{ color: 'var(--ink)' }}>Lease flexibility.</strong> Most working artists prefer month-to-month terms. Confirm whether you are locked into a minimum term, whether early termination carries a penalty, and whether the rate is fixed for the duration. Studios in high-demand areas may require a 3- or 6-month minimum.
                 </li>
                 <li>
-                  <strong style={{ color: 'var(--ink)' }}>Storage.</strong> Listings often describe storage loosely. Ask exactly how much floor space, wall space, and shelving you can claim as yours — not shared, not rotational, but actually yours. If you produce large work or work with bulky materials, this matters more than square footage of the studio itself.
+                  <strong style={{ color: 'var(--ink)' }}>Storage.</strong> Listings often describe storage loosely. Ask exactly how much floor space, wall space, and shelving you can claim as yours, not shared, not rotational, but actually yours. If you produce large work or work with bulky materials, this matters more than square footage of the studio itself.
                 </li>
                 <li>
-                  <strong style={{ color: 'var(--ink)' }}>24-hour access.</strong> If you work odd hours or need to be in the studio on short notice, confirm that access is genuinely unlimited — not subject to building security hours or a landlord who locks up at 6pm. Most serious studio buildings in Portland have keyed or fob access that is 24/7; some do not.
+                  <strong style={{ color: 'var(--ink)' }}>24-hour access.</strong> If you work odd hours or need to be in the studio on short notice, confirm that access is genuinely unlimited, not subject to building security hours or a landlord who locks up at 6pm. Most serious studio buildings in Portland have keyed or fob access that is 24/7; some do not.
                 </li>
               </ol>
             </section>
@@ -206,7 +206,7 @@ export default function Post() {
           <div style={{ borderTop: '1px solid var(--rule)' }} className="mt-12 pt-10">
             <p style={{ color: 'var(--stone)', fontFamily: 'var(--font-mono)' }} className="mb-4 text-xs uppercase tracking-wider">Find your studio</p>
             <p style={{ color: 'var(--stone)' }} className="mb-5 text-sm leading-relaxed">
-              Browse available art studio rentals in Portland — filtered by type, neighborhood, and price range.
+              Browse available art studio rentals in Portland, filtered by type, neighborhood, and price range.
             </p>
             <Link
               href="/portland/art-studio-rental"

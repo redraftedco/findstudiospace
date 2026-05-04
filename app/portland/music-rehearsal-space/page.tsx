@@ -15,11 +15,11 @@ export const metadata: Metadata = {
 const FAQS = [
   {
     q: 'What is a lockout rehearsal space?',
-    a: 'A lockout space is a studio you rent on a monthly basis with exclusive 24/7 access — your own key, your own space, no sharing or scheduling. It\'s the preferred setup for bands that rehearse regularly and want to leave their gear set up between sessions. Monthly rates in Portland typically range from $300–$600/month depending on size.',
+    a: 'A lockout space is a studio you rent on a monthly basis with exclusive 24/7 access, your own key, your own space, no sharing or scheduling. It\'s the preferred setup for bands that rehearse regularly and want to leave their gear set up between sessions. Monthly rates in Portland typically range from $300–$600/month depending on size.',
   },
   {
     q: 'How is monthly rehearsal space different from hourly booking?',
-    a: 'Hourly booking services charge per session (typically $20–$50/hr) and require scheduling in advance. Monthly lockout space gives you unlimited access for a flat monthly fee — better value for bands rehearsing multiple times per week.',
+    a: 'Hourly booking services charge per session (typically $20–$50/hr) and require scheduling in advance. Monthly lockout space gives you unlimited access for a flat monthly fee, better value for bands rehearsing multiple times per week.',
   },
   {
     q: 'What should I look for in a rehearsal space?',
@@ -27,11 +27,11 @@ const FAQS = [
   },
   {
     q: 'How much does monthly rehearsal space cost in Portland?',
-    a: 'Monthly lockout rehearsal space in Portland typically runs $300–$600/month for a small to medium room. Shared rehearsal facilities with scheduled blocks run less — around $100–$200/month for part-time access.',
+    a: 'Monthly lockout rehearsal space in Portland typically runs $300–$600/month for a small to medium room. Shared rehearsal facilities with scheduled blocks run less, around $100–$200/month for part-time access.',
   },
   {
     q: 'Are there rehearsal spaces in Portland that allow loud bands?',
-    a: 'Yes — several Portland spaces are in commercial/industrial zones where noise is not a residential concern. Always confirm with the host whether amplified music and full drum kits are permitted before signing a lease.',
+    a: 'Yes, several Portland spaces are in commercial/industrial zones where noise is not a residential concern. Always confirm with the host whether amplified music and full drum kits are permitted before signing a lease.',
   },
 ]
 
@@ -92,19 +92,19 @@ export default async function MusicRehearsalSpacePage() {
             Monthly Music Rehearsal Space in Portland, OR
           </h1>
           <p style={{ color: 'var(--stone)' }} className="mb-10 max-w-2xl text-sm leading-relaxed">
-            Find affordable monthly lockout rehearsal space in Portland for bands, musicians, and performers. Unlike hourly booking services, these spaces offer monthly leases so you have a permanent home for your practice — available 24/7 on your schedule. Browse private studios, shared rehearsal facilities, and flexible creative spaces suitable for music.
+            Find affordable monthly lockout rehearsal space in Portland for bands, musicians, and performers. Unlike hourly booking services, these spaces offer monthly leases so you have a permanent home for your practice, available 24/7 on your schedule. Browse private studios, shared rehearsal facilities, and flexible creative spaces suitable for music.
           </p>
 
           {showFallback && (
             <p style={{ color: 'var(--stone)', fontFamily: 'var(--font-mono)' }} className="mb-6 text-xs">
-              Browse spaces suitable for music rehearsal in Portland — contact hosts to confirm music use is permitted.
+              Browse spaces suitable for music rehearsal in Portland, contact hosts to confirm music use is permitted.
             </p>
           )}
 
           {listings.length > 0 ? (
             <CategoryFilter listings={listings} />
           ) : (
-            <p style={{ color: 'var(--stone)' }} className="mb-14">No spaces listed yet — check back soon.</p>
+            <p style={{ color: 'var(--stone)' }} className="mb-14">No spaces listed yet, check back soon.</p>
           )}
 
           {/* FAQ */}

@@ -72,3 +72,56 @@ Marked complete by owner.
 **Load-bearing action:** Event venue outreach in Month 2 is what crosses $1.5K MRR by Day 90–120. Everything else follows from it.
 
 **Master doc location:** Paste/maintain in project root or `/docs/niche-analysis.md` when starting execution. Contains 11 sections: TAM, category rankings, keyword clusters by landing page, competitive landscape, Portland neighborhoods, CPC/buyer value map, filters/UX signals, intent trap list, traffic share intelligence, revenue projections, keyword master table.
+
+---
+
+## TICKET 6 — ~~Global design reskin~~ DONE (this branch)
+
+Anton + Inter fonts, off-white #fafaf7 bg, forest green #2d5a3d, warm borders #e6e3dc. Bebas Neue and JetBrains Mono removed.
+
+---
+
+## TICKET 7 — ~~Em dash removal~~ DONE (this branch)
+
+Zero em dashes in all app/ and components/ tsx files. Permanent no-em-dash rule in effect.
+
+---
+
+## TICKET 8 — Portland page full audit (46 items across 6 blocks)
+
+**Priority:** High. Credibility blockers in BLOCK 1 affect every visitor now.
+
+### BLOCK 1: Data cleanup (do first — visible credibility damage)
+1. Fix/null bad prices: query listings WHERE city='portland' AND price < 50. Set corrupted prices ($1, $13, $22) to null so they show "Price on request."
+2. Hide no-image listings from city page: add WHERE clause requiring at least one image URL in the query.
+3. Deduplicate warehouse cluster: /listing/121–126 are six entries for the same property. Keep one, remove others.
+4. Normalize listing titles: strip ALL CAPS, remove marketing filler ("NEW!", "Your Dream...Awaits!"), title-case.
+5. Replace AI-generated descriptions with original scraped text, or null if not stored.
+6. Audit neighborhood assignments: remove/flag listings outside Portland city limits (Oak Grove, Milwaukie).
+
+### BLOCK 2: Image self-hosting (ticking time bomb)
+7. Script to download all hotlinked images.craigslist.org images, upload to Supabase Storage, update image_url in DB.
+
+### BLOCK 3: Design system migration
+8. Portland city page to new design system.
+9. All Portland subcategory pages to new design system.
+10. All Portland neighborhood pages to new design system.
+11. All Portland listing detail pages to match listing-detail.html template.
+
+### BLOCK 4: SEO + structured data
+12. Unique meta descriptions for Portland city page, 6 subcategory pages, 5 neighborhood pages.
+13. JSON-LD LocalBusiness schema on every Portland listing page.
+14. Verify sitemap covers all Portland listing, subcategory, and neighborhood pages.
+
+### BLOCK 5: UX
+15. Category filter chips on Portland city page (client-side, no backend change).
+16. Pagination or lazy load at 24–30 listings per page.
+
+### BLOCK 6: Verification
+17. Full verification pass after all blocks complete.
+
+---
+
+## TICKET 9 — Add Seattle to homepage
+
+Add Seattle alongside Portland and Atlanta in the homepage city section. Seattle city infrastructure already exists (commit 4157a23). Homepage just needs to surface it.

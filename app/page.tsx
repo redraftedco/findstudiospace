@@ -3,12 +3,12 @@ import Link from 'next/link'
 import HomepageSearch from '@/components/HomepageSearch'
 
 export const metadata: Metadata = {
-  title: 'Studio Space for Rent — Portland & Atlanta | FindStudioSpace',
-  description: 'Browse 120+ photo studios, art rooms, podcast studios, event spaces, and creative workspace for rent in Portland, OR and Atlanta, GA. No booking fees.',
+  title: 'Studio Space for Rent, Portland, Seattle & Atlanta | FindStudioSpace',
+  description: 'Browse 120+ photo studios, art rooms, podcast studios, event spaces, and creative workspace for rent in Portland, Seattle, and Atlanta. No booking fees.',
   alternates: { canonical: 'https://www.findstudiospace.com' },
   openGraph: {
-    title: 'Studio Space for Rent — Portland & Atlanta | FindStudioSpace',
-    description: 'Browse 120+ creative workspaces for rent. Photo studios, art rooms, podcast studios, makerspaces, event spaces. Portland & Atlanta.',
+    title: 'Studio Space for Rent, Portland, Seattle & Atlanta | FindStudioSpace',
+    description: 'Browse 120+ creative workspaces for rent. Photo studios, art rooms, podcast studios, makerspaces, event spaces. Portland, Seattle & Atlanta.',
     url: 'https://www.findstudiospace.com',
     type: 'website',
   },
@@ -33,7 +33,7 @@ const faqSchema = {
     {
       '@type': 'Question',
       name: 'How do I find studio space for rent in Portland?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Browse FindStudioSpace to search photo studios, art rooms, podcast studios, makerspaces, and event spaces across Portland neighborhoods. Contact studios directly — no booking fees or commissions.' },
+      acceptedAnswer: { '@type': 'Answer', text: 'Browse FindStudioSpace to search photo studios, art rooms, podcast studios, makerspaces, and event spaces across Portland neighborhoods. Contact studios directly, no booking fees or commissions.' },
     },
     {
       '@type': 'Question',
@@ -110,7 +110,7 @@ export default function HomePage() {
               margin: '0 0 40px',
               lineHeight: 1.6,
             }}>
-              120+ photo studios, art rooms, podcast studios, makerspaces, and event spaces in Portland and Atlanta. Contact studios directly — no fees.
+              120+ photo studios, art rooms, podcast studios, makerspaces, and event spaces in Portland, Seattle, and Atlanta. Contact studios directly, no fees.
             </p>
 
             <HomepageSearch />
@@ -133,6 +133,7 @@ export default function HomePage() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
               {[
                 { city: 'Portland, OR', slug: 'portland', count: '119', desc: 'Central Eastside, Pearl District, Alberta Arts, Kerns' },
+                { city: 'Seattle, WA', slug: 'seattle', count: 'New', desc: 'Capitol Hill, Fremont, South Lake Union, Georgetown' },
                 { city: 'Atlanta, GA', slug: 'atlanta', count: 'New', desc: 'Old Fourth Ward, West Midtown, Ponce City Market area' },
               ].map(c => (
                 <Link key={c.slug} href={`/${c.slug}`} style={{ textDecoration: 'none', display: 'block', border: '1px solid var(--rule)', padding: '24px' }}>

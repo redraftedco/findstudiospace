@@ -20,11 +20,11 @@ export const metadata: Metadata = {
 const FAQS = [
   {
     q: 'What is the St. Johns neighborhood in Portland?',
-    a: 'St. Johns is a distinct North Portland neighborhood centered on N Lombard Street and the St. Johns Bridge — one of Portland\'s most iconic landmarks. Long a working-class and industrial district, St. Johns has seen significant creative community growth over the past decade. The neighborhood has its own downtown commercial area, industrial waterfront, and a growing population of artists, makers, and small businesses drawn by affordable rents and a strong neighborhood identity.',
+    a: 'St. Johns is a distinct North Portland neighborhood centered on N Lombard Street and the St. Johns Bridge, one of Portland\'s most iconic landmarks. Long a working-class and industrial district, St. Johns has seen significant creative community growth over the past decade. The neighborhood has its own downtown commercial area, industrial waterfront, and a growing population of artists, makers, and small businesses drawn by affordable rents and a strong neighborhood identity.',
   },
   {
     q: 'How much does studio space cost in St. Johns?',
-    a: 'Monthly studio and creative workspace in St. Johns is among the most affordable in Portland, typically ranging from $300–$1,000/month. The neighborhood\'s distance from downtown and relative low commercial density keeps rents accessible — it\'s one of the few Portland neighborhoods where sub-$500/month private studio space still appears with some regularity.',
+    a: 'Monthly studio and creative workspace in St. Johns is among the most affordable in Portland, typically ranging from $300–$1,000/month. The neighborhood\'s distance from downtown and relative low commercial density keeps rents accessible, it\'s one of the few Portland neighborhoods where sub-$500/month private studio space still appears with some regularity.',
   },
   {
     q: 'What types of studios are available in St. Johns?',
@@ -32,7 +32,7 @@ const FAQS = [
   },
   {
     q: 'Is St. Johns accessible from other Portland neighborhoods?',
-    a: 'St. Johns is in the far north of Portland — roughly 20–30 minutes from the Central Eastside by bike or 15 minutes by car. Bus service runs on N Lombard and N Fessenden. It\'s less transit-accessible than inner Portland neighborhoods but highly bikeable within the neighborhood itself. The St. Johns Bridge provides a scenic cycling connection to NW Portland.',
+    a: 'St. Johns is in the far north of Portland, roughly 20–30 minutes from the Central Eastside by bike or 15 minutes by car. Bus service runs on N Lombard and N Fessenden. It\'s less transit-accessible than inner Portland neighborhoods but highly bikeable within the neighborhood itself. The St. Johns Bridge provides a scenic cycling connection to NW Portland.',
   },
   {
     q: 'Why are creatives moving to St. Johns?',
@@ -119,13 +119,13 @@ export default async function StJohnsPage() {
             Studio Space for Rent in St. Johns, Portland
           </h1>
           <p style={{ color: 'var(--stone)' }} className="mb-10 max-w-2xl text-sm leading-relaxed">
-            St. Johns is North Portland&apos;s most distinct neighborhood — an industrial-adjacent community near the St. Johns Bridge with a strong neighborhood identity and some of Portland&apos;s most affordable creative workspace. A growing number of artists, makers, and small producers have made St. Johns their base as rents in inner Portland have risen. Browse monthly studio rentals in St. Johns and submit an inquiry to connect directly with the host.
+            St. Johns is North Portland&apos;s most distinct neighborhood, an industrial-adjacent community near the St. Johns Bridge with a strong neighborhood identity and some of Portland&apos;s most affordable creative workspace. A growing number of artists, makers, and small producers have made St. Johns their base as rents in inner Portland have risen. Browse monthly studio rentals in St. Johns and submit an inquiry to connect directly with the host.
           </p>
 
           {rows.length > 0 ? (
             <CategoryFilter listings={rows} />
           ) : (
-            <p style={{ color: 'var(--stone)' }} className="mb-14">No studios listed in St. Johns yet — check back soon or browse <Link href="/mississippi-ave" className="underline">Mississippi Ave studios</Link> or <Link href="/alberta-arts-district" className="underline">Alberta Arts District studios</Link>.</p>
+            <p style={{ color: 'var(--stone)' }} className="mb-14">No studios listed in St. Johns yet, check back soon or browse <Link href="/mississippi-ave" className="underline">Mississippi Ave studios</Link> or <Link href="/alberta-arts-district" className="underline">Alberta Arts District studios</Link>.</p>
           )}
 
           <section style={{ borderTop: '1px solid var(--rule)' }} className="pt-10">

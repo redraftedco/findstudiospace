@@ -96,7 +96,7 @@ export default async function DashboardPage({ params }: Props) {
           </div>
         </div>
 
-        {/* Photos — Pro only */}
+        {/* Photos, Pro only */}
         {isPro ? (
           <div style={SECTION}>
             <PhotoManager listingId={id} initialPhotos={photos} />
@@ -136,7 +136,7 @@ export default async function DashboardPage({ params }: Props) {
           <div style={SECTION}>
             <p style={{ fontFamily: 'var(--font-heading)', fontSize: '15px', fontWeight: 600, color: 'var(--ink)', margin: '0 0 6px' }}>Get more visibility</p>
             <p style={{ fontFamily: 'var(--font-body)', fontSize: '13px', color: 'var(--stone)', margin: '0 0 14px', lineHeight: 1.5 }}>
-              Sponsored placement puts your studio at the top of a category or neighborhood page — from $49/month. No commission. Renters contact you directly.
+              Sponsored placement puts your studio at the top of a category or neighborhood page, from $49/month. No commission. Renters contact you directly.
             </p>
             <Link href="/advertise" style={{ display: 'inline-flex', alignItems: 'center', fontFamily: 'var(--font-body)', fontSize: '14px', fontWeight: 500, color: 'var(--action)', textDecoration: 'none' }}>
               Learn about sponsored placement →

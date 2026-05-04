@@ -17,12 +17,12 @@ export const revalidate = 3600
 // Pillar pages auto-noindex when inventory is below this threshold to avoid
 // Google's thin-content / doorway-page penalty. follow stays true so internal
 // links still pass authority. When inventory grows past the threshold the page
-// auto re-indexes on the next ISR cycle — no manual toggle.
+// auto re-indexes on the next ISR cycle, no manual toggle.
 const MIN_PILLAR_LISTINGS_FOR_INDEX = 0
 const MIN_AMENITY_FILTER_LISTINGS_FOR_INDEX = 3
 const PILLAR_SLUGS = new Set(['event-space', 'content-studios', 'photo-studios', 'makerspace'])
 
-// Amenity filter facets per category — each enabled amenity becomes a separate
+// Amenity filter facets per category, each enabled amenity becomes a separate
 // indexable URL (?amenity=cyc_wall) targeting long-tail keywords. Only photo
 // surfaces these for now; expand to other categories when inventory + keyword
 // data justify (e.g., makerspace equipment filters).
@@ -42,7 +42,7 @@ const AMENITY_FILTERS: Record<string, AmenityMeta[]> = {
       h1: 'Cyclorama Wall Photography Studios in Portland',
       title: 'Cyc Wall Photography Studios in Portland, OR | FindStudioSpace',
       description:
-        'Find Portland photography studios with cyclorama walls — seamless white backgrounds for product, fashion, and editorial shoots. Browse cyc wall studio rentals.',
+        'Find Portland photography studios with cyclorama walls, seamless white backgrounds for product, fashion, and editorial shoots. Browse cyc wall studio rentals.',
     },
     {
       key: 'natural_light',
@@ -66,7 +66,7 @@ const AMENITY_FILTERS: Record<string, AmenityMeta[]> = {
       h1: 'Product Photography Studios in Portland',
       title: 'Product Photography Studio Rental in Portland, OR | FindStudioSpace',
       description:
-        'Tabletop and product photography studios in Portland — sweep tables, controlled lighting, and tethering setups for e-commerce and editorial product work.',
+        'Tabletop and product photography studios in Portland, sweep tables, controlled lighting, and tethering setups for e-commerce and editorial product work.',
     },
   ],
 }
@@ -194,7 +194,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
     })
     .slice(0, 48)
 
-  // Sponsored placements — service role only, max 3, status=active
+  // Sponsored placements, service role only, max 3, status=active
   const { data: placements } = await supabaseServer
     .from('visibility_placements')
     .select('listing_id')
@@ -229,7 +229,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
     })),
   }
 
-  // ItemList — gives Google an explicit structured list of every listing on the
+  // ItemList, gives Google an explicit structured list of every listing on the
   // page so each pillar/category surface emits a discovery manifest. Capped at
   // 100 per Google's crawl-budget guidance; sort matches what users see (featured
   // first, newest second). When amenity filter is active, list reflects the
@@ -331,7 +331,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
             {pageIntro}
           </p>
 
-          {/* Amenity filter pills — only renders when category has facets defined */}
+          {/* Amenity filter pills, only renders when category has facets defined */}
           {availableAmenities.length > 0 && (
             <div className="mb-10 flex flex-wrap gap-2">
               <Link
@@ -404,7 +404,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
               <Link href={`/portland/${category}`} className="underline">Browse all {pageH1.toLowerCase().includes('photo') ? 'photo studios' : 'listings'} →</Link>
             </p>
           ) : !q ? (
-            <p style={{ color: 'var(--stone)' }} className="mb-14">No spaces listed yet — check back soon.</p>
+            <p style={{ color: 'var(--stone)' }} className="mb-14">No spaces listed yet, check back soon.</p>
           ) : null}
 
           {/* FAQ */}

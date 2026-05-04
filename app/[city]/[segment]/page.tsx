@@ -9,7 +9,7 @@
  *   2. If neither resolves → notFound()
  *
  * Quality gate: pages with < 4 listings or < 50% photo coverage are served
- * with noindex robots tag. The page still renders — it just isn't indexable.
+ * with noindex robots tag. The page still renders, it just isn't indexable.
  *
  * Portland is intentionally excluded from this route:
  * app/portland/[category]/page.tsx takes routing priority for /portland/*
@@ -103,7 +103,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     })
 
     const title = `${category!.plural_name} for Rent in ${city.name}, ${city.state} | FindStudioSpace`
-    const description = `Browse ${rows.length} ${category!.plural_name.toLowerCase()} available for monthly rent in ${city.name}${rows.length > 0 ? ` — ${priceRange(rows as Listing[]) ?? 'prices vary'}.` : '.'}`
+    const description = `Browse ${rows.length} ${category!.plural_name.toLowerCase()} available for monthly rent in ${city.name}${rows.length > 0 ? `, ${priceRange(rows as Listing[]) ?? 'prices vary'}.` : '.'}`
 
     return {
       title,
@@ -131,7 +131,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   })
 
   const title = `Studio Space for Rent in ${neighborhood!.name}, ${city.name} | FindStudioSpace`
-  const description = `Find ${rows.length} creative studio${rows.length === 1 ? '' : 's'} for rent in ${neighborhood!.name}, ${city.name}${rows.length > 0 ? ` — ${priceRange(rows as Listing[]) ?? 'prices vary'}.` : '.'}`
+  const description = `Find ${rows.length} creative studio${rows.length === 1 ? '' : 's'} for rent in ${neighborhood!.name}, ${city.name}${rows.length > 0 ? `, ${priceRange(rows as Listing[]) ?? 'prices vary'}.` : '.'}`
 
   return {
     title,
@@ -147,7 +147,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function SegmentPage({ params }: PageProps) {
   const { city: citySlug, segment } = await params
 
-  // Three parallel queries — city, category, neighborhood
+  // Three parallel queries, city, category, neighborhood
   const [{ data: city }, { data: category }, { data: neighborhood }] = await Promise.all([
     supabase.from('cities').select('id, name, state, is_indexable').eq('slug', citySlug).maybeSingle(),
     supabase.from('categories').select('id, name, plural_name, slug').eq('slug', segment).maybeSingle(),
@@ -238,10 +238,10 @@ async function CategoryView({
             {intro}
           </p>
 
-          {/* Quality gate notice (dev/staging only — noindex pages get a visual hint) */}
+          {/* Quality gate notice (dev/staging only, noindex pages get a visual hint) */}
           {!gate.indexable && process.env.NODE_ENV !== 'production' && (
             <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--action)', marginBottom: '1rem', border: '1px solid var(--action)', padding: '6px 10px', display: 'inline-block' }}>
-              NOINDEX — {gate.reason}
+              NOINDEX, {gate.reason}
             </p>
           )}
 
@@ -278,7 +278,7 @@ async function CategoryView({
             </div>
           )}
 
-          {/* Internal links — city hub */}
+          {/* Internal links, city hub */}
           <div style={{ marginTop: '3rem', borderTop: '1px solid var(--rule)', paddingTop: '2rem' }}>
             <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--stone)', marginBottom: '0.75rem' }}>
               Browse {city.name}
@@ -367,7 +367,7 @@ async function NeighborhoodView({
 
           {!gate.indexable && process.env.NODE_ENV !== 'production' && (
             <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--action)', marginBottom: '1rem', border: '1px solid var(--action)', padding: '6px 10px', display: 'inline-block' }}>
-              NOINDEX — {gate.reason}
+              NOINDEX, {gate.reason}
             </p>
           )}
 

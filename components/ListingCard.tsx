@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { clampImagesToTier } from '@/lib/photo-limits'
 
-// Shared editorial listing card — single source of truth for card appearance
+// Shared editorial listing card, single source of truth for card appearance
 // across homepage and category pages. Server component; accepts a minimal
 // listing shape so it can be fed from any loader.
 
@@ -80,7 +80,7 @@ export default function ListingCard({ listing, sponsored }: Props) {
           src={thumb ?? '/placeholder-studio.svg'}
           alt={
             thumb
-              ? `${listing.title ?? 'Studio'}${typeLabel ? ' — ' + typeLabel : ''} in ${listing.neighborhood ?? 'Portland'}`
+              ? `${listing.title ?? 'Studio'}${typeLabel ? ', ' + typeLabel : ''} in ${listing.neighborhood ?? 'Portland'}`
               : ''
           }
           width={600}

@@ -28,11 +28,11 @@ const FAQS = [
   },
   {
     q: 'Is the Central Eastside good for artist and maker studios?',
-    a: 'Yes — the Central Eastside has been Portland\'s working creative district for decades. It offers a mix of individual studios and shared co-op buildings with communal equipment. The industrial zoning means fewer noise and use restrictions than mixed-residential neighborhoods.',
+    a: 'Yes, the Central Eastside has been Portland\'s working creative district for decades. It offers a mix of individual studios and shared co-op buildings with communal equipment. The industrial zoning means fewer noise and use restrictions than mixed-residential neighborhoods.',
   },
   {
     q: 'Does the Central Eastside have 24-hour studio access?',
-    a: 'Many buildings in the Central Eastside offer 24-hour keycard or fob access — standard in industrial and commercial buildings. Confirm access hours with the host when you inquire, especially if you work irregular hours or late nights.',
+    a: 'Many buildings in the Central Eastside offer 24-hour keycard or fob access, standard in industrial and commercial buildings. Confirm access hours with the host when you inquire, especially if you work irregular hours or late nights.',
   },
   {
     q: 'How do I get to the Central Eastside Industrial District?',
@@ -115,7 +115,7 @@ export default async function CentralEastsidePage() {
           {rows.length > 0 ? (
             <CategoryFilter listings={rows} />
           ) : (
-            <p style={{ color: 'var(--stone)' }} className="mb-14">No studios listed in this neighborhood yet — check back soon.</p>
+            <p style={{ color: 'var(--stone)' }} className="mb-14">No studios listed in this neighborhood yet, check back soon.</p>
           )}
 
           <section style={{ borderTop: '1px solid var(--rule)' }} className="pt-10">

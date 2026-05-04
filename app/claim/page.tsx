@@ -387,7 +387,7 @@ function ClaimPageInner() {
                     margin: '0 0 14px',
                     lineHeight: 1.6,
                   }}>
-                    Enter the email address associated with this studio. We&apos;ll send a sign-in link — no password needed.
+                    Enter the email address associated with this studio. We&apos;ll send a sign-in link, no password needed.
                   </p>
 
                   <input
