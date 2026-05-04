@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 
 const CITIES = [
   { slug: 'portland', label: 'Portland, OR' },
+  { slug: 'seattle', label: 'Seattle, WA' },
   { slug: 'atlanta', label: 'Atlanta, GA' },
 ]
 

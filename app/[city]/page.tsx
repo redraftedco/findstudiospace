@@ -66,6 +66,13 @@ const NEIGHBORHOOD_PILLS: Record<string, { slug: string; label: string; note: st
     { slug: 'castleberry-hill', label: 'Castleberry Hill', note: 'Arts district, galleries' },
     { slug: 'inman-park', label: 'Inman Park', note: 'Historic, walkable, creative' },
   ],
+  seattle: [
+    { slug: 'capitol-hill', label: 'Capitol Hill', note: 'Arts, music, creative studios' },
+    { slug: 'georgetown', label: 'Georgetown', note: 'Industrial, fabrication, makers' },
+    { slug: 'fremont', label: 'Fremont', note: 'Creative offices, workshops' },
+    { slug: 'ballard', label: 'Ballard', note: 'Photo studios, production' },
+    { slug: 'sodo', label: 'SoDo', note: 'Warehouses, large-format space' },
+  ],
 }
 
 // Sanitize search query: alphanumerics + spaces + hyphens, max 64 chars
