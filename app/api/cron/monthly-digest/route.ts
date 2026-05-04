@@ -123,7 +123,7 @@ export async function GET(req: NextRequest) {
   const auth       = req.headers.get('authorization') ?? ''
   const expected   = `Bearer ${process.env.CRON_SECRET ?? ''}`
 
-  if (!process.env.CRON_SECRET || !safeEqual(auth, expected) || !isCronCall) {
+  if (!process.env.CRON_SECRET || !safeEqual(auth, expected)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 

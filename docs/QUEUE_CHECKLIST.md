@@ -42,6 +42,48 @@
 - [x] Fastest high-monetization business model — chosen staged model: free listings, sponsored placement now, paid lead routing next, take-rate bookings later.
 - [x] Site accent color standardized for conversion — bright lime replaced with accessible forest green accent system.
 - [x] Claim/pricing conversion path aligned — retired Pro checkout CTA removed; owners are routed to Sponsored Placement.
+- [x] Hero redesign — fills 100svh, negative space, "Own a studio? List free →" anchored to bottom fold.
+- [x] Listing detail page redesign — spec table (Type/Neighborhood/Size/Monthly) + feature tag pills + description block. Offer + UnitPriceSpecification schema added.
+- [x] Organization JSON-LD schema added to /portland (was missing; had LocalBusiness + WebSite only).
+- [x] Pillar pages noindex fix — MIN_PILLAR_LISTINGS_FOR_INDEX set to 0 (was 3, blocking all 4 pillar pages).
+- [x] 20 active listings had indexable=false — fixed via SQL; all now included in sitemap.
+- [x] Portland hero count inconsistency fixed — removed hardcoded "126" from meta description; now pulls live count.
+- [x] outreach_status DB constraint extended — added 'review' and 'approved' to allowed values (migration applied).
+- [x] acquisition_source constraint fix — changed 'manual_seed' to 'manual' in queueSequence.ts.
+- [x] prospect-places partial index fix — removed onConflict constraint; 107 targets discovered in first run.
+- [x] Blog internal links audit — all 16 posts verified; no broken links found.
+- [x] All 16 blog posts confirmed to have FAQPage schema — no gaps.
+- [x] Sitemap completeness verified — all listing/neighborhood/blog/pillar pages included.
+
+---
+
+## SEARCH CONSOLE INDEX SUBMISSIONS
+
+### Submitted ✓
+- [x] `https://www.findstudiospace.com/portland`
+- [x] `https://www.findstudiospace.com/central-eastside`
+- [x] `https://www.findstudiospace.com/slabtown`
+- [x] `https://www.findstudiospace.com/makerspace-portland`
+- [x] `https://www.findstudiospace.com/video-production-studios-portland`
+
+### Deferred (submit in next batch)
+- [ ] `/podcast-studios`
+- [ ] `/kerns`
+- [ ] `/mississippi-ave`
+- [ ] `/division-street`
+- [ ] `/sellwood`
+- [ ] `/st-johns`
+- [ ] `/blog/creative-workspace-rental-portland-guide`
+- [ ] `/blog/questions-to-ask-before-renting-studio-portland`
+- [ ] `/blog/pearl-district-vs-central-eastside-studio`
+- [ ] `/blog/how-to-rent-podcast-studio-portland`
+- [ ] `/blog/how-to-rent-event-space-portland`
+- [ ] `/blog/portland-studio-market-2026`
+- [ ] `/blog/photo-studio-rental-portland`
+- [ ] `/blog/studio-space-cost-portland`
+- [ ] `/blog/art-studio-rental-guide-portland`
+
+**Also resubmit sitemap in GSC** to surface the 20 newly-indexable listing pages.
 
 ---
 
@@ -60,6 +102,11 @@
 
 ## DEFERRED / FUTURE SPRINTS
 
+- [ ] **Atlanta hero text color** — user confirmed page exists (DB: id=2, slug='atlanta', is_active=false). Green accent text in hero needs to be red. Source not yet pinpointed — check CITY_CONFIG accent or inline style in app/[city]/page.tsx.
+- [ ] **Listing description rewrites** — 69 active Portland listings, most have thin/missing descriptions. Action plan: (1) export all listing IDs + names + type + amenities from Supabase, (2) generate descriptions via AI batch (category-aware prompts), (3) apply via SQL UPDATE. File: docs/description-rewrites.sql (may need to be created).
+- [ ] **GSC deferred index submissions** — see Index Submissions section above.
+- [ ] **Approve acquisition_targets rows** — 31 rows at outreach_status='review' in Supabase. Manual approval required before send-outreach cron will send.
+- [ ] **Run more enrich-targets cycles** — 51 rows still at 'pending' enrichment status.
 - [ ] **Google Business Profile** — deferred by owner.
 - [ ] **Monetization pivot to take-rate** — booking flow, Stripe Connect, calendar/availability. Day-90 revenue target dependency.
 - [ ] **IP-based rate limiting on `/api/claim/send-magic-link`** — defer until abuse observed.
