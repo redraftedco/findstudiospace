@@ -86,7 +86,7 @@ export default function ListYourSpacePage() {
     <main style={{ background: 'var(--paper)' }} className="min-h-screen">
       <div className="mx-auto max-w-2xl px-6 py-14">
         <h1 style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }} className="text-3xl font-semibold">
-          List your space. Reach Portland creatives.
+          List your space. Reach local creatives.
         </h1>
         <p style={{ color: 'var(--stone)' }} className="mt-2 text-sm">
           Listing is free. We&apos;ll publish your space within 48 hours.

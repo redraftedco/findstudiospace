@@ -4,13 +4,13 @@ import { Suspense } from 'react'
 import { CheckoutResult } from '@/components/CheckoutResult'
 
 export const metadata: Metadata = {
-  title: 'List Your Studio Space in Portland | FindStudioSpace',
+  title: 'List Your Studio Space Free — Portland & Atlanta | FindStudioSpace',
   description:
-    'Reach Portland creatives looking for monthly studio, workshop, art, and office space rentals. Free to list. Get real inquiries from artists, makers, and producers.',
+    'Reach creatives looking for monthly studio, workshop, art, and office space rentals. Free to list. Get real inquiries from artists, makers, and producers in Portland and Atlanta.',
   openGraph: {
-    title: 'List Your Studio Space in Portland | FindStudioSpace',
+    title: 'List Your Studio Space Free — Portland & Atlanta | FindStudioSpace',
     description:
-      'Reach Portland creatives looking for monthly studio, workshop, art, and office space rentals. Free to list.',
+      'Reach creatives looking for monthly studio, workshop, art, and office space rentals. Free to list in Portland and Atlanta.',
   },
 }
 
@@ -58,7 +58,7 @@ export default function ForLandlordsPage() {
       >
         <div className="mx-auto max-w-4xl py-24">
           <h1 style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }} className="text-4xl font-semibold leading-tight sm:text-5xl">
-            Reach Portland Creatives Looking for Monthly Studio Space
+            Reach Creatives Looking for Monthly Studio Space
           </h1>
           <p style={{ color: 'var(--stone)' }} className="mt-5 max-w-2xl text-base leading-relaxed">
             List your space free. Get real inquiries from artists, makers, musicians, and producers searching right now.
@@ -132,7 +132,7 @@ export default function ForLandlordsPage() {
         {/* Section 2: Proof of Demand */}
         <section>
           <h2 style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }} className="mb-8 text-2xl font-semibold">
-            Portland creatives are searching right now
+            Creatives are searching right now
           </h2>
           <div className="listing-grid mb-8" style={{ background: 'var(--rule)', gap: '1px' }}>
             <div style={{ background: 'var(--surface)' }} className="p-8">
@@ -161,7 +161,7 @@ export default function ForLandlordsPage() {
             </div>
           </div>
           <p style={{ color: 'var(--stone)' }} className="max-w-2xl text-sm leading-relaxed">
-            FindStudioSpace is Portland&apos;s only directory focused on monthly creative workspace rentals. Every person who visits is looking for a space like yours — not a one-off event booking.
+            FindStudioSpace is a directory focused on monthly creative workspace rentals in Portland and Atlanta. Every person who visits is looking for a space like yours — not a one-off event booking.
           </p>
         </section>
 
@@ -289,10 +289,10 @@ export default function ForLandlordsPage() {
       {/* Section 6: Bottom CTA */}
       <section style={{ background: 'var(--lime)', color: 'var(--paper)' }} className="px-6 py-20 text-center">
         <h2 style={{ fontFamily: 'var(--font-heading)' }} className="mb-3 text-2xl font-semibold">
-          Ready to reach Portland creatives?
+          Studio space for rent. Creative workspace found.
         </h2>
         <p style={{ color: 'rgba(13,13,13,0.75)' }} className="mx-auto mb-8 max-w-md text-sm">
-          Portland&apos;s creative workspace directory. First listing is always free.
+          Creative workspace directory. First listing is always free.
         </p>
         <Link
           href="/list-your-space"
