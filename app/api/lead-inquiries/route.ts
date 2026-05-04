@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { supabaseServer } from '@/lib/supabase-server'
 import { Resend } from 'resend'
 import { checkOrigin } from '@/lib/security'
+import { createNotionLead } from '@/lib/notion-leads'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -116,6 +117,19 @@ export async function POST(req: NextRequest) {
     }])
 
     if (error) return NextResponse.json({ ok: false, error: 'Something went wrong.' }, { status: 500 })
+
+    // Sync lead to Notion — fire-and-forget, never blocks the response
+    createNotionLead({
+      fullName: cleanName,
+      email: cleanEmail,
+      listingTitle: listing?.title ?? 'Unknown listing',
+      listingUrl: `https://www.findstudiospace.com/listing/${listing_id}`,
+      listingType: listing?.type ?? null,
+      message: cleanMessage || undefined,
+      utmSource: utm_source ? String(utm_source).slice(0, 100) : null,
+      utmMedium: utm_medium ? String(utm_medium).slice(0, 100) : null,
+      utmCampaign: utm_campaign ? String(utm_campaign).slice(0, 100) : null,
+    }).catch(() => {/* swallow — Notion failure must never affect the user */})
 
     const listingTitle = listing?.title ?? 'your listing'
     const listingUrl = `https://www.findstudiospace.com/listing/${listing_id}`
