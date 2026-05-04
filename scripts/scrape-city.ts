@@ -362,13 +362,15 @@ async function main() {
         continue
       }
 
-      const title = extractTitle(html)
-      if (!title) {
+      const rawTitle = extractTitle(html)
+      if (!rawTitle) {
         console.log('  ✗ Skipped — could not extract title')
         skipped++
         await sleep(DELAY_MS)
         continue
       }
+      // Truncate to DB varchar(100) limit
+      const title = rawTitle.slice(0, 100)
 
       const price = extractPrice(html)
       const neighborhood = extractNeighborhood(html)
