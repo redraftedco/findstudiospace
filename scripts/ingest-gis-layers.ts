@@ -7,7 +7,7 @@
  *
  * Usage:
  *   npx tsx scripts/ingest-gis-layers.ts
- *   npx tsx scripts/ingest-gis-layers.ts --layers zoning,noise
+ *   npx tsx scripts/ingest-gis-layers.ts --layers zoning,flood_zone
  *
  * Env:
  *   NEXT_PUBLIC_SUPABASE_URL
@@ -22,6 +22,7 @@ if (!SERVICE_KEY) { console.error('SUPABASE_SERVICE_KEY required'); process.exit
 
 const db = createClient(SUPABASE_URL, SERVICE_KEY)
 const PDX_ARC    = 'https://www.portlandmaps.com/arcgis/rest/services/Public'
+const PDX_TRANSIT = 'https://www.portlandmaps.com/arcgis/rest/services/Public/Transit/MapServer'
 const MAX_RECORDS = 150
 const USER_AGENT  = 'findstudiospace-gis-ingest/1.0 (Portland studio directory; contact@findstudiospace.com)'
 
@@ -74,73 +75,45 @@ type LayerDef = {
   mapProps: (f: GeoJSONFeature) => Record<string, unknown>
 }
 
+// Verified field names via direct API probing 2024:
+// - Zoning/MapServer layer 0: ZONE (code), ZONE_DESC (description)
+// - Natural_Hazards/MapServer layer 23: HAZARD (integer 1-5)
+// - Natural_Hazards/MapServer layer 70: binary polygon, no meaningful field
+// - BDS_Layers/MapServer layer 30: FLD_ZONE ✓
+// - COP_OpenData is down — parking, business districts, historic resources skipped
 const LAYERS: LayerDef[] = [
   {
     name: 'zoning',
     table: 'gis_zoning',
-    fetch: () => fetchArcGISLayer(`${PDX_ARC}/Zoning/MapServer`, 0, 'ZONE_CODE,ZONE_CLASS'),
+    fetch: () => fetchArcGISLayer(`${PDX_ARC}/Zoning/MapServer`, 0, 'ZONE,ZONE_DESC'),
     mapProps: (f) => ({
-      zone_code:  f.properties['ZONE_CODE']  ?? null,
-      zone_class: f.properties['ZONE_CLASS'] ?? null,
+      zone_code:  f.properties['ZONE']      ?? null,
+      zone_class: f.properties['ZONE_DESC'] ?? null,
     }),
-  },
-  {
-    name: 'airport_noise',
-    table: 'gis_airport_noise',
-    fetch: () => fetchArcGISLayer(
-      `${PDX_ARC}/Zoning/MapServer`, 1, 'OVERLAY_CODE,OVERLAY_CLASS',
-      "OVERLAY_CODE LIKE 'x%' OR OVERLAY_CODE LIKE 'X%'",
-    ),
-    mapProps: (f) => ({ dnl_band: classifyNoiseBand(f.properties) }),
   },
   {
     name: 'flood_zone',
     table: 'gis_flood_zone',
-    fetch: () => fetchArcGISLayer(`${PDX_ARC}/BDS_Layers/MapServer`, 30, 'ZONE_SUBTYPE,FLD_ZONE'),
+    fetch: () => fetchArcGISLayer(`${PDX_ARC}/BDS_Layers/MapServer`, 30, 'FLD_ZONE,ZONE_SUBTYPE'),
     mapProps: (f) => ({ fema_zone: f.properties['FLD_ZONE'] ?? f.properties['ZONE_SUBTYPE'] ?? 'AE' }),
   },
   {
     name: 'wildfire_hazard',
     table: 'gis_wildfire_hazard',
-    fetch: () => fetchArcGISLayer(`${PDX_ARC}/Natural_Hazards/MapServer`, 23, 'HAZARD_CLASS,LABEL'),
-    mapProps: (f) => ({ hazard_level: f.properties['HAZARD_CLASS'] ?? f.properties['LABEL'] ?? null }),
+    fetch: () => fetchArcGISLayer(`${PDX_ARC}/Natural_Hazards/MapServer`, 23, 'HAZARD,LABEL'),
+    mapProps: (f) => ({
+      hazard_level: f.properties['HAZARD'] != null
+        ? String(f.properties['HAZARD'])
+        : (f.properties['LABEL'] ?? 'unknown'),
+    }),
   },
   {
     name: 'landslide_hazard',
     table: 'gis_landslide_hazard',
-    fetch: () => fetchArcGISLayer(`${PDX_ARC}/Hazard/MapServer`, 2, 'HAZARD_CLASS,LABEL'),
-    mapProps: (f) => ({ hazard_level: f.properties['HAZARD_CLASS'] ?? f.properties['LABEL'] ?? null }),
-  },
-  {
-    name: 'parking_zones',
-    table: 'gis_parking_zones',
-    fetch: () => fetchArcGISLayer(`${PDX_ARC}/COP_OpenData/MapServer`, 67, 'ZONENAME,ZONE_ID'),
-    mapProps: (f) => ({ zone_label: f.properties['ZONENAME'] ?? f.properties['ZONE_ID'] ?? null }),
-  },
-  {
-    name: 'business_districts',
-    table: 'gis_business_districts',
-    fetch: () => fetchArcGISLayer(`${PDX_ARC}/COP_OpenData/MapServer`, 8, 'NAME,TYPE'),
-    mapProps: (f) => ({ district_name: f.properties['NAME'] ?? null }),
-  },
-  {
-    name: 'historic_resources',
-    table: 'gis_historic_resources',
-    fetch: () => fetchArcGISLayer(`${PDX_ARC}/COP_OpenData/MapServer`, 132, 'RESOURCE_ID,RESOURCE_NAME,DESIGNATION'),
-    mapProps: (f) => ({
-      hri_id:      f.properties['RESOURCE_ID']   ?? null,
-      name:        f.properties['RESOURCE_NAME'] ?? null,
-      designation: f.properties['DESIGNATION']   ?? null,
-    }),
+    fetch: () => fetchArcGISLayer(`${PDX_ARC}/Natural_Hazards/MapServer`, 70, 'OBJECTID'),
+    mapProps: () => ({ hazard_level: 'Potential Hazard Area' }),
   },
 ]
-
-function classifyNoiseBand(props: Record<string, unknown>): string {
-  const raw = String(props['DNL_BAND'] ?? props['OVERLAY_CODE'] ?? '')
-  if (raw.includes('68') || raw.includes('70') || raw.includes('75')) return 'gte68'
-  if (raw.includes('65')) return '65-68'
-  return '55-65'
-}
 
 function sleep(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms))
@@ -154,19 +127,21 @@ async function ensureExecFunction(): Promise<void> {
   }
 }
 
-async function ingestTransitStops(): Promise<number> {
-  const METRO_URL = 'https://gis.oregonmetro.gov/arcgis/rest/services/OpenData/TransitDataWebMerc/MapServer'
-  const MAX_METRO = 1000
+async function ingestMaxStops(): Promise<number> {
+  // Transit/MapServer layer 2 = MAX Light Rail stations
+  // Fields verified: OBJECTID, STATION, LINE, STATUS, TYPE
   let inserted = 0
+  let offset = 0
+  const maxRecords = 200
 
-  for (let offset = 0; offset < 9000; offset += MAX_METRO) {
-    const url = new URL(`${METRO_URL}/0/query`)
+  while (true) {
+    const url = new URL(`${PDX_TRANSIT}/2/query`)
     url.searchParams.set('where', '1=1')
-    url.searchParams.set('outFields', 'STOP_ID,STOP_NAME,ROUTE_TYPE')
+    url.searchParams.set('outFields', 'OBJECTID,STATION,LINE')
     url.searchParams.set('outSR', '4326')
     url.searchParams.set('f', 'geojson')
     url.searchParams.set('resultOffset', String(offset))
-    url.searchParams.set('resultRecordCount', String(MAX_METRO))
+    url.searchParams.set('resultRecordCount', String(maxRecords))
 
     try {
       const res = await fetch(url.toString(), {
@@ -180,26 +155,80 @@ async function ingestTransitStops(): Promise<number> {
 
       for (const f of batch) {
         if (!f.geometry?.coordinates) continue
-        const stopId    = String(f.properties['STOP_ID']   ?? '')
-        const stopName  = String(f.properties['STOP_NAME'] ?? '')
-        const routeType = Number(f.properties['ROUTE_TYPE'] ?? 3)
-        const geomJson  = JSON.stringify(f.geometry).replace(/'/g, "''")
+        const stopId   = String(f.properties['OBJECTID'] ?? '')
+        const stopName = String(f.properties['STATION']  ?? '')
+        const geomJson = JSON.stringify(f.geometry).replace(/'/g, "''")
 
         const { error } = await db.rpc('exec_sql' as never, {
           sql: `INSERT INTO public.gis_transit_stops (stop_id, stop_name, route_type, geom)
-                VALUES ('${stopId.replace(/'/g, "''")}', '${stopName.replace(/'/g, "''")}', ${routeType},
+                VALUES ('MAX-${stopId.replace(/'/g, "''")}', '${stopName.replace(/'/g, "''")}', 1,
                         ST_SetSRID(ST_GeomFromGeoJSON('${geomJson}'),4326))
                 ON CONFLICT (stop_id) DO UPDATE SET
-                  stop_name = EXCLUDED.stop_name, route_type = EXCLUDED.route_type,
+                  stop_name = EXCLUDED.stop_name,
                   geom = EXCLUDED.geom, fetched_at = now()`
         } as never)
         if (!error) inserted++
       }
 
       if (!data.exceededTransferLimit) break
+      offset += batch.length
       await sleep(400)
     } catch (err) {
-      console.warn('[ingest-gis] transit stops error at offset', offset, err)
+      console.warn('[ingest-gis] MAX stops error at offset', offset, err)
+      break
+    }
+  }
+  return inserted
+}
+
+async function ingestBusStops(): Promise<number> {
+  // Transit/MapServer layer 7 = Bus stops
+  // Fields verified: OBJECTID, LOC_ID, LOCATION, ROUTE, FREQUENT
+  let inserted = 0
+  let offset = 0
+  const maxRecords = 500
+
+  while (offset < 20000) {
+    const url = new URL(`${PDX_TRANSIT}/7/query`)
+    url.searchParams.set('where', '1=1')
+    url.searchParams.set('outFields', 'LOC_ID,LOCATION,FREQUENT')
+    url.searchParams.set('outSR', '4326')
+    url.searchParams.set('f', 'geojson')
+    url.searchParams.set('resultOffset', String(offset))
+    url.searchParams.set('resultRecordCount', String(maxRecords))
+
+    try {
+      const res = await fetch(url.toString(), {
+        headers: { 'User-Agent': USER_AGENT },
+        signal: AbortSignal.timeout(30_000),
+      })
+      if (!res.ok) break
+      const data = await res.json() as { features?: GeoJSONFeature[]; exceededTransferLimit?: boolean }
+      const batch = data.features ?? []
+      if (batch.length === 0) break
+
+      for (const f of batch) {
+        if (!f.geometry?.coordinates) continue
+        const stopId   = String(f.properties['LOC_ID']   ?? '')
+        const stopName = String(f.properties['LOCATION'] ?? '')
+        const geomJson = JSON.stringify(f.geometry).replace(/'/g, "''")
+
+        const { error } = await db.rpc('exec_sql' as never, {
+          sql: `INSERT INTO public.gis_transit_stops (stop_id, stop_name, route_type, geom)
+                VALUES ('BUS-${stopId.replace(/'/g, "''")}', '${stopName.replace(/'/g, "''")}', 3,
+                        ST_SetSRID(ST_GeomFromGeoJSON('${geomJson}'),4326))
+                ON CONFLICT (stop_id) DO UPDATE SET
+                  stop_name = EXCLUDED.stop_name,
+                  geom = EXCLUDED.geom, fetched_at = now()`
+        } as never)
+        if (!error) inserted++
+      }
+
+      if (!data.exceededTransferLimit) break
+      offset += batch.length
+      await sleep(300)
+    } catch (err) {
+      console.warn('[ingest-gis] bus stops error at offset', offset, err)
       break
     }
   }
@@ -269,9 +298,13 @@ async function main() {
   }
 
   if (!onlyLayers || onlyLayers.includes('transit')) {
-    console.log('\n[ingest-gis] ▶ transit_stops')
-    const n = await ingestTransitStops()
-    console.log(`  inserted ${n} transit stops`)
+    console.log('\n[ingest-gis] ▶ MAX light rail stops')
+    const maxN = await ingestMaxStops()
+    console.log(`  inserted ${maxN} MAX stops`)
+
+    console.log('\n[ingest-gis] ▶ bus stops')
+    const busN = await ingestBusStops()
+    console.log(`  inserted ${busN} bus stops`)
   }
 
   console.log('\n[ingest-gis] ✅ all layers complete')

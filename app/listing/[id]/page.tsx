@@ -114,7 +114,7 @@ export default async function ListingPage({ params }: Props) {
 
   const { data: enrichment } = await supabase
     .from('listing_enrichment')
-    .select('zoning_base,airport_noise_dnl_band,fema_flood_zone,wildfire_hazard,landslide_hazard,parking_permit_zone,business_district,hri_listed,opportunity_zone,nearest_max_stop_id,dist_to_max_meters,nearest_bus_stop_id,dist_to_bus_meters')
+    .select('zoning_base,airport_noise_dnl_band,fema_flood_zone,wildfire_hazard,landslide_hazard,parking_permit_zone,business_district,hri_listed,opportunity_zone,nearest_max_stop_id,dist_to_max_meters,nearest_bus_stop_id,dist_to_bus_meters,site_analysis_map_url,site_analysis_map_status')
     .eq('listing_id', id)
     .maybeSingle()
 
@@ -181,6 +181,14 @@ export default async function ListingPage({ params }: Props) {
   if (allImages.length === 0) redirect('/portland')
 
   const images: string[] = clampImagesToTier(allImages, listing.tier)
+
+  // Insert site-analysis map as second image when generated
+  const mapUrl = enrichment?.site_analysis_map_status === 'generated'
+    ? (enrichment?.site_analysis_map_url ?? null)
+    : null
+  if (mapUrl && images.length >= 1) {
+    images.splice(1, 0, mapUrl)
+  }
 
   const typeKey = (listing.type ?? '').toLowerCase()
   const categorySlug = TYPE_TO_CATEGORY_SLUG[typeKey] ?? null
