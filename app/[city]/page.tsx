@@ -39,15 +39,34 @@ const CITY_CONFIG: Record<string, {
   },
 }
 
-// Primary Portland browse paths, matches actual listing types in the DB.
-const CATEGORY_PILLS: { slug: string; label: string; note: string }[] = [
-  { slug: 'photo-studios', label: 'Photo studios', note: 'Cyc walls, daylight, sets' },
-  { slug: 'art-studio-rental', label: 'Art studios', note: 'Private rooms, shared shops' },
-  { slug: 'workshop-space-rental', label: 'Workshops', note: 'Tools, storage, production' },
-  { slug: 'office-space-rental', label: 'Creative offices', note: 'Quiet rooms, small teams' },
-  { slug: 'retail-space-for-rent', label: 'Retail space', note: 'Storefronts, pop-ups' },
-  { slug: 'fitness-studio-rental', label: 'Movement rooms', note: 'Yoga, dance, wellness' },
-]
+// Primary browse paths per city. Portland uses Ahrefs-prioritized pillar pages
+// (highest-volume, lowest-KD categories). Seattle/Atlanta use city-scoped routes.
+const CATEGORY_PILLS: Record<string, { href: string; label: string; note: string }[]> = {
+  portland: [
+    { href: '/event-spaces-portland',            label: 'Event spaces',      note: 'Pop-ups, parties, brand activations' },
+    { href: '/podcast-studios',                  label: 'Podcast studios',   note: 'Soundproofed, mic-ready rooms' },
+    { href: '/photography-studios-portland',     label: 'Photo studios',     note: 'Cyc walls, natural light, sets' },
+    { href: '/makerspace-portland',              label: 'Makerspace',        note: 'Laser cutters, woodshop, fab tools' },
+    { href: '/video-production-studios-portland',label: 'Video production',  note: 'Green screen, stages, grip' },
+    { href: '/industrial-spaces-portland',       label: 'Industrial space',  note: 'Loading dock, 220v, warehouse' },
+  ],
+  seattle: [
+    { href: '/seattle/photo-studio-rental',      label: 'Photo studios',     note: 'Cyc walls, daylight, sets' },
+    { href: '/seattle/art-studio-rental',        label: 'Art studios',       note: 'Private rooms, shared shops' },
+    { href: '/seattle/workshop-space-rental',    label: 'Workshops',         note: 'Tools, storage, production' },
+    { href: '/seattle/office-space-rental',      label: 'Creative offices',  note: 'Quiet rooms, small teams' },
+    { href: '/seattle/music-studio-rental',      label: 'Music studios',     note: 'Rehearsal, recording, lockout' },
+    { href: '/seattle/fitness-studio-rental',    label: 'Movement rooms',    note: 'Yoga, dance, wellness' },
+  ],
+  atlanta: [
+    { href: '/atlanta/photo-studio-rental',      label: 'Photo studios',     note: 'Cyc walls, daylight, sets' },
+    { href: '/atlanta/art-studio-rental',        label: 'Art studios',       note: 'Private rooms, shared shops' },
+    { href: '/atlanta/workshop-space-rental',    label: 'Workshops',         note: 'Tools, storage, production' },
+    { href: '/atlanta/office-space-rental',      label: 'Creative offices',  note: 'Quiet rooms, small teams' },
+    { href: '/atlanta/music-studio-rental',      label: 'Music studios',     note: 'Rehearsal, recording, lockout' },
+    { href: '/atlanta/fitness-studio-rental',    label: 'Movement rooms',    note: 'Yoga, dance, wellness' },
+  ],
+}
 
 // Neighborhood entry points, these pages already exist in category config;
 // surfacing them on the homepage gives Google a crawl path and users a fast
@@ -449,8 +468,8 @@ function CityPageUI({
           <div className="mx-auto max-w-5xl w-full hero-browse-panel">
             <div className="hero-browse-kicker">Browse by space</div>
             <div className="hero-category-grid">
-              {CATEGORY_PILLS.map((cat) => (
-                <Link key={cat.slug} href={`/${citySlug}/${cat.slug}`} className="hero-category-card">
+              {(CATEGORY_PILLS[citySlug] ?? []).map((cat) => (
+                <Link key={cat.href} href={cat.href} className="hero-category-card">
                   <span className="hero-category-title">{cat.label}</span>
                   <span className="hero-category-note">{cat.note}</span>
                 </Link>
