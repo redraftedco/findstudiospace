@@ -57,22 +57,29 @@ async function main() {
 async function enrichRowByRow(staleDays: number): Promise<void> {
   console.log('[enrich-spatial] falling back to row-by-row enrichment')
 
-  let query = db
+  // Listings that are geocoded
+  const { data, error } = await db
     .from('listings')
     .select('id')
     .eq('status', 'active')
     .not('latitude', 'is', null)
-
-  if (staleDays > 0) {
-    const cutoff = new Date(Date.now() - staleDays * 86400_000).toISOString()
-    // Only listings whose enrichment is stale or missing
-    query = query.or(`last_enriched_at.is.null,last_enriched_at.lt.${cutoff}`)
-  }
-
-  const { data, error } = await query
   if (error) { console.error(error.message); return }
 
-  const listings = data ?? []
+  let ids = (data ?? []).map(r => r.id)
+
+  // Skip listings whose enrichment is fresh (last_enriched_at lives on listing_enrichment)
+  if (staleDays > 0 && ids.length > 0) {
+    const cutoff = new Date(Date.now() - staleDays * 86400_000).toISOString()
+    const { data: freshRows } = await db
+      .from('listing_enrichment')
+      .select('listing_id')
+      .in('listing_id', ids)
+      .gt('last_enriched_at', cutoff)
+    const freshSet = new Set((freshRows ?? []).map(r => r.listing_id))
+    ids = ids.filter(id => !freshSet.has(id))
+  }
+
+  const listings = ids.map(id => ({ id }))
   console.log(`  ${listings.length} listings to enrich`)
 
   let enriched = 0

@@ -28,7 +28,6 @@ const db = createClient(SUPABASE_URL, SERVICE_KEY)
 
 // ArcGIS REST endpoints — no API key required
 const PDX_ARC  = 'https://www.portlandmaps.com/arcgis/rest/services/Public'
-const PDX_OPEN = 'https://gis-pdx.opendata.arcgis.com'
 // PortlandMaps MaxRecordCount = 150; Metro RLIS = 1000
 const MAX_RECORDS = 150
 
@@ -83,17 +82,6 @@ async function fetchArcGISLayer(
   return features
 }
 
-// Direct GeoJSON download (PDX OpenData hub)
-async function fetchOpenDataGeoJSON(itemSlug: string): Promise<GeoJSONFeature[]> {
-  const url = `${PDX_OPEN}/api/download/v1/items/${itemSlug}/geojson?layers=0`
-  const res = await fetch(url, {
-    headers: { 'User-Agent': USER_AGENT },
-    signal: AbortSignal.timeout(60_000),
-  })
-  if (!res.ok) throw new Error(`OpenData HTTP ${res.status} for ${url}`)
-  const data = await res.json() as { features?: GeoJSONFeature[] }
-  return data.features ?? []
-}
 
 
 // ---------------------------------------------------------------------------
@@ -119,21 +107,17 @@ const LAYERS: LayerDef[] = [
     }),
   },
 
-  // ── Airport noise overlay (PDX 'x' zone, OpenData hub) ────────────────────
-  // Item ID for "Airport Noise Impact Overlay Zone" on gis-pdx.opendata.arcgis.com
+  // ── Airport noise overlay — Zoning MapServer overlay zones layer ──────────
+  // Layer 1 in Zoning/MapServer contains Portland overlay zones including the
+  // PDX Airport Safety & Noise overlay ('x' prefix codes). Returns polygons
+  // only where an overlay zone is designated; unaffected areas have no row.
   {
     name: 'airport_noise',
     table: 'gis_airport_noise',
-    fetch: async () => {
-      // Try OpenData first, fall back to ArcGIS REST on the COP_OpenData server
-      try {
-        return await fetchOpenDataGeoJSON('c01e5c7f1a5d4a0cb2e8d8e9e6b0a3f2')
-      } catch {
-        // Fallback: query through the overlay zones layer in Zoning MapServer
-        // The airport noise 'x' overlay is typically in the overlay zones layer
-        return await fetchArcGISLayer(`${PDX_ARC}/Zoning/MapServer`, 1, 'OVERLAY_CODE,OVERLAY_CLASS', "OVERLAY_CODE LIKE '%x%' OR OVERLAY_CODE LIKE '%noise%'")
-      }
-    },
+    fetch: () => fetchArcGISLayer(
+      `${PDX_ARC}/Zoning/MapServer`, 1, 'OVERLAY_CODE,OVERLAY_CLASS',
+      "OVERLAY_CODE LIKE 'x%' OR OVERLAY_CODE LIKE 'X%'",
+    ),
     mapProps: (f) => ({
       dnl_band: classifyNoiseBand(f.properties),
     }),

@@ -124,18 +124,19 @@ function buildBadges(e: Enrichment): Badge[] {
     })
   }
 
-  // MAX rail proximity
+  // MAX rail proximity — distances are neighborhood-centroid approximate until
+  // street-level geocoding is available; shown with qualifier accordingly.
   if (e.nearest_max_stop_id && e.dist_to_max_meters != null) {
     const dist = metersToFeet(e.dist_to_max_meters)
     const tone = e.dist_to_max_meters <= 400 ? 'good' : 'neutral'
-    badges.push({ label: 'MAX light rail', detail: `${dist} to nearest MAX stop`, tone })
+    badges.push({ label: 'MAX light rail', detail: `~${dist} to nearest MAX stop (approximate)`, tone })
   }
 
   // Bus proximity
   if (e.nearest_bus_stop_id && e.dist_to_bus_meters != null && e.dist_to_bus_meters <= 200) {
     badges.push({
       label: 'Bus stop',
-      detail: `${metersToFeet(e.dist_to_bus_meters)} to nearest TriMet stop`,
+      detail: `~${metersToFeet(e.dist_to_bus_meters)} to nearest TriMet stop (approximate)`,
       tone: 'neutral',
     })
   }
