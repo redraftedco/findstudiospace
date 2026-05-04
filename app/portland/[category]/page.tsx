@@ -311,7 +311,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
           <nav style={{ color: 'var(--stone)', fontFamily: 'var(--font-mono)' }} className="mb-6 text-xs">
             <Link href="/" className="hover:underline">FindStudioSpace</Link>
             <span className="mx-2">→</span>
-            <Link href="/" className="hover:underline">Portland</Link>
+            <Link href="/portland" className="hover:underline">Portland</Link>
             <span className="mx-2">→</span>
             {amenityMeta ? (
               <>

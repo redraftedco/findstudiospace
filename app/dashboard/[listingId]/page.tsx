@@ -16,7 +16,7 @@ export default async function DashboardPage({ params }: Props) {
   const supabase = await createAuthClient()
   const { data: { user } } = await supabase.auth.getUser()
 
-  if (!user) redirect(`/claim/${id}`)
+  if (!user) redirect(`/claim?listing_id=${id}`)
 
   const { data: listing } = await supabaseServer
     .from('listings')
