@@ -68,9 +68,10 @@ function circleIcon(x: number, y: number, stroke: string, dash = ''): string {
 function renderLeftPanel(d: SiteAnalysisMapData): string {
   const x = 36
   const parts: string[] = [
-    rect(0, 0, LP_W, TOP_H, C.bg),
-    // vertical right border
-    line(LP_W, 0, LP_W, TOP_H, C.divider, 0.5),
+    // Slightly off-white panel to separate from plan area
+    rect(0, 0, LP_W, TOP_H, '#f7f5f1'),
+    // vertical right border — thicker for clear separation
+    line(LP_W, 0, LP_W, TOP_H, C.divider, 1),
   ]
 
   // Header
@@ -149,14 +150,6 @@ function buildLegendItems(d: SiteAnalysisMapData): LegendEntry[] {
 function renderPlanView(d: SiteAnalysisMapData): string {
   const parts: string[] = [rect(PLAN_X, 0, PLAN_W, TOP_H, C.bg)]
 
-  // Subtle grid
-  for (let gx = PLAN_X; gx <= MAP_W; gx += 40) {
-    parts.push(line(gx, 0, gx, TOP_H, C.lineFaint, 0.3))
-  }
-  for (let gy = 0; gy <= TOP_H; gy += 40) {
-    parts.push(line(PLAN_X, gy, MAP_W, gy, C.lineFaint, 0.3))
-  }
-
   // Portland city blocks — subject site is on the central intersection
   // Two streets horizontal, two vertical creating a 2x2 block grid
   // Plan viewport center
@@ -180,37 +173,36 @@ function renderPlanView(d: SiteAnalysisMapData): string {
     [cx + SW, cy + SW, BW, BH],
   ]
 
+  // Context block fill — visibly darker than white so city structure reads clearly
+  const BLOCK_FILL = '#d8d4cc'
+  const BLOCK_LINE = '#b8b2a8'
+
   for (const [bx, by, bw, bh] of blocks) {
-    parts.push(rect(bx, by, bw, bh, C.blockAlt))
-    // subtle interior lines suggesting building masses
-    parts.push(line(bx + bw * 0.35, by, bx + bw * 0.35, by + bh, C.lineFaint, 0.4))
-    parts.push(line(bx, by + bh * 0.45, bx + bw, by + bh * 0.45, C.lineFaint, 0.4))
+    parts.push(rect(bx, by, bw, bh, BLOCK_FILL))
+    // building mass divisions within each context block
+    parts.push(`<rect x="${bx}" y="${by}" width="${bw}" height="${bh}" fill="none" stroke="${BLOCK_LINE}" stroke-width="0.5"/>`)
+    parts.push(line(bx + bw * 0.35, by, bx + bw * 0.35, by + bh, BLOCK_LINE, 0.5))
+    parts.push(line(bx, by + bh * 0.45, bx + bw, by + bh * 0.45, BLOCK_LINE, 0.5))
   }
 
-  // Subject block (center)
-  const sbx = cx - BW - SW
-  const sby = cy - BH - SW
-  const sbw = BW
-  const sbh = BH
-
-  // Actually the subject block is the one the building sits in
-  // Let's define it as the area around cx, cy
+  // Subject block — slightly lighter than context to read as open lot
   const subjBlockX = cx - BW * 0.5
   const subjBlockY = cy - BH * 0.5
-  parts.push(rect(subjBlockX, subjBlockY, BW, BH, C.block))
+  parts.push(rect(subjBlockX, subjBlockY, BW, BH, '#e8e4dc'))
+  parts.push(`<rect x="${subjBlockX}" y="${subjBlockY}" width="${BW}" height="${BH}" fill="none" stroke="${BLOCK_LINE}" stroke-width="0.5"/>`)
 
-  // Subject building footprint (inset 20px from block)
+  // Subject building footprint — white fill, strong dark border
   const bfx = subjBlockX + 20
   const bfy = subjBlockY + 18
   const bfw = BW - 40
   const bfh = BH - 36
-  parts.push(rect(bfx, bfy, bfw, bfh, '#0f0f0f'))
-  parts.push(`<rect x="${bfx}" y="${bfy}" width="${bfw}" height="${bfh}" fill="none" stroke="${C.line}" stroke-width="1"/>`)
+  parts.push(rect(bfx, bfy, bfw, bfh, C.bg))
+  parts.push(`<rect x="${bfx}" y="${bfy}" width="${bfw}" height="${bfh}" fill="none" stroke="${C.line}" stroke-width="1.5"/>`)
 
-  // Interior room lines (subtle)
-  parts.push(line(bfx + bfw * 0.33, bfy, bfx + bfw * 0.33, bfy + bfh, C.lineFaint, 0.6))
-  parts.push(line(bfx + bfw * 0.66, bfy, bfx + bfw * 0.66, bfy + bfh, C.lineFaint, 0.6))
-  parts.push(line(bfx, bfy + bfh * 0.5, bfx + bfw, bfy + bfh * 0.5, C.lineFaint, 0.6))
+  // Interior room lines
+  parts.push(line(bfx + bfw * 0.33, bfy, bfx + bfw * 0.33, bfy + bfh, C.lineFaint, 0.8))
+  parts.push(line(bfx + bfw * 0.66, bfy, bfx + bfw * 0.66, bfy + bfh, C.lineFaint, 0.8))
+  parts.push(line(bfx, bfy + bfh * 0.5, bfx + bfw, bfy + bfh * 0.5, C.lineFaint, 0.8))
 
   // Subject site crosshair (accent color)
   const scx = bfx + bfw * 0.5
@@ -223,11 +215,9 @@ function renderPlanView(d: SiteAnalysisMapData): string {
   // "SUBJECT SITE" label
   parts.push(txt(scx + 8, scy - 6, 'SUBJECT SITE', { size: 7, fill: C.accent, spacing: '0.15em', weight: '400' }))
 
-  // Streets (fill street area, then label)
-  // Horizontal street (across center)
-  parts.push(rect(PLAN_X + 20, cy - SW * 0.5, PLAN_W - 40, SW, C.street))
-  // Vertical street
-  parts.push(rect(cx - SW * 0.5, 10, SW, TOP_H - 20, C.street))
+  // Streets — white (pavement) reads against grey blocks
+  parts.push(rect(PLAN_X + 20, cy - SW * 0.5, PLAN_W - 40, SW, C.bg))
+  parts.push(rect(cx - SW * 0.5, 10, SW, TOP_H - 20, C.bg))
 
   // Street labels
   const streetH = d.neighborhood.includes('NE') || d.neighborhood.includes('Alberta') ? 'NE' :
@@ -306,9 +296,9 @@ function renderPlanView(d: SiteAnalysisMapData): string {
 function renderDataBadges(d: SiteAnalysisMapData): string {
   const y = TOP_H
   const parts: string[] = [
-    rect(0, y, MAP_W, BADGE_H, C.badgeBg),
-    line(0, y, MAP_W, y, C.divider, 0.5),
-    line(0, y + BADGE_H - 1, MAP_W, y + BADGE_H - 1, C.divider, 0.5),
+    rect(0, y, MAP_W, BADGE_H, '#f7f5f1'),
+    line(0, y, MAP_W, y, C.divider, 1),
+    line(0, y + BADGE_H - 1, MAP_W, y + BADGE_H - 1, C.divider, 1),
   ]
 
   const badgeCount = d.callouts.length

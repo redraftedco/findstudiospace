@@ -6,19 +6,19 @@ export const MAP_W = 1600
 export const MAP_H = 1000
 export const MAX_CALLOUTS = 5
 
-// Dark architectural plate palette
+// Light architectural plate palette (white paper, black ink)
 export const C = {
-  bg:        '#0c0c0c',
-  block:     '#111111',
-  blockAlt:  '#141414',
-  street:    '#0a0a0a',
-  line:      '#e8e2d4',
-  lineFaint: '#2a2a2a',
-  text:      '#e8e2d4',
-  textMuted: '#7a7060',
+  bg:        '#ffffff',
+  block:     '#f0eeea',
+  blockAlt:  '#e8e5df',
+  street:    '#d8d4cc',
+  line:      '#1a1814',
+  lineFaint: '#c8c4bc',
+  text:      '#1a1814',
+  textMuted: '#7a7268',
   accent:    '#7a3b1e',  // muted rust — subject site only
-  badgeBg:   '#141414',
-  divider:   '#222222',
+  badgeBg:   '#f5f3ef',
+  divider:   '#d0cbc2',
 } as const
 
 // Category to display label
