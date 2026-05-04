@@ -2,13 +2,13 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Pricing — Free Listings & Sponsored Placement | FindStudioSpace',
+  title: 'Pricing — Free, Sponsored & Multi-Page Plans | FindStudioSpace',
   description:
-    'List your Portland studio for free. Add sponsored placement from $49/month to appear where renters compare category and neighborhood pages.',
+    'List your studio free. Add sponsored placement from $49/month on one page, or go multi-page at $99/month for broader reach across categories and neighborhoods.',
   openGraph: {
-    title: 'Pricing — Free Listings & Sponsored Placement | FindStudioSpace',
+    title: 'Pricing — Free, Sponsored & Multi-Page Plans | FindStudioSpace',
     description:
-      'List your Portland studio for free. Add sponsored placement from $49/month to appear where renters compare category and neighborhood pages.',
+      'List your studio free. Add sponsored placement from $49/month on one page, or go multi-page at $99/month for broader reach across categories and neighborhoods.',
   },
   alternates: { canonical: '/pricing' },
 }
@@ -16,11 +16,11 @@ export const metadata: Metadata = {
 const faqs = [
   {
     q: 'Is the free listing actually free?',
-    a: 'Yes. Your studio appears in the directory, is searchable by Portland renters, and includes a direct inquiry form. No credit card, no trial — free forever.',
+    a: 'Yes. Your studio appears in the directory, is searchable by renters, and includes a direct inquiry form. No credit card, no trial — free forever.',
   },
   {
     q: 'What does sponsored placement add?',
-    a: 'Sponsored placement puts your listing above organic results on a relevant Portland category or neighborhood page. It is labeled clearly as Sponsored.',
+    a: 'Sponsored placement puts your listing above organic results on a relevant category or neighborhood page. It is labeled clearly as Sponsored.',
   },
   {
     q: 'Is sponsored placement guaranteed to bring renters?',
@@ -28,7 +28,7 @@ const faqs = [
   },
   {
     q: 'How does billing work?',
-    a: 'Sponsored placement starts at $49/month and is billed monthly through Stripe. You can cancel from the Stripe billing portal at any time.',
+    a: 'Sponsored placement is billed monthly through Stripe starting at $49/month for one page, or $99/month for up to three pages. You can cancel from the Stripe billing portal at any time.',
   },
   {
     q: 'How do I get started?',
@@ -47,7 +47,7 @@ const faqSchema = {
 }
 
 const FREE_FEATURES = [
-  'Listed in the Portland studio directory',
+  'Listed in the studio directory',
   'Searchable by renters by type and neighborhood',
   'Direct inquiry form on your listing',
   'Up to 5 photos',
@@ -59,6 +59,14 @@ const SPONSORED_FEATURES = [
   'Sponsored placement on one page',
   'Category or neighborhood targeting',
   'Clearly labeled Sponsored slot',
+  'Monthly billing through Stripe',
+]
+
+const MULTIPAGE_FEATURES = [
+  'Everything in Sponsored',
+  'Placement on up to 3 pages',
+  'Mix categories and neighborhoods',
+  'Priority slot ordering',
   'Monthly billing through Stripe',
 ]
 
@@ -76,7 +84,7 @@ export default function PricingPage() {
             style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }}
             className="text-4xl md:text-5xl font-semibold tracking-tight mb-4"
           >
-            Simple pricing for Portland studios.
+            Simple pricing for studio owners.
           </h1>
           <p
             style={{ color: 'var(--stone)', fontFamily: 'var(--font-body)' }}
@@ -86,7 +94,7 @@ export default function PricingPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16 md:mb-20 max-w-3xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 md:mb-20">
 
           {/* Free */}
           <div
@@ -100,7 +108,7 @@ export default function PricingPage() {
               Free
             </h2>
             <p style={{ color: 'var(--stone)', fontFamily: 'var(--font-body)' }} className="text-sm mb-6">
-              Get listed and start receiving interest from renters browsing Portland.
+              Get listed and start receiving interest from renters browsing your city.
             </p>
             <div className="mb-6">
               <span
@@ -225,7 +233,75 @@ export default function PricingPage() {
                 marginTop: '8px',
               }}
             >
-              Starts at $49/month. Cancel anytime.
+              $49/month. Cancel anytime.
+            </p>
+          </div>
+
+          {/* Multi-Page */}
+          <div
+            style={{
+              border: '1px solid var(--rule)',
+              background: 'var(--paper)',
+            }}
+            className="p-8"
+          >
+            <h2
+              style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }}
+              className="text-xl font-semibold mb-1"
+            >
+              Multi-Page
+            </h2>
+            <p style={{ color: 'var(--stone)', fontFamily: 'var(--font-body)' }} className="text-sm mb-6">
+              Reach renters browsing across multiple category and neighborhood pages.
+            </p>
+            <div className="mb-6">
+              <span
+                style={{ fontFamily: 'var(--font-heading)', color: 'var(--ink)' }}
+                className="text-4xl font-semibold"
+              >
+                $99
+              </span>
+              <span style={{ color: 'var(--stone)' }} className="text-sm ml-1">/month</span>
+            </div>
+            <ul
+              style={{ color: 'var(--ink)', fontFamily: 'var(--font-body)' }}
+              className="space-y-2 mb-8 text-sm"
+            >
+              {MULTIPAGE_FEATURES.map((f) => (
+                <li key={f} className="flex gap-2">
+                  <span style={{ color: 'var(--action)' }}>✓</span> {f}
+                </li>
+              ))}
+            </ul>
+            <Link
+              href="/advertise"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                minHeight: '44px',
+                border: '1px solid var(--action)',
+                background: 'transparent',
+                color: 'var(--action)',
+                fontFamily: 'var(--font-body)',
+                fontWeight: 500,
+                fontSize: '14px',
+                textDecoration: 'none',
+              }}
+              className="w-full"
+            >
+              See placement options
+            </Link>
+            <p
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: '12px',
+                color: 'var(--stone)',
+                textAlign: 'center',
+                marginTop: '8px',
+              }}
+            >
+              $99/month. Cancel anytime.
             </p>
           </div>
 
